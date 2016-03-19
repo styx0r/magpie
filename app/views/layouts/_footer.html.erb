@@ -1,0 +1,19 @@
+<footer class="footer">
+  <nav class='navbar-left'>
+    <ul>
+      <li><%= link_to image_tag("logo_carus.png", alt: "UK Carl Gustav Carus Dresden", :height => 30),
+          'http://uniklinikum-dresden.de', :target => "_blank" %></li>
+      <li><%= link_to image_tag("logo_TUD.png", alt: "TU Dresden", :height => 30),
+          'http://tu-dresden.de', :target => "_blank" %></li>
+      <li><%= link_to image_tag("logo_biotec.jpg", alt: "Bioinnovationszentrum", :height => 30),
+              'http://biotec.tu-dresden.de', :target => "_blank" %></li>
+    </ul>
+  </nav>
+
+  <nav class='navbar-right'>
+    <ul>
+      <li><%= link_to "Help", help_path %></li>
+      <li><%= link_to "About", about_path %></li>
+    </ul>
+  </nav>
+</footer>
