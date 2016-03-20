@@ -7,8 +7,11 @@ Rails.application.routes.draw do
   # Dashboard
   get 'home' => 'dashboard#index'
   get 'jobs' => 'dashboard#jobs'
-  get 'new_job' => 'dashboard#new-job'
+  get 'new_job' => 'dashboard#new_job'
   root 'dashboard#index'
+
+  # User Pages
+  get 'signup' => "users#new"
 
   resources :users
 

@@ -1,10 +1,6 @@
 require 'test_helper'
 
-class StaticPagesControllerTest < ActionController::TestCase
-  test "should get new-job" do
-    get :new-job
-    assert_response :success
-  end
+class StaticControllerTest < ActionController::TestCase
 
   test "should get about" do
     get :about
