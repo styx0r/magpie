@@ -2,6 +2,18 @@
 # empty
 
 christoph:
-  name: Christoph Example
-  email: christoph@example.com
+  name: Christoph Baldow
+  email: christoph@baldow.nerd
   password_digest: <%= User.digest('password') %>
+
+sebastian:
+  name: Sebastian Salentin
+  email: sebastian@salentin.cool
+  password_digest: <%= User.digest('password') %>
+
+<% 30.times do |n| %>
+user_<%= n %>:
+  name:  <%= "User #{n}" %>
+  email: <%= "user-#{n}@example.com" %>
+  password_digest: <%= User.digest('password') %>
+<% end %>
