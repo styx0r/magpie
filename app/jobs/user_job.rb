@@ -17,9 +17,9 @@ class UserJob < ActiveJob::Base
   end
 
   around_enqueue do |job, block|
+    args = job.arguments[0]
     puts "[Job: #{self.job_id}] Before enqueing ... "
-    #TODO Insert user from arguments (args)
-    JobMonitor.create(job_id: self.job_id, user: "?", status: "waiting")
+    JobMonitor.create(job_id: self.job_id, user: args["user"], status: "waiting")
     block.call
     puts "[Job: #{self.job_id}] After enqueing ..."
   end

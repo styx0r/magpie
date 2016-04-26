@@ -1,4 +1,6 @@
-<%= form_for(@user_project) do |f| %>
+<%= form_for @user_project, :html => { :class => 'form-horizontal' } do |f| %>
+<fieldset>
+  <legend><%= controller.action_name.capitalize %> Project</legend>
   <% if @user_project.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user_project.errors.count, "error") %> prohibited this user_project from being saved:</h2>
@@ -11,19 +13,20 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :user %><br>
-    <%= f.text_field :user %>
+  <div class="control-group">
+    <%= f.label :user, :class => 'control-label'  %><br>
+    <div class="controls">
+    <%= f.text_field :user, :value => get_username(), :readonly => true, :class => 'text_field' %>
   </div>
-  <div class="field">
-    <%= f.label :job_id %><br>
-    <%= f.text_field :job_id %>
   </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label'  %><br>
+    <div class="controls">
+    <%= f.text_field :name, :class => 'text_field' %>
   </div>
-  <div class="actions">
+  </div>
+  <div class="form-actions">
     <%= f.submit %>
   </div>
+</fieldset>
 <% end %>

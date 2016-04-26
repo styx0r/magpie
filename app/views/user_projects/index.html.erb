@@ -1,13 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing User Projects</h1>
+<h1>My Jobs</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>User</th>
       <th>Job</th>
       <th>Name</th>
+      <th>Status</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,10 +18,10 @@
       <tr>
         <td><%= user_project.user %></td>
         <td><%= user_project.job_id %></td>
-        <td><%= user_project.name %></td>
-        <td><%= link_to 'Show', user_project %></td>
-        <td><%= link_to 'Edit', edit_user_project_path(user_project) %></td>
-        <td><%= link_to 'Destroy', user_project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to user_project.name, user_project , :class => "btn btn-mini"%></td>
+        <td><%= user_project.status %></td>
+        <td><%= link_to 'Edit', edit_user_project_path(user_project), :class => "btn btn-mini" %></td>
+        <td><%= link_to 'Destroy', user_project, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +29,4 @@
 
 <br>
 
-<%= link_to 'New User project', new_user_project_path %>
+<%= link_to 'New User project', new_user_project_path, :class => "btn btn-primary" %>
