@@ -12,9 +12,9 @@
 
   <nav class='navbar-left'>
     <ul>
-      <li>Waiting: <%= count_jobs("waiting") %>  |</li>
-      <li>Running: <%= count_jobs("running") %>  |</li>
-      <li>Finished: <%= count_jobs("finished") %> </li>
+      <li>Waiting: <%= count_jobs_user("waiting")%> (All Users: <%= count_jobs("waiting") %>) |</li>
+      <li>Running: <%= count_jobs_user("running") %>  |</li>
+      <li>Finished: <%= count_jobs_user("finished") %> </li>
     </ul>
   </nav>
 
