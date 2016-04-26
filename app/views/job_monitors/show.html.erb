@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Job:</strong>
+  <%= @job_monitor.job_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @job_monitor.user %>
+</p>
+
+<%= link_to 'Edit', edit_job_monitor_path(@job_monitor) %> |
+<%= link_to 'Back', job_monitors_path %>

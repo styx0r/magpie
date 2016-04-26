@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :user_projects
+  resources :job_monitors
   # Static Pages
   get 'about' => 'static#about'
   get 'help' => 'static#help'

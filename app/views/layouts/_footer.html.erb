@@ -10,6 +10,14 @@
     </ul>
   </nav>
 
+  <nav class='navbar-left'>
+    <ul>
+      <li>Waiting: <%= count_jobs("waiting") %>  |</li>
+      <li>Running: <%= count_jobs("running") %>  |</li>
+      <li>Finished: <%= count_jobs("finished") %> </li>
+    </ul>
+  </nav>
+
   <nav class='navbar-right'>
     <ul>
       <li><%= link_to "Help", help_path %></li>
