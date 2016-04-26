@@ -34,6 +34,11 @@ gem 'faker', '~> 1.4.2'
 gem 'will_paginate', '~> 3.0.7'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
 
+# Use ActiveJob system with DelayedJob as backend
+gem 'delayed_job'
+gem 'delayed_job_active_record'
+gem 'daemons'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
