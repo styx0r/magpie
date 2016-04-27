@@ -17,7 +17,12 @@ Things you may want to cover:
 
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+=== Services (job queues, cache servers, search engines, etc.)
+
+_run bundle exec rake jobs:work to start (one) worker_
+
+* Include instructions how to start multiple workers for different queues, etc.
+
 
 * Deployment instructions
 
