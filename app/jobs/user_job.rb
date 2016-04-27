@@ -2,9 +2,12 @@ class UserJob < ActiveJob::Base
   queue_as :default
 
   def perform(*args)
-    # For now, log something
     puts "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
-    sleep(20) # Job takes 20 seconds...
+
+    # For now, execute a shell script which sleeps and then prints the arguments
+    arg1 = "arg1"
+    arg2 = "another_arg"
+    IO.popen(Rails.root.join('bin', 'models', 'sleep.sh').to_s + " " + arg1 + " " + arg2) { |result| p result.gets }
   end
 
   around_perform do |job, block|
