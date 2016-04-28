@@ -4,20 +4,41 @@ class UserJob < ActiveJob::Base
   def perform(*args)
     puts "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
 
+    #TODO Refactor into functions ...
+
     # For now, execute a shell script which sleeps and then prints the arguments
     arg1 = "arg1"
     arg2 = "another_arg"
     modelscript = args[0]["model"]
-    Open3.popen3(modelscript, arg1 + " " + arg2) do |stdin, stdout, stderr|
-      stdin.close  # make sure the subprocess is done
-      @stdout = stdout.gets
-      @stderr = stderr.gets
+    user = args[0]["user"]
 
-      # Put stdout and stderr output into project output var and save
-      project = UserProject.find_by(job_id: self.job_id)
-      project.output = {stdout: @stdout, stderr: @stderr}
-      project.save
+    ### Create the tmp user working directory (not used yet)
+    dir = File.dirname("#{Rails.root}/user/#{user}/#{self.job_id}/.to_path")
+    FileUtils.mkdir_p(dir) unless File.directory?(dir)
+
+    @modelpath = modelscript.to_s
+    @symlinkmodel = dir.to_s + "/runmodel.sh"
+    `ln -s #{@modelpath} #{@symlinkmodel}`
+    @project = UserProject.find_by(job_id: self.job_id)
+
+    ### Go to the temporary working directory and execute the script
+    Dir.chdir(dir) do
+      Open3.popen3(@symlinkmodel, arg1 + " " + arg2) do |stdin, stdout, stderr|
+        stdin.close  # make sure the subprocess is done
+        @stdout = stdout.gets
+        @stderr = stderr.gets
+
+        # Put stdout and stderr output into project output var and save
+        @project.output = {stdout: @stdout, stderr: @stderr}
+        @project.save
+      end
     end
+
+    resultfiles = Dir.glob(Rails.root.join(dir, '*'))
+    resultfiles.delete(@symlinkmodel)
+    @project.resultfiles = resultfiles
+    @project.save
+
   end
 
   around_perform do |job, block|

@@ -11,3 +11,12 @@
     <%= @user_project.output[:stderr]%>
   </div>
 </div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Result Files</div>
+  <div class="panel-body">
+    <% @user_project.resultfiles.each do |element| %>
+      <li><%= element %></li>
+    <% end %>
+  </div>
+</div>

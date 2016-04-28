@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428174437) do
+ActiveRecord::Schema.define(version: 20160428194056) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -51,10 +51,11 @@ ActiveRecord::Schema.define(version: 20160428174437) do
     t.string   "user"
     t.string   "job_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "model"
     t.text     "output"
+    t.text     "resultfiles"
   end
 
   create_table "userjobs", force: :cascade do |t|
