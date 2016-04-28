@@ -8,9 +8,16 @@ class UserJob < ActiveJob::Base
     arg1 = "arg1"
     arg2 = "another_arg"
     modelscript = args[0]["model"]
-    #IO.popen(Rails.root.join('bin', 'models', 'sleep.sh').to_s + " " + arg1 + " " + arg2) { |result| p result.gets }
-    IO.popen(modelscript + " " + arg1 + " " + arg2) { |result| p result.gets }
-    # Put in result here later into model
+    Open3.popen3(modelscript, arg1 + " " + arg2) do |stdin, stdout, stderr|
+      stdin.close  # make sure the subprocess is done
+      @stdout = stdout.gets
+      @stderr = stderr.gets
+
+      # Put stdout and stderr output into project output var and save
+      project = UserProject.find_by(job_id: self.job_id)
+      project.output = {stdout: @stdout, stderr: @stderr}
+      project.save
+    end
   end
 
   around_perform do |job, block|

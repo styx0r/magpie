@@ -26,5 +26,9 @@
   <%= @user_project.status %>
 </p>
 
+<p>
+  <%= render :partial => "user_projects/resultbox" if @user_project.status == "finished" %>
+</p>
+
 <%= link_to 'Edit', edit_user_project_path(@user_project) %> |
 <%= link_to 'Back', user_projects_path %>

@@ -24,10 +24,10 @@ class UserProjectsController < ApplicationController
   # POST /user_projects
   # POST /user_projects.json
   def create
-    # First, start a new background job
-    @user_job = UserJob.perform_later(user_project_params)
-    # Then, create the project itself
+    # First, create the project itself
     @user_project = UserProject.new(user_project_params)
+    # Then, start the job
+    @user_job = UserJob.perform_later(user_project_params)
     @user_project.update(:job_id =>@user_job.job_id)
 
     respond_to do |format|
