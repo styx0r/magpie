@@ -7,7 +7,10 @@ class UserJob < ActiveJob::Base
     # For now, execute a shell script which sleeps and then prints the arguments
     arg1 = "arg1"
     arg2 = "another_arg"
-    IO.popen(Rails.root.join('bin', 'models', 'sleep.sh').to_s + " " + arg1 + " " + arg2) { |result| p result.gets }
+    modelscript = args[0]["model"]
+    #IO.popen(Rails.root.join('bin', 'models', 'sleep.sh').to_s + " " + arg1 + " " + arg2) { |result| p result.gets }
+    IO.popen(modelscript + " " + arg1 + " " + arg2) { |result| p result.gets }
+    # Put in result here later into model
   end
 
   around_perform do |job, block|

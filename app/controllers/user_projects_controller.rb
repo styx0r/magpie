@@ -73,6 +73,6 @@ class UserProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_project_params
-      params.require(:user_project).permit(:user, :job_id, :name)
+      params.require(:user_project).permit(:user, :job_id, :name, :model)
     end
 end
