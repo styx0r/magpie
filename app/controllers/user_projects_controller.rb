@@ -1,5 +1,14 @@
 class UserProjectsController < ApplicationController
-  before_action :set_user_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_user_project, only: [:show, :edit, :update, :destroy, :download]
+
+  def download
+    #TODO Check for ownership of project!
+    #TODO For now, it only sends the first result file, we want to zip and send all!
+    #TODO Handle case when there are no output files!
+    dir = File.dirname("#{Rails.root}/user/#{@user_project.user}/#{@user_project.job_id}/.to_path")
+    zipfile = "#{dir}/all-resultfiles-#{@user_project.name}.zip"
+    send_file(zipfile)
+  end
 
   # GET /user_projects
   # GET /user_projects.json

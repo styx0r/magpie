@@ -39,6 +39,9 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'daemons'
 
+# Providing zip files for download
+gem 'rubyzip'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

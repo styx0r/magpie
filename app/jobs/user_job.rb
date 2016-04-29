@@ -39,6 +39,27 @@ class UserJob < ActiveJob::Base
     @project.resultfiles = resultfiles
     @project.save
 
+    ## Now, create a zipped archive of all resultfiles, if there are any
+    #TODO Into function
+    folder = "Users/me/Desktop/stuff_to_zip"
+    input_filenames = ['image.jpg', 'description.txt', 'stats.csv']
+
+    zipfile_name = dir + "/all-resultfiles-#{@project.name}.zip"
+
+    require 'zip'
+    Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+      resultfiles.each do |resultfile|
+        # Two arguments:
+        #TODO Use base name of resultfile to appear in the archive
+        puts resultfile
+        puts "---"
+        # - The name of the file as it will appear in the archive
+        # - The original file, including the path to find it
+        zipfile.add(File.basename(resultfile), resultfile)
+      end
+      #zipfile.get_output_stream("myFile") { |os| os.write "myFile contains just this" }
+    end
+
   end
 
   around_perform do |job, block|

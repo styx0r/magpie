@@ -22,6 +22,10 @@ Rails.application.routes.draw do
   resources :users
   resources :account_activations, only: [:edit]
 
+  # For file download (result files)
+  resources :user_projects do get 'download', on: :member end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
