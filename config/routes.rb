@@ -2,6 +2,10 @@ Rails.application.routes.draw do
 
   resources :user_projects
   resources :job_monitors
+  get 'password_resets/new'
+
+  get 'password_resets/edit'
+
   # Static Pages
   get 'about' => 'static#about'
   get 'help' => 'static#help'
@@ -21,6 +25,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :account_activations, only: [:edit]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
 
   # For file download (result files)
   resources :user_projects do get 'download', on: :member end
