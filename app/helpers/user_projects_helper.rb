@@ -12,5 +12,29 @@ module UserProjectsHelper
     @user_project.resultfiles.size
   end
 
+  def get_text_from_file(f)
+    #TODO Handle long files (in view?)
+    #TODO For now, returns first 500 characters
+    cutoff = 500
+    file = File.open(f, "rb")
+    contents = file.read
+    file.close
+    if contents.length > cutoff
+      contents[0..cutoff] + ' ...'
+    else
+      contents
+    end
+  end
+
+  def is_text_file(f)
+    #TODO Add better check, using a Ruby module
+    f.end_with? '.txt'
+  end
+
+  def is_image(f)
+    #TODO Add better check, using a Ruby module
+    f.end_with? '.gif'
+  end
+
 
 end

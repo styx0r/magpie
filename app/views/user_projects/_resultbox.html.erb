@@ -22,6 +22,14 @@
   <div class="panel-body">
     <% @user_project.resultfiles.each do |element| %>
       <li><%= element %></li>
+      <% if is_text_file(element)%>
+      <pre>
+        <%= render :plain => get_text_from_file(element)%>
+      </pre>
+      <% end %>
+      <% if is_image(element)%>
+       <td>Show image here ...</td>
+      <% end %>
     <% end %>
   </div>
 </div>
