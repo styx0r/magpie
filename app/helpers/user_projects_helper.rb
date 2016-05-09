@@ -36,5 +36,9 @@ module UserProjectsHelper
     f.end_with? '.gif'
   end
 
+  def get_image_path(num)
+    "user_projects/#{@user_project.id}/files/#{num}"
+  end
+
 
 end

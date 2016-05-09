@@ -28,8 +28,11 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
 
   # For file download (result files)
-  resources :user_projects do get 'download', on: :member end
+  resources :user_projects do
+    get 'download', on: :member
+  end
 
+  get 'images/user_projects/:id/files/:fileid', to: 'user_projects#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
