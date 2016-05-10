@@ -25,10 +25,8 @@ class UserJob < ActiveJob::Base
 
     create_tmpdir_with_symlinks
 
-    script_status = execute_script
-    puts "Script status"
-    puts script_status
-    @return_val = 0
+    process = execute_script
+    @return_val = process.exitstatus
 
     @project.output = {stdout: @stdout, stderr: @stderr}
     @project.save
@@ -52,7 +50,7 @@ class UserJob < ActiveJob::Base
       this_job.update(status: "failed")
     else
       puts "[Job: #{self.job_id}] I successfully finished my job."
-      this_job.update(status: "failed")
+      this_job.update(status: "finished")
     end
   end
 
