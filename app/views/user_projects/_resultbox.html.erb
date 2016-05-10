@@ -25,6 +25,7 @@
       <pre>
         <%= render :plain => get_text_from_file(element)%>
       </pre>
+      <figcaption><%= "Txtf. #{i}. - #{File.basename(element)}" %></figcaption>
       <% elsif is_image(element)%>
        <td><%= image_tag get_image_path(i) %>
          <figcaption><%= "Fig #{i}. - #{File.basename(element)}" %></figcaption>

@@ -3,6 +3,10 @@ module UserProjectsHelper
     User.find_by(id: session[:user_id]).name
   end
 
+  def userid
+    session[:user_id]
+  end
+
   def list_models()
     # Only find shell scripts
     Dir.glob(Rails.root.join('bin', 'models', '*.sh')) + Dir.glob(Rails.root.join('bin', 'models', '*/*.sh'))
