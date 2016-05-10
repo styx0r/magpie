@@ -1,6 +1,14 @@
 class UserJob < ActiveJob::Base
   queue_as :default
 
+  rescue_from(StandardError) do |ex|
+  #TODO Right now, should catch each error
+  puts "[Job: #{self.job_id}] I failed! Script is okay, please check Rails code or server."
+  puts ex.inspect
+  this_job = JobMonitor.find_by(job_id: self.job_id)
+  this_job.update(status: "failed")
+  end
+
   def perform(*args)
     puts "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
 
@@ -17,7 +25,10 @@ class UserJob < ActiveJob::Base
 
     create_tmpdir_with_symlinks
 
-    return_val = execute_script
+    script_status = execute_script
+    puts "Script status"
+    puts script_status
+    @return_val = 0
 
     @project.output = {stdout: @stdout, stderr: @stderr}
     @project.save
@@ -36,8 +47,13 @@ class UserJob < ActiveJob::Base
     this_job = JobMonitor.find_by(job_id: self.job_id)
     this_job.update(status: "running")
     block.call
-    puts "[Job: #{self.job_id}] I successfully finished my job."
-    this_job.update(status: "finished")
+    if @return_val != 0
+      puts "[Job: #{self.job_id}] I failed. The script has an exit value of #{@return_val}."
+      this_job.update(status: "failed")
+    else
+      puts "[Job: #{self.job_id}] I successfully finished my job."
+      this_job.update(status: "failed")
+    end
   end
 
   around_enqueue do |job, block|
