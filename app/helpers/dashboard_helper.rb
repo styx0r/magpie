@@ -9,7 +9,7 @@ module DashboardHelper
     if user == nil
       0
     else
-      JobMonitor.where(:user => user.name, :status => status).count
+      JobMonitor.where(:user => user.id, :status => status).count
     end
   end
 end

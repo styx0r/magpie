@@ -20,8 +20,19 @@
 <div class="panel panel-success">
   <div class="panel-heading">Results</div>
   <div class="panel-body">
-    <% @user_project.resultfiles.each do |element| %>
-      <li><%= element %></li>
+    <% @user_project.resultfiles.each_with_index do |element, i| %>
+      <% if is_text_file(element)%>
+      <pre>
+        <%= render :plain => get_text_from_file(element)%>
+      </pre>
+      <figcaption><%= "Txtf. #{i}. - #{File.basename(element)}" %></figcaption>
+      <% elsif is_image(element)%>
+       <td><%= image_tag get_image_path(i) %>
+         <figcaption><%= "Fig #{i}. - #{File.basename(element)}" %></figcaption>
+       </td>
+       <% else %>
+         <li><%= element %></li>
+      <% end %>
     <% end %>
   </div>
 </div>

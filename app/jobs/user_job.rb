@@ -1,64 +1,42 @@
 class UserJob < ActiveJob::Base
   queue_as :default
 
+  rescue_from(StandardError) do |ex|
+  #TODO Right now, should catch each error
+  puts "[Job: #{self.job_id}] I failed! Script is okay, please check Rails code or server."
+  puts ex.inspect
+  this_job = JobMonitor.find_by(job_id: self.job_id)
+  this_job.update(status: "failed")
+  end
+
   def perform(*args)
     puts "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
 
-    #TODO Refactor into functions ...
-
-    # For now, execute a shell script which sleeps and then prints the arguments
-    arg1 = "arg1"
-    arg2 = "another_arg"
-    modelscript = args[0]["model"]
     user = args[0]["user"]
-
-    ### Create the tmp user working directory (not used yet)
-    dir = File.dirname("#{Rails.root}/user/#{user}/#{self.job_id}/.to_path")
-    FileUtils.mkdir_p(dir) unless File.directory?(dir)
-
-    @modelpath = modelscript.to_s
-    @symlinkmodel = dir.to_s + "/runmodel.sh"
-    `ln -s #{@modelpath} #{@symlinkmodel}`
+    @userdir = File.dirname("#{Rails.root}/user/#{user}/#{self.job_id}/.to_path")
+    modelscript = args[0]["model"]
+    @originaldir = File.dirname(modelscript)
+    @symlinkmodel = @userdir.to_s + "/" + File.basename(modelscript)
     @project = UserProject.find_by(job_id: self.job_id)
 
-    ### Go to the temporary working directory and execute the script
-    Dir.chdir(dir) do
-      Open3.popen3(@symlinkmodel, arg1 + " " + arg2) do |stdin, stdout, stderr|
-        stdin.close  # make sure the subprocess is done
-        @stdout = stdout.gets
-        @stderr = stderr.gets
+    #TODO Add handling and passing of arguments
+    @arg1, @arg2 = "arg1", "arg2"
 
-        # Put stdout and stderr output into project output var and save
-        @project.output = {stdout: @stdout, stderr: @stderr}
-        @project.save
-      end
-    end
 
-    resultfiles = Dir.glob(Rails.root.join(dir, '*'))
-    resultfiles.delete(@symlinkmodel)
-    @project.resultfiles = resultfiles
+    create_tmpdir_with_symlinks
+
+    process = execute_script
+    @return_val = process.exitstatus
+
+    @project.output = {stdout: @stdout, stderr: @stderr}
     @project.save
 
-    ## Now, create a zipped archive of all resultfiles, if there are any
-    #TODO Into function
-    folder = "Users/me/Desktop/stuff_to_zip"
-    input_filenames = ['image.jpg', 'description.txt', 'stats.csv']
+    delete_symlinks
 
-    zipfile_name = dir + "/all-resultfiles-#{@project.name}.zip"
+    @project.resultfiles = Dir.glob(Rails.root.join(@userdir, '*'))
+    @project.save
 
-    require 'zip'
-    Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
-      resultfiles.each do |resultfile|
-        # Two arguments:
-        #TODO Use base name of resultfile to appear in the archive
-        puts resultfile
-        puts "---"
-        # - The name of the file as it will appear in the archive
-        # - The original file, including the path to find it
-        zipfile.add(File.basename(resultfile), resultfile)
-      end
-      #zipfile.get_output_stream("myFile") { |os| os.write "myFile contains just this" }
-    end
+    zip_result_files
 
   end
 
@@ -67,8 +45,13 @@ class UserJob < ActiveJob::Base
     this_job = JobMonitor.find_by(job_id: self.job_id)
     this_job.update(status: "running")
     block.call
-    puts "[Job: #{self.job_id}] I successfully finished my job."
-    this_job.update(status: "finished")
+    if @return_val != 0
+      puts "[Job: #{self.job_id}] I failed. The script has an exit value of #{@return_val}."
+      this_job.update(status: "failed")
+    else
+      puts "[Job: #{self.job_id}] I successfully finished my job."
+      this_job.update(status: "finished")
+    end
   end
 
   around_enqueue do |job, block|
@@ -78,5 +61,51 @@ class UserJob < ActiveJob::Base
     block.call
     puts "[Job: #{self.job_id}] After enqueing ..."
   end
+
+  def zip_result_files
+    ## Now, create a zipped archive of all resultfiles, if there are any
+    require 'zip'
+    zipfile_name = @userdir + "/all-resultfiles-#{@project.name}.zip"
+    Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+      @project.resultfiles.each do |resultfile|
+        zipfile.add(File.basename(resultfile), resultfile)
+      end
+    end
+  end
+
+  def delete_symlinks
+    # Cleans up symlinks after processing a job
+    modelfiles = Dir.glob(@originaldir + "/*")
+    modelfiles.each do |modelfile|
+      symlink = @userdir.to_s + '/' + File.basename(modelfile)
+      File.delete(symlink)
+    end
+  end
+
+  def execute_script
+    ### Go to the temporary working directory and execute the script
+    #TODO for mf script, not the entire stdout and stderr is retrieved
+    Dir.chdir(@userdir) do
+      Open3.popen3(@symlinkmodel, @arg1 + " " + @arg2) do |stdin, stdout, stderr, thread|
+        stdin.close  # make sure the subprocess is done
+        @stdout = stdout.gets
+        @stderr = stderr.gets
+        thread.value # Return value
+      end
+    end
+  end
+
+  def create_tmpdir_with_symlinks
+    ### Create a tmp user dir and symlinks for model files
+    FileUtils.mkdir_p(@userdir) unless File.directory?(@userdir)
+
+    modelfiles = Dir.glob(@originaldir + "/*")
+    modelfiles.each do |modelfile|
+      symlink = @userdir.to_s + '/' + File.basename(modelfile)
+      `ln -sf #{modelfile} #{symlink}`
+    end
+  end
+
+
 
 end

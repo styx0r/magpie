@@ -1,0 +1,22 @@
+Model PFSPAModel
+
+//replicates 10
+Seed 0
+
+PFSPALogOutput out.txt
+PFSPALoggingInterval 1
+
+PFSPAMotionStepSize 20
+
+PFSPASize 6
+
+PFSPAOmega 500   (large enough Omega)
+
+//factor  eta (1, 0.1, 10)  for k1 to k4
+PFSPAReactionRateK1 1
+PFSPAReactionRateK2 0.08
+PFSPAReactionRateK3 0.025
+PFSPAReactionRateK4 0.025
+
+//sweep  (0.5 - 0.99)  delta=0.01, 0.001(in a narrow window)
+PFSPAProbabilityFollower 1.0

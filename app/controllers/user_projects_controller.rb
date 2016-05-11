@@ -1,5 +1,5 @@
 class UserProjectsController < ApplicationController
-  before_action :set_user_project, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_user_project, only: [:show, :edit, :update, :destroy, :download, :images]
 
   def download
     #TODO Check for ownership of project!
@@ -8,6 +8,12 @@ class UserProjectsController < ApplicationController
     dir = File.dirname("#{Rails.root}/user/#{@user_project.user}/#{@user_project.job_id}/.to_path")
     zipfile = "#{dir}/all-resultfiles-#{@user_project.name}.zip"
     send_file(zipfile)
+  end
+
+  def images
+    #TODO Handle missing images
+    fileid = params[:fileid].to_i
+    send_file(@user_project.resultfiles[fileid])
   end
 
   # GET /user_projects

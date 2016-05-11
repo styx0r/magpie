@@ -27,7 +27,7 @@
   </div>
 </div>
 
-<%= render :partial => "user_projects/resultbox" if @user_project.status == "finished" %>
+<%= render :partial => "user_projects/resultbox" if ["finished", "failed"].include? @user_project.status %>
 
 <%= link_to 'Edit', edit_user_project_path(@user_project) %> |
 <%= link_to 'Back', user_projects_path %>
