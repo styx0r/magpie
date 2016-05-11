@@ -21,3 +21,6 @@ Gemfile.lock
 
 user/*
 !user/README.txt
+
+# Ignore uploaded pictures
+/public/uploads

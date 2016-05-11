@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :users
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
+  resources :microposts,          only: [:create, :destroy]
 
   # For file download (result files)
   resources :user_projects do get 'download', on: :member end
