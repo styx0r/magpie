@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :download, :images]
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :download, :images]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :destroy_all, :download, :images]
 
   def download
     #TODO Check for ownership of project!
@@ -85,9 +85,11 @@ class ProjectsController < ApplicationController
   end
 
   def destroy_all
-    @user.projects.destroy_all
+    if !@user.projects.blank?
+      @user.projects.destroy_all
+    end
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'All projects have been deletes.' }
+      format.html { redirect_to projects_url, notice: 'All projects have been deleted.' }
       format.json { head :no_content }
     end
   end
