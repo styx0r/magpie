@@ -12,8 +12,8 @@ Rails.application.routes.draw do
   resources :projects do   # For file download (result files)
     get 'download', on: :member
   end
-
-  get 'images/user_projects/:id/files/:fileid', to: 'projects#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
+  
+  get 'images/:user_id/projects/:id/files/:fileid', to: 'projects#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
   ###
 
   # Old routes

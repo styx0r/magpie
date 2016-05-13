@@ -46,6 +46,6 @@ module ProjectsHelper
 
   #TODO Could be wrong, should be something with user_id
   def get_image_path(num)
-    "#{user_id}/projects/#{@project.id}/files/#{num}"
+    "#{current_user.id.to_s}/projects/#{@project.id}/files/#{num}"
   end
 end
