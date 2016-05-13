@@ -5,11 +5,6 @@ module DashboardHelper
   end
 
   def count_jobs_user(status)
-    user = User.find_by(id: session[:user_id])
-    if user == nil
-      0
-    else
-      JobMonitor.where(:user => user.id, :status => status).count
-    end
+      JobMonitor.where(:user => current_user.id, :status => status).count
   end
 end

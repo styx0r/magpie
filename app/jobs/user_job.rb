@@ -12,12 +12,12 @@ class UserJob < ActiveJob::Base
   def perform(*args)
     puts "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
 
-    user = args[0]["user"]
-    @userdir = File.dirname("#{Rails.root}/user/#{user}/#{self.job_id}/.to_path")
-    modelscript = args[0]["model"]
+    user = args[0]
+    @userdir = File.dirname("#{Rails.root}/user/#{user.id.to_s}/#{self.job_id}/.to_path")
+    modelscript = args[1]["model"]
     @originaldir = File.dirname(modelscript)
     @symlinkmodel = @userdir.to_s + "/" + File.basename(modelscript)
-    @project = UserProject.find_by(job_id: self.job_id)
+    @project = Project.find_by(job_id: self.job_id)
 
     #TODO Add handling and passing of arguments
     @arg1, @arg2 = "arg1", "arg2"
@@ -55,9 +55,9 @@ class UserJob < ActiveJob::Base
   end
 
   around_enqueue do |job, block|
-    args = job.arguments[0]
+    user = job.arguments[0]
     puts "[Job: #{self.job_id}] Before enqueing ... "
-    JobMonitor.create(job_id: self.job_id, user: args["user"], status: "waiting")
+    JobMonitor.create(job_id: self.job_id, user: user.id.to_s, status: "waiting")
     block.call
     puts "[Job: #{self.job_id}] After enqueing ..."
   end

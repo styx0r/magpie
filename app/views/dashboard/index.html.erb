@@ -5,7 +5,7 @@
   <% if !logged_in? %>
     <%= link_to "Register | Login", login_path, class: "btn btn-lg btn-primary" %>
   <% else %>
-    <%= link_to 'Start with a new project', new_user_project_path, :class => "btn btn-primary" %>
+    <%= link_to 'Start with a new project', new_user_project_path(current_user), :class => "btn btn-primary" %>
   <% end %>
 
 </div>

@@ -1,12 +1,12 @@
-<%= form_for @user_project, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @project, :html => { :class => 'form-horizontal' } do |f| %>
 <fieldset>
   <legend><%= controller.action_name.capitalize %> Project</legend>
-  <% if @user_project.errors.any? %>
+  <% if @project.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user_project.errors.count, "error") %> prohibited this user_project from being saved:</h2>
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this user_project from being saved:</h2>
 
       <ul>
-      <% @user_project.errors.full_messages.each do |message| %>
+      <% @project.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -17,10 +17,6 @@
     <%= f.label :model, :class => 'control-label'  %><br>
     <div class="controls">
       <%= f.select :model, options_for_select(list_models) %>
-    </div>
-    <%= f.label :user, :class => 'control-label'  %><br>
-    <div class="controls">
-      <%= f.text_field :user, :value => userid, :readonly => true, :class => 'text_field' %>
     </div>
     <%= f.label :name, :class => 'control-label'  %><br>
     <div class="controls">

@@ -1,26 +1,26 @@
-<% if !@user_project.output[:stdout].blank? %>
+<% if !@project.output[:stdout].blank? %>
 <div class="panel panel-info">
   <div class="panel-heading">Output</div>
   <div class="panel-body">
-    <%= @user_project.output[:stdout]%>
+    <%= @project.output[:stdout]%>
   </div>
 </div>
 <% end %>
 
-<% if !@user_project.output[:stderr].blank? %>
+<% if !@project.output[:stderr].blank? %>
 <div class="panel panel-danger">
   <div class="panel-heading">Errors</div>
   <div class="panel-body">
-    <%= @user_project.output[:stderr]%>
+    <%= @project.output[:stderr]%>
   </div>
 </div>
 <% end %>
 
-<% if !@user_project.resultfiles.blank? %>
+<% if !@project.resultfiles.blank? %>
 <div class="panel panel-success">
   <div class="panel-heading">Results</div>
   <div class="panel-body">
-    <% @user_project.resultfiles.each_with_index do |element, i| %>
+    <% @project.resultfiles.each_with_index do |element, i| %>
       <% if is_text_file(element)%>
       <pre>
         <%= render :plain => get_text_from_file(element)%>
@@ -39,7 +39,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading">Result Files Download</div>
   <div class="panel-body">
-    <%= link_to "Download #{numResultfiles} result files as a zip archive.", download_user_project_path %>
+    <%= link_to "Download #{numResultfiles} result files as a zip archive.", download_project_path(current_user) %>
   </div>
 </div>
 <% end %>
