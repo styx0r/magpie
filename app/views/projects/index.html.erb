@@ -1,0 +1,29 @@
+<h1>My Projects</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Job</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.user.name %></td>
+        <td><%= project.job_id %></td>
+        <td><%= link_to project.name, user_project_path(current_user, project) , :class => "btn btn-mini"%></td>
+        <td><%= project.status %></td>
+        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User project', new_user_project_path(current_user), :class => "btn btn-primary" %>

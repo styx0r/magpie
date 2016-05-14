@@ -1,6 +1,31 @@
 Rails.application.routes.draw do
 
-  resources :user_projects
+  # New routes
+  resources :users do
+    resources :projects do
+      collection do
+        get 'destroy_all'
+      end
+    end
+  end
+
+  resources :projects do   # For file download (result files)
+    get 'download', on: :member
+  end
+  
+  get 'images/:user_id/projects/:id/files/:fileid', to: 'projects#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
+  ###
+
+  # Old routes
+  #resources :user_projects
+
+  #resources :user_projects do   # For file download (result files)
+  #  get 'download', on: :member
+  #end
+
+  #get 'images/user_projects/:id/files/:fileid', to: 'user_projects#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
+  ###
+
   resources :job_monitors
   get 'password_resets/new'
 
@@ -23,15 +48,9 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
-  resources :users
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]
-
-  # For file download (result files)
-  resources :user_projects do
-    get 'download', on: :member
-  end
 
   get 'images/user_projects/:id/files/:fileid', to: 'user_projects#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
 

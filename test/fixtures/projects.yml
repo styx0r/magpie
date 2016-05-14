@@ -4,8 +4,14 @@ one:
   user: MyString
   job_id: MyString
   name: MyString
+  model: MyString
+  output: MyText
+  resultfiles: MyText
 
 two:
   user: MyString
   job_id: MyString
   name: MyString
+  model: MyString
+  output: MyText
+  resultfiles: MyText

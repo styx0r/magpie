@@ -1,8 +1,11 @@
-module UserProjectsHelper
-  def get_username
+module ProjectsHelper
+
+  #TODO Should be superfluous now...
+  def get_username()
     User.find_by(id: session[:user_id]).name
   end
 
+  #TODO Should be superfluous now ...
   def userid
     session[:user_id]
   end
@@ -13,7 +16,7 @@ module UserProjectsHelper
   end
 
   def numResultfiles
-    @user_project.resultfiles.size
+    @project.resultfiles.size
   end
 
   def get_text_from_file(f)
@@ -35,14 +38,14 @@ module UserProjectsHelper
     f.end_with? '.txt'
   end
 
+  #TODO Use method from Christoph
   def is_image(f)
     #TODO Add better check, using a Ruby module
     f.end_with? '.gif'
   end
 
+  #TODO Could be wrong, should be something with user_id
   def get_image_path(num)
-    "user_projects/#{@user_project.id}/files/#{num}"
+    "#{current_user.id.to_s}/projects/#{@project.id}/files/#{num}"
   end
-
-
 end

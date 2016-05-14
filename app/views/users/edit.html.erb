@@ -26,4 +26,5 @@
       <a href="http://gravatar.com/emails" target="_blank">change</a>
     </div>
   </div>
+  <%= link_to 'Delete all projects', destroy_all_user_projects_path(current_user), data: {confirm: "Are you sure?"}, :class => "btn btn-danger" %></td>
 </div>

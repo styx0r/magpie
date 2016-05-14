@@ -10,6 +10,7 @@
     </ul>
   </nav>
 
+<% if logged_in? %>
   <nav class='navbar-left'>
     <ul>
       <li>Waiting: <%= count_jobs_user("waiting")%> (All Users: <%= count_jobs("waiting") %>) |</li>
@@ -18,6 +19,7 @@
       <li>Failed: <%= count_jobs_user("failed") %> </li>
     </ul>
   </nav>
+<% end %>
 
   <nav class='navbar-right'>
     <ul>
