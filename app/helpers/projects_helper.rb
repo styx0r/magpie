@@ -12,7 +12,7 @@ module ProjectsHelper
 
   def list_models()
     # Only find shell scripts
-    Dir.glob(Rails.root.join('bin', 'models', '*.sh')) + Dir.glob(Rails.root.join('bin', 'models', '*/*.sh'))
+    Dir.glob(Rails.root.join('bin', 'models', '*/*.sh'))
   end
 
   def numResultfiles

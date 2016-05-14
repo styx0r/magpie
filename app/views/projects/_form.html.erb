@@ -1,31 +1,9 @@
-<%= form_for @project, :html => { :class => 'form-horizontal' } do |f| %>
-<fieldset>
-  <legend><%= controller.action_name.capitalize %> Project</legend>
-  <% if @project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this user_project from being saved:</h2>
+<%= simple_form_for @project, :html => { :class => 'form-horizontal' },
+  wrapper: :horizontal_form do |f| %>
 
-      <ul>
-      <% @project.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.input :model, collection: list_models, required: true %>
 
-  <div class="control-group">
-    <%= f.label :model, :class => 'control-label'  %><br>
-    <div class="controls">
-      <%= f.select :model, options_for_select(list_models) %>
-    </div>
-    <%= f.label :name, :class => 'control-label'  %><br>
-    <div class="controls">
-      <%= f.text_field :name, :class => 'text_field', :required => true %>
-    </div>
-  </div>
+  <%= f.input :name, placeholder: 'Give your project a name', required: true %>
 
-  <div class="form-actions">
-    <%= f.submit %>
-  </div>
-</fieldset>
+  <%= f.button :submit %>
 <% end %>
