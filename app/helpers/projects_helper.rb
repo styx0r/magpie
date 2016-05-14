@@ -1,4 +1,6 @@
 module ProjectsHelper
+  require 'ruby-filemagic'
+  require 'mime/types'
 
   #TODO Should be superfluous now...
   def get_username()
@@ -33,18 +35,32 @@ module ProjectsHelper
     end
   end
 
+  def filetype(f)
+    fm = FileMagic.new(FileMagic::MAGIC_MIME)
+    mime_type = fm.file(f)
+    puts "MIMETYPE::::" + mime_type
+    if mime_type.start_with? "inode/x-empty"
+      filetype = 'empty'
+    else
+      filetype = MIME::Types[mime_type][0].extensions[0]
+    end
+  end
+
   def is_text_file(f)
-    #TODO Add better check, using a Ruby module
-    f.end_with? '.txt'
+    supported_types = ['txt']
+    supported_types.include? filetype(f)
   end
 
-  #TODO Use method from Christoph
   def is_image(f)
-    #TODO Add better check, using a Ruby module
-    f.end_with? '.gif'
+    supported_types = ['gif', 'png', 'pdf', 'jpeg']
+    supported_types.include? filetype(f)
   end
 
-  #TODO Could be wrong, should be something with user_id
+  def is_pdf(f)
+    filetype(f) == 'pdf'
+  end
+
+  #TODO Simplify path
   def get_image_path(num)
     "#{current_user.id.to_s}/projects/#{@project.id}/files/#{num}"
   end

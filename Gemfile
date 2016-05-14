@@ -43,6 +43,9 @@ gem 'daemons'
 # Providing zip files for download
 gem 'rubyzip'
 
+# MIME Type detection
+gem 'ruby-filemagic' # requires libmagic-dev library installed
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
