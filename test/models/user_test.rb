@@ -44,7 +44,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "email not valid?" do
-    invalid_addresses = %w[user@example,com user_at_foo.org user.name@example. foo@bar_baz.com foo@bar+baz.com test@test..de]
+    invalid_addresses = %w[sebastian.salentin.de christoph(at)sincerily.de]
     invalid_addresses.each do |invalid_address|
       @user.email = invalid_address
       assert_not @user.valid?, "#{invalid_address.inspect} is not valid"
@@ -86,6 +86,17 @@ class UserTest < ActiveSupport::TestCase
     assert_difference 'Micropost.count', -1 do
       @user.destroy
     end
+  end
+
+  test "should follow and unfollow a user" do
+    christoph = users(:christoph)
+    archer = users(:archer)
+    assert_not christoph.following?(archer)
+    christoph.follow(archer)
+    assert christoph.following?(archer)
+    assert archer.followers.include?(christoph)
+    christoph.unfollow(archer)
+    assert_not christoph.following?(archer)
   end
 
 end
