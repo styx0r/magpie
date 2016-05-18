@@ -46,7 +46,8 @@ class ProjectsController < ApplicationController
     #@project = Project.new(project_params)
     @project = @user.projects.create(project_params)
     # Then, start the job
-    @user_job = UserJob.perform_later(@user, project_params)
+    job = Job.create(status: "waiting", user_id: current_user.id)
+    @user_job = UserJob.perform_later(@user, job, project_params)
     @project.update(:job_id =>@user_job.job_id)
 
     respond_to do |format|

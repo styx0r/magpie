@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :jobs
   # New routes
   resources :users do
     resources :projects do
@@ -26,7 +27,6 @@ Rails.application.routes.draw do
   #get 'images/user_projects/:id/files/:fileid', to: 'user_projects#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
   ###
 
-  resources :job_monitors
   get 'password_resets/new'
 
   get 'password_resets/edit'

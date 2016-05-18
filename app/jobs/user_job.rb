@@ -5,16 +5,15 @@ class UserJob < ActiveJob::Base
   #TODO Right now, should catch each error
   puts "[Job: #{self.job_id}] I failed! Script is okay, please check Rails code or server."
   puts ex.inspect
-  this_job = JobMonitor.find_by(job_id: self.job_id)
-  this_job.update(status: "failed")
+  @job.update(status: "failed")
   end
 
   def perform(*args)
     puts "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
 
-    user = args[0]
+    user = self.arguments.first
     @userdir = File.dirname("#{Rails.root}/user/#{user.id.to_s}/#{self.job_id}/.to_path")
-    modelscript = args[1]["model"]
+    modelscript = self.arguments.last["model"]
     @originaldir = File.dirname(modelscript)
     @symlinkmodel = @userdir.to_s + "/" + File.basename(modelscript)
     @project = Project.find_by(job_id: self.job_id)
@@ -42,23 +41,24 @@ class UserJob < ActiveJob::Base
 
   around_perform do |job, block|
     puts "[Job: #{self.job_id}] Before performing ..."
-    this_job = JobMonitor.find_by(job_id: self.job_id)
-    this_job.update(status: "running")
     block.call
+    @job = self.arguments[1]
     if @return_val != 0
       puts "[Job: #{self.job_id}] I failed. The script has an exit value of #{@return_val}."
-      this_job.update(status: "failed")
+      @job.update(status: "failed")
     else
       puts "[Job: #{self.job_id}] I successfully finished my job."
-      this_job.update(status: "finished")
+      @job.update(status: "finished")
     end
   end
 
   around_enqueue do |job, block|
     user = job.arguments[0]
     puts "[Job: #{self.job_id}] Before enqueing ... "
-    JobMonitor.create(job_id: self.job_id, user: user.id.to_s, status: "waiting")
+    @job = self.arguments[1]
+    @job.update(status: "waiting", active_job_id: self.job_id)
     block.call
+    @job.update(status: "running")
     puts "[Job: #{self.job_id}] After enqueing ..."
   end
 
