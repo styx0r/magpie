@@ -28,5 +28,8 @@ module MfRails
 
     # Register backend for ActiveJob
     config.active_job.queue_adapter = :delayed_job
+
+    # Include the authenticity token in remote forms.
+    config.action_view.embed_authenticity_token_in_remote_forms = true
   end
 end

@@ -1,0 +1,15 @@
+one:
+  follower: christoph
+  followed: sebastian
+
+two:
+  follower: christoph
+  followed: nonadmin
+
+three:
+  follower: sebastian
+  follower: christoph
+
+four:
+  follower: archer
+  followed: christoph
