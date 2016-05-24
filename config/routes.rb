@@ -48,6 +48,9 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
+  # Syncing rules
+  get 'microposts_feed' => 'dashboard#microposts_feed'
+
   resources :users do
     member do
       get :following, :followers
