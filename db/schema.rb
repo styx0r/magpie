@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518172226) do
+ActiveRecord::Schema.define(version: 20160525220756) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -29,20 +29,16 @@ ActiveRecord::Schema.define(version: 20160518172226) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
-  create_table "job_monitors", force: :cascade do |t|
-    t.string   "job_id"
-    t.string   "user"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "status"
-  end
-
   create_table "jobs", force: :cascade do |t|
     t.string   "status"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "user_id"
     t.string   "active_job_id"
+    t.string   "project_id"
+    t.text     "output"
+    t.text     "resultfiles"
+    t.string   "directory"
   end
 
   create_table "microposts", force: :cascade do |t|
@@ -56,25 +52,11 @@ ActiveRecord::Schema.define(version: 20160518172226) do
   add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
   add_index "microposts", ["user_id"], name: "index_microposts_on_user_id"
 
-  create_table "model_jobs", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "priority"
-    t.string   "module"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "status"
-    t.integer  "jobid"
-  end
-
   create_table "projects", force: :cascade do |t|
-    t.string   "user"
-    t.string   "job_id"
     t.string   "name"
     t.string   "model"
-    t.text     "output"
-    t.text     "resultfiles"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "user_id"
   end
 
@@ -88,24 +70,6 @@ ActiveRecord::Schema.define(version: 20160518172226) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
-
-  create_table "user_projects", force: :cascade do |t|
-    t.string   "user"
-    t.string   "job_id"
-    t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "model"
-    t.text     "output"
-    t.text     "resultfiles"
-  end
-
-  create_table "userjobs", force: :cascade do |t|
-    t.string   "title"
-    t.string   "user"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

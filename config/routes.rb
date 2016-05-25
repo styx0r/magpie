@@ -9,11 +9,17 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :projects do   # For file download (result files)
+
+  #TODO Obsolete, but somethow needed by the form ...
+  resources :projects do
     get 'download', on: :member
   end
 
-  get 'images/:user_id/projects/:id/files/:fileid', to: 'projects#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
+  resources :jobs do   # For file download (result files)
+    get 'download', on: :member
+  end
+
+  get 'images/:id/files/:fileid', to: 'jobs#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
   ###
 
   # Old routes
@@ -26,7 +32,6 @@ Rails.application.routes.draw do
   #get 'images/user_projects/:id/files/:fileid', to: 'user_projects#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
   ###
 
-  resources :job_monitors
   get 'password_resets/new'
 
   get 'password_resets/edit'
@@ -61,8 +66,9 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]
   resources :relationships,       only: [:create, :destroy]
+  resources :jobs,                only: [:create]
 
-  get 'images/user_projects/:id/files/:fileid', to: 'user_projects#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
+  get 'images/jobs/:id/files/:fileid', to: 'jobs#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

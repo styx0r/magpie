@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class JobMonitorTest < ActiveSupport::TestCase
+class JobTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

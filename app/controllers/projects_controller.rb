@@ -1,22 +1,10 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :download, :images]
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :destroy_all, :download, :images]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :destroy_all, :images]
+  before_action :correct_user, only: [:download]
 
-  def download
-    #TODO Check for ownership of project!
-    #TODO Checking user etc. should be easier now with nesting
-    #TODO For now, it only sends the first result file, we want to zip and send all!
-    #TODO Handle case when there are no output files!
-    dir = File.dirname("#{Rails.root}/user/#{@project.user}/#{@project.job_id}/.to_path")
-    zipfile = "#{dir}/all-resultfiles-#{@project.name}.zip"
-    send_file(zipfile)
-  end
 
-  def images
-    #TODO Handle missing images
-    fileid = params[:fileid].to_i
-    send_file(@project.resultfiles[fileid])
-  end
+
+
 
   # GET /projects
   # GET /projects.json
@@ -43,11 +31,10 @@ class ProjectsController < ApplicationController
   def create
     # First, create the project itself
     @user = current_user
-    #@project = Project.new(project_params)
     @project = @user.projects.create(project_params)
     # Then, start the job
-    @user_job = UserJob.perform_later(@user, project_params)
-    @project.update(:job_id =>@user_job.job_id)
+    job = Job.create(status: "waiting", user_id: current_user.id, project_id: @project.id)
+    @user_job = UserJob.perform_later(job, project_params)
 
     respond_to do |format|
       if @project.save
@@ -96,12 +83,14 @@ class ProjectsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
     def set_project
       @project = Project.find(params[:id])
     end
 
-    def set_user
-      @user = current_user
+    def correct_user
+      @project = Project.find(params[:project_id])
+      redirect_to root_url if @project.user != current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,30 +1,8 @@
-<div class="panel panel-default">
-  <div class="panel-heading">Project: <%= @project.name%></div>
-  <div class="panel-body">
-    <p>
-      <strong>User:</strong>
-      <%= @project.user.name %>
-    </p>
+<%= render :partial => "projects/header" %>
 
-    <p>
-      <strong>Job ID:</strong>
-      <%= @project.job_id %>
-    </p>
 
-    <p>
-      <strong>Name:</strong>
-      <%= @project.name %>
-    </p>
-
-    <p>
-      <strong>Model:</strong>
-      <%= File.basename(@project.model) %>
-    </p>
-    <p>
-      <strong>Current Status:</strong>
-      <%= @project.status %>
-    </p>
-  </div>
+<div class="panel-group" id="alljobs">
+  <% @project.jobs.each do |job| %>
+  <%= render partial: 'projects/jobresult', locals: {:job => job} %>
+  <% end %>
 </div>
-
-<%= render :partial => "projects/resultbox" if ["finished", "failed"].include? @project.status %>
