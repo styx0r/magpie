@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525053510) do
+ActiveRecord::Schema.define(version: 20160525135906) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20160525053510) do
     t.datetime "updated_at",    null: false
     t.string   "user_id"
     t.string   "active_job_id"
+    t.string   "project_id"
   end
 
   create_table "microposts", force: :cascade do |t|

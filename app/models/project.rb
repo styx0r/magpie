@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
   serialize :output  # output is a hash, so serialize it
   serialize :resultfiles
 
-  def status()
+  def status
     jobmon = Job.where(:active_job_id => self.job_id).first
     if jobmon == nil
       "unknown"

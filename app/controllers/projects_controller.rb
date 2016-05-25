@@ -3,7 +3,6 @@ class ProjectsController < ApplicationController
   before_action :correct_user, only: [:download]
 
   def download
-    #TODO For now, it only sends the first result file, we want to zip and send all!
     #TODO Handle case when there are no output files!
     dir = File.dirname("#{Rails.root}/user/#{@project.user.id.to_s}/#{@project.job_id}/.to_path")
     zipfile = "#{dir}/all-resultfiles-#{@project.name}.zip"
@@ -41,10 +40,9 @@ class ProjectsController < ApplicationController
   def create
     # First, create the project itself
     @user = current_user
-    #@project = Project.new(project_params)
     @project = @user.projects.create(project_params)
     # Then, start the job
-    job = Job.create(status: "waiting", user_id: current_user.id)
+    job = Job.create(status: "waiting", user_id: current_user.id, project_id: @project.id)
     @user_job = UserJob.perform_later(@user, job, project_params)
     @project.update(:job_id =>@user_job.job_id)
 

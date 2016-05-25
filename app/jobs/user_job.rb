@@ -2,14 +2,13 @@ class UserJob < ActiveJob::Base
   queue_as :default
 
   rescue_from(StandardError) do |ex|
-  #TODO Right now, should catch each error
-  puts "[Job: #{self.job_id}] I failed! Script is okay, please check Rails code or server."
-  puts ex.inspect
+  p "[Job: #{self.job_id}] I failed! Script is okay, please check Rails code or server."
+  p ex.inspect
   @job.update(status: "failed")
   end
 
   def perform(*args)
-    puts "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
+    p "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
     user = self.arguments.first
     @userdir = File.dirname("#{Rails.root}/user/#{user.id.to_s}/#{self.job_id}/.to_path")
     modelscript = self.arguments.last["model"]
@@ -19,8 +18,7 @@ class UserJob < ActiveJob::Base
 
     #TODO Add handling and passing of arguments
     @arg1, @arg2 = "arg1", "arg2"
-
-
+    
     create_tmpdir_with_symlinks
 
     process = execute_script

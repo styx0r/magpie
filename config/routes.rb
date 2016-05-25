@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :jobs
   # New routes
   resources :users do
     resources :projects do
@@ -60,6 +59,7 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]
   resources :relationships,       only: [:create, :destroy]
+  resources :jobs,                only: [:create]
 
   get 'images/user_projects/:id/files/:fileid', to: 'user_projects#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
 
