@@ -1,0 +1,57 @@
+<div class="panel <%= status_color_panel(job.id) %>">
+  <div class="panel-heading">
+      <a data-toggle="collapse" data-parent="#alljobs" href="#<%=dom_id(job)%>">
+        <b> Job ID: <%= job.id %> </b> | Created at: <%= job.created_at.strftime('%FT%T') %> | Status: <%= job.status %>
+      </a>
+  </div>
+  <div id="<%=dom_id(job)%>" class="panel-collapse collapse">
+
+    <% if ['waiting', 'running'].include? job.status %>
+    <div class="panel-body">
+      Your job is still running. Please check again later.
+    </div>
+    <% end %>
+
+    <% if !job.output.blank? %>
+    <% if !job.output[:stdout].blank? %>
+    <div class="panel-body">
+      <b>STDOUT | </b>
+      <%= job.output[:stdout] %>
+    </div>
+    <% end %>
+
+    <% if !job.output[:stderr].blank? %>
+    <div class="panel-body">
+      <b>STDERR | </b>
+      <%= job.output[:stderr] %>
+    </div>
+    <% end %>
+    <% end %>
+
+    <% if !job.resultfiles.blank? %>
+    <div class="panel-body">
+      <b>Resultfiles</b><br><br>
+      <% job.resultfiles.each_with_index do |element, i| %>
+        <% if is_text_file(element)%>
+        <pre>
+          <%= render :plain => get_text_from_file(element)%>
+        </pre>
+        <figcaption><%= "Txt #{i+1}. - #{File.basename(element)}" %></figcaption>
+        <% elsif is_image(element)%>
+         <td><%= image_tag get_image_path(i) %>
+           <figcaption><%= "Fig #{i+1}. - #{File.basename(element)}" %></figcaption>
+         </td>
+         <% else %>
+           Additional file: <%= element %><br>
+        <% end %>
+        <br>
+      <% end %>
+    </div>
+
+    <div class="panel-body">
+      <%= link_to "Download #{numResultfiles(job.id)} result files as a zip archive.", download_job_path(job.id) %>
+    </div>
+    <% end %>
+
+  </div>
+</div>

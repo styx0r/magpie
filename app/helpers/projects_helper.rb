@@ -17,22 +17,23 @@ module ProjectsHelper
     Dir.glob(Rails.root.join('bin', 'models', '*/*.sh'))
   end
 
-  def status_color_button jobid
+  def status_color_panel jobid
     # Return color for buttons based on status
     job = @project.jobs.find_by(id: jobid)
     if job.status == "finished"
-      'btn-success'  # Finished
+      'panel-success'  # Finished
     elsif job.status == "running"
-      'btn-warning'  # Running
+      'panel-warning'  # Running
     elsif job.status == "failed"
-      'btn-danger'  # Failed
+      'panel-danger'  # Failed
     else
-      'btn-primary'  # Neutral
+      'panel-primary'  # Neutral
     end
   end
 
-  def numResultfiles
-    @project.resultfiles.size
+  def numResultfiles jid
+    job = @project.jobs.find_by(id: jid)
+    job.resultfiles.size
   end
 
   def get_text_from_file(f)

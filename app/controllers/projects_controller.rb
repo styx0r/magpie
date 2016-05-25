@@ -2,12 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :destroy_all, :images]
   before_action :correct_user, only: [:download]
 
-  def download
-    #TODO Handle case when there are no output files!
-    dir = File.dirname("#{Rails.root}/user/#{@project.user.id.to_s}/#{@project.job_id}/.to_path")
-    zipfile = "#{dir}/all-resultfiles-#{@project.name}.zip"
-    send_file(zipfile)
-  end
+
 
   def images
     #TODO Handle missing images
@@ -43,8 +38,7 @@ class ProjectsController < ApplicationController
     @project = @user.projects.create(project_params)
     # Then, start the job
     job = Job.create(status: "waiting", user_id: current_user.id, project_id: @project.id)
-    @user_job = UserJob.perform_later(@user, job, project_params)
-    @project.update(:job_id =>@user_job.job_id)
+    @user_job = UserJob.perform_later(job, project_params)
 
     respond_to do |format|
       if @project.save

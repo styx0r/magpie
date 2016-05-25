@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :set_job, only: [:show, :edit, :update, :destroy]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :download]
 
   # GET /jobs
   # GET /jobs.json
@@ -59,6 +59,15 @@ class JobsController < ApplicationController
       format.html { redirect_to jobs_url, notice: 'Job was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def download
+    #TODO Handle case when there are no output files!
+    #TODO Save userdir as attribute in jobs!
+    dir = @job.directory
+    #dir = File.dirname("#{Rails.root}/user/#{@job.user.id.to_s}/#{@job.id}/.to_path")
+    zipfile = "#{dir}/all-resultfiles-#{@job.project.name}-#{@job.id.to_s}.zip"
+    send_file(zipfile)
   end
 
   private

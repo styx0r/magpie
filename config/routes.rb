@@ -6,12 +6,16 @@ Rails.application.routes.draw do
       collection do
         get 'destroy_all'
       end
-      get 'download'
     end
   end
 
-  #TODO Obsolete
-  resources :projects do   # For file download (result files)
+
+  #TODO Obsolete, but somethow needed by the form ...
+  resources :projects do
+    get 'download', on: :member
+  end
+
+  resources :jobs do   # For file download (result files)
     get 'download', on: :member
   end
 

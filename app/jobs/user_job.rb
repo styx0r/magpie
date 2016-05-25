@@ -8,29 +8,30 @@ class UserJob < ActiveJob::Base
   end
 
   def perform(*args)
+    @job = self.arguments.first
+    @project = @job.project
+    user = @job.user
     p "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
-    user = self.arguments.first
     @userdir = File.dirname("#{Rails.root}/user/#{user.id.to_s}/#{self.job_id}/.to_path")
+    @job.directory = @userdir.to_s
     modelscript = self.arguments.last["model"]
     @originaldir = File.dirname(modelscript)
     @symlinkmodel = @userdir.to_s + "/" + File.basename(modelscript)
-    @project = Project.find_by(job_id: self.job_id)
 
     #TODO Add handling and passing of arguments
     @arg1, @arg2 = "arg1", "arg2"
-    
+
     create_tmpdir_with_symlinks
 
     process = execute_script
     @return_val = process.exitstatus
 
-    @project.output = {stdout: @stdout, stderr: @stderr}
-    @project.save
+    @job.output = {stdout: @stdout, stderr: @stderr}
 
     delete_symlinks
 
-    @project.resultfiles = Dir.glob(Rails.root.join(@userdir, '*'))
-    @project.save
+    @job.resultfiles = Dir.glob(Rails.root.join(@userdir, '*'))
+    @job.save
 
     zip_result_files
 
@@ -39,7 +40,7 @@ class UserJob < ActiveJob::Base
   around_perform do |job, block|
     puts "[Job: #{self.job_id}] Before performing ..."
     block.call
-    @job = self.arguments[1]
+    @job = self.arguments.first
     if @return_val != 0
       puts "[Job: #{self.job_id}] I failed. The script has an exit value of #{@return_val}."
       @job.update(status: "failed")
@@ -50,9 +51,8 @@ class UserJob < ActiveJob::Base
   end
 
   around_enqueue do |job, block|
-    user = job.arguments[0]
     puts "[Job: #{self.job_id}] Before enqueing ... "
-    @job = self.arguments[1]
+    @job = self.arguments.first
     @job.update(status: "waiting", active_job_id: self.job_id)
     block.call
     @job.update(status: "running")
@@ -62,9 +62,9 @@ class UserJob < ActiveJob::Base
   def zip_result_files
     ## Now, create a zipped archive of all resultfiles, if there are any
     require 'zip'
-    zipfile_name = @userdir + "/all-resultfiles-#{@project.name}.zip"
+    zipfile_name = "#{@userdir}/all-resultfiles-#{@project.name}-#{@job.id.to_s}.zip"
     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
-      @project.resultfiles.each do |resultfile|
+      @job.resultfiles.each do |resultfile|
         zipfile.add(File.basename(resultfile), resultfile)
       end
     end
