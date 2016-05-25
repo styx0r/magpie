@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517121823) do
+ActiveRecord::Schema.define(version: 20160518172226) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -37,6 +37,14 @@ ActiveRecord::Schema.define(version: 20160517121823) do
     t.string   "status"
   end
 
+  create_table "jobs", force: :cascade do |t|
+    t.string   "status"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "user_id"
+    t.string   "active_job_id"
+  end
+
   create_table "microposts", force: :cascade do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -47,6 +55,16 @@ ActiveRecord::Schema.define(version: 20160517121823) do
 
   add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
   add_index "microposts", ["user_id"], name: "index_microposts_on_user_id"
+
+  create_table "model_jobs", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "priority"
+    t.string   "module"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "status"
+    t.integer  "jobid"
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string   "user"
@@ -80,6 +98,13 @@ ActiveRecord::Schema.define(version: 20160517121823) do
     t.string   "model"
     t.text     "output"
     t.text     "resultfiles"
+  end
+
+  create_table "userjobs", force: :cascade do |t|
+    t.string   "title"
+    t.string   "user"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
