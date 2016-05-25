@@ -17,6 +17,20 @@ module ProjectsHelper
     Dir.glob(Rails.root.join('bin', 'models', '*/*.sh'))
   end
 
+  def status_color_button jobid
+    # Return color for buttons based on status
+    job = @project.jobs.find_by(id: jobid)
+    if job.status == "finished"
+      'btn-success'  # Finished
+    elsif job.status == "running"
+      'btn-warning'  # Running
+    elsif job.status == "failed"
+      'btn-danger'  # Failed
+    else
+      'btn-primary'  # Neutral
+    end
+  end
+
   def numResultfiles
     @project.resultfiles.size
   end

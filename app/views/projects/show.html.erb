@@ -1,3 +1,16 @@
 <%= render :partial => "projects/header" %>
 <%= render :partial => "projects/jobs" %>
-<%= render :partial => "projects/resultbox" if ["finished", "failed"].include? @project.status %>
+
+<% @project.jobs.each do |job| %>
+  <button class="btn <%= status_color_button(job.id) %>" data-toggle="collapse" data-target="#<%=dom_id(job)%>">Job <%= job.id %> | <%= job.status %></button>
+<% end %>
+<button class="btn btn-primary" data-toggle="collapse" data-target="test01">Test</button>
+
+
+<div id="all_jobs">
+<% @project.jobs.each do |job| %>
+  <div id="<%=dom_id(job)%>" data-parent="#all_jobs" class="collapse">
+    <%= render :partial => "projects/resultbox" if ["finished", "failed"].include? @project.status %>
+  </div>
+<% end %>
+</div>
