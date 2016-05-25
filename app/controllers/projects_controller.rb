@@ -1,13 +1,11 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :download, :images]
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :destroy_all, :download, :images]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :destroy_all, :images]
+  before_action :correct_user, only: [:download]
 
   def download
-    #TODO Check for ownership of project!
-    #TODO Checking user etc. should be easier now with nesting
     #TODO For now, it only sends the first result file, we want to zip and send all!
     #TODO Handle case when there are no output files!
-    dir = File.dirname("#{Rails.root}/user/#{@project.user}/#{@project.job_id}/.to_path")
+    dir = File.dirname("#{Rails.root}/user/#{@project.user.id.to_s}/#{@project.job_id}/.to_path")
     zipfile = "#{dir}/all-resultfiles-#{@project.name}.zip"
     send_file(zipfile)
   end
@@ -97,12 +95,14 @@ class ProjectsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
     def set_project
       @project = Project.find(params[:id])
     end
 
-    def set_user
-      @user = current_user
+    def correct_user
+      @project = Project.find(params[:project_id])
+      redirect_to root_url if @project.user != current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

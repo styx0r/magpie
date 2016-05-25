@@ -40,7 +40,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading">Result Files Download</div>
   <div class="panel-body">
-    <%= link_to "Download #{numResultfiles} result files as a zip archive.", download_project_path(current_user) %>
+    <%= link_to "Download #{numResultfiles} result files as a zip archive.", user_project_download_path(current_user, @project) %>
   </div>
 </div>
 <% end %>

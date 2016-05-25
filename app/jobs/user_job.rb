@@ -10,7 +10,6 @@ class UserJob < ActiveJob::Base
 
   def perform(*args)
     puts "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
-
     user = self.arguments.first
     @userdir = File.dirname("#{Rails.root}/user/#{user.id.to_s}/#{self.job_id}/.to_path")
     modelscript = self.arguments.last["model"]

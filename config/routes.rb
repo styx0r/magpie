@@ -7,9 +7,11 @@ Rails.application.routes.draw do
       collection do
         get 'destroy_all'
       end
+      get 'download'
     end
   end
 
+  #TODO Obsolete
   resources :projects do   # For file download (result files)
     get 'download', on: :member
   end
