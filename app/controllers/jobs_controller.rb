@@ -76,6 +76,10 @@ class JobsController < ApplicationController
     send_file(@job.resultfiles[fileid])
   end
 
+  def status
+    render :layout => false, file: 'shared/_footer_job_status'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_job
