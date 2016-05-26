@@ -1,0 +1,19 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">Project: <%= @project.name%></div>
+  <div class="panel-body">
+    <p>
+      <strong>User:</strong>
+      <%= @project.user.name %>
+    </p>
+
+    <p>
+      <strong>Name:</strong>
+      <%= @project.name %>
+    </p>
+
+    <p>
+      <strong>Model:</strong>
+      <%= File.basename(@project.model) %>
+    </p>
+  </div>
+</div>
