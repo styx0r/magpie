@@ -61,6 +61,10 @@ class JobMonitorsController < ApplicationController
     end
   end
 
+  def status
+    render :layout => false, file: 'shared/_footer_job_status.erb'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_job_monitor

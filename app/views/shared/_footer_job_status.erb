@@ -1,0 +1,6 @@
+<ul>
+  <li>Waiting: <%= count_jobs_user("waiting")%> (All Users: <%= count_jobs("waiting") %>) |</li>
+  <li>Running: <%= count_jobs_user("running") %>  |</li>
+  <li>Finished: <%= count_jobs_user("finished") %>  |</li>
+  <li>Failed: <%= count_jobs_user("failed") %> </li>
+</ul>
