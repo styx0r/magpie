@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :destroy_all, :images]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :images]
   before_action :correct_user, only: [:download]
 
 
@@ -70,16 +70,6 @@ class ProjectsController < ApplicationController
     @project.destroy
     respond_to do |format|
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  def destroy_all
-    if !@user.projects.blank?
-      @user.projects.destroy_all
-    end
-    respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'All projects have been deleted.' }
       format.json { head :no_content }
     end
   end

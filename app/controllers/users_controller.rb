@@ -10,6 +10,15 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+  def delete_all_projects
+    @user = User.find(params[:user_id])
+    @user.projects.destroy_all
+    respond_to do |format|
+      format.html { redirect_to edit_user_path({:id => @user.id}), notice: 'All projects have been deleted.' }
+      format.json { head :no_content }
+    end
+  end
+
   def index
     @users = User.paginate(page: params[:page])
   end

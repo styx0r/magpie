@@ -27,4 +27,4 @@
     </div>
   </div>
 </div>
-<%= link_to 'Delete all projects', destroy_all_user_projects_path(current_user), data: {confirm: "Are you sure?"}, :class => "btn btn-danger" %></td>
+<%= link_to 'Delete all projects', user_delete_all_projects_path(@user), data: {confirm: "Are you sure?"}, :class => "btn btn-danger" %></td>

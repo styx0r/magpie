@@ -2,13 +2,12 @@ Rails.application.routes.draw do
 
   # New routes
   resources :users do
-    resources :projects do
-      collection do
-        get 'destroy_all'
-      end
-    end
+    resources :projects
   end
 
+  resources :users do
+      get 'delete_all_projects'
+  end
 
   #TODO Obsolete, but somethow needed by the form ...
   resources :projects do

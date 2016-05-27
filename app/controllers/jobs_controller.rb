@@ -32,7 +32,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        format.html { redirect_to @job.project, notice: 'Job was successfully created.' }
+        format.html { redirect_to user_project_path(@job.user.id, @job.project.id), notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }
       else
         format.html { render :new }

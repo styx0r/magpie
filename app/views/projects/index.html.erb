@@ -1,10 +1,18 @@
 <h1>My Projects</h1>
 
+<% if @projects.length == 0 %>
+<center>
+<h4>You have no projects yet.</h4>
+<%= link_to 'Create your first one!', new_user_project_path(current_user), :class => "btn btn-primary" %>
+</center>
+<% else %>
+
 <table class="table table-striped">
   <thead>
     <tr>
       <th>User</th>
       <th>Name</th>
+      <th>Model</th>
       <th># Jobs</th>
       <th colspan="3"></th>
     </tr>
@@ -15,6 +23,7 @@
       <tr>
         <td><%= project.user.name %></td>
         <td><%= link_to project.name, user_project_path(current_user, project) , :class => "btn btn-mini"%></td>
+        <td><%= project.model %></td>
         <td><%= project.jobs.length %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini btn-danger" %></td>
       </tr>
@@ -24,4 +33,4 @@
 
 <br>
 
-<%= link_to 'New User project', new_user_project_path(current_user), :class => "btn btn-primary" %>
+<% end %>
