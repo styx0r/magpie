@@ -1,9 +1,12 @@
 <%= simple_form_for @project, :html => { :class => 'form-horizontal' },
   wrapper: :horizontal_form do |f| %>
-
   <%= f.input :model, collection: list_models, required: true %>
-
   <%= f.input :name, placeholder: 'Give your project a name', required: true %>
 
+  <%= f.simple_fields_for :job do |job_form| %>
+    <%= job_form.input :status, :as => :hidden, :input_html => { :value => "waiting" } %>
+    <%= job_form.input :user_id, :as => :hidden, :input_html => { :value => current_user.id} %>
+    <%= job_form.input :arguments, placeholder: 'Command line arguments' %>
+  <% end %>
   <%= f.button :submit, class: "btn btn-primary" %>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525220756) do
+ActiveRecord::Schema.define(version: 20160527101101) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160525220756) do
     t.text     "output"
     t.text     "resultfiles"
     t.string   "directory"
+    t.text     "arguments"
   end
 
   create_table "microposts", force: :cascade do |t|

@@ -1,7 +1,7 @@
 <div class="panel <%= status_color_panel(job.id) %>">
   <div class="panel-heading">
       <a data-toggle="collapse" data-parent="#alljobs" href="#<%=dom_id(job)%>">
-        <b> Job ID: <%= job.id %> </b> | Created at: <%= job.created_at.strftime('%FT%T') %> | Status: <%= job.status %>
+        <b> Job ID: <%= job.id %> </b> | Created <%= time_ago_in_words(job.created_at) %> ago | Status: <%= job.status %>
       </a>
   </div>
   <div id="<%=dom_id(job)%>" class="panel-collapse collapse">

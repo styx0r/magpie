@@ -19,9 +19,6 @@ class UserJob < ActiveJob::Base
     @originaldir = File.dirname(modelscript)
     @symlinkmodel = @userdir.to_s + "/" + File.basename(modelscript)
 
-    #TODO Add handling and passing of arguments
-    @arg1, @arg2 = "arg1", "arg2"
-
     create_tmpdir_with_symlinks
 
     process = execute_script
@@ -53,8 +50,6 @@ class UserJob < ActiveJob::Base
 
   around_enqueue do |job, block|
     puts "[Job: #{self.job_id}] Before enqueing ... "
-    p "Arguments"
-    p self.arguments.first
     @job = self.arguments.first
     @job.update(status: "waiting", active_job_id: self.job_id)
     block.call
@@ -86,7 +81,7 @@ class UserJob < ActiveJob::Base
     ### Go to the temporary working directory and execute the script
     #TODO for mf script, not the entire stdout and stderr is retrieved
     Dir.chdir(@userdir) do
-      Open3.popen3(@symlinkmodel, @arg1 + " " + @arg2) do |stdin, stdout, stderr, thread|
+      Open3.popen3(@symlinkmodel, @job.arguments) do |stdin, stdout, stderr, thread|
         stdin.close  # make sure the subprocess is done
         @stdout = stdout.gets
         @stderr = stderr.gets

@@ -22,6 +22,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
+    @job = @project.jobs.new
   end
 
   # GET /projects/1/edit
@@ -35,7 +36,7 @@ class ProjectsController < ApplicationController
     @user = current_user
     @project = @user.projects.create(project_params)
     # Then, start the job
-    job = Job.create(status: "waiting", user_id: current_user.id, project_id: @project.id)
+    job = Job.create(job_params[:job].merge(:project_id => @project.id))
     @user_job = UserJob.perform_later(job)
 
     respond_to do |format|
@@ -97,6 +98,10 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:job_id, :name, :model)
+      params.require(:project).permit(:job, :name, :model)
+    end
+
+    def job_params
+      params.require(:project).permit(:job => [:status , :user_id, :arguments])
     end
 end
