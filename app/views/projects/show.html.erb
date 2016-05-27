@@ -1,8 +1,8 @@
 <%= render :partial => "projects/header" %>
 
-
 <div class="panel-group" id="alljobs">
   <% @project.jobs.each do |job| %>
   <%= render partial: 'projects/jobresult', locals: {:job => job} %>
   <% end %>
 </div>
+<%= render partial: 'projects/newjobpanel' %>

@@ -1,3 +1,6 @@
+<% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= message_type %>"><%= message %></div>
+<% end %>
 <footer class="footer">
   <nav class='navbar-left'>
     <ul>
@@ -12,7 +15,7 @@
 
 <% if logged_in? %>
   <nav class='navbar-left'>
-    <div id='jobs_status_sync'></div>    
+    <div id='jobs_status_sync'></div>
   </nav>
 <% end %>
 

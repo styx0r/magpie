@@ -17,7 +17,7 @@ module ProjectsHelper
     elsif job.status == "failed"
       'panel-danger'  # Failed
     else
-      'panel-primary'  # Neutral
+      'panel-default'  # Neutral
     end
   end
 

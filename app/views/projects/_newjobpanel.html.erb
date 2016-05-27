@@ -1,0 +1,21 @@
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    New Job
+  </div>
+
+    <div class="panel-body">
+      <%= simple_form_for @job, :html => { :class => 'form-horizontal' },
+        wrapper: :horizontal_form do |f| %>
+
+        <%= f.input :status, :as => :hidden, :input_html => { :value => "waiting" } %>
+        <%= f.input :project_id, :as => :hidden, :input_html => { :value => @project.id } %>
+        <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id} %>
+
+        <%= f.button :submit, class: "btn btn-primary" %>
+      <% end %>
+    </div>
+
+</div>

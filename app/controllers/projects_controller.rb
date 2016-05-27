@@ -15,6 +15,8 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    # New jobs can be created from the projects view
+    @job = Job.new
   end
 
   # GET /projects/new
@@ -34,7 +36,7 @@ class ProjectsController < ApplicationController
     @project = @user.projects.create(project_params)
     # Then, start the job
     job = Job.create(status: "waiting", user_id: current_user.id, project_id: @project.id)
-    @user_job = UserJob.perform_later(job, project_params)
+    @user_job = UserJob.perform_later(job)
 
     respond_to do |format|
       if @project.save

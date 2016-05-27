@@ -14,7 +14,8 @@ class UserJob < ActiveJob::Base
     p "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
     @userdir = File.dirname("#{Rails.root}/user/#{user.id.to_s}/#{self.job_id}/.to_path")
     @job.directory = @userdir.to_s
-    modelscript = self.arguments.last["model"]
+    #TODO Later on, model should be an actual model an not an attribute!
+    modelscript = @job.project.model
     @originaldir = File.dirname(modelscript)
     @symlinkmodel = @userdir.to_s + "/" + File.basename(modelscript)
 
@@ -52,6 +53,8 @@ class UserJob < ActiveJob::Base
 
   around_enqueue do |job, block|
     puts "[Job: #{self.job_id}] Before enqueing ... "
+    p "Arguments"
+    p self.arguments.first
     @job = self.arguments.first
     @job.update(status: "waiting", active_job_id: self.job_id)
     block.call

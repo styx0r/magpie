@@ -26,9 +26,13 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
 
+    # Also, start a delayed job
+    @user_job = UserJob.perform_later(@job)
+
+
     respond_to do |format|
       if @job.save
-        format.html { redirect_to @job, notice: 'Job was successfully created.' }
+        format.html { redirect_to @job.project, notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }
       else
         format.html { render :new }
@@ -88,6 +92,6 @@ class JobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_params
-      params.require(:job).permit(:status)
+      params.require(:job).permit(:status, :user_id, :project_id)
     end
 end
