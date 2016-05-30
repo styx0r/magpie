@@ -12,7 +12,7 @@ class UserJob < ActiveJob::Base
     @project = @job.project
     user = @job.user
     p "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
-    @userdir = File.dirname("#{Rails.root}/user/#{user.id.to_s}/#{self.job_id}/.to_path")
+    @userdir = File.dirname("#{Rails.application.config.user_output_path}#{user.id.to_s}/#{self.job_id}/.to_path")
     @job.directory = @userdir.to_s
     #TODO Later on, model should be an actual model an not an attribute!
     modelscript = @job.project.model

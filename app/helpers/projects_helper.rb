@@ -4,7 +4,8 @@ module ProjectsHelper
 
   def list_models()
     # Only find shell scripts
-    Dir.glob(Rails.root.join('bin', 'models', '*/*.sh'))
+    Dir.glob("#{Rails.application.config.models_path}*/*.sh")
+    #Dir.glob(Rails.root.join('bin', 'models', '*/*.sh'))
   end
 
   def status_color_panel jobid

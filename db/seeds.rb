@@ -46,3 +46,24 @@ following = users[2..50]
 followers = users[3..40]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
+
+# Pre-defined models for testing
+Model.create!(name:                   "Sleep Studies",
+              path:                  "#{Rails.application.config.models_path}sleep",
+              mainscript:               "sleep.sh")
+
+Model.create!(name:                   "The Wiz",
+              path:                  "#{Rails.application.config.models_path}dummy_images",
+              mainscript:               "generate_images.sh")
+
+Model.create!(name:                   "My First Files",
+              path:                  "#{Rails.application.config.models_path}create_files",
+              mainscript:               "create_files.sh")
+
+Model.create!(name:                   "MF: Real World Example",
+              path:                  "#{Rails.application.config.models_path}mf",
+              mainscript:               "run_mf.sh")
+
+Model.create!(name:                   "Failed!",
+              path:                  "#{Rails.application.config.models_path}faulty",
+              mainscript:               "faulty.sh")

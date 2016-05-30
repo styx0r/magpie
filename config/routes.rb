@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :models
   # New routes
   resources :users do
     resources :projects
