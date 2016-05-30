@@ -14,9 +14,9 @@ class UserJob < ActiveJob::Base
     p "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
     @userdir = File.dirname("#{Rails.application.config.user_output_path}#{user.id.to_s}/#{self.job_id}/.to_path")
     @job.directory = @userdir.to_s
-    #TODO Later on, model should be an actual model an not an attribute!
-    modelscript = @job.project.model
-    @originaldir = File.dirname(modelscript)
+    mainscript = @job.project.model.mainscript
+    @originaldir = @job.project.model.path
+    modelscript = "#{@originaldir}/#{mainscript}"
     @symlinkmodel = @userdir.to_s + "/" + File.basename(modelscript)
 
     create_tmpdir_with_symlinks

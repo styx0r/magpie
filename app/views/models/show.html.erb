@@ -1,19 +1,17 @@
-<p id="notice"><%= notice %></p>
+<%= render :partial => "models/header" %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @model.name %>
-</p>
+<div class="panel panel-info">
+  <div class="panel-heading">Description</div>
+  <div class="panel-body">
+    <%= @model.description %>
+  </div>
+</div>
 
-<p>
-  <strong>Path:</strong>
-  <%= @model.path %>
-</p>
+<div class="panel panel-info">
+  <div class="panel-heading">Help</div>
+  <div class="panel-body">
+    <%= @model.help %>
+  </div>
+</div>
 
-<p>
-  <strong>Mainscript:</strong>
-  <%= @model.mainscript %>
-</p>
-
-<%= link_to 'Edit', edit_model_path(@model) %> |
 <%= link_to 'Back', models_path %>

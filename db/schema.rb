@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160530041851) do
+ActiveRecord::Schema.define(version: 20160530171613) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -57,16 +57,19 @@ ActiveRecord::Schema.define(version: 20160530041851) do
     t.string   "name"
     t.string   "path"
     t.string   "mainscript"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.text     "description"
+    t.text     "help"
+    t.string   "user_id"
   end
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"
-    t.string   "model"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "user_id"
+    t.string   "model_id"
   end
 
   create_table "relationships", force: :cascade do |t|

@@ -1,0 +1,24 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">Project: <%= @model.name%></div>
+  <div class="panel-body">
+    <p>
+      <strong>Model Administrator:</strong>
+      <%= @model.user.name %>
+    </p>
+
+    <p>
+      <strong>Name:</strong>
+      <%= @model.name %>
+    </p>
+
+    <p>
+      <strong>Stored at:</strong>
+      <%= @model.path %>
+    </p>
+
+    <p>
+      <strong>Main script:</strong>
+      <%= @model.mainscript %>
+    </p>
+  </div>
+</div>

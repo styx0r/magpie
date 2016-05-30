@@ -2,12 +2,6 @@ module ProjectsHelper
   require 'ruby-filemagic'
   require 'mime/types'
 
-  def list_models()
-    # Only find shell scripts
-    Dir.glob("#{Rails.application.config.models_path}*/*.sh")
-    #Dir.glob(Rails.root.join('bin', 'models', '*/*.sh'))
-  end
-
   def status_color_panel jobid
     # Return color for buttons based on status
     job = @project.jobs.find_by(id: jobid)

@@ -48,22 +48,39 @@ following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
 
 # Pre-defined models for testing
-Model.create!(name:                   "Sleep Studies",
+content = Faker::Lorem.sentence(5)
+Model.create!(name:                  "Sleep Studies",
               path:                  "#{Rails.application.config.models_path}sleep",
-              mainscript:               "sleep.sh")
+              mainscript:            "sleep.sh",
+              description:           "Sleeps for a given amount of time.
+                                     Time in seconds can be set as an argument.",
+              help:                  content,
+              user_id:               users.sample.id)
 
-Model.create!(name:                   "The Wiz",
+Model.create!(name:                  "The Wiz",
               path:                  "#{Rails.application.config.models_path}dummy_images",
-              mainscript:               "generate_images.sh")
+              mainscript:            "generate_images.sh",
+              description:           "Generates example images from imagemagick.",
+              help:                  content,
+              user_id:               users.sample.id)
 
-Model.create!(name:                   "My First Files",
+Model.create!(name:                  "My First Files",
               path:                  "#{Rails.application.config.models_path}create_files",
-              mainscript:               "create_files.sh")
+              mainscript:            "create_files.sh",
+              description:           "Creates a few simple files.",
+              help:                  content,
+              user_id:               users.sample.id)
 
-Model.create!(name:                   "MF: Real World Example",
+Model.create!(name:                  "MF: Real World Example",
               path:                  "#{Rails.application.config.models_path}mf",
-              mainscript:               "run_mf.sh")
+              mainscript:            "run_mf.sh",
+              description:           "Real-World Example with simulation.",
+              help:                  content,
+              user_id:               users.sample.id)
 
-Model.create!(name:                   "Failed!",
+Model.create!(name:                  "Failed!",
               path:                  "#{Rails.application.config.models_path}faulty",
-              mainscript:               "faulty.sh")
+              mainscript:            "faulty.sh",
+              description:           "Runs a job with a syntax error in the bash script. Will fail 100%.",
+              help:                  content,
+              user_id:               users.sample.id)

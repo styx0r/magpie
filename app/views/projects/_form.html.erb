@@ -1,6 +1,6 @@
 <%= simple_form_for @project, :html => { :class => 'form-horizontal' },
   wrapper: :horizontal_form do |f| %>
-  <%= f.input :model, collection: list_models, required: true %>
+  <%= f.input :model_id, collection: Model.all, required: true %>
   <%= f.input :name, placeholder: 'Give your project a name', required: true %>
 
   <%= f.simple_fields_for :job do |job_form| %>

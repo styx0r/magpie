@@ -23,7 +23,7 @@
       <tr>
         <td><%= project.user.name %></td>
         <td><%= link_to project.name, user_project_path(current_user, project) , :class => "btn btn-mini"%></td>
-        <td><%= project.model %></td>
+        <td><%= project.model.name %></td>
         <td><%= project.jobs.length %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini btn-danger" %></td>
       </tr>
