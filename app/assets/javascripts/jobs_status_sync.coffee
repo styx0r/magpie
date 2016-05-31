@@ -20,7 +20,7 @@ ready = ->
             $.ajax(url: "/jobs_status").done (html) ->
               $('#jobs_status_sync').html html
           else
-            clearInterval window.timer_jobs_status # stop of timer
+            clearInterval root.timer_jobs_status # stop of timer
           return
         ), 5000; # interval
 # ready is called when page load is finished and on page load / change
