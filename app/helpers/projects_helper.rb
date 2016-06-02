@@ -4,7 +4,7 @@ module ProjectsHelper
 
   def status_color_panel jobid
     # Return color for buttons based on status
-    job = @project.jobs.find_by(id: jobid)
+    job = Job.find_by(id: jobid)
     if job.status == "finished"
       'panel-success'  # Finished
     elsif job.status == "running"

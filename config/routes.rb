@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   # Syncing rules
   get 'microposts_feed' => 'dashboard#microposts_feed'
   get 'jobs_status' => 'jobs#status'
+  get 'job_running' => 'jobs#running'
 
   resources :users do
     member do

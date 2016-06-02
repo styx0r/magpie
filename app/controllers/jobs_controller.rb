@@ -21,6 +21,12 @@ class JobsController < ApplicationController
   def edit
   end
 
+  def running
+    job_id = params[:job_id].to_i
+    job = Job.find_by_id job_id
+    render :layout => false, partial: 'jobs/running', locals: {:job => job}
+  end
+
   # POST /jobs
   # POST /jobs.json
   def create
