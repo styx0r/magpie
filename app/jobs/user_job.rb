@@ -1,5 +1,5 @@
 class UserJob < ActiveJob::Base
-  queue_as :default
+  queue_as :userjobs
 
   rescue_from(StandardError) do |ex|
   p "[Job: #{self.job_id}] I failed! Script is okay, please check Rails code or server."

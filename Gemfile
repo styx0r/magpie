@@ -40,6 +40,8 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'daemons'
 
+gem 'foreman'
+
 # Providing zip files for download
 gem 'rubyzip'
 
