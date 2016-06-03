@@ -52,7 +52,7 @@ class UserJob < ActiveJob::Base
   around_enqueue do |job, block|
     puts "[Job: #{self.job_id}] Before enqueing ... "
     @job = self.arguments.first
-    @job.update(status: "waiting", active_job_id: self.job_id)
+    @job.update(status: "waiting")
     block.call
     #@job.update(status: "running")
     puts "[Job: #{self.job_id}] After enqueing ..."
