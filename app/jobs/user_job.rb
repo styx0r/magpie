@@ -36,9 +36,10 @@ class UserJob < ActiveJob::Base
   end
 
   around_perform do |job, block|
+    @job = self.arguments.first
+    @job.update(status: "running")
     puts "[Job: #{self.job_id}] Before performing ..."
     block.call
-    @job = self.arguments.first
     if @return_val != 0
       puts "[Job: #{self.job_id}] I failed. The script has an exit value of #{@return_val}."
       @job.update(status: "failed")
@@ -53,7 +54,7 @@ class UserJob < ActiveJob::Base
     @job = self.arguments.first
     @job.update(status: "waiting", active_job_id: self.job_id)
     block.call
-    @job.update(status: "running")
+    #@job.update(status: "running")
     puts "[Job: #{self.job_id}] After enqueing ..."
   end
 
