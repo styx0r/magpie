@@ -9,7 +9,9 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    # Only index projects of the current user
+    #@projects = Project.all
+    @projects = current_user.projects
   end
 
   # GET /projects/1

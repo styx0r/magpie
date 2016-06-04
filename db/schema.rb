@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603140857) do
+ActiveRecord::Schema.define(version: 20160604062552) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -33,13 +33,16 @@ ActiveRecord::Schema.define(version: 20160603140857) do
     t.string   "status"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.string   "user_id"
-    t.string   "project_id"
+    t.integer  "user_id"
+    t.integer  "project_id"
     t.text     "output"
     t.text     "resultfiles"
     t.string   "directory"
     t.text     "arguments"
   end
+
+  add_index "jobs", ["project_id"], name: "index_jobs_on_project_id"
+  add_index "jobs", ["user_id"], name: "index_jobs_on_user_id"
 
   create_table "microposts", force: :cascade do |t|
     t.text     "content"
@@ -60,16 +63,21 @@ ActiveRecord::Schema.define(version: 20160603140857) do
     t.datetime "updated_at",  null: false
     t.text     "description"
     t.text     "help"
-    t.string   "user_id"
+    t.integer  "user_id"
   end
+
+  add_index "models", ["user_id"], name: "index_models_on_user_id"
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "user_id"
-    t.string   "model_id"
+    t.integer  "user_id"
+    t.integer  "model_id"
   end
+
+  add_index "projects", ["model_id"], name: "index_projects_on_model_id"
+  add_index "projects", ["user_id"], name: "index_projects_on_user_id"
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"
