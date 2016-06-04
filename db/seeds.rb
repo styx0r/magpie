@@ -92,3 +92,14 @@ Model.create!(name:                  "Failed!",
               description:           "Runs a job with a syntax error in the bash script. Will fail 100%.",
               help:                  content,
               user_id:               users.sample.id)
+
+
+models = Model.all
+# Sample public models for testing
+5.times do
+users.sample.projects.create!(name: Faker::Hacker.abbreviation,
+                         created_at: Faker::Time.between(DateTime.now - 10, DateTime.now),
+                         updated_at: DateTime.now,
+                         model_id: models.sample.id,
+                         public: true)
+end

@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :images]
   before_action :correct_user, only: [:download]
+  before_action :is_project_owner, only: [:destroy]
 
 
 
@@ -10,8 +11,8 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     # Only index projects of the current user
-    #@projects = Project.all
     @projects = current_user.projects
+    @public_projects = Project.where(public: true)
   end
 
   # GET /projects/1
@@ -85,7 +86,12 @@ class ProjectsController < ApplicationController
 
     def correct_user
       @project = Project.find(params[:project_id])
-      redirect_to root_url if @project.user != current_user
+      redirect_to :back if @project.user != current_user
+    end
+
+    def is_project_owner
+      @project = Project.find(params[:id])
+      redirect_to :back if @project.user != current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

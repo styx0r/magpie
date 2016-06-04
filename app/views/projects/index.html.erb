@@ -1,4 +1,4 @@
-<h1>My Projects</h1>
+<h1>Projects</h1>
 
 <% if @projects.length == 0 %>
 <center>
@@ -7,10 +7,11 @@
 </center>
 <% else %>
 
+<h2>Projects created by me</h2>
+
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>User</th>
       <th>Name</th>
       <th>Model</th>
       <th># Jobs</th>
@@ -21,11 +22,44 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-        <td><%= project.user.name %></td>
         <td><%= link_to project.name, user_project_path(current_user, project) , :class => "btn btn-mini"%></td>
         <td><%= project.model.name %></td>
         <td><%= project.jobs.length %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% end %>
+
+<h2>Public Projects</h2>
+
+<% if @public_projects.length == 0 %>
+<center>
+<h4>There are no published projects yet.</h4>
+</center>
+<% else %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Created by</th>
+      <th>Name</th>
+      <th>Model</th>
+      <th># Jobs</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @public_projects.each do |project| %>
+      <tr>
+        <td><%= project.user.name %></td>
+        <td><%= link_to project.name, user_project_path(current_user, project) , :class => "btn btn-mini"%></td>
+        <td><%= project.model.name %></td>
+        <td><%= project.jobs.length %></td>
       </tr>
     <% end %>
   </tbody>
