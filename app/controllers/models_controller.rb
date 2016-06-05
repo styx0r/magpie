@@ -25,19 +25,15 @@ class ModelsController < ApplicationController
     @model.user = current_user
     @model.path = "#{Rails.application.config.models_path}#{@model.name}"
     @model.unzip_source
-    confirmed = @model.read_content
-    if confirmed
-      respond_to do |format|
-        if @model.save
-          format.html { return redirect_to edit_model_path(@model), notice: 'Model was successfully created.' }
-          format.json { render :show, status: :created, location: @model }
-        else
-          format.html { render :new }
-          format.json { render json: @model.errors, status: :unprocessable_entity }
-        end
+    @model.read_content
+    respond_to do |format|
+      if @model.save
+        format.html { return render :show, notice: 'Model was successfully created.' }
+        format.json { render :show, status: :created, location: @model }
+      else
+        format.html { render :new }
+        format.json { render json: @model.errors, status: :unprocessable_entity }
       end
-    else
-      redirect to :back, notice: 'Error in creating the model.'
     end
   end
 
@@ -88,6 +84,6 @@ class ModelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def model_params
-      params.require(:model).permit(:name, :source)
+      params.require(:model).permit(:name, :source, :mainscript)
     end
 end
