@@ -97,9 +97,10 @@ Model.create!(name:                  "Failed!",
 models = Model.all
 # Sample public models for testing
 5.times do
-users.sample.projects.create!(name: Faker::Hacker.abbreviation,
-                         created_at: Faker::Time.between(DateTime.now - 10, DateTime.now),
-                         updated_at: DateTime.now,
-                         model_id: models.sample.id,
-                         public: true)
+  name = Faker::Hacker.adjective + ' ' + Faker::Hacker.abbreviation + ' ' + Faker::Hacker.ingverb
+  users.sample.projects.create!(name: name,
+                                created_at: Faker::Time.between(DateTime.now - 10, DateTime.now),
+                                updated_at: DateTime.now,
+                                model_id: models.sample.id,
+                                public: true)
 end

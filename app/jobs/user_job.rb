@@ -59,6 +59,7 @@ class UserJob < ActiveJob::Base
   end
 
   def zip_result_files
+    #TODO Into model
     ## Now, create a zipped archive of all resultfiles, if there are any
     require 'zip'
     zipfile_name = "#{@userdir}/all-resultfiles-#{@project.name}-#{@job.id.to_s}.zip"
