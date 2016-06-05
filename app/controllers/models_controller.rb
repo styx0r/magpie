@@ -21,10 +21,7 @@ class ModelsController < ApplicationController
   def edit
   end
 
-  # POST /models
-  # POST /models.json
-  def create
-    @model = Model.new(model_params)
+  def register_model
     @model.user = current_user
     @model.path = "#{Rails.application.config.models_path}#{@model.name}"
     @model.unzip_source
@@ -32,7 +29,7 @@ class ModelsController < ApplicationController
     if confirmed
       respond_to do |format|
         if @model.save
-          format.html { redirect_to @model, notice: 'Model was successfully created.' }
+          format.html { return redirect_to edit_model_path(@model), notice: 'Model was successfully created.' }
           format.json { render :show, status: :created, location: @model }
         else
           format.html { render :new }
@@ -41,6 +38,17 @@ class ModelsController < ApplicationController
       end
     else
       redirect to :back, notice: 'Error in creating the model.'
+    end
+  end
+
+  # POST /models
+  # POST /models.json
+  def create
+    @model = Model.new(model_params)
+    if name_is_unique
+      register_model
+    else
+      redirect_to :back, notice: 'Error: Model name already exists.'
     end
   end
 
@@ -72,6 +80,10 @@ class ModelsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_model
       @model = Model.find(params[:id])
+    end
+
+    def name_is_unique
+      !Model.all.map {|x| x.name == @model.name}.compact.any?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

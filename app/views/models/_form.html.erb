@@ -1,10 +1,9 @@
 <%= simple_form_for(@model) do |f| %>
-  <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :name %>
+    <%= f.input :name, required: true%>
     <%= f.label :source %><br>
-    <%= f.file_field :source %>
+    <%= f.file_field :source, required: true %>
   </div>
 
   <div class="form-actions">
