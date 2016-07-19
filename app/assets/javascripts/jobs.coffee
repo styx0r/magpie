@@ -2,10 +2,16 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 ready = ->
-  updateElements = document.getElementsByClassName "panel panel-warning"
+  updateElementsWarning = document.getElementsByClassName "panel-warning"
+  updateElementsDefault = document.getElementsByClassName "panel-default"
+  console.log(updateElementsWarning)
+  console.log(updateElementsDefault)
+  updateElements = Array.prototype.slice.call(updateElementsWarning).concat(Array.prototype.slice.call(updateElementsDefault))
+  console.log(updateElements)
   if(updateElements.length > 0)
 #    console.log updateElements
     i = 0
+    console.log(updateElements.length)
     while i < updateElements.length
       id = updateElements[i].childNodes[3].id.split('_')[1]
       $.ajax
