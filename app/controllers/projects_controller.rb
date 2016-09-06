@@ -3,10 +3,6 @@ class ProjectsController < ApplicationController
   before_action :correct_user, only: [:download]
   before_action :is_project_owner, only: [:destroy]
 
-
-
-
-
   # GET /projects
   # GET /projects.json
   def index
@@ -26,10 +22,21 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
     @job = @project.jobs.new
+    @model = params
   end
 
   # GET /projects/1/edit
   def edit
+  end
+
+  def selectedmodel
+    model_selected = Model.find_by name: params[:model_name]
+    if model_selected == NIL
+      model_description = "nil"
+    else
+      model_description = model_selected.description
+    end
+    render :layout => false, partial: 'projects/selectedmodel', locals: {:model_description => model_description}
   end
 
   # POST /projects

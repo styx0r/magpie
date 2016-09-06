@@ -4,14 +4,14 @@
 ready = ->
   updateElementsWarning = document.getElementsByClassName "panel-warning"
   updateElementsDefault = document.getElementsByClassName "panel-default"
-  console.log(updateElementsWarning)
-  console.log(updateElementsDefault)
+  #console.log(updateElementsWarning)
+  #console.log(updateElementsDefault)
   updateElements = Array.prototype.slice.call(updateElementsWarning).concat(Array.prototype.slice.call(updateElementsDefault))
-  console.log(updateElements)
+  #console.log(updateElements)
   if(updateElements.length > 0)
 #    console.log updateElements
     i = 0
-    console.log(updateElements.length)
+    #console.log(updateElements.length)
     while i < updateElements.length
       id = updateElements[i].childNodes[3].id.split('_')[1]
       $.ajax
@@ -21,7 +21,7 @@ ready = ->
         cache: true
         local_id: id
         success: (html) ->
-          console.log html
+          #console.log html
           document.getElementById("job_id "+this.local_id).innerHTML = html
       i++
     setTimeout(ready, 5000)

@@ -6,7 +6,8 @@
   <%= f.simple_fields_for :job do |job_form| %>
     <%= job_form.input :status, :as => :hidden, :input_html => { :value => "waiting" } %>
     <%= job_form.input :user_id, :as => :hidden, :input_html => { :value => current_user.id} %>
-    <%= job_form.input :arguments, placeholder: 'Command line arguments' %>
+    <%# instead of Command line arguments here, we need the automatic read in of the form from the model -%>
+    <%#= job_form.input :arguments, placeholder: 'Command line arguments' %>
   <% end %>
   <%= f.button :submit, class: "btn btn-primary" %>
 <% end %>
