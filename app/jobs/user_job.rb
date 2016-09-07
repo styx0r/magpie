@@ -8,6 +8,7 @@ class UserJob < ActiveJob::Base
   end
 
   def perform(*args)
+    @config_params = self.arguments[1]
     @job = self.arguments.first
     @project = @job.project
     user = @job.user
@@ -21,7 +22,10 @@ class UserJob < ActiveJob::Base
 
     create_tmpdir_with_symlinks
 
+    create_configs
+
     process = execute_script
+
     @return_val = process.exitstatus
 
     @job.output = {stdout: @stdout, stderr: @stderr}
@@ -83,7 +87,7 @@ class UserJob < ActiveJob::Base
     ### Go to the temporary working directory and execute the script
     #TODO for mf script, not the entire stdout and stderr is retrieved
     Dir.chdir(@userdir) do
-      Open3.popen3(@symlinkmodel, @job.arguments) do |stdin, stdout, stderr, thread|
+      Open3.popen3(@symlinkmodel) do |stdin, stdout, stderr, thread|
         stdin.close  # make sure the subprocess is done
         @stdout = stdout.gets
         @stderr = stderr.gets
@@ -92,12 +96,40 @@ class UserJob < ActiveJob::Base
     end
   end
 
+  def create_configs
+    p "orig dir: #{@originaldir}"
+    p "model dir: #{@userdir}"
+
+    # get config files
+    configfiles = Dir.glob(@originaldir + "/*.config")
+
+    for configfile in configfiles
+      require("csv")
+      file_string = CSV.read(configfile)
+      config_name = configfile.split("/").last
+      config_path = @userdir+"/"+config_name
+      config_file = File.open(config_path, "w")
+      for line in file_string
+        if line.first[0] == "#"
+          config_file.puts line.first
+        else
+        end
+      end
+      config_file.close
+    end
+
+  end
+
   def create_tmpdir_with_symlinks
     ### Create a tmp user dir and symlinks for model files
     FileUtils.mkdir_p(@userdir) unless File.directory?(@userdir)
 
+    # link all files but config
     modelfiles = Dir.glob(@originaldir + "/*")
     modelfiles.each do |modelfile|
+      if modelfile.split(".").last == "config"
+        next
+      end
       symlink = @userdir.to_s + '/' + File.basename(modelfile)
       `ln -sf #{modelfile} #{symlink}`
     end

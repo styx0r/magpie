@@ -58,7 +58,8 @@ Rails.application.routes.draw do
   get 'microposts_feed' => 'dashboard#microposts_feed'
   get 'jobs_status' => 'jobs#status'
   get 'job_running' => 'jobs#running'
-  get 'project_selectedmodel' => 'projects#selectedmodel'
+  get 'project_modeldescription' => 'projects#modeldescription'
+  get 'project_modelconfig' => 'projects#modelconfig'
 
   resources :users do
     member do

@@ -1,13 +1,27 @@
 <%= simple_form_for @project, :html => { :class => 'form-horizontal' },
   wrapper: :horizontal_form do |f| %>
-  <%= f.input :model_id, collection: Model.all, required: true %>
-  <%= f.input :name, placeholder: 'Give your project a name', required: true %>
+  <div class = "col-md-12">
+    <div class = "col-md-6">
+      <%= f.input :model_id, collection: Model.all, required: true %>
+      <%= f.input :name, placeholder: 'Give your project a name', required: true %>
 
-  <%= f.simple_fields_for :job do |job_form| %>
-    <%= job_form.input :status, :as => :hidden, :input_html => { :value => "waiting" } %>
-    <%= job_form.input :user_id, :as => :hidden, :input_html => { :value => current_user.id} %>
-    <%# instead of Command line arguments here, we need the automatic read in of the form from the model -%>
-    <%#= job_form.input :arguments, placeholder: 'Command line arguments' %>
-  <% end %>
+      <%= f.simple_fields_for :job do |job_form| %>
+        <%= job_form.input :status, :as => :hidden, :input_html => { :value => "waiting" } %>
+        <%= job_form.input :user_id, :as => :hidden, :input_html => { :value => current_user.id} %>
+        <%# instead of Command line arguments here, we need the automatic read in of the form from the model -%>
+        <%#= job_form.input :arguments, placeholder: 'Command line arguments' %>
+      <% end %>
+    </div>
+    <div class = "col-md-6">
+      <section class = "model_info">
+        <b>Model Information</b><br>
+        <div id = "model_info_sync">
+          Select a model to see model information!
+        </div>
+      </section>
+    </div>
+  </div>
+  <div id = "project_modelconfig">
+  </div>
   <%= f.button :submit, class: "btn btn-primary" %>
 <% end %>

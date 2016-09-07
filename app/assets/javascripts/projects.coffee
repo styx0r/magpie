@@ -7,11 +7,21 @@ selectModel = ->
     $.ajax
       # url has to be modified, in order to update the right job according to the id
       async: true
-      url: "/project_selectedmodel?model_name="+model_name
+      url: "/project_modeldescription?model_name="+model_name
       cache: true
       success: (html) ->
         #console.log html
         document.getElementById('model_info_sync').innerHTML = html
+
+  if document.getElementById 'project_modelconfig'
+    model_name = $('#project_model_id').find(":selected").text()
+    $.ajax
+      async: true
+      url: "/project_modelconfig?model_name="+model_name
+      cache: true
+      success: (html) ->
+        #console.log html
+        document.getElementById('project_modelconfig').innerHTML = html
 
 ready = -> if document.getElementById 'project_model_id'
   document.getElementById('project_model_id').onchange = selectModel

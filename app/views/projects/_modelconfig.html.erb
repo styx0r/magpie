@@ -1,0 +1,69 @@
+<% if model_description == "nil" %>
+<% else %>
+  <%
+    @config_paths = Dir[model_selected.path+"/*.config"]
+    for @path in @config_paths
+  %>
+      <div class = "col-md-12">
+        <div class = "panel-info">
+          <div class = "panel-heading">
+            <center><%= @path.split("/").last %></center>
+          </div>
+          <div class = "panel-body">
+            <%
+              require("csv")
+              @file_string = CSV.read(@path)
+
+              @comment = ""
+              @param_name = ""
+              @param_type = ""
+              @param_representation = ""
+              @param_default = ""
+              @param_min = ""
+              @param_max = ""
+
+              %>
+              <%= simple_form_for :default, :html => { :class => 'form-horizontal' },
+              wrapper: :horizontal_form do |f| %>
+              <%
+              for @line in @file_string
+                if @line.first[0] == "#"
+                  @comment = @line.first
+                else
+                  @line = @line.first.gsub(/\s+/m, ' ').strip.split(" ")
+                  @param_name = @line[0]
+                  @param_type = @line[1]
+                  @param_representation = @line[2]
+                  @param_default = @line[3]
+                  if(@param_representation == "slider")
+                    @param_min = @line[4]
+                    @param_max = @line[5]
+                  end
+                end
+            %>
+
+            <% if @param_name != "" %>
+              <% if @param_type == "numeric" %>
+                <% if @param_representation == "slider" %>
+                  <div class = "col-md-12">
+                      <%= f.input "#{@path.split("/").last}_#{@param_name}".to_sym, label: @param_name, placeholder: @param_default, required: true, as: :string %>
+                  </div>
+                <% end #if defined as numeric %>
+              <% end #if defined as slider %>
+              <%
+              @comment = ""
+              @param_name = ""
+              @param_type = ""
+              @param_representation = ""
+              @param_default = ""
+              @param_min = ""
+              @param_max = ""
+              %>
+            <% end #if @param_name is not empty %>
+          <% end #line loop %>
+          <% end #simple form %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+<% end %>

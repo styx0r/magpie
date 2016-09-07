@@ -29,14 +29,27 @@ class ProjectsController < ApplicationController
   def edit
   end
 
-  def selectedmodel
+  def modeldescription
     model_selected = Model.find_by name: params[:model_name]
     if model_selected == NIL
       model_description = "nil"
     else
       model_description = model_selected.description
     end
-    render :layout => false, partial: 'projects/selectedmodel', locals: {:model_description => model_description}
+    render :layout => false, partial: 'projects/modeldescription',
+    locals: {:model_description => model_description}
+  end
+
+  def modelconfig
+    model_selected = Model.find_by name: params[:model_name]
+    if model_selected == NIL
+      model_description = "nil"
+    else
+      model_description = model_selected.description
+    end
+    render :layout => false, partial: 'projects/modelconfig',
+      locals: { :model_description => model_description,
+                :model_selected => model_selected}
   end
 
   # POST /projects
@@ -47,7 +60,7 @@ class ProjectsController < ApplicationController
     @project = @user.projects.create(project_params)
     # Then, start the job
     job = Job.create(job_params[:job].merge(:project_id => @project.id))
-    @user_job = UserJob.perform_later(job)
+    @user_job = UserJob.perform_later(job, params[:default])
 
     respond_to do |format|
       if @project.save
