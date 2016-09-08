@@ -114,7 +114,9 @@ class UserJob < ActiveJob::Base
       config_path = @userdir+"/"+config_name
       config_file = File.open(config_path, "w")
       for line in file_string
-        if line.first[0] == "#"
+        if line.empty?
+          next
+        elsif line.first[0] == "#" || line.first[0] == " " || line.first[0] == "/"
           config_file.puts line.first
         else
           line = line.first.gsub(/\s+/m, ' ').strip.split(" ")

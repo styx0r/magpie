@@ -1,36 +1,40 @@
 <%
 for @line in @file_string
-  if @line.first[0] == "#"
+  if @line.empty?
+    next
+  elsif @line.first[0] == "#" || @line.first[0] == " " || @line.first[0] == "/"
     @comment = @line.first
   else
     @line = @line.first.gsub(/\s+/m, ' ').strip.split(" ")
     @param_name = @line[0]
-    @param_type = @line[2]
-    @param_default = @line[1]
-    if(@param_type == "range")
-      @param_min = @line[3]
-      @param_max = @line[4]
-    end
+    @param_type = @line[1]
   end
 %>
 
 <% if @param_name != "" %>
 <% if @param_type == "range" %>
-  <div class = "col-md-12">
-  </div>
 <% end #if defined as numeric %>
-<% if @param_type == "integer" %>
-  <div class = "col-md-6">
-      <%= f.input "#{@path.split("/").last}_#{@param_name}".to_sym, label: @param_name,
-                placeholder: @param_default, required: true, as: :integer ,
-                :input_html => { :value => @param_default, title: @comment },
-                wrapper_html: { title: @comment } %>
-  </div>
+<div class = "col-md-6">
+<% if @param_type == "integer" || @param_type == "double" || @param_type == "float" %>
+  <% @param_default = @line[2] %>
+  <%= f.input "#{@path.split("/").last}_#{@param_name}".to_sym,
+            label: "",
+            required: true,
+            as: :numeric ,
+            :input_html => { :value => @param_default },
+            wrapper_html: { title: @comment },
+            hint: @param_name %>
+<% elsif @param_type == "string" %>
+  <% @param_default = @line[2] %>
+  <%= f.input "#{@path.split("/").last}_#{@param_name}".to_sym,
+            label: "",
+            required: true,
+            as: :string ,
+            :input_html => { :value => @param_default },
+            wrapper_html: { title: @comment },
+            hint: @param_name %>
 <% end #if defined as numeric %>
-<% if @param_type == "float" %>
-  <div class = "col-md-6">
   </div>
-<% end #if defined as numeric %>
 <%
 @comment = ""
 @param_name = ""

@@ -1,7 +1,9 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "MF-Project", root_path, id: "logo" %>
     <nav>
+      <ul class="nav navbar-nav navbar-left">
+        <li><%= link_to "magpie", root_path, id: "logo" %></li>
+      </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home", root_path %></li>
         <% if logged_in? %>

@@ -4,11 +4,11 @@
 <footer class="footer">
   <nav class='navbar-left'>
     <ul>
-      <li><%= link_to image_tag("logo_carus.png", alt: "UK Carl Gustav Carus Dresden", :height => 30),
+      <li><%= link_to image_tag("logo_carus.png", alt: "UK Carl Gustav Carus Dresden", :height => 20),
           'http://uniklinikum-dresden.de', :target => "_blank" %></li>
-      <li><%= link_to image_tag("logo_TUD.png", alt: "TU Dresden", :height => 30),
+      <li><%= link_to image_tag("logo_TUD.png", alt: "TU Dresden", :height => 20),
           'http://tu-dresden.de', :target => "_blank" %></li>
-      <li><%= link_to image_tag("logo_biotec.jpg", alt: "Bioinnovationszentrum", :height => 30),
+      <li><%= link_to image_tag("logo_biotec.jpg", alt: "Bioinnovationszentrum", :height => 20),
               'http://biotec.tu-dresden.de', :target => "_blank" %></li>
     </ul>
   </nav>
@@ -21,6 +21,8 @@
 
   <nav class='navbar-right'>
     <ul>
+      <li><%= link_to image_tag("magpie_logo.svg", alt: "Magpie", :height => 20),
+              'https://magpie.imb.medizin.tu-dresden.de', :target => "_blank" %></li>
       <li><%= link_to "Help", help_path %></li>
       <li><%= link_to "About", about_path %></li>
     </ul>
