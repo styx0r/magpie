@@ -22,7 +22,9 @@ class UserJob < ActiveJob::Base
 
     create_tmpdir_with_symlinks
 
-    create_configs
+    if !@config_params.nil?
+      create_configs
+    end
 
     process = execute_script
 
@@ -103,6 +105,8 @@ class UserJob < ActiveJob::Base
     # get config files
     configfiles = Dir.glob(@originaldir + "/*.config")
 
+    keys = @config_params.keys
+
     for configfile in configfiles
       require("csv")
       file_string = CSV.read(configfile)
@@ -113,6 +117,8 @@ class UserJob < ActiveJob::Base
         if line.first[0] == "#"
           config_file.puts line.first
         else
+          line = line.first.gsub(/\s+/m, ' ').strip.split(" ")
+          config_file.puts line[0] + " " + @config_params[config_name+"_"+line[0]]
         end
       end
       config_file.close

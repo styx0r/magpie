@@ -1,0 +1,44 @@
+<%
+for @line in @file_string
+  if @line.first[0] == "#"
+    @comment = @line.first
+  else
+    @line = @line.first.gsub(/\s+/m, ' ').strip.split(" ")
+    @param_name = @line[0]
+    @param_type = @line[2]
+    @param_default = @line[1]
+    if(@param_type == "range")
+      @param_min = @line[3]
+      @param_max = @line[4]
+    end
+  end
+%>
+
+<% if @param_name != "" %>
+<% if @param_type == "range" %>
+  <div class = "col-md-12">
+  </div>
+<% end #if defined as numeric %>
+<% if @param_type == "integer" %>
+  <div class = "col-md-6">
+      <%= f.input "#{@path.split("/").last}_#{@param_name}".to_sym, label: @param_name,
+                placeholder: @param_default, required: true, as: :integer ,
+                :input_html => { :value => @param_default, title: @comment },
+                wrapper_html: { title: @comment } %>
+  </div>
+<% end #if defined as numeric %>
+<% if @param_type == "float" %>
+  <div class = "col-md-6">
+  </div>
+<% end #if defined as numeric %>
+<%
+@comment = ""
+@param_name = ""
+@param_type = ""
+@param_representation = ""
+@param_default = ""
+@param_min = ""
+@param_max = ""
+%>
+<% end #if @param_name is not empty %>
+<% end #line loop %>

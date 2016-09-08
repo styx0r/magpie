@@ -33,7 +33,7 @@ class JobsController < ApplicationController
     @job = Job.new(job_params)
 
     # Also, start a delayed job
-    @user_job = UserJob.perform_later(@job)
+    @user_job = UserJob.perform_later(@job, params[:job][:config])
 
 
     respond_to do |format|

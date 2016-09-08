@@ -49,7 +49,8 @@ class ProjectsController < ApplicationController
     end
     render :layout => false, partial: 'projects/modelconfig',
       locals: { :model_description => model_description,
-                :model_selected => model_selected}
+                :model_selected => model_selected,
+                :f => nil }
   end
 
   # POST /projects
@@ -60,7 +61,7 @@ class ProjectsController < ApplicationController
     @project = @user.projects.create(project_params)
     # Then, start the job
     job = Job.create(job_params[:job].merge(:project_id => @project.id))
-    @user_job = UserJob.perform_later(job, params[:default])
+    @user_job = UserJob.perform_later(job, params[:config])
 
     respond_to do |format|
       if @project.save

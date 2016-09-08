@@ -1,2 +1,2 @@
-./mf -i input.txt -s sequence.txt
+./mf -i input.config -s sequence.config
 Rscript gridVisualization.R
