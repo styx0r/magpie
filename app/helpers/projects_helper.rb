@@ -16,8 +16,7 @@ module ProjectsHelper
     end
   end
 
-  def numResultfiles jid
-    job = @project.jobs.find_by(id: jid)
+  def numResultfiles job
     job.resultfiles.size
   end
 
