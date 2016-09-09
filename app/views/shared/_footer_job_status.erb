@@ -1,5 +1,8 @@
 <ul>
-  <li>Queued: <%= count_jobs_user("waiting")%> (All: <%= count_jobs("waiting") %>) |</li>
+  <li><%= image_tag("queue_single.svg", alt: "Magpie", :height => 15)%>
+    <%= count_jobs_user("waiting")%>  |</li>
+  <li><%= image_tag("queue_all.svg", alt: "Magpie", :height => 15)%>
+    <%= count_jobs("waiting") %> |</li>
   <li><font color = "orange">&#149;</font> <%= count_jobs_user("running") %>  |</li>
   <li><font color = "green">&#149;</font> <%= count_jobs_user("finished") %>  |</li>
   <li><font color = "red">&#149;</font> <%= count_jobs_user("failed") %> </li>
