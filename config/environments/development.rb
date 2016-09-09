@@ -2,8 +2,8 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   #Server Settings
-  #config.force_ssl = true
-  #config.web_console.whitelisted_ips = %w( 192.168.11.8 141.76.249.180 )
+  config.force_ssl = true
+  config.web_console.whitelisted_ips = %w( 192.168.11.8 141.76.249.180 )
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
