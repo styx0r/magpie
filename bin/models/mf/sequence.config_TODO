@@ -1,7 +1,0 @@
-initSubstrateUniform
-update 2
-#initSwarmUniform 50 random
-initSwarmUniform 300 random
-#initSwarmPosition 0 0 300 8
-#initSwarmPosition 0 1 300 1
-update 3000

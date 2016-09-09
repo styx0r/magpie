@@ -120,6 +120,10 @@ class UserJob < ActiveJob::Base
           config_file.puts line.first
         else
           line = line.first.gsub(/\s+/m, ' ').strip.split(" ")
+          if line.length == 1
+            config_file.puts line
+            next
+          end
           config_file.puts line[0] + " " + @config_params[config_name+"_"+line[0]]
         end
       end

@@ -10,35 +10,57 @@
     </div>
   </div>
   <% else %>
-  <%  for @path in @config_paths %>
-      <div class = "col-md-12">
-        <div class = "panel-info">
-          <div class = "panel-heading">
-            <center><%= @path.split("/").last %></center>
-          </div>
-          <div class = "panel-body">
-            <%
-              require("csv")
-              @file_string = CSV.read(@path)
+    <% if f == nil %>
+    <%= simple_form_for :config, :html => { :class => 'form-horizontal' },
+              wrapper: :horizontal_form do |f| %>
+    <%  for @path in @config_paths %>
+        <div class = "col-md-12">
+          <div class = "panel-info">
+            <div class = "panel-heading">
+              <center><%= @path.split("/").last %></center>
+            </div>
+            <div class = "panel-body">
+              <%
+                require("csv")
+                @file_string = CSV.read(@path)
 
-              @comment = ""
-              @param_name = ""
-              @param_type = ""
-              @param_representation = ""
-              @param_default = ""
-              @param_min = ""
-              @param_max = ""
+                @comment = ""
+                @param_name = ""
+                @param_type = ""
+                @param_representation = ""
+                @param_default = ""
+                @param_min = ""
+                @param_max = ""
 
-              %>
-          <% if f == nil %>
-          <%= simple_form_for :config, :html => { :class => 'form-horizontal' },
-                    wrapper: :horizontal_form do |f| %>
+                %>
+
                 <%= render :layout => false, partial: 'projects/configinputgenerator',
                       locals: { :model_description => model_description,
                                 :model_selected => model_selected,
                                 :f => f} %>
           <% end #simple form %>
+          <% end %>
           <% else %>
+          <%  for @path in @config_paths %>
+              <div class = "col-md-12">
+                <div class = "panel-info">
+                  <div class = "panel-heading">
+                    <center><%= @path.split("/").last %></center>
+                  </div>
+                  <div class = "panel-body">
+                    <%
+                      require("csv")
+                      @file_string = CSV.read(@path)
+
+                      @comment = ""
+                      @param_name = ""
+                      @param_type = ""
+                      @param_representation = ""
+                      @param_default = ""
+                      @param_min = ""
+                      @param_max = ""
+
+                      %>
           <%= f.simple_fields_for :config, :html => { :class => 'form-horizontal' },
                     wrapper: :horizontal_form do |job_form| %>
             <%= render :layout => false, partial: 'projects/configinputgenerator',
@@ -46,7 +68,7 @@
                             :model_selected => model_selected,
                             :f => job_form} %>
           <% end %>
-          <% end %>
+          <%end%>
           </div>
         </div>
       </div>

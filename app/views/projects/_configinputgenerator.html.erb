@@ -6,6 +6,9 @@ for @line in @file_string
     @comment = @line.first
   else
     @line = @line.first.gsub(/\s+/m, ' ').strip.split(" ")
+    if @line.length == 1
+      next
+    end
     @param_name = @line[0]
     @param_type = @line[1]
   end
@@ -25,7 +28,7 @@ for @line in @file_string
             wrapper_html: { title: @comment },
             hint: @param_name %>
 <% elsif @param_type == "string" %>
-  <% @param_default = @line[2] %>
+  <% @param_default = @line[2..@line.length].join(" ") %>
   <%= f.input "#{@path.split("/").last}_#{@param_name}".to_sym,
             label: "",
             required: true,
