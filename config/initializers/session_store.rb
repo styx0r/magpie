@@ -1,3 +1,3 @@
 # Be sure to restart your server when you modify this file.
 
-Rails.application.config.session_store :cookie_store, key: '_mfRails_session'
+Rails.application.config.session_store :cookie_store, key: '_mf_rails_session'
