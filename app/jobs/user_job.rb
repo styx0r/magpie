@@ -1,4 +1,5 @@
-class UserJob < ActiveJob::Base
+class UserJob < ApplicationJob
+#class UserJob < ActiveJob::Base
   queue_as :userjobs
 
   rescue_from(StandardError) do |ex|
@@ -60,12 +61,10 @@ class UserJob < ActiveJob::Base
     @job = self.arguments.first
     @job.update(status: "waiting")
     block.call
-    #@job.update(status: "running")
     puts "[Job: #{self.job_id}] After enqueing ..."
   end
 
   def zip_result_files
-    #TODO Into model
     ## Now, create a zipped archive of all resultfiles, if there are any
     require 'zip'
     zipfile_name = "#{@userdir}/all-resultfiles-#{@project.name}-#{@job.id.to_s}.zip"

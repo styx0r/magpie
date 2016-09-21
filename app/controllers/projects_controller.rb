@@ -61,7 +61,7 @@ class ProjectsController < ApplicationController
     @project = @user.projects.create(project_params)
     # Then, start the job
     job = Job.create(job_params[:job].merge(:project_id => @project.id))
-    @user_job = UserJob.perform_later(job, params[:config])
+    @user_job = UserJob.perform_later(job, config_params)
 
     respond_to do |format|
       if @project.save
@@ -123,4 +123,15 @@ class ProjectsController < ApplicationController
     def job_params
       params.require(:project).permit(:job => [:status , :user_id, :arguments])
     end
+
+    def config_params
+      # Config parameter set
+      if params[:config].present?
+        cf = params.require(:config).permit!.to_h
+      else
+        p "Empty parameter set"
+        {:config => {}}
+      end
+    end
+
 end

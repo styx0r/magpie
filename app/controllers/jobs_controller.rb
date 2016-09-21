@@ -33,7 +33,7 @@ class JobsController < ApplicationController
     @job = Job.new(job_params)
 
     # Also, start a delayed job
-    @user_job = UserJob.perform_later(@job, params[:job][:config])
+    @user_job = UserJob.perform_later(@job, config_params)
 
 
     respond_to do |format|
@@ -98,6 +98,11 @@ class JobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_params
-      params.require(:job).permit(:status, :user_id, :project_id, :arguments)
+      params.require(:job).permit(:status, :user_id, :project_id, :arguments, :config)
+    end
+
+    def config_params
+      # Config parameter set
+      params[:job].require(:config).permit!.to_h
     end
 end
