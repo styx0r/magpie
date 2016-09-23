@@ -4,6 +4,14 @@
 web: bundle exec rails server
 
 #Start worker pools for development
-user: QUEUE=userjobs bundle exec rake jobs:work
-other: QUEUE=default bundle exec rake jobs:work
-mailer: QUEUE=mailer bundle exec rake jobs:work
+#delayed_job
+#user: QUEUE=userjobs bundle exec rake jobs:work
+#other: QUEUE=default bundle exec rake jobs:work
+#mailer: QUEUE=mailer bundle exec rake jobs:work
+#redis: redis-server
+
+#sidekiq
+user: bundle exec sidekiq -q userjobs -C config/sidekiq.yml
+other: bundle exec sidekiq -q default
+mailer: bundle exec sidekiq -q mailer
+redis: redis-server

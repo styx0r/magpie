@@ -37,6 +37,9 @@ gem 'bootstrap-will_paginate', '~> 0.0.10'
 # Use ActiveJob system with DelayedJob as backend
 gem 'delayed_job'
 gem 'delayed_job_active_record'
+
+gem 'sidekiq'
+
 gem 'daemons'
 
 gem 'foreman'

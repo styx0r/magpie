@@ -20,12 +20,13 @@ module MfRails
     #config.active_record.raise_in_transactional_callbacks = true
 
     # Register backend for ActiveJob
-    config.active_job.queue_adapter = :async
+    config.active_job.queue_adapter = :sidekiq
+    #config.active_job.queue_adapter = :delayed_job
 
-    config.active_job.queue_adapter = ActiveJob::QueueAdapters::AsyncAdapter.new \
-      min_threads: 1,
-      max_threads: 2 * Concurrent.processor_count,
-      idletime: 600.seconds
+    #config.active_job.queue_adapter = ActiveJob::QueueAdapters::AsyncAdapter.new \
+    #  min_threads: 1,
+    #  max_threads: 2 * Concurrent.processor_count,
+    #  idletime: 600.seconds
 
     # Include the authenticity token in remote forms.
     config.action_view.embed_authenticity_token_in_remote_forms = true
