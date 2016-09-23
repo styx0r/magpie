@@ -24,5 +24,5 @@ ready = ->
           return
         ), 5000; # interval
 # ready is called when page load is finished and on page load / change
-$(document).ready(ready)
-$(document).on('page:load', ready)
+#$(document).ready(ready)
+#$(document).on('page:load', ready)

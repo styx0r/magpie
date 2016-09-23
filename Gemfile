@@ -71,6 +71,8 @@ group :development do
   gem 'spring'
 end
 
-group :production do
-  gem 'puma', '3.1.0'
-end
+#group :production do
+gem 'puma', '3.1.0'
+#end
+
+gem 'redis', '~> 3.0'

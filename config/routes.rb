@@ -75,6 +75,10 @@ Rails.application.routes.draw do
 
   get 'images/jobs/:id/files/:fileid', to: 'jobs#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
 
+
+  # with this action cable runs within the same server process when we run rails server
+  mount ActionCable.server => '/cable'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

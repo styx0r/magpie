@@ -26,5 +26,5 @@ selectModel = ->
 ready = -> if document.getElementById 'project_model_id'
   document.getElementById('project_model_id').onchange = selectModel
 
-$(document).ready(ready)
-$(document).on('page:load', ready)
+#$(document).ready(ready)
+#$(document).on('page:load', ready)

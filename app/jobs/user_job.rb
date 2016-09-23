@@ -45,6 +45,7 @@ class UserJob < ApplicationJob
   around_perform do |job, block|
     @job = self.arguments.first
     @job.update(status: "running")
+    notify
     puts "[Job: #{self.job_id}] Before performing ..."
     block.call
     if @return_val != 0
@@ -54,14 +55,17 @@ class UserJob < ApplicationJob
       puts "[Job: #{self.job_id}] I successfully finished my job."
       @job.update(status: "finished")
     end
+    notify
   end
 
   around_enqueue do |job, block|
     puts "[Job: #{self.job_id}] Before enqueing ... "
     @job = self.arguments.first
     @job.update(status: "waiting")
+    notify
     block.call
     puts "[Job: #{self.job_id}] After enqueing ..."
+    notify
   end
 
   def zip_result_files
@@ -146,6 +150,16 @@ class UserJob < ApplicationJob
     end
   end
 
-
+  protected
+    def notify
+      ActionCable.server.broadcast("job_queue_infos",
+        all_queue: Job.where(:status => "waiting").count)
+      # Announcing changes in the job status
+      ActionCable.server.broadcast("job_queue_infos_#{@job.user_id}",
+        me_queue: Job.where(:user_id => @job.user_id, :status => "waiting").count,
+        me_running: Job.where(:user_id => @job.user_id, :status => "running").count,
+        me_finished: Job.where(:user_id => @job.user_id, :status => "finished").count,
+        me_failed: Job.where(:user_id => @job.user_id, :status => "failed").count)
+    end
 
 end

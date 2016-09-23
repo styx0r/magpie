@@ -25,5 +25,5 @@ ready = ->
           document.getElementById("job_id "+this.local_id).innerHTML = html
       i++
     setTimeout(ready, 5000)
-$(document).ready(ready)
-$(document).on('page:load', ready)
+#$(document).ready(ready)
+#$(document).on('page:load', ready)
