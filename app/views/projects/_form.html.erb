@@ -4,12 +4,11 @@
     <div class = "col-md-6">
       <%= f.input :model_id, collection: Model.all, required: true %>
       <%= f.input :name, placeholder: 'Give your project a name', required: true %>
+      <%= f.input :public, as: :boolean, checked_value: false, unchecked_value: true %>
 
       <%= f.simple_fields_for :job do |job_form| %>
         <%= job_form.input :status, :as => :hidden, :input_html => { :value => "waiting" } %>
         <%= job_form.input :user_id, :as => :hidden, :input_html => { :value => current_user.id} %>
-        <%# instead of Command line arguments here, we need the automatic read in of the form from the model -%>
-        <%#= job_form.input :arguments, placeholder: 'Command line arguments' %>
       <% end %>
     </div>
     <div class = "col-md-6">

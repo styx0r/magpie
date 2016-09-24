@@ -146,7 +146,7 @@ class UserJob < ApplicationJob
         next
       end
       symlink = @userdir.to_s + '/' + File.basename(modelfile)
-      `ln -sf #{modelfile} #{symlink}`
+      `ln -sf "#{modelfile}" "#{symlink}"`
     end
   end
 

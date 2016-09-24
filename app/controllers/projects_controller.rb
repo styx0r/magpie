@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :images]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :images, :toggle_public]
   before_action :correct_user, only: [:download]
   before_action :is_project_owner, only: [:destroy]
 
@@ -117,7 +117,7 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:job, :name, :model_id)
+      params.require(:project).permit(:job, :name, :model_id, :public)
     end
 
     def job_params

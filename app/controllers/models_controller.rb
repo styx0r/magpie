@@ -1,5 +1,6 @@
 class ModelsController < ApplicationController
   before_action :set_model, only: [:show, :edit, :update, :destroy]
+  before_action :admin_user, only: [:index, :new]
 
   # GET /models
   # GET /models.json
@@ -90,5 +91,10 @@ class ModelsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def model_params
       params.require(:model).permit(:name, :source, :mainscript, :description, :help)
+    end
+
+    #confirms an admin user
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
 end

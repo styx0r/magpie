@@ -29,6 +29,14 @@ User.create!( name:                   "Lars Thielecke",
               activated:              true,
               activated_at:           Time.zone.now)
 
+User.create!( name:                   "Non-Admin User",
+              email:                  "user@user.kp",
+              password:               "nonadmin.mypass?.7699_8",
+              password_confirmation:  "nonadmin.mypass?.7699_8",
+              admin:                  false,
+              activated:              true,
+              activated_at:           Time.zone.now)
+
 
 #User.create!(name:  "Example User",
 #             email: "example@railstutorial.org",

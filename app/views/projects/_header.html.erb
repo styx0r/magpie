@@ -15,5 +15,11 @@
       <strong>Model:</strong>
       <%= @project.model ? File.basename(@project.model.name) : 'Deleted model'%>
     </p>
+
+    <p>
+      <strong>Visibility:</strong>
+      <%= @project.public ? 'Public' : 'Private'%>
+    </p>
+
   </div>
 </div>

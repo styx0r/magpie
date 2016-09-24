@@ -103,6 +103,11 @@ class JobsController < ApplicationController
 
     def config_params
       # Config parameter set
-      params[:job].require(:config).permit!.to_h
+      if params[:job][:config].present?
+        params[:job].require(:config).permit!.to_h
+      else
+        p "Empty parameter set"
+        {:config => {}}
+      end
     end
 end
