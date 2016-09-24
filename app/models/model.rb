@@ -2,6 +2,17 @@ class Model < ActiveRecord::Base
   belongs_to :user
   mount_uploader :source, ModelUploader
 
+  def delete_files
+    # Delete files (before model is destroyed)
+    require 'fileutils'
+    FileUtils.remove_dir self.path, true
+  end
+
+  def passed_checks
+    #TODO Implement checks
+    true
+  end
+
   def get_main_script
     files = Dir.entries(self.path)
     shell_files = files.select do |file|

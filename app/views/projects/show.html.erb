@@ -4,4 +4,6 @@
   <%= render :layout => false, partial: 'projects/jobresult', locals: {:job => job} %>
   <% end %>
 </div>
+<% if @project.model %>
 <%= render :layout => false, partial: 'projects/newjobpanel' %>
+<% end %>

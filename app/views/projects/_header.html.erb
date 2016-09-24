@@ -13,7 +13,7 @@
 
     <p>
       <strong>Model:</strong>
-      <%= File.basename(@project.model.name) %>
+      <%= @project.model ? File.basename(@project.model.name) : 'Deleted model'%>
     </p>
   </div>
 </div>

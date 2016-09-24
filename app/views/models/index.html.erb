@@ -13,6 +13,7 @@
       <tr>
         <td><%= model.name %></td>
         <td><%= link_to 'More', model, :class => "btn btn-mini" %></td>
+        <td><%= link_to 'Destroy', model, method: :delete, data: { confirm: 'Are you sure? This will delete all associated model files.' } %></td>
       </tr>
     <% end %>
   </tbody>

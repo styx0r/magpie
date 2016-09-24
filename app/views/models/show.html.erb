@@ -3,14 +3,14 @@
 <div class="panel panel-info">
   <div class="panel-heading">Description</div>
   <div class="panel-body">
-    <%= @model.description %>
+    <%= markdown(@model.description) %>
   </div>
 </div>
 
 <div class="panel panel-info">
   <div class="panel-heading">Help</div>
   <div class="panel-body">
-    <%= @model.help %>
+    <%= markdown(@model.help) %>
   </div>
 </div>
 

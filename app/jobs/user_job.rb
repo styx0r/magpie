@@ -92,7 +92,7 @@ class UserJob < ApplicationJob
     ### Go to the temporary working directory and execute the script
     #TODO for mf script, not the entire stdout and stderr is retrieved
     Dir.chdir(@userdir) do
-      Open3.popen3(@symlinkmodel) do |stdin, stdout, stderr, thread|
+      Open3.popen3('sh ' + @symlinkmodel) do |stdin, stdout, stderr, thread|
         stdin.close  # make sure the subprocess is done
         @stdout = stdout.gets
         @stderr = stderr.gets

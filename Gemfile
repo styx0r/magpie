@@ -38,6 +38,9 @@ gem 'bootstrap-will_paginate', '~> 0.0.10'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 
+# Markdown support
+gem 'redcarpet'
+
 gem 'sidekiq'
 
 gem 'daemons'

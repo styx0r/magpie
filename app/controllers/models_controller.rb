@@ -24,15 +24,19 @@ class ModelsController < ApplicationController
   def register_model
     @model.user = current_user
     @model.path = "#{Rails.application.config.models_path}#{@model.name}"
-    @model.unzip_source
-    @model.read_content
-    respond_to do |format|
-      if @model.save
-        format.html { return render :show, notice: 'Model was successfully created.' }
-        format.json { render :show, status: :created, location: @model }
-      else
-        format.html { render :new }
-        format.json { render json: @model.errors, status: :unprocessable_entity }
+    if not @model.passed_checks
+      redirect_to :back, notice: 'Error: Model has not passed checks:' + @model.log
+    else
+      @model.unzip_source
+      @model.read_content
+      respond_to do |format|
+        if @model.save
+          format.html { return render :show, notice: 'Model was successfully created.' }
+          format.json { render :show, status: :created, location: @model }
+        else
+          format.html { render :new }
+          format.json { render json: @model.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -65,6 +69,7 @@ class ModelsController < ApplicationController
   # DELETE /models/1
   # DELETE /models/1.json
   def destroy
+    @model.delete_files
     @model.destroy
     respond_to do |format|
       format.html { redirect_to models_url, notice: 'Model was successfully destroyed.' }
@@ -84,6 +89,6 @@ class ModelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def model_params
-      params.require(:model).permit(:name, :source, :mainscript)
+      params.require(:model).permit(:name, :source, :mainscript, :description, :help)
     end
 end
