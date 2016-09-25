@@ -1,0 +1,29 @@
+	<style type="text/css">
+
+		svg.bar {
+			display: inline-block;
+			width: 20px;
+			height: 75px;	/* Gets overriden by D3-assigned height below */
+			margin-right: 2px;
+			background-color: teal;
+		}
+
+	</style>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript">
+					var dataset = [ 25, 7, 5, 26, 11, 8, 25, 14, 23, 19, 14, 11, 22, 29, 11, 13, 12, 17, 18, 10, 24, 18, 25, 9, 3 ];
+
+					var chart = d3.select('<%= job_id %>').select('<%= chart_id %>')
+			      .attr("width", 30)
+			      .attr("height", 5 * dataset.length);
+
+					chart.selectAll("svg")
+						.data(dataset)
+						.enter()
+						.append("svg")
+						.attr("class", "bar")
+						.style("height", function(d) {
+						var barHeight = d * 5;
+						return barHeight + "px";
+					});
+    </script>

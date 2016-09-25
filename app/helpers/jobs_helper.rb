@@ -31,6 +31,19 @@ module JobsHelper
     end
   end
 
+  def extract_data(f, plottype)
+    if plottype == 'barplot'
+      #TODO Not implemented yet. Parse file.
+      return []
+    end
+  end
+
+  def is_d3element(f, plottype)
+    #TODO For now, decide according to the filename
+    #TODO Later, we want to decide based on config file
+    File.extname(f) == ".#{plottype}"
+  end
+
   def is_text_file(f)
     supported_types = ['txt']
     supported_types.include? filetype(f)
