@@ -71,6 +71,7 @@ Model.create!(name:                  "Multiplexing Clonality",
               description:           "Analysing simultaneously barcoded and fluroscence marked cells.",
               help:                  "",
               version:               "da82a6d5f81xec6sf4433f00920t690a93763949",
+<<<<<<< HEAD
               user_id:               3)
 
 Model.create!(name:                  "D3 Simple Model",
@@ -79,4 +80,6 @@ Model.create!(name:                  "D3 Simple Model",
               description:           "Simple demo for D3 interactive visualization.",
               help:                  "",
               version:               "da82a6d5f81xec6sf4433f00920t690a93763949",
+=======
+>>>>>>> 49904b3bca35d98e3cbee71bedda30b6ef12f84d
               user_id:               3)
