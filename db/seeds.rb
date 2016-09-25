@@ -46,7 +46,7 @@ Model.create!(name:                  "Sleep Studies",
               description:           "Sleeps for a given amount of time.
                                      Time [s] can be set as an argument.",
               help:                  "",
-              version:               "ca82a6dff817ec66f44332009202690a93763949"
+              version:               "ca82a6dff817ec66f44332009202690a93763949",
               user_id:               2)
 
 Model.create!(name:                  "Failed!",
@@ -54,7 +54,7 @@ Model.create!(name:                  "Failed!",
               mainscript:            "faulty.sh",
               description:           "Runs a job with a syntax error in the bash script. Will fail 100%.",
               help:                  "",
-              version:               "da82a6d5f817ec66f44332009202690a93763949"
+              version:               "da82a6d5f817ec66f44332009202690a93763949",
               user_id:               2)
 
 Model.create!(name:                  "PFSPA",
@@ -62,7 +62,7 @@ Model.create!(name:                  "PFSPA",
               mainscript:            "run_mf.sh",
               description:           "Novel particle system combining reaction-diffusion with motion.",
               help:                  "",
-              version:               "da82a6d5f817ec6sf4433f009202690a93763949"
+              version:               "da82a6d5f817ec6sf4433f009202690a93763949",
               user_id:               1)
 
 Model.create!(name:                  "Multiplexing Clonality",
@@ -70,5 +70,5 @@ Model.create!(name:                  "Multiplexing Clonality",
               mainscript:            "MultiplexingClonality.sh",
               description:           "Analysing simultaneously barcoded and fluroscence marked cells.",
               help:                  "",
-              version:               "da82a6d5f81xec6sf4433f00920t690a93763949"
+              version:               "da82a6d5f81xec6sf4433f00920t690a93763949",
               user_id:               3)

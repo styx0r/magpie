@@ -24,3 +24,7 @@ user/*
 
 # Ignore uploaded pictures
 /public/uploads
+
+# Ignore the redis dump file
+dump.rdb
+
