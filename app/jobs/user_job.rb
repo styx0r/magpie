@@ -14,7 +14,7 @@ class UserJob < ApplicationJob
     @project = @job.project
     user = @job.user
     p "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
-    @userdir = File.dirname("#{Rails.application.config.user_output_path}#{user.id.to_s}/#{self.job_id}/.to_path")
+    @userdir = File.dirname("#{Rails.application.config.jobs_path}#{user.id.to_s}/#{self.job_id}/.to_path")
     @job.directory = @userdir.to_s
     mainscript = @job.project.model.mainscript
     @originaldir = @job.project.model.path

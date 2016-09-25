@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160924134149) do
+ActiveRecord::Schema.define(version: 20160925075321) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20160924134149) do
     t.text     "help"
     t.integer  "user_id"
     t.string   "source"
+    t.string   "version"
     t.index ["user_id"], name: "index_models_on_user_id"
   end
 

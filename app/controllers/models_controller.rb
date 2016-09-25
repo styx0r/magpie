@@ -30,6 +30,9 @@ class ModelsController < ApplicationController
     else
       @model.unzip_source
       @model.read_content
+      revnumber = @model.initialize_git
+      p "Created git repo. Latest commit with revision number: #{revnumber}"
+      @model.version = revnumber
       respond_to do |format|
         if @model.save
           format.html { return render :show, notice: 'Model was successfully created.' }
@@ -90,7 +93,7 @@ class ModelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def model_params
-      params.require(:model).permit(:name, :source, :mainscript, :description, :help)
+      params.require(:model).permit(:name, :source, :mainscript, :description, :help, :version)
     end
 
     #confirms an admin user

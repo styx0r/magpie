@@ -52,6 +52,8 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Set input and output folders for jobs / models / etc.
-  config.models_path = "#{Rails.root}/bin/models/" # Parent folder for storage of model scripts
-  config.user_output_path = "#{Rails.root}/user/" # Parent folder for job output
+  #config.models_path = "#{Rails.root}/bin/models/" # Parent folder for storage of model scripts
+  #config.user_output_path = "#{Rails.root}/user/" # Parent folder for job output
+  config.models_path = ENV['HOME']+"/.magpie/models/" # Parent folder for storage of model scripts
+  config.jobs_path = ENV['HOME']+"/.magpie/jobs/" # Parent folder for job output
 end

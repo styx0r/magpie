@@ -7,6 +7,12 @@
     </div>
     <div id="<%=dom_id(job)%>" class="panel-collapse collapse">
 
+      <div class="panel-body">
+        <b>Model version | </b>
+        <%= job.project.model.version %>
+      </div>
+
+
       <% if ['waiting', 'running'].include? job.status %>
       <div class="panel-body">
         Your job is still running. Please check again later.

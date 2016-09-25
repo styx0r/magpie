@@ -13,6 +13,14 @@ class Model < ActiveRecord::Base
     true
   end
 
+  def initialize_git
+    # Initialize git repository for model and saves revision number
+    system("cd #{self.path}; git init; git add -A; git commit -m 'Initial commit for model #{self.name}'")
+    stdout, stderr, status = Open3.capture3("cd #{self.path}; git rev-parse HEAD")
+    p "cd #{self.path}; git rev-parse HEAD"
+    return stdout.strip
+  end
+
   def get_main_script
     files = Dir.entries(self.path)
     shell_files = files.select do |file|

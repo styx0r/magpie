@@ -38,78 +38,37 @@ User.create!( name:                   "Non-Admin User",
               activated_at:           Time.zone.now)
 
 
-#User.create!(name:  "Example User",
-#             email: "example@railstutorial.org",
-#             password:              "foobar",
-#             password_confirmation: "foobar",
-#             admin: true,
-#             activated: true,
-#             activated_at: Time.zone.now)
+models_path_internal = "#{Rails.root}/bin/models/" # Parent folder for storage of model scripts (internal)
 
-#99.times do |n|
-#  name  = Faker::Name.name
-#  email = "example-#{n+1}@railstutorial.org"
-#  password = "password"
-#  User.create!(name:  name,
-#               email: email,
-#               password:              password,
-#               password_confirmation: password,
-#               activated: true,
-#               activated_at: Time.zone.now)
-#end
-
-#users = User.order(:created_at).take(6)
-#50.times do
-#  content = Faker::Lorem.sentence(5)
-#  users.each { |user| user.microposts.create!(content: content) }
-#end
-
-# User following relationships
-#users = User.all
-#user = users.first
-#following = users[2..50]
-#followers = users[3..40]
-#following.each { |followed| user.follow(followed) }
-#followers.each { |follower| follower.follow(user) }
-
-# Pre-defined models for testing
-#content = Faker::Lorem.sentence(5)
 Model.create!(name:                  "Sleep Studies",
-              path:                  "#{Rails.application.config.models_path}sleep",
+              path:                  "#{models_path_internal}sleep",
               mainscript:            "sleep.sh",
               description:           "Sleeps for a given amount of time.
                                      Time [s] can be set as an argument.",
               help:                  "",
+              version:               "ca82a6dff817ec66f44332009202690a93763949"
               user_id:               2)
 
 Model.create!(name:                  "Failed!",
-              path:                  "#{Rails.application.config.models_path}faulty",
+              path:                  "#{models_path_internal}faulty",
               mainscript:            "faulty.sh",
               description:           "Runs a job with a syntax error in the bash script. Will fail 100%.",
               help:                  "",
+              version:               "da82a6d5f817ec66f44332009202690a93763949"
               user_id:               2)
 
 Model.create!(name:                  "PFSPA",
-              path:                  "#{Rails.application.config.models_path}PFSPA",
+              path:                  "#{models_path_internal}PFSPA",
               mainscript:            "run_mf.sh",
               description:           "Novel particle system combining reaction-diffusion with motion.",
               help:                  "",
+              version:               "da82a6d5f817ec6sf4433f009202690a93763949"
               user_id:               1)
 
 Model.create!(name:                  "Multiplexing Clonality",
-              path:                  "#{Rails.application.config.models_path}MultiplexingClonality",
+              path:                  "#{models_path_internal}MultiplexingClonality",
               mainscript:            "MultiplexingClonality.sh",
               description:           "Analysing simultaneously barcoded and fluroscence marked cells.",
               help:                  "",
+              version:               "da82a6d5f81xec6sf4433f00920t690a93763949"
               user_id:               3)
-
-#models = Model.all
-# Sample public models for testing
-#5.times do
-#  name = Faker::Hacker.adjective + ' ' + Faker::Hacker.abbreviation + ' ' + Faker::Hacker.ingverb
-#  users.sample.projects.create!(name: name,
-#                                created_at: Faker::Time.between(DateTime.now - 10, DateTime.now),
-#                                updated_at: DateTime.now,
-#                                model_id: models.sample.id,
-#                                public: true)
-#end
