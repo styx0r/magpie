@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   resources :jobs do   # For file download (result files)
     get 'download', on: :member
+    get 'download_config', on: :member
   end
 
   get 'images/:id/files/:fileid', to: 'jobs#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }

@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :set_job, only: [:show, :edit, :update, :destroy, :download, :images]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :download, :download_config, :images]
 
   # GET /jobs
   # GET /jobs.json
@@ -75,6 +75,13 @@ class JobsController < ApplicationController
     # Initializes file download
     dir = @job.directory
     zipfile = "#{dir}/all-resultfiles-#{@job.project.name}-#{@job.id.to_s}.zip"
+    send_file zipfile, :type => 'application/zip', :disposition => 'attachment'
+  end
+
+  def download_config
+    # Initializes file download
+    dir = @job.directory
+    zipfile = "#{dir}/config-#{@job.project.name}-#{@job.id.to_s}.zip"
     send_file zipfile, :type => 'application/zip', :disposition => 'attachment'
   end
 

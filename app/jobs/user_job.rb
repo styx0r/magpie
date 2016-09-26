@@ -34,7 +34,7 @@ class UserJob < ApplicationJob
     @job.output = {stdout: @stdout, stderr: @stderr}
 
     files_after = Dir.glob(Rails.root.join(@userdir, '*'))
-    configfiles = Dir.glob(@originaldir + "/*.config")
+    @configfiles = Dir.glob(@originaldir + "/*.config")
     @job.resultfiles = files_after.reject{|fil| files_before.include? fil}
     @job.save
 
@@ -71,20 +71,24 @@ class UserJob < ApplicationJob
   def zip_result_files
     ## Now, create a zipped archive of all resultfiles, if there are any
     require 'zip'
-    zipfile_name = "#{@userdir}/all-resultfiles-#{@project.name}-#{@job.id.to_s}.zip"
-    p zipfile_name
-    Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+    zip_results = "#{@userdir}/all-resultfiles-#{@project.name}-#{@job.id.to_s}.zip"
+    zip_config = "#{@userdir}/config-#{@job.project.name}-#{@job.id.to_s}.zip"
+    Zip::File.open(zip_results, Zip::File::CREATE) do |zipfile|
       @job.resultfiles.each do |resultfile|
         zipfile.add(File.basename(resultfile), resultfile)
+      end
+    end
+    Zip::File.open(zip_config, Zip::File::CREATE) do |zipfile|
+      @configfiles.each do |configfile|
+        zipfile.add(File.basename(configfile), configfile)
       end
     end
   end
 
   def execute_script
     ### Go to the temporary working directory and execute the script
-    #TODO for mf script, not the entire stdout and stderr is retrieved
     Dir.chdir(@userdir) do
-      Open3.popen3('sh ' + @symlinkmodel) do |stdin, stdout, stderr, thread|
+      Open3.popen3("sh #{@userdir}/#{@job.project.model.mainscript}") do |stdin, stdout, stderr, thread|
         stdin.close  # make sure the subprocess is done
         @stdout = stdout.gets
         @stderr = stderr.gets
