@@ -44,7 +44,7 @@
             <% chart_id = "chart_#{i+1}" %>
             <div id="<%= chart_id %>"></div>
             <%= render :partial => "d3barplot", :locals => { :data => extract_data(element, 'barplot'), :job_id => "#job_#{job.id}", :chart_id => "##{chart_id}"} %>
-          <figcaption><%= "Txt #{i+1}. - #{File.basename(element)}" %></figcaption>
+          <figcaption><%= "Barplot #{i+1}. - #{File.basename(element)}" %></figcaption>
           <% elsif is_text_file(element)%>
           <pre>
             <%= render :plain => get_text_from_file(element)%>

@@ -31,11 +31,17 @@ module JobsHelper
     end
   end
 
-  def extract_data(f, plottype)
+  def extract_data(fil, plottype)
+    # Extract data from files with data for D3 plots
     if plottype == 'barplot'
-      #TODO Not implemented yet. Parse file.
-      return []
+      data = Array.new()
+      open(fil, "r") do |f|
+            f.each_line do |line|
+              data.push(line.strip.to_f)
+                      end
     end
+  end
+      return data
   end
 
   def is_d3element(f, plottype)

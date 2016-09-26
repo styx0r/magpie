@@ -11,10 +11,11 @@
 	</style>
     <script type="text/javascript">
 					var dataset = [ 25, 7, 5, 26, 11, 8, 25, 14, 23, 19, 14, 11, 22, 29, 11, 13, 12, 17, 18, 10, 24, 18, 25, 9, 3 ];
+					var dataset = <%= data%> ;
 
 					var chart = d3.select('<%= job_id %>').select('<%= chart_id %>')
-			      .attr("width", 30)
-			      .attr("height", 5 * dataset.length);
+			      .attr("width", 50)
+			      .attr("height", 10 * dataset.length);
 
 					chart.selectAll("svg")
 						.data(dataset)
