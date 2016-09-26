@@ -28,8 +28,8 @@ class ModelsController < ApplicationController
     if not @model.passed_checks
       redirect_to :back, notice: 'Error: Model has not passed checks:' + @model.log
     else
-      @model.unzip_source
-      @model.read_content
+      #@model.unzip_source
+      #@model.read_content
       revnumber = @model.initialize_git
       p "Created git repo. Latest commit with revision number: #{revnumber}"
       @model.version = revnumber

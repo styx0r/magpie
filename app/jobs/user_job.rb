@@ -19,23 +19,23 @@ class UserJob < ApplicationJob
     mainscript = @job.project.model.mainscript
     @originaldir = @job.project.model.path
     modelscript = "#{@originaldir}/#{mainscript}"
-    @symlinkmodel = @userdir.to_s + "/" + File.basename(modelscript)
 
-    create_tmpdir_with_symlinks
+    system("git clone #{@job.project.model.path} #{@userdir}")
+
+    files_before = Dir.glob(Rails.root.join(@userdir, '*'))
 
     if !@config_params.nil?
       create_configs
     end
 
     process = execute_script
-
     @return_val = process.exitstatus
 
     @job.output = {stdout: @stdout, stderr: @stderr}
 
-    delete_symlinks
-
-    @job.resultfiles = Dir.glob(Rails.root.join(@userdir, '*'))
+    files_after = Dir.glob(Rails.root.join(@userdir, '*'))
+    configfiles = Dir.glob(@originaldir + "/*.config")
+    @job.resultfiles = files_after.reject{|fil| files_before.include? fil}
     @job.save
 
     zip_result_files
@@ -72,19 +72,11 @@ class UserJob < ApplicationJob
     ## Now, create a zipped archive of all resultfiles, if there are any
     require 'zip'
     zipfile_name = "#{@userdir}/all-resultfiles-#{@project.name}-#{@job.id.to_s}.zip"
+    p zipfile_name
     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
       @job.resultfiles.each do |resultfile|
         zipfile.add(File.basename(resultfile), resultfile)
       end
-    end
-  end
-
-  def delete_symlinks
-    # Cleans up symlinks after processing a job
-    modelfiles = Dir.glob(@originaldir + "/*")
-    modelfiles.each do |modelfile|
-      symlink = @userdir.to_s + '/' + File.basename(modelfile)
-      File.delete(symlink)
     end
   end
 
@@ -133,21 +125,6 @@ class UserJob < ApplicationJob
       config_file.close
     end
 
-  end
-
-  def create_tmpdir_with_symlinks
-    ### Create a tmp user dir and symlinks for model files
-    FileUtils.mkdir_p(@userdir) unless File.directory?(@userdir)
-
-    # link all files but config
-    modelfiles = Dir.glob(@originaldir + "/*")
-    modelfiles.each do |modelfile|
-      if modelfile.split(".").last == "config"
-        next
-      end
-      symlink = @userdir.to_s + '/' + File.basename(modelfile)
-      `ln -sf "#{modelfile}" "#{symlink}"`
-    end
   end
 
   protected

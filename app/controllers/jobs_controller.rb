@@ -72,12 +72,10 @@ class JobsController < ApplicationController
   end
 
   def download
-    #TODO Handle case when there are no output files!
-    #TODO Save userdir as attribute in jobs!
+    # Initializes file download
     dir = @job.directory
-    #dir = File.dirname("#{Rails.root}/user/#{@job.user.id.to_s}/#{@job.id}/.to_path")
     zipfile = "#{dir}/all-resultfiles-#{@job.project.name}-#{@job.id.to_s}.zip"
-    send_file(zipfile)
+    send_file zipfile, :type => 'application/zip', :disposition => 'attachment'
   end
 
   def images
