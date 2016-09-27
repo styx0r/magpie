@@ -1,14 +1,9 @@
 <div class="panel panel-primary">
-  <div class="panel-heading">Project: <%= @project.name%></div>
+  <div class="panel-heading">Project | <%= @project.name%></div>
   <div class="panel-body">
     <p>
-      <strong>User:</strong>
+      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
       <%= @project.user.name %>
-    </p>
-
-    <p>
-      <strong>Name:</strong>
-      <%= @project.name %>
     </p>
 
     <p>
@@ -17,7 +12,7 @@
     </p>
 
     <p>
-      <strong>Visibility:</strong>
+      <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
       <%= @project.public ? 'Public' : 'Private'%>
     </p>
 

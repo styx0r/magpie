@@ -25,7 +25,11 @@
         <td><%= link_to project.name, user_project_path(current_user, project) , :class => "btn btn-mini"%></td>
         <td><%= project.model ? project.model.name : 'Deleted model' %></td>
         <td><%= project.jobs.length %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini btn-danger" %></td>
+        <td>
+        <%= link_to project, method: :delete, data: { confirm: 'Are you sure?' }, 'data-turbolinks' => false, class: "btn btn-danger btn-sm" do %>
+        <span class="glyphicon glyphicon-remove aria-hidden='false'"></span>
+        <span>Destroy</span><% end %>
+      </td>
       </tr>
     <% end %>
   </tbody>
