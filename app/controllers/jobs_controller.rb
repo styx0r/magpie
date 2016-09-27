@@ -75,14 +75,14 @@ class JobsController < ApplicationController
     # Initializes file download
     dir = @job.directory
     zipfile = "#{dir}/all-resultfiles-#{@job.project.name}-#{@job.id.to_s}.zip"
-    send_file zipfile, :type => 'application/zip', :disposition => 'attachment'
+    send_file zipfile, :type => 'application/zip', :disposition => 'attachment', :filename => "results_#{@job.project.name}_#{@job.id.to_s}.zip"
   end
 
   def download_config
     # Initializes file download
     dir = @job.directory
     zipfile = "#{dir}/config-#{@job.project.name}-#{@job.id.to_s}.zip"
-    send_file zipfile, :type => 'application/zip', :disposition => 'attachment'
+    send_file zipfile, :type => 'application/zip', :disposition => 'attachment', :filename => "config_#{@job.project.name}_#{@job.id.to_s}.zip"
   end
 
   def images
