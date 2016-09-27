@@ -62,10 +62,10 @@
       </div>
 
       <div class="panel-body">
-        <%= link_to download_job_path(job.id), class: "btn btn-default btn-sm" do %>
+        <%= link_to download_job_path(job.id), 'data-turbolinks' => false, class: "btn btn-default btn-sm" do %>
         <span class="glyphicon glyphicon-download aria-hidden='false'"></span>
         <span><%= pluralize(numResultfiles(job), 'Result File') %></span><% end %>
-        <%= link_to download_config_job_path(job.id), class: "btn btn-default btn-sm" do %>
+        <%= link_to download_config_job_path(job.id), 'data-turbolinks' => false, class: "btn btn-default btn-sm" do %>
         <span class="glyphicon glyphicon-download aria-hidden='false'"></span>
         <span> Config</span><% end %>
       </div>
