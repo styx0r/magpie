@@ -34,7 +34,7 @@ class UserJob < ApplicationJob
     @job.output = {stdout: @stdout, stderr: @stderr}
 
     files_after = Dir.glob(Rails.root.join(@userdir, '*'))
-    @configfiles = Dir.glob(@originaldir + "/*.config")
+    @configfiles = Dir.glob(@userdir + "/*.config")
     @job.resultfiles = files_after.reject{|fil| files_before.include? fil}
     @job.save
 
@@ -102,7 +102,7 @@ class UserJob < ApplicationJob
     p "model dir: #{@userdir}"
 
     # get config files
-    configfiles = Dir.glob(@originaldir + "/*.config")
+    configfiles = Dir.glob(@userdir + "/*.config")
 
     keys = @config_params.keys
 

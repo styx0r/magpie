@@ -38,48 +38,52 @@ User.create!( name:                   "Non-Admin User",
               activated_at:           Time.zone.now)
 
 
-models_path_internal = "#{Rails.root}/bin/models/" # Parent folder for storage of model scripts (internal)
-
-Model.create!(name:                  "Sleep Studies",
-              path:                  "#{models_path_internal}sleep",
-              mainscript:            "sleep.sh",
+@model1 = Model.create!(name:        "Sleep Studies",
+              path:                  "#{Rails.application.config.models_path}sleep",
               description:           "Sleeps for a given amount of time.
                                      Time [s] can be set as an argument.",
               help:                  "",
-              version:               "ca82a6dff817ec66f44332009202690a93763949",
+              source:                File.open("#{Rails.application.config.root}/test/zip/sleep.zip"),
               user_id:               2)
+@model1.initializer
+@model1.mainscript = "sleep.sh"
+@model1.save
 
-Model.create!(name:                  "Failed!",
-              path:                  "#{models_path_internal}faulty",
-              mainscript:            "faulty.sh",
+@model2 = Model.create!(name:        "Failed!",
+              path:                  "#{Rails.application.config.models_path}faulty",
               description:           "Runs a job with a syntax error in the bash script. Will fail 100%.",
               help:                  "",
-              version:               "da82a6d5f817ec66f44332009202690a93763949",
+              source:                File.open("#{Rails.application.config.root}/test/zip/failed.zip"),
               user_id:               2)
+@model2.initializer
+@model2.mainscript = "faulty.sh"
+@model2.save
 
-Model.create!(name:                  "PFSPA",
-              path:                  "#{models_path_internal}PFSPA",
-              mainscript:            "run_mf.sh",
+@model3 = Model.create!(name:        "PFSPA",
+              path:                  "#{Rails.application.config.models_path}PFSPA",
               description:           "Novel particle system combining reaction-diffusion with motion.",
               help:                  "",
-              version:               "da82a6d5f817ec6sf4433f009202690a93763949",
+              source:                File.open("#{Rails.application.config.root}/test/zip/pfspa.zip"),
               user_id:               1)
+@model3.initializer
+@model3.mainscript = "run_mf.sh"
+@model3.save
 
-Model.create!(name:                  "Multiplexing Clonality",
-              path:                  "#{models_path_internal}MultiplexingClonality",
-              mainscript:            "MultiplexingClonality.sh",
+@model4 = Model.create!(name:        "Multiplexing Clonality",
+              path:                  "#{Rails.application.config.models_path}MultiplexingClonality",
               description:           "Analysing simultaneously barcoded and fluroscence marked cells.",
               help:                  "",
-              version:               "da82a6d5f81xec6sf4433f00920t690a93763949",
-<<<<<<< HEAD
+              source:                File.open("#{Rails.application.config.root}/test/zip/multiplex.zip"),
               user_id:               3)
+@model4.initializer
+@model4.mainscript = "MultiplexingClonality.sh"
+@model4.save
 
-Model.create!(name:                  "D3 Simple Model",
-              path:                  "#{models_path_internal}d3simple",
-              mainscript:            "main.sh",
-              description:           "Simple demo for D3 interactive visualization.",
-              help:                  "",
-              version:               "da82a6d5f81xec6sf4433f00920t690a93763949",
-=======
->>>>>>> 49904b3bca35d98e3cbee71bedda30b6ef12f84d
-              user_id:               3)
+@model5 = Model.create!(name:         "D3 Simple Model",
+                        path:         "#{Rails.application.config.models_path}d3simple",
+                        description:  "__Simple__ demo for D3 interactive visualization.",
+                        help:         "Display random bar charts with MAGPIE",
+                        source:       File.open("#{Rails.application.config.root}/test/zip/d3simple.zip"),
+                        user_id:      2)
+@model5.initializer
+@model5.save

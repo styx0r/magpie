@@ -14,7 +14,7 @@ class Model < ActiveRecord::Base
     true
   end
 
-  def initialize_git
+  def initializer
     # Initialize git repository for model and saves revision number
     FileUtils.mkdir_p(self.path)
     require 'tmpdir'
@@ -26,7 +26,7 @@ class Model < ActiveRecord::Base
     system("cd #{self.tmp_path}; git add -A; git commit -m 'Initial commit for model #{self.name}'; git push origin master;")
     stdout, stderr, status = Open3.capture3("cd #{self.path}; git rev-parse HEAD")
     p "cd #{self.path}; git rev-parse HEAD"
-    return stdout.strip
+    self.version = stdout.strip
   end
 
   def get_main_script
