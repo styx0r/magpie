@@ -105,7 +105,6 @@ class UserJob < ApplicationJob
     configfiles = Dir.glob(@userdir + "/*.config")
 
     keys = @config_params.keys
-
     for configfile in configfiles
       require("csv")
       file_string = CSV.read(configfile)

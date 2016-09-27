@@ -1,11 +1,14 @@
 <% if model_description == "nil" %>
 <% else %>
-  <% @config_paths = Dir[model_selected.path+"/*.config"] %>
+  <% @tmp_dir = Dir.mktmpdir
+     system("cd #{@tmp_dir}; git clone #{model_selected.path} .") %>
+  <% @config_paths = Dir[@tmp_dir+"/*.config"] %>
   <% if @config_paths.empty? %>
   <div class = "col-md-12">
     <div class = "panel-info">
       <div class = "panel-heading">
         <center>No config file found!</center>
+        <center><%= model_selected.path+"/*.config" %></center>
       </div>
     </div>
   </div>

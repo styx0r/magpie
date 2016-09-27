@@ -13,7 +13,6 @@
         <%= f.input :status, :as => :hidden, :input_html => { :value => "waiting" } %>
         <%= f.input :project_id, :as => :hidden, :input_html => { :value => @project.id } %>
         <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id} %>
-        <%#= f.input :arguments, placeholder: 'Command-line arguments' %>
 
         <%= render :layout => false, partial: 'projects/modelconfig',
           locals: { :model_description => "Empty",
