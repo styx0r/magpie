@@ -23,10 +23,7 @@ class Model < ActiveRecord::Base
     system("cd #{self.path}; git init --bare; cd #{self.tmp_path}; git clone #{self.path} #{self.tmp_path}")
     self.unzip_source
     self.read_content
-    system("cd #{self.tmp_path}; git add -A; git commit -m 'Initial commit for model #{self.name}'; git push origin master;")
-    stdout, stderr, status = Open3.capture3("cd #{self.path}; git rev-parse HEAD")
-    p "cd #{self.path}; git rev-parse HEAD"
-    self.version = stdout.strip
+    system("cd #{self.tmp_path}; git tag -a initial -m 'Initial version'; git add -A; git commit -m 'Initial commit for model #{self.name}'; git push origin master --tags;")
   end
 
   def get_main_script
@@ -35,6 +32,11 @@ class Model < ActiveRecord::Base
       file.end_with?('.sh')
     end
     shell_files.include?('main.sh') ? 'main.sh' :  shell_files[0]
+  end
+
+  def versions
+    output, status = Open3.capture2("cd #{self.path}; git tag;")
+    output.split
   end
 
   def read_content

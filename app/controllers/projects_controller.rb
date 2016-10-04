@@ -117,7 +117,7 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:job, :name, :model_id, :public)
+      params.require(:project).permit(:job, :name, :model_id, :public, :revision)
     end
 
     def job_params

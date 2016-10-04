@@ -8,6 +8,17 @@
 </div>
 
 <div class="panel panel-info">
+  <div class="panel-heading">Versions</div>
+  <div class="panel-body">
+    <ul>
+    <% @model.versions.each do |version| %>
+    <li><%= version %></li>
+    <% end %>
+  </ul>
+  </div>
+</div>
+
+<div class="panel panel-info">
   <div class="panel-heading">Help</div>
   <div class="panel-body">
     <%= markdown(@model.help) %>
