@@ -3,7 +3,7 @@
   <div class = "col-md-12">
     <div class = "col-md-6">
       <%= f.input :model_id, collection: Model.all, required: true %>
-      <%= f.input :revision, collection: ['HEAD'], required: true %>
+      <%= f.input :revision, collection: ['HEAD'], required: true, selected:'HEAD' %>
       <%= f.input :name, placeholder: 'Give your project a name', required: true %>
       <%= f.input :public, as: :boolean, checked_value: false, unchecked_value: true %>
 

@@ -1,7 +1,7 @@
 class Model < ActiveRecord::Base
   belongs_to :user
   mount_uploader :source, ModelUploader
-  attr_accessor :tmp_path
+  attr_accessor :tmp_path, :tag
 
   def delete_files
     # Delete files (before model is destroyed)
@@ -21,9 +21,20 @@ class Model < ActiveRecord::Base
     self.tmp_path = Dir.mktmpdir
     p "Temporary folder for unzipping at #{self.tmp_path}"
     system("cd #{self.path}; git init --bare; cd #{self.tmp_path}; git clone #{self.path} #{self.tmp_path}")
-    self.unzip_source
+    self.unzip_source(self.source.file.file, self.tmp_path)
     self.read_content
     system("cd #{self.tmp_path}; git tag -a initial -m 'Initial version'; git add -A; git commit -m 'Initial commit for model #{self.name}'; git push origin master --tags;")
+  end
+
+  def update_files(src,newtag)
+    FileUtils.mkdir_p(self.path)
+    require 'tmpdir'
+    self.tmp_path = Dir.mktmpdir
+    p "Temporary folder for unzipping at #{self.tmp_path}"
+    system("git clone #{self.path} #{self.tmp_path}")
+    system("cd #{self.tmp_path}; git rm *")
+    unzip_source(self.source.file.file, self.tmp_path)
+    system("cd #{self.tmp_path}; git add -A; git tag -a #{newtag} -m 'User uploaded new version'; git commit -m 'User uploaded new version'; git push origin master --tags;")
   end
 
   def get_main_script
@@ -48,11 +59,11 @@ class Model < ActiveRecord::Base
     return true
   end
 
-  def unzip_source
+  def unzip_source(spath,opath)
     require 'zip'
-    Zip::File.open(self.source.file.file) do |zip_file|
+    Zip::File.open(spath) do |zip_file|
       zip_file.each do |f|
-        fpath = File.join(self.tmp_path, File.basename(f.name))
+        fpath = File.join(opath, File.basename(f.name))
         zip_file.extract(f, fpath) unless File.exist?(fpath)
       end
     end

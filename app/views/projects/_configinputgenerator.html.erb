@@ -20,7 +20,7 @@ for @line in @file_string
 <div class = "col-md-6">
 <% if @param_type == "integer" || @param_type == "double" || @param_type == "float" %>
   <% @param_default = @line[2] %>
-  <%= f.input "#{@path.split("/").last}_#{@param_name}".to_sym,
+  <%= f.input "#{@cfile}_#{@param_name}".to_sym,
             label: "",
             required: true,
             as: :numeric ,
@@ -29,7 +29,7 @@ for @line in @file_string
             hint: @param_name %>
 <% elsif @param_type == "string" %>
   <% @param_default = @line[2..@line.length].join(" ") %>
-  <%= f.input "#{@path.split("/").last}_#{@param_name}".to_sym,
+  <%= f.input "#{@cfile}_#{@param_name}".to_sym,
             label: "",
             required: true,
             as: :string ,

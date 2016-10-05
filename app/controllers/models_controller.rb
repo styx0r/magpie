@@ -57,6 +57,9 @@ class ModelsController < ApplicationController
   def update
     respond_to do |format|
       if @model.update(model_params)
+        if model_params.key?(:source)
+          @model.update_files(model_params[:source],model_params[:tag])
+        end
         format.html { redirect_to @model, notice: 'Model was successfully updated.' }
         format.json { render :show, status: :ok, location: @model }
       else
@@ -89,7 +92,7 @@ class ModelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def model_params
-      params.require(:model).permit(:name, :source, :mainscript, :description, :help)
+      params.require(:model).permit(:name, :source, :mainscript, :description, :help, :tag)
     end
 
     #confirms an admin user

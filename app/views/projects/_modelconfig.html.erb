@@ -1,9 +1,8 @@
 <% if model_description == "nil" %>
 <% else %>
-  <% @tmp_dir = Dir.mktmpdir
-     system("cd #{@tmp_dir}; git clone #{model_selected.path} .") %>
-  <% @config_paths = Dir[@tmp_dir+"/*.config"] %>
-  <% if @config_paths.empty? %>
+  <% @config_files, status = Open3.capture2("cd #{model_selected.path}; git ls-tree -r HEAD --name-only | grep '.config$'")%>
+  <% @config_files = @config_files.split %>
+  <% if @config_files.length == 0 %>
   <div class = "col-md-12">
     <div class = "panel-info">
       <div class = "panel-heading">
@@ -16,16 +15,17 @@
     <% if f == nil %>
     <%= simple_form_for :config, :html => { :class => 'form-horizontal' },
               wrapper: :horizontal_form do |f| %>
-    <%  for @path in @config_paths %>
+    <%  for @cfile in @config_files %>
         <div class = "col-md-12">
           <div class = "panel-info">
             <div class = "panel-heading">
-              <center><%= @path.split("/").last %></center>
+              <center><%= @cfile %></center>
             </div>
             <div class = "panel-body">
               <%
                 require("csv")
-                @file_string = CSV.read(@path)
+                @content, status = Open3.capture2("cd #{model_selected.path}; git cat-file blob #{@project.revision}:#{@cfile}")
+                @file_string = CSV.parse(@content)
 
                 @comment = ""
                 @param_name = ""
@@ -44,16 +44,17 @@
           <% end #simple form %>
           <% end %>
           <% else %>
-          <%  for @path in @config_paths %>
+          <%  for @cfile in @config_files %>
               <div class = "col-md-12">
                 <div class = "panel-info">
                   <div class = "panel-heading">
-                    <center><%= @path.split("/").last %></center>
+                    <center><%= @cfile %></center>
                   </div>
                   <div class = "panel-body">
                     <%
                       require("csv")
-                      @file_string = CSV.read(@path)
+                      @content, status = Open3.capture2("cd #{model_selected.path}; git cat-file blob #{@project.revision}:#{@cfile}")
+                      @file_string = CSV.parse(@content)
 
                       @comment = ""
                       @param_name = ""

@@ -1,6 +1,9 @@
 <%= simple_form_for(@model) do |f| %>
 
   <div class="form-inputs">
+    <%= f.label :source %><br>
+    <%= f.file_field :source, required: false %>
+    <%= f.input :tag %>
     <%= f.input :mainscript, collection: all_shell %>
     <%= f.input :description %>
     <%= f.input :help %>
