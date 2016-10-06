@@ -2,8 +2,8 @@
   <div class="alert alert-<%= message_type %>"><%= message %></div>
 <% end %>
 <footer class="footer">
-  <nav class='navbar-left'>
-    <ul>
+  <nav class="navbar" role="navigation">
+    <ul class='navbar-left'>
       <li><%= link_to image_tag("logo_carus.png", alt: "UK Carl Gustav Carus Dresden", :height => 20),
           'http://uniklinikum-dresden.de', :target => "_blank" %></li>
       <li><%= link_to image_tag("logo_TUD.png", alt: "TU Dresden", :height => 20),
@@ -11,11 +11,9 @@
       <li><%= link_to image_tag("logo_biotec.jpg", alt: "Bioinnovationszentrum", :height => 20),
               'http://biotec.tu-dresden.de', :target => "_blank" %></li>
     </ul>
-  </nav>
 
 <% if logged_in? %>
-  <nav class='navbar-left'>
-    <div id='jobs_status_sync'>
+    <div class = 'navbar-brand'>
       <ul>
         <li><%= image_tag("queue_single.svg", alt: "Magpie", :height => 15)%>
           <span id = "queued_jobs_me"> <%= count_jobs_user("waiting") %> </span></li>
@@ -29,11 +27,9 @@
           <span id = "jobs_failed"> <%= count_jobs_user("failed") %> </span></li>
       </ul>
     </div>
-  </nav>
 <% end %>
 
-  <nav class='navbar-right'>
-    <ul>
+    <ul class='navbar-right'>
       <li><%= link_to image_tag("magpie_logo.svg", alt: "Magpie", :height => 20),
               'https://magpie.imb.medizin.tu-dresden.de', :target => "_blank" %></li>
       <li><%= link_to "Help", help_path %></li>

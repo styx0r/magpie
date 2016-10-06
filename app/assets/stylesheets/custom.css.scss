@@ -245,3 +245,23 @@ input {
     border-bottom: 1px solid $gray-lighter;
   }
 }
+
+.navbar-left {
+  padding: 0;
+}
+
+.navbar-right {
+  padding: 0;
+}
+
+.navbar-brand {
+  width: 45%;
+  text-align: center;
+  padding: 0;
+}
+
+.navbar-brand ul {
+    position:relative;
+    left:30%;
+    float:left;
+}
