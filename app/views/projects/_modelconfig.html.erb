@@ -6,8 +6,7 @@
   <div class = "col-md-12">
     <div class = "panel-info">
       <div class = "panel-heading">
-        <center>No config file found!</center>
-        <center><%= model_selected.path+"/*.config" %></center>
+        <center>No config file in HEAD of selected model located in <br><%= model_selected.path %></center>
       </div>
     </div>
   </div>
@@ -24,7 +23,8 @@
             <div class = "panel-body">
               <%
                 require("csv")
-                @content, status = Open3.capture2("cd #{model_selected.path}; git cat-file blob #{@project.revision}:#{@cfile}")
+                #@content, status = Open3.capture2("cd #{model_selected.path}; git cat-file blob #{@project.revision}:#{@cfile}")
+                @content, status = Open3.capture2("cd #{model_selected.path}; git cat-file blob HEAD:#{@cfile}")
                 @file_string = CSV.parse(@content)
 
                 @comment = ""
@@ -41,9 +41,9 @@
                       locals: { :model_description => model_description,
                                 :model_selected => model_selected,
                                 :f => f} %>
-          <% end #simple form %>
-          <% end %>
-          <% else %>
+        <% end #simple form %>
+      <% end %>
+      <% else %>
           <%  for @cfile in @config_files %>
               <div class = "col-md-12">
                 <div class = "panel-info">
