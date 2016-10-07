@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   get 'job_running' => 'jobs#running'
   get 'project_modeldescription' => 'projects#modeldescription'
   get 'project_modelconfig' => 'projects#modelconfig'
+  get 'project_modelrevisions' => 'projects#modelrevisions'
 
   resources :users do
     member do

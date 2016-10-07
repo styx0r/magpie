@@ -23,8 +23,33 @@ selectModel = ->
         #console.log html
         document.getElementById('project_modelconfig').innerHTML = html
 
-ready = -> if document.getElementById 'project_model_id'
+   if document.getElementById 'project_modelrevisions'
+     model_name = $('#project_model_id').find(":selected").text()
+     $.ajax
+       async: true
+       url: "/project_modelrevisions?model_name="+model_name
+       cache: true
+       success: (html) ->
+         #console.log html
+         document.getElementById('project_modelrevisions').innerHTML = html
+
+selectRevision = ->
+  if document.getElementById 'project_modelconfig'
+    model_name = $('#project_model_id').find(":selected").text()
+    $.ajax
+      async: true
+      url: "/project_modelconfig?model_name="+model_name
+      cache: true
+      success: (html) ->
+        #console.log html
+        document.getElementById('project_modelconfig').innerHTML = html
+
+changeModel = -> if document.getElementById 'project_model_id'
   document.getElementById('project_model_id').onchange = selectModel
 
-$(document).ready(ready)
-$(document).on('page:load', ready)
+changeRevision = -> if document.getElementById 'project_modelrevisions'
+  document.getElementById('project_modelrevisions').onchange = selectRevision
+
+
+$( document ).on('turbolinks:load', changeModel)
+$( document ).on('turbolinks:load', changeRevision)

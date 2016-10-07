@@ -42,15 +42,16 @@ class ProjectsController < ApplicationController
 
   def modelconfig
     model_selected = Model.find_by name: params[:model_name]
-    if model_selected == NIL
-      model_description = "nil"
-    else
-      model_description = model_selected.description
-    end
     render :layout => false, partial: 'projects/modelconfig',
-      locals: { :model_description => model_description,
-                :model_selected => model_selected,
+      locals: { :model_selected => model_selected,
                 :f => nil }
+  end
+
+  def modelrevisions
+    model_selected = Model.find_by name: params[:model_name]
+    render :layout => false, partial: 'projects/modelrevisions',
+      locals: { :model_selected => model_selected,
+                :model_revisions => model_selected.versions }
   end
 
   # POST /projects
@@ -59,6 +60,7 @@ class ProjectsController < ApplicationController
     # First, create the project itself
     @user = current_user
     @project = @user.projects.create(project_params)
+    @project.revision = config_params[:revision]
     # Then, start the job
     job = Job.create(job_params[:job].merge(:project_id => @project.id))
     @user_job = UserJob.perform_later(job, config_params)

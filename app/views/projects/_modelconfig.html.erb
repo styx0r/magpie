@@ -1,4 +1,4 @@
-<% if model_description == "nil" %>
+<% if model_selected == NIL %>
 <% else %>
   <% @config_files, status = Open3.capture2("cd #{model_selected.path}; git ls-tree -r HEAD --name-only | grep '.config$'")%>
   <% @config_files = @config_files.split %>
@@ -38,9 +38,7 @@
                 %>
 
                 <%= render :layout => false, partial: 'projects/configinputgenerator',
-                      locals: { :model_description => model_description,
-                                :model_selected => model_selected,
-                                :f => f} %>
+                      locals: { :f => f} %>
         <% end #simple form %>
       <% end %>
       <% else %>
@@ -68,9 +66,7 @@
           <%= f.simple_fields_for :config, :html => { :class => 'form-horizontal' },
                     wrapper: :horizontal_form do |job_form| %>
             <%= render :layout => false, partial: 'projects/configinputgenerator',
-                  locals: { :model_description => model_description,
-                            :model_selected => model_selected,
-                            :f => job_form} %>
+                  locals: { :f => job_form} %>
           <% end %>
           <%end%>
           </div>
