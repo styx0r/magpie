@@ -139,7 +139,8 @@ class UserJob < ApplicationJob
         me_queue: Job.where(:user_id => @job.user_id, :status => "waiting").count,
         me_running: Job.where(:user_id => @job.user_id, :status => "running").count,
         me_finished: Job.where(:user_id => @job.user_id, :status => "finished").count,
-        me_failed: Job.where(:user_id => @job.user_id, :status => "failed").count)
+        me_failed: Job.where(:user_id => @job.user_id, :status => "failed").count,
+        job_id: @job.id)
     end
 
 end
