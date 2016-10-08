@@ -24,7 +24,9 @@
     <div class = "col-md-8">
       <h3>Micropost Feeds</h3>
       <%-# empty div filled up with ajax's defined in micropost_feed_sync.coffee -%>
-      <div id="micropost_feed_sync"></div>
+      <div id="micropost_feed_sync">
+        <%= render :layout => false, file: 'shared/_feed' %>
+      </div>
     </div>
   </div>
 <% end %>

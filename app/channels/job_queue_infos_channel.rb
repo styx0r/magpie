@@ -17,6 +17,6 @@ class JobQueueInfosChannel < ApplicationCable::Channel
         me_running: Job.where(:user_id => current_user.id, :status => "running").count,
         me_finished: Job.where(:user_id => current_user.id, :status => "finished").count,
         me_failed: Job.where(:user_id => current_user.id, :status => "failed").count,
-        job_id: @job.id)
+        job_id: 1)
     end
 end

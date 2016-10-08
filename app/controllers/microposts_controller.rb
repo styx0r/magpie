@@ -11,12 +11,20 @@ class MicropostsController < ApplicationController
       @feed_items = []
       render "dashboard/index"
     end
+    for user in current_user.followers
+      ActionCable.server.broadcast("microposts_#{user.id}",
+        notify: true)
+    end
   end
 
   def destroy
     @micropost.destroy
     flash[:success] = "Micropost deleted"
     redirect_to request.referrer || root_url
+    for user in current_user.followers
+      ActionCable.server.broadcast("microposts_#{user.id}",
+        notify: true)
+    end
   end
 
   private
