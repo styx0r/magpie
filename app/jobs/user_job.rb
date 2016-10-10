@@ -20,7 +20,8 @@ class UserJob < ApplicationJob
     @originaldir = @job.project.model.path
     modelscript = "#{@originaldir}/#{mainscript}"
 
-    system("git clone #{@job.project.model.path} #{@userdir}")
+    system("git clone #{@job.project.model.path}  #{@userdir}")
+    system("cd #{@userdir}; git reset --hard #{@project.revision}")
 
     files_before = Dir.glob(Rails.root.join(@userdir, '*'))
 

@@ -17,6 +17,7 @@
         <%= render :layout => false, partial: 'projects/modelconfig',
           locals: { :model_description => "Empty",
                     :model_selected => @project.model,
+                    :model_revision => @project.revision,
                     :f => f } %>
 
         <%= f.button :submit, class: "btn btn-primary" %>

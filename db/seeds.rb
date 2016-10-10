@@ -57,7 +57,7 @@ for i in 0..10
   randomtag = "v#{Faker::App.version}"
   randomtagdesc = Faker::Hacker.say_something_smart
   randomcommitmessage = Faker::Lorem.sentence
-  system("cd #{tmp_path}; mktemp -p .; git add -A; git tag -a #{randomtag} -m  '#{randomtagdesc}'; git commit -m '#{randomcommitmessage}'; git push origin master --tags;")
+  system("cd #{tmp_path}; touch #{Faker::Name.name} .; git add -A; git tag -a #{randomtag} -m  '#{randomtagdesc}'; git commit -m '#{randomcommitmessage}'; git push origin master --tags;")
 end
 
 @model2 = Model.create!(name:        "Failed!",

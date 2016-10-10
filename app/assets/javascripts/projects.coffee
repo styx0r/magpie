@@ -2,47 +2,56 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 selectModel = ->
-  if document.getElementById 'model_info_sync'
-    model_name = $('#project_model_id').find(":selected").text()
-    $.ajax
-      # url has to be modified, in order to update the right job according to the id
-      async: true
-      url: "/project_modeldescription?model_name="+model_name
-      cache: true
-      success: (html) ->
-        #console.log html
-        document.getElementById('model_info_sync').innerHTML = html
 
-  if document.getElementById 'project_modelconfig'
-    model_name = $('#project_model_id').find(":selected").text()
-    $.ajax
-      async: true
-      url: "/project_modelconfig?model_name="+model_name
-      cache: true
-      success: (html) ->
-        #console.log html
-        document.getElementById('project_modelconfig').innerHTML = html
+  if $('#project_model_id').find(":selected").text() != ""
 
-   if document.getElementById 'project_modelrevisions'
-     model_name = $('#project_model_id').find(":selected").text()
-     $.ajax
-       async: true
-       url: "/project_modelrevisions?model_name="+model_name
-       cache: true
-       success: (html) ->
-         #console.log html
-         document.getElementById('project_modelrevisions').innerHTML = html
+    if document.getElementById 'model_info_sync'
+      model_name = $('#project_model_id').find(":selected").text()
+      $.ajax
+        # url has to be modified, in order to update the right job according to the id
+        async: true
+        url: "/project_modeldescription?model_name="+model_name
+        cache: true
+        success: (html) ->
+          #console.log html
+          document.getElementById('model_info_sync').innerHTML = html
+
+    if document.getElementById 'project_modelconfig'
+      model_name = $('#project_model_id').find(":selected").text()
+      model_revision = "HEAD"
+      $.ajax
+        async: true
+        url: "/project_modelconfig?model_name="+model_name+"&model_revision="+model_revision
+        cache: true
+        success: (html) ->
+          #console.log html
+          document.getElementById('project_modelconfig').innerHTML = html
+
+     if document.getElementById 'project_modelrevisions'
+       model_name = $('#project_model_id').find(":selected").text()
+       $.ajax
+         async: true
+         url: "/project_modelrevisions?model_name="+model_name
+         cache: true
+         success: (html) ->
+           #console.log html
+           document.getElementById('project_modelrevisions').innerHTML = html
 
 selectRevision = ->
-  if document.getElementById 'project_modelconfig'
-    model_name = $('#project_model_id').find(":selected").text()
-    $.ajax
-      async: true
-      url: "/project_modelconfig?model_name="+model_name
-      cache: true
-      success: (html) ->
-        #console.log html
-        document.getElementById('project_modelconfig').innerHTML = html
+
+  if $('#project_model_id').find(":selected").text() != ""
+
+    if document.getElementById 'project_modelconfig'
+      model_name = $('#project_model_id').find(":selected").text()
+      model_revision = $('#config_revision').find(":selected").text()
+      $.ajax
+        async: true
+        url: "/project_modelconfig?model_name="+model_name+"&model_revision="+model_revision
+        cache: true
+        success: (html) ->
+          #console.log html
+          document.getElementById('project_modelconfig').innerHTML = html
+
 
 changeModel = -> if document.getElementById 'project_model_id'
   document.getElementById('project_model_id').onchange = selectModel

@@ -6,9 +6,4 @@ module ModelsHelper
     @shell_files.split
   end
 
-  def tag_to_revision tag
-    require 'open3'
-    output, status = Open3.capture2("cd #{@model.path}; git rev-parse --verify #{tag}")
-    output.strip
-  end
 end

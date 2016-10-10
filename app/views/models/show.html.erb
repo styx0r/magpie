@@ -12,7 +12,7 @@
   <div class="panel-body">
     <ul>
     <% @model.versions.each do |tag| %>
-    <li><%= "#{tag} | #{tag_to_revision(tag)}" %></li>
+    <li><%= "#{tag}" %></li>
     <% end %>
   </ul>
   </div>

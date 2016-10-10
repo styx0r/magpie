@@ -1,12 +1,12 @@
 <% if model_selected == NIL %>
 <% else %>
-  <% @config_files, status = Open3.capture2("cd #{model_selected.path}; git ls-tree -r HEAD --name-only | grep '.config$'")%>
+  <% @config_files, status = Open3.capture2("cd #{model_selected.path}; git ls-tree -r #{model_revision} --name-only | grep '.config$'")%>
   <% @config_files = @config_files.split %>
   <% if @config_files.length == 0 %>
   <div class = "col-md-12">
     <div class = "panel-info">
       <div class = "panel-heading">
-        <center>No config file in HEAD of selected model located in <br><%= model_selected.path %></center>
+        <center>No config file in <%= model_revision %> of selected model located in <br><%= model_selected.path %></center>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
               <%
                 require("csv")
                 #@content, status = Open3.capture2("cd #{model_selected.path}; git cat-file blob #{@project.revision}:#{@cfile}")
-                @content, status = Open3.capture2("cd #{model_selected.path}; git cat-file blob HEAD:#{@cfile}")
+                @content, status = Open3.capture2("cd #{model_selected.path}; git cat-file blob #{model_revision}:#{@cfile}")
                 @file_string = CSV.parse(@content)
 
                 @comment = ""
