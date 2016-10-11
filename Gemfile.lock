@@ -73,6 +73,9 @@ GEM
     delayed_job_active_record (4.1.1)
       activerecord (>= 3.0, < 5.1)
       delayed_job (>= 3.0, < 5)
+    docker-api (1.32.1)
+      excon (>= 0.38.0)
+      json
     erubis (2.7.0)
     excon (0.52.0)
     execjs (2.7.0)
@@ -317,6 +320,7 @@ DEPENDENCIES
   daemons
   delayed_job
   delayed_job_active_record
+  docker-api
   faker (~> 1.4.2)
   fog (= 1.36.0)
   foreman

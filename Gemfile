@@ -86,3 +86,5 @@ gem 'puma', '3.1.0'
 #end
 
 gem 'redis', '~> 3.0'
+
+gem 'docker-api'

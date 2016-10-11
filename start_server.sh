@@ -1,15 +1,10 @@
 #!/bin/bash
 
-# starting processes needed by the webserver
-# redis - An in-memory database (inpersistent)
-#unamestr=`uname`
-#if [[ "$unamestr" == 'Linux' ]]; then
-  # start the redis server here
-#  echo "START REDIS NOT IMPLEMENTED"
-#elif [[ "$unamestr" == 'Darwin' ]]; then
-  # starting the via brew installed redis server
-#  brew services start redis
-#fi
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+elif [[ "$unamestr" == 'Darwin' ]]; then
+ /Applications/Docker.app/Contents/MacOS/Docker & 
+fi
 
 #rails server
 #foreman start -c web=1,user=0,redis=1 #sidekiq

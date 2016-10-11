@@ -102,3 +102,15 @@ system("rm -rf #{@model4.path}")
 system("rm -rf #{@model5.path}")
 @model5.initializer
 @model5.save
+
+# Initialize the docker image
+# TODO: integrate in execution: docker run -it -v /Users/baldow/.magpie/docker/:/root -w /root magpie:default ./run_mf.sh
+system("rm -fR #{Rails.application.config.docker_path}")
+system("mkdir #{Rails.application.config.docker_path}")
+Zip::File.open("#{Rails.application.config.root}/test/zip/magpie-default.docker.zip") do |zip_file|
+  zip_file.each do |f|
+    fpath = File.join("#{Rails.application.config.docker_path}", File.basename(f.name))
+    zip_file.extract(f, fpath) unless File.exist?(fpath)
+  end
+end
+Docker::Image.load("#{Rails.application.config.docker_path}/magpie-default.docker")

@@ -56,4 +56,5 @@ Rails.application.configure do
   #config.user_output_path = "#{Rails.root}/user/" # Parent folder for job output
   config.models_path = ENV['HOME']+"/.magpie/models/" # Parent folder for storage of model scripts
   config.jobs_path = ENV['HOME']+"/.magpie/jobs/" # Parent folder for job output
+  config.docker_path = ENV['HOME']+"/.magpie/docker/" # Parent folder for docker images
 end
