@@ -2,7 +2,7 @@
 
 unamestr=`uname`
 if [[ "$unamestr" == 'Linux' ]]; then
-  sudo service docker restart
+  systemctl start docker
 elif [[ "$unamestr" == 'Darwin' ]]; then
   /Applications/Docker.app/Contents/MacOS/Docker &
 fi
