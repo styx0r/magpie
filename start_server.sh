@@ -2,8 +2,9 @@
 
 unamestr=`uname`
 if [[ "$unamestr" == 'Linux' ]]; then
+  sudo service docker restart
 elif [[ "$unamestr" == 'Darwin' ]]; then
- /Applications/Docker.app/Contents/MacOS/Docker & 
+  /Applications/Docker.app/Contents/MacOS/Docker &
 fi
 
 #rails server

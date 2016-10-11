@@ -29,8 +29,7 @@ class UserJob < ApplicationJob
       create_configs
     end
 
-    process = execute_script
-    @return_val = process.exitstatus
+    @return_val = execute_script
 
     @job.output = {stdout: @stdout, stderr: @stderr}
 
@@ -89,12 +88,20 @@ class UserJob < ApplicationJob
   def execute_script
     ### Go to the temporary working directory and execute the script
     Dir.chdir(@userdir) do
-      Open3.popen3("sh #{@userdir}/#{@job.project.model.mainscript}") do |stdin, stdout, stderr, thread|
-        stdin.close  # make sure the subprocess is done
-        @stdout = stdout.gets
-        @stderr = stderr.gets
-        thread.value # Return value
-      end
+      container = Docker::Container.create('Image' => 'magpie:default', 'Tty' => true, 'Binds' => ["#{@userdir}:/root:rw"])
+      container.start
+      c_out = container.exec(["/bin/bash", "-c", "cd /root; sh #{@job.project.model.mainscript}"])
+      container.stop
+      container.remove
+      @stdout = c_out[0]
+      @stderr = c_out[1]
+      c_out[2]
+      #Open3.popen3("sh #{@userdir}/#{@job.project.model.mainscript}") do |stdin, stdout, stderr, thread|
+      #  stdin.close  # make sure the subprocess is done
+      #  @stdout = stdout.gets
+      #  @stderr = stderr.gets
+      #  thread.value # Return value
+      #end
     end
   end
 
