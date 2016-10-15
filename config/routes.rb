@@ -66,6 +66,6 @@ Rails.application.routes.draw do
 
 
   # with this action cable runs within the same server process when we run rails server
-  mount ActionCable.server => '/cable'
+  mount ActionCable.server => '/cable/'
 
 end
