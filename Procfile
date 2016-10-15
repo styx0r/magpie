@@ -3,7 +3,7 @@
  # start rails server
 web: bundle exec rails server
  # start rails server on public domain
-web: passenger start
+#web: passenger start
 
 #Start worker pools for development
 #delayed_job
