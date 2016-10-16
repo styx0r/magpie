@@ -10,4 +10,14 @@ class Project < ActiveRecord::Base
     output.strip
   end
 
+  def tag
+    require 'open3'
+    output, status = Open3.capture2("cd #{self.model.path}; git tag --points-at #{self.revision}")
+    if !output.strip.blank?
+      output.strip
+    else
+      "untagged, revision #{self.revision}"
+    end
+  end
+
 end
