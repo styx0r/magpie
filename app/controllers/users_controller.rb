@@ -1,13 +1,20 @@
 class UsersController < ApplicationController
 
   before_action :logged_in_user,  only: [:index, :edit, :update, :destroy, :following, :followers]
-  before_action :correct_user,    only: [:edit, :update]
-  before_action :admin_user,      only: [:destroy, :index]
+  before_action :correct_user,    only: [:edit, :update, :destroy]
+  before_action :admin_user,      only: [:index]
+  before_action :can_destroy,     only: [:destroy]
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User deleted"
-    redirect_to users_url
+    if @user.guest?
+      User.find(params[:id]).destroy
+      flash[:success] = "Session data deleted"
+      redirect_to root_url
+    else
+      User.find(params[:id]).destroy
+      flash[:success] = "User deleted"
+      redirect_to users_url
+    end
   end
 
   def delete_all_projects
@@ -33,10 +40,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = params[:user] ? User.new(user_params) : User.new_guest
+    #@user = User.new(user_params)
     if @user.save
-      @user.send_activation_email
-      flash[:info] = "Please check your email to activate your account."
+      if !@user.guest
+        @user.send_activation_email
+        flash[:info] = "Please check your email to activate your account."
+      else
+        session[:user_id] = @user.id
+      end
       redirect_to root_url
     else
       render 'new'
@@ -74,8 +86,9 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :guest)
     end
+
 
     #Before filters
     def logged_in_user
@@ -95,6 +108,11 @@ class UsersController < ApplicationController
     #confirms an admin user
     def admin_user
       redirect_to(root_url) unless current_user.admin?
+    end
+
+    # User allowed to destroy if he want to destroy his guest account or is admin_user
+    def can_destroy
+      current_user.admin? || (params[:id] == current_user.id && current_user.guest?)
     end
 
 end

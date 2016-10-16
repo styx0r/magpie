@@ -10,25 +10,32 @@ class User < ActiveRecord::Base
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :projects, dependent: :destroy
   attr_accessor :remember_token, :activation_token, :reset_token
-  before_save :downcase_email
-  before_create :create_activation_digest
+  before_save :downcase_email, unless: :guest?
+  before_save :default_values
+  before_create :create_activation_digest, unless: :guest
   validates :name, presence: true,
                    length: { maximum: 50 }
   VALID_EMAIL_REGEX = /.+@.+/#/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, presence: true,
                     length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
+                    uniqueness: { case_sensitive: false },
+                    unless: :guest?
   has_secure_password
   validates :password, presence: true,
                        length: { minimum: 6 },
-                       allow_nil: true
+                       allow_nil: true,
+                       unless: :guest?
 
    # Returns the hash digest of the given string.
    def User.digest(string)
      cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                    BCrypt::Engine.cost
      BCrypt::Password.create(string, cost: cost)
+   end
+
+   def self.new_guest
+     new { |u| u.guest = true, u.name = "Guest User", u.password = "guest" }
    end
 
    # Returns a random token.
@@ -110,6 +117,10 @@ class User < ActiveRecord::Base
     def downcase_email
       self.email = email.downcase
     end
+
+   def default_values
+     self.guest = false if self.guest.nil?
+   end
 
     def create_activation_digest
       self.activation_token = User.new_token
