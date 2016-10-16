@@ -58,4 +58,6 @@ Rails.application.configure do
   config.models_path = ENV['HOME']+"/.magpie/models/" # Parent folder for storage of model scripts
   config.jobs_path = ENV['HOME']+"/.magpie/jobs/" # Parent folder for job output
   config.docker_path = ENV['HOME']+"/.magpie/docker/" # Parent folder for docker images
+  config.postbot_name = "PostBot Alpha"
+  config.postbot_email = "noreply@magpiedomain.kp"
 end

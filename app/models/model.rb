@@ -16,6 +16,7 @@ class Model < ActiveRecord::Base
 
   def initializer
     # Initialize git repository for model and saves revision number
+    self.path = "#{Rails.application.config.models_path}#{self.id.to_s}"
     FileUtils.mkdir_p(self.path)
     require 'tmpdir'
     self.tmp_path = Dir.mktmpdir
@@ -24,6 +25,7 @@ class Model < ActiveRecord::Base
     self.unzip_source(self.source.file.file, self.tmp_path)
     self.read_content
     system("cd #{self.tmp_path}; git tag -a initial -m 'Initial version'; git add -A; git commit -m 'Initial commit for model #{self.name}'; git push origin master --tags;")
+    self.save
   end
 
   def update_files(src,newtag)

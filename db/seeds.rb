@@ -37,9 +37,15 @@ User.create!( name:                   "Non-Admin User",
               activated:              true,
               activated_at:           Time.zone.now)
 
+User.create!( name:                   Rails.application.config.postbot_name,
+              email:                  Rails.application.config.postbot_email,
+              password:               "nonadmin.mypass?.7699_9",
+              password_confirmation:  "nonadmin.mypass?.7699_9",
+              bot:                    true,
+              activated:              true,
+              activated_at:           Time.zone.now)
 
 @model1 = Model.create!(name:        "Versioned Sleep Studies",
-              path:                  "#{Rails.application.config.models_path}sleep",
               description:           "Sleeps for a given amount of time.
                                      Time [s] can be set as an argument.",
               help:                  "",
@@ -61,7 +67,6 @@ for i in 0..10
 end
 
 @model2 = Model.create!(name:        "Failed!",
-              path:                  "#{Rails.application.config.models_path}faulty",
               description:           "Runs a job with a syntax error in the bash script. Will fail 100%.",
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/failed.zip"),
@@ -72,7 +77,6 @@ system("rm -rf #{@model2.path}")
 @model2.save
 
 @model3 = Model.create!(name:        "PFSPA",
-              path:                  "#{Rails.application.config.models_path}PFSPA",
               description:           "Novel particle system combining reaction-diffusion with motion.",
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/pfspa.zip"),
@@ -83,7 +87,6 @@ system("rm -rf #{@model3.path}")
 @model3.save
 
 @model4 = Model.create!(name:        "Multiplexing Clonality",
-              path:                  "#{Rails.application.config.models_path}MultiplexingClonality",
               description:           "Analysing simultaneously barcoded and fluroscence marked cells.",
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/multiplex.zip"),
@@ -94,7 +97,6 @@ system("rm -rf #{@model4.path}")
 @model4.save
 
 @model5 = Model.create!(name:         "D3 Simple Model",
-                        path:         "#{Rails.application.config.models_path}d3simple",
                         description:  "__Simple__ demo for D3 interactive visualization.",
                         help:         "Display random bar charts with MAGPIE",
                         source:       File.open("#{Rails.application.config.root}/test/zip/d3simple.zip"),

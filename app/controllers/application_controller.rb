@@ -14,5 +14,9 @@ class ApplicationController < ActionController::Base
         redirect_to login_url
       end
     end
-  
+
+    def postbot
+      User.find_by(email: Rails.application.config.postbot_email)
+    end
+
 end

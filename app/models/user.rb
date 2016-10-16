@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
   has_many :projects, dependent: :destroy
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email, unless: :guest?
-  before_save :default_values
   before_create :create_activation_digest, unless: :guest
   validates :name, presence: true,
                    length: { maximum: 50 }
@@ -93,8 +92,12 @@ class User < ActiveRecord::Base
   def feed
     following_ids = "SELECT followed_id FROM relationships
                      WHERE  follower_id = :user_id"
+    # All microposts from following and all from post bot
     Micropost.where("user_id IN (#{following_ids})
-                     OR user_id = :user_id", user_id: id)
+                     OR user_id = :user_id
+                     OR user_id = :postbot_id",
+                     user_id: id,
+                     postbot_id: User.find_by(email: Rails.application.config.postbot_email).id)
   end
 
   # Following a user.
@@ -117,10 +120,6 @@ class User < ActiveRecord::Base
     def downcase_email
       self.email = email.downcase
     end
-
-   def default_values
-     self.guest = false if self.guest.nil?
-   end
 
     def create_activation_digest
       self.activation_token = User.new_token
