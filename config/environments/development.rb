@@ -60,4 +60,9 @@ Rails.application.configure do
   config.docker_path = ENV['HOME']+"/.magpie/docker/" # Parent folder for docker images
   config.postbot_name = "PostBot Alpha"
   config.postbot_email = "noreply@magpiedomain.kp"
+
+  config.postbot_advice = ['Did you know? MAGPIE is named after a bird. #nature #acronym',
+                    'Did you know? @Christoph and @Sebastian developed MAGPIE in under a year #rapidprotyping #notmeteor',
+                    'Did you know? You can not deactivate my messages #icantletyoudothat',
+                    'Did you know? We have only four random messages. #justfortesting #thatslife']
 end
