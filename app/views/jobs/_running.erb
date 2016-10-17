@@ -16,15 +16,15 @@
     <% if !job.output.blank? %>
     <% if !job.output[:stdout].blank? %>
     <div class="panel-body">
-      <b>STDOUT | </b>
-      <%= job.output[:stdout] %>
+      <b>STDOUT</b>
+      <%= simple_format(job.output[:stdout].join()) %>
     </div>
     <% end %>
 
     <% if !job.output[:stderr].blank? %>
     <div class="panel-body">
       <b>STDERR | </b>
-      <%= job.output[:stderr] %>
+      <%= simple_format(job.output[:stderr].join()) %>
     </div>
     <% end %>
     <% end %>

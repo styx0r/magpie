@@ -6,7 +6,7 @@ class Project < ActiveRecord::Base
 
   def tag_to_revision tag
     require 'open3'
-    output, status = Open3.capture2("cd #{self.model.path}; git rev-parse --verify #{tag}")
+    output, status = Open3.capture2("cd #{self.model.path}; git rev-list -n 1 #{tag}")
     output.strip
   end
 
