@@ -3,7 +3,7 @@
  # start rails server
 web: bundle exec rails server
  # start rails server on public domain
-#web: passenger start
+#web: passenger start --force-max-concurrent-requests-per-process 0
 
 #Start worker pools for development
 #delayed_job
