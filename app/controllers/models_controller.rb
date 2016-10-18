@@ -24,13 +24,12 @@ class ModelsController < ApplicationController
 
   def register_model
     @model.user = current_user
-    @model.path = "#{Rails.application.config.models_path}#{@model.name}"
     if not @model.passed_checks
       redirect_to :back, notice: 'Error: Model has not passed checks:' + @model.log
     else
-      @model.initializer
       respond_to do |format|
         if @model.save
+          @model.initializer
           format.html { return render :show, notice: 'Model was successfully created.' }
           format.json { render :show, status: :created, location: @model }
         else

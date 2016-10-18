@@ -7,7 +7,7 @@
         <%= f.input :revision, collection: ['HEAD'], required: true, selected:'HEAD' %>
       </div>
       <%= f.input :name, placeholder: 'Give your project a name', required: true %>
-      <%= f.input :public, as: :boolean, checked_value: false, unchecked_value: true %>
+      <%= f.input :public, as: :boolean, checked_value: true, unchecked_value: false %>
 
       <%= f.simple_fields_for :job do |job_form| %>
         <%= job_form.input :status, :as => :hidden, :input_html => { :value => "waiting" } %>

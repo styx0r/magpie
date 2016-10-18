@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161004192326) do
+ActiveRecord::Schema.define(version: 20161017070827) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20161004192326) do
   create_table "models", force: :cascade do |t|
     t.string   "name"
     t.string   "path"
-    t.string   "mainscript"
+    t.text     "mainscript"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.text     "description"
@@ -99,6 +99,8 @@ ActiveRecord::Schema.define(version: 20161004192326) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.boolean  "guest",             default: false
+    t.boolean  "bot",               default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

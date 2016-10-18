@@ -5,7 +5,17 @@ class Micropost < ActiveRecord::Base
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
   validate :picture_size
+
+  def formatted_content
+    fstring = self.content
+    fstring.gsub!(/#\w+/) do |tag| "<font color='blue'>#{tag}</font>" end
+    fstring.gsub!(/@\w+/) do |tag| "<font color='red'>#{tag}</font>" end
+    fstring.html_safe
+  end
+
 end
+
+
 
 private
 

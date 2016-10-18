@@ -16,9 +16,6 @@ class UserJob < ApplicationJob
     p "[Job: #{self.job_id}]: I'm performing my job with arguments: #{args.inspect}"
     @userdir = File.dirname("#{Rails.application.config.jobs_path}#{user.id.to_s}/#{self.job_id}/.to_path")
     @job.directory = @userdir.to_s
-    mainscript = @job.project.model.mainscript
-    @originaldir = @job.project.model.path
-    modelscript = "#{@originaldir}/#{mainscript}"
 
     system("git clone #{@job.project.model.path}  #{@userdir}")
     system("cd #{@userdir}; git reset --hard #{@project.revision}")
@@ -90,18 +87,12 @@ class UserJob < ApplicationJob
     Dir.chdir(@userdir) do
       container = Docker::Container.create('Image' => 'magpie:default', 'Tty' => true, 'Binds' => ["#{@userdir}:/root:rw"])
       container.start
-      c_out = container.exec(["/bin/bash", "-c", "cd /root; sh #{@job.project.model.mainscript}"])
+      c_out = container.exec(["/bin/bash", "-c", "cd /root; sh #{@job.project.model.mainscript[@job.project.revision]}"])
       container.stop
       container.remove
       @stdout = c_out[0]
       @stderr = c_out[1]
       c_out[2]
-      #Open3.popen3("sh #{@userdir}/#{@job.project.model.mainscript}") do |stdin, stdout, stderr, thread|
-      #  stdin.close  # make sure the subprocess is done
-      #  @stdout = stdout.gets
-      #  @stderr = stderr.gets
-      #  thread.value # Return value
-      #end
     end
   end
 

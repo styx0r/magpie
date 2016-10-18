@@ -14,5 +14,17 @@ class ApplicationController < ActionController::Base
         redirect_to login_url
       end
     end
-  
+
+    def postbot
+      User.find_by(email: Rails.application.config.postbot_email)
+    end
+
+    def postbot_says(message)
+      Micropost.create(content: message, user_id: postbot.id)
+    end
+
+    def random_advice
+      Rails.application.config.postbot_advice.sample
+    end
+
 end
