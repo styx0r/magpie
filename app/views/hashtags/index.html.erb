@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>All Hashtags</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Tag</th>
+      <th>Microposts</th>
+      <th>Models</th>
+      <th>Projects</th>
+      <th>Users</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hashtags.each do |hashtag| %>
+      <tr>
+        <td><%= hashtag.tag %></td>
+        <td><%= hashtag.microposts.length %></td>
+        <td><%= hashtag.models.length %></td>
+        <td><%= hashtag.projects.length %></td>
+        <td><%= hashtag.users.length %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

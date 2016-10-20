@@ -62,7 +62,7 @@ Rails.application.configure do
   config.postbot_email = "noreply@magpiedomain.kp"
 
   config.postbot_advice = ['Did you know? MAGPIE is named after a bird. #nature #acronym',
-                    'Did you know? @Christoph and @Sebastian developed MAGPIE in under a year #rapidprotyping #notmeteor',
+                    'Did you know? @christophb and @sebastians developed #MAGPIE in under a year #rapidprotyping #notmeteor',
                     'Did you know? You can not deactivate my messages #icantletyoudothat',
                     'Did you know? We have only four random messages. #justfortesting #thatslife']
 end

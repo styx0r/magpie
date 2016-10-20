@@ -11,11 +11,43 @@ class Micropost < ActiveRecord::Base
 
   def formatted_content
     fstring = self.content
-    #fstring.gsub!(/#\w+/) do |tag| "<font color='blue'>#{tag}</font>" end
-    fstring.gsub!(/#\w+/) do |tag| link_to(raw("<font color='blue'>#{tag}</font>"), Rails.application.routes.url_helpers.hashtag_path(tag.sub!(/^#/, ''))) end
-    fstring.gsub!(/@\w+/) do |tag| "<font color='red'>#{tag}</font>" end
+    fstring.gsub!(/#\w+/) do |tag|
+      tag.sub!(/^#/, '')
+      if Hashtag.exists?(tag: tag)
+        link_to(raw("<font color='blue'>##{tag}</font>"), Rails.application.routes.url_helpers.hashtag_path(tag))
+      else
+        "##{tag}"
+      end
+    end
+    fstring.gsub!(/@\w+/) do |user|
+    user.sub!(/^@/, '')
+    if User.exists?(identity: user)
+      link_to(raw("<font color='red'>@#{user}</font>"), Rails.application.routes.url_helpers.user_path(User.find_by(identity: user)))
+    else
+      "@#{user}"
+    end
+    end
     fstring.html_safe
   end
+
+  def hashtag_mentions
+    self.content.scan(/#\w+/)
+  end
+
+  def user_mentions
+    self.content.scan(/@\w+/)
+  end
+
+  def extract_hashtags
+    self.hashtag_mentions.each do |tag|
+      tag.sub!(/^#/, '')
+      if Hashtag.exists?(tag: tag)
+        self.hashtags << Hashtag.find_by(tag: tag)
+      else
+        self.hashtags.create(tag: tag)
+      end
+  end
+end
 
 end
 

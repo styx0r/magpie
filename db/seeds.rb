@@ -15,6 +15,7 @@ hashtags.each do |tag|
 end
 
 User.create!( name:                   "Christoph Baldow",
+              identity:               "christophb",
               email:                  "christoph.baldow@tu-dresden.de",
               password:               "imb_christoph.baldow_6102",
               password_confirmation:  "imb_christoph.baldow_6102",
@@ -23,6 +24,7 @@ User.create!( name:                   "Christoph Baldow",
               activated_at:           Time.zone.now)
 
 User.create!( name:                   "Sebastian Salentin",
+              identity:               "sebastians",
               email:                  "sebastian.salentin@biotec.tu-dresden.de",
               password:               "biotec_sebastian.salentin_6102",
               password_confirmation:  "biotec_sebastian.salentin_6102",
@@ -31,6 +33,7 @@ User.create!( name:                   "Sebastian Salentin",
               activated_at:           Time.zone.now)
 
 User.create!( name:                   "Lars Thielecke",
+              identity:               "larst",
               email:                  "lars.thielecke@tu-dresden.de",
               password:               "imb_lars.thielecke_6102",
               password_confirmation:  "imb_lars.thielecke_6102",
@@ -39,6 +42,7 @@ User.create!( name:                   "Lars Thielecke",
               activated_at:           Time.zone.now)
 
 User.create!( name:                   "Non-Admin User",
+              identity:               "nonadminu",
               email:                  "user@user.kp",
               password:               "nonadmin.mypass?.7699_8",
               password_confirmation:  "nonadmin.mypass?.7699_8",
@@ -46,6 +50,7 @@ User.create!( name:                   "Non-Admin User",
               activated_at:           Time.zone.now)
 
 User.create!( name:                   Rails.application.config.postbot_name,
+              identity:               "postbot",
               email:                  Rails.application.config.postbot_email,
               password:               "nonadmin.mypass?.7699_9",
               password_confirmation:  "nonadmin.mypass?.7699_9",

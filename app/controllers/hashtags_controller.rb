@@ -1,6 +1,10 @@
 class HashtagsController < ApplicationController
   before_action :set_hashtag
 
+  def index
+    @hashtags = Hashtag.all
+  end
+
   # GET /hashtags/tag
   # GET /hashtags/tag.json
   def show

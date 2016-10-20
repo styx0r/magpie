@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   before_create :create_activation_digest, unless: :guest
   validates :name, presence: true,
                    length: { maximum: 50 }
+  validates :identity, :format => { with: /\A(?=.*[a-z])[a-z\d]+\Z/i }, length: { maximum: 20}
   VALID_EMAIL_REGEX = /.+@.+/#/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, presence: true,
                     length: { maximum: 255 },
@@ -36,7 +37,7 @@ class User < ActiveRecord::Base
    end
 
    def self.new_guest
-     new { |u| u.guest = true, u.name = "Guest User", u.password = "guest" }
+     new { |u| u.guest = true, u.name = "Guest User", u.password = "guest", u.identity = "guest#{Random.new(1234).rand(10000000)}"}
    end
 
    # Returns a random token.

@@ -23,7 +23,9 @@ class ApplicationController < ActionController::Base
       if hashtags.length != 0
         message = message + " #" + hashtags.map{|h| h.tag}.join(" #")
       end
-      Micropost.create(content: message, user_id: postbot.id)
+      micropost = Micropost.create(content: message, user: postbot)
+      micropost.extract_hashtags
+
     end
 
     def random_advice

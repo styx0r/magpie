@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020161130) do
+ActiveRecord::Schema.define(version: 20161020185606) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20161020161130) do
     t.string   "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["tag"], name: "index_hashtags_on_tag", unique: true
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -122,7 +123,9 @@ ActiveRecord::Schema.define(version: 20161020161130) do
     t.datetime "reset_sent_at"
     t.boolean  "guest",             default: false
     t.boolean  "bot",               default: false
+    t.string   "identity"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["identity"], name: "index_users_on_identity", unique: true
   end
 
 end
