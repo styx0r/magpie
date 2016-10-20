@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   resources :models
 
+  resources :hashtags
+
   # New routes
   resources :users do
     resources :projects

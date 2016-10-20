@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017070827) do
+ActiveRecord::Schema.define(version: 20161020161130) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -25,6 +25,12 @@ ActiveRecord::Schema.define(version: 20161017070827) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "hashtags", force: :cascade do |t|
+    t.string   "tag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -84,6 +90,21 @@ ActiveRecord::Schema.define(version: 20161017070827) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "hashtag_id"
+    t.integer  "micropost_id"
+    t.integer  "project_id"
+    t.integer  "model_id"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["hashtag_id"], name: "index_taggings_on_hashtag_id"
+    t.index ["micropost_id"], name: "index_taggings_on_micropost_id"
+    t.index ["model_id"], name: "index_taggings_on_model_id"
+    t.index ["project_id"], name: "index_taggings_on_project_id"
+    t.index ["user_id"], name: "index_taggings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

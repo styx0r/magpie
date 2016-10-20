@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hashtag: one
+  micropost: one
+  project: one
+  model: one
+  user: one
+
+two:
+  hashtag: two
+  micropost: two
+  project: two
+  model: two
+  user: two

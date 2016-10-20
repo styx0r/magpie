@@ -1,5 +1,7 @@
 class Model < ActiveRecord::Base
   belongs_to :user
+  has_many :taggings
+  has_many :hashtags, through: :taggings
   mount_uploader :source, ModelUploader
   attr_accessor :tmp_path, :tag
   serialize :mainscript

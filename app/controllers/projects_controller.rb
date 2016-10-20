@@ -73,7 +73,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        postbot_says "User #{@user.name} created a new project using the model #{@project.model.name}"
+        postbot_says("User #{@user.name} created a new project using the model #{@project.model.name}", @project.model.hashtags)
         format.html { redirect_to user_project_path(current_user, @project), notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else

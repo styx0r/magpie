@@ -8,6 +8,12 @@
 
 require 'open3'
 
+# Hashtags
+hashtags = ["sleepy", "newmodel", "sebastians", "biotec"]
+hashtags.each do |tag|
+  Hashtag.create!(tag: tag)
+end
+
 User.create!( name:                   "Christoph Baldow",
               email:                  "christoph.baldow@tu-dresden.de",
               password:               "imb_christoph.baldow_6102",
@@ -75,6 +81,7 @@ for i in 0..10
   p revision, randomtag
   @model1.mainscript[revision.strip] = "sleep.sh"
   @model1.save
+  @model1.hashtags = Hashtag.all
 end
 
 @model2 = Model.create!(name:        "Failed!",
