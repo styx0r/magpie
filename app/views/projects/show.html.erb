@@ -1,7 +1,9 @@
 <%= render :partial => "projects/header" %>
 <div class="panel-group" id="alljobs">
   <% @project.jobs.each do |job| %>
-  <%= render :layout => false, partial: 'jobs/running', locals: {:job => job} %>
+  <div class = "panel" id="job_id <%= job.id %>">
+    <%= render :layout => false, partial: 'jobs/running', locals: {:job => job} %>
+  </div>
   <% end %>
 </div>
 <% if @project.model %>
