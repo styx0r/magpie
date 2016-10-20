@@ -1,4 +1,5 @@
 class Micropost < ActiveRecord::Base
+  include ActionView::Helpers::UrlHelper
   belongs_to :user
   has_many :taggings
   has_many :hashtags, through: :taggings
@@ -10,7 +11,8 @@ class Micropost < ActiveRecord::Base
 
   def formatted_content
     fstring = self.content
-    fstring.gsub!(/#\w+/) do |tag| "<font color='blue'>#{tag}</font>" end
+    #fstring.gsub!(/#\w+/) do |tag| "<font color='blue'>#{tag}</font>" end
+    fstring.gsub!(/#\w+/) do |tag| link_to(raw("<font color='blue'>#{tag}</font>"), Rails.application.routes.url_helpers.hashtag_path(tag.sub!(/^#/, ''))) end
     fstring.gsub!(/@\w+/) do |tag| "<font color='red'>#{tag}</font>" end
     fstring.html_safe
   end

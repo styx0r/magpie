@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<div class="jumbotron">
+  <h1><%= "##{@hashtag.tag}" %></h1>
+</div>
+<p>
+  <strong>Associated Models:</strong>
+  <% @hashtag.models.each do |model|%>
+  <%= model.name %>
+  <% end %>
+</p>
+<p>
+  <strong>Associated Project:</strong>
+  <% @hashtag.projects.each do |project|%>
+  <%= project.name %>
+  <% end %>
+</p>
+<p>
+  <strong>Associated Users:</strong>
+  <% @hashtag.users.each do |user|%>
+  <%= user.name %>
+  <% end %>
+</p>
+<p>
+  <strong>Associated Microposts:</strong>
+  <% @hashtag.microposts.each do |micropost|%>
+  <%= micropost.formatted_content %>
+  <% end %>
+</p>

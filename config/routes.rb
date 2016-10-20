@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :models
 
-  resources :hashtags
+  resources :hashtags, param: :tag
 
   # New routes
   resources :users do
