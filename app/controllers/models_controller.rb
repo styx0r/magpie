@@ -46,6 +46,19 @@ class ModelsController < ApplicationController
     @model = Model.new(model_params)
     if name_is_unique
       register_model
+      if !model_params[:usertags].nil?
+      # Save all user-supplied hashtags
+      usertags = model_params[:usertags].split(/\s*[,;]\s*|\s{1,}/x)
+      usertags.each do |rawtag|
+        tag = rawtag.to_s.downcase.gsub(/#/, '')
+        if !Hashtag.exists?(tag: tag)
+          @model.hashtags.create(tag: tag)
+        else
+          @model.hashtags << Hashtag.find_by(tag: tag)
+        end
+      end
+    end
+      postbot_says("User #{@model.user.name} registered a new model with the name #{@model.name}", @model.hashtags)
     else
       redirect_to :back, notice: 'Error: Model name already exists.'
     end
@@ -91,7 +104,7 @@ class ModelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def model_params
-      params.require(:model).permit(:name, :source, :mainscript, :description, :help, :tag)
+      params.require(:model).permit(:name, :source, :mainscript, :description, :help, :tag, :usertags)
     end
 
     #confirms an admin user

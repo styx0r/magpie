@@ -73,6 +73,16 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        # Save all user-supplied hashtags
+        usertags = project_params[:usertags].split(/\s*[,;]\s*|\s{1,}/x)
+        usertags.each do |rawtag|
+          tag = rawtag.to_s.downcase.gsub(/#/, '')
+          if !Hashtag.exists?(tag: tag)
+            @project.hashtags.create(tag: tag)
+          else
+            @project.hashtags << Hashtag.find_by(tag: tag)
+          end
+        end
         postbot_says("User #{@user.name} created a new project using the model #{@project.model.name}", @project.model.hashtags)
         format.html { redirect_to user_project_path(current_user, @project), notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
@@ -126,7 +136,7 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:job, :name, :model_id, :public, :revision)
+      params.require(:project).permit(:job, :name, :usertags, :model_id, :public, :revision)
     end
 
     def job_params

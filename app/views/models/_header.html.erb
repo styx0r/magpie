@@ -24,7 +24,7 @@
     <p>
       <strong>Hashtags:</strong>
       <% @model.hashtags.each do |h|%>
-      <%= h.tag %>
+      <%= hashtag_link(h.tag) %>
       <% end %>
     </p>
 

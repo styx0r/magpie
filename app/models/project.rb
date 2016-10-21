@@ -4,6 +4,7 @@ class Project < ActiveRecord::Base
   has_many :hashtags, through: :taggings
   has_many :jobs, dependent: :destroy
   belongs_to :model
+  attr_accessor :usertags
   accepts_nested_attributes_for :jobs, :allow_destroy => true
 
   def tag_to_revision tag

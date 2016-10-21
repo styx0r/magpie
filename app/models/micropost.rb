@@ -41,10 +41,11 @@ class Micropost < ActiveRecord::Base
   def extract_hashtags
     self.hashtag_mentions.each do |tag|
       tag.sub!(/^#/, '')
-      if Hashtag.exists?(tag: tag)
-        self.hashtags << Hashtag.find_by(tag: tag)
-      else
+      #TODO With find_or_create_by, it doesnt work ...
+      if !Hashtag.exists?(tag: tag)
         self.hashtags.create(tag: tag)
+      else
+        self.hashtags << Hashtag.find_by(tag: tag)
       end
   end
 end

@@ -3,7 +3,7 @@ class Model < ActiveRecord::Base
   has_many :taggings
   has_many :hashtags, through: :taggings
   mount_uploader :source, ModelUploader
-  attr_accessor :tmp_path, :tag
+  attr_accessor :tmp_path, :tag, :usertags
   serialize :mainscript
 
   def delete_files
