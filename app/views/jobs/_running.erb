@@ -32,8 +32,14 @@
     <% if !job.resultfiles.blank? %>
     <div class="panel-body">
       <b>Resultfiles</b><br><br>
-      <% job.resultfiles.each_with_index do |element, i| %>
-        <% if is_text_file(element)%>
+      <% (job.resultfiles+
+          Dir[job.directory+"/*.d3box"]).each_with_index do |element, i| %>
+        <% if is_d3element(element) %>
+            <td>
+              <%= render(:layout => false, :partial => "jobs/d3plus", :locals => {})%>
+            </td>
+            <figcaption><%= "Fig #{i+1}, - #{File.basename(element)}" %></figcaption>
+        <% elsif is_text_file(element)%>
         <pre>
           <%= render :plain => get_text_from_file(element)%>
         </pre>

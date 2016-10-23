@@ -109,6 +109,14 @@ end
 @model5.initializer
 @model5.save
 
+@model6 = Model.create!(name:         "D3 Plot Model",
+                        description:  "Model for creating and testing all different d3 plots, including barcharts, boxplots and histograms.",
+                        help:         "Displays the different defined barcharts",
+                        source:        File.open("#{Rails.application.config.root}/test/zip/d3Model.zip"),
+                        user_id:      1)
+@model6.initializer
+@model6.save
+
 # Initialize the docker image
 # TODO: integrate in execution: docker run -it -v /Users/baldow/.magpie/docker/:/root -w /root magpie:default ./run_mf.sh
 system("rm -fR #{Rails.application.config.docker_path}")
