@@ -24,7 +24,7 @@
     <div class="panel-body">
       <% @hashtag.projects.each do |project|%>
       <% @project = project %>
-      <% render :partial => "projects/header" %>
+      <%= render :partial => "projects/header" %>
       <% end %>
     </div>
   </div>

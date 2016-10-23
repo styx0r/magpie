@@ -9,6 +9,7 @@ module ApplicationHelper
   end
 
 def hashtag_link(tag)
+  tag.downcase!
   if Hashtag.exists?(tag: tag)
     link_to(raw("<font color='blue'>##{tag}</font>"), hashtag_path(tag))
   else

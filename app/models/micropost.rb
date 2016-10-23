@@ -13,7 +13,7 @@ class Micropost < ActiveRecord::Base
     fstring = self.content
     fstring.gsub!(/#\w+/) do |tag|
       tag.sub!(/^#/, '')
-      if Hashtag.exists?(tag: tag)
+      if Hashtag.exists?(tag: tag.downcase)
         link_to(raw("<font color='blue'>##{tag}</font>"), Rails.application.routes.url_helpers.hashtag_path(tag))
       else
         "##{tag}"
@@ -40,7 +40,7 @@ class Micropost < ActiveRecord::Base
 
   def extract_hashtags
     self.hashtag_mentions.each do |tag|
-      tag.sub!(/^#/, '')
+      tag.sub!(/^#/, '').downcase!
       #TODO With find_or_create_by, it doesnt work ...
       if !Hashtag.exists?(tag: tag)
         self.hashtags.create(tag: tag)

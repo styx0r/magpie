@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :projects, dependent: :destroy
-  attr_accessor :remember_token, :activation_token, :reset_token
+  attr_accessor :remember_token, :activation_token, :reset_token, :new_hashtags
   before_save :downcase_email, unless: :guest?
   before_create :create_activation_digest, unless: :guest
   validates :name, presence: true,

@@ -1,0 +1,7 @@
+<% delete_links = false if local_assigns[:delete_links].nil? %>
+<% @hashtags.each do |hashtag| %>
+  <font size=<%= tagcloudsize hashtag %>><%= link_to("##{hashtag.tag}", hashtag_path(hashtag.tag)) %></font>
+  <% if delete_links%>
+  <%= "Hello" %>
+  <% end %>
+<% end %>
