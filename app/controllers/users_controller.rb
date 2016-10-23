@@ -17,6 +17,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def hashtag_delete
+    @user = User.find(params[:user_id])
+    @user.hashtags.delete(Hashtag.find_by(tag: params[:tag]))
+    respond_to do |format|
+      format.html { redirect_to user_path({:id => @user.id}), notice: "Hashtag ##{params[:tag]} has been removed." }
+      format.json { head :no_content }
+    end
+  end
+
   def delete_all_projects
     @user = User.find(params[:user_id])
     @user.projects.destroy_all

@@ -2,6 +2,7 @@
 <% @hashtags.each do |hashtag| %>
   <font size=<%= tagcloudsize hashtag %>><%= link_to("##{hashtag.tag}", hashtag_path(hashtag.tag)) %></font>
   <% if delete_links%>
-  <%= "Hello" %>
+  <%= link_to user_hashtag_delete_path(current_user.id, :tag => hashtag.tag), class: "btn btn-danger btn-xs" do %>
+  <span class="glyphicon glyphicon-remove aria-hidden='false'"></span><% end %>
   <% end %>
 <% end %>
