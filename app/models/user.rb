@@ -95,12 +95,19 @@ class User < ActiveRecord::Base
   def feed
     following_ids = "SELECT followed_id FROM relationships
                      WHERE  follower_id = :user_id"
-    # All microposts from following and all from post bot
-    Micropost.where("user_id IN (#{following_ids})
-                     OR user_id = :user_id
-                     OR user_id = :postbot_id",
-                     user_id: id,
-                     postbot_id: User.find_by(email: Rails.application.config.postbot_email).id)
+    hashtags = self.hashtags.map { |h| "'#{h.tag}'" }.join(", ")
+    # All microposts from
+    #   following
+    #   OR self
+    #   OR post bot
+    #   OR containing hashtags of interest
+    Micropost.joins(:hashtags).where(
+              "microposts.user_id IN (#{following_ids})
+               OR microposts.user_id = :user_id
+               OR microposts.user_id = :postbot_id
+               OR hashtags.tag IN (#{hashtags})",
+               user_id: id,
+               postbot_id: User.find_by(email: Rails.application.config.postbot_email).id).uniq
   end
 
   # Following a user.
