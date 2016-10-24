@@ -9,10 +9,18 @@ App.job_queue_infos = App.cable.subscriptions.create("JobQueueInfosChannel", {
 
   received: function(data) {
     // Called when there's incoming data on the websocket for this channel
-    document.getElementById("queued_jobs_me").innerHTML = data.me_queue;
-    document.getElementById("jobs_running").innerHTML = data.me_running;
-    document.getElementById("jobs_finished").innerHTML = data.me_finished;
-    document.getElementById("jobs_failed").innerHTML = data.me_failed;
+    if(document.getElementById("queued_jobs_me")){
+      document.getElementById("queued_jobs_me").innerHTML = data.me_queue;
+    }
+    if(document.getElementById("jobs_running")){
+      document.getElementById("jobs_running").innerHTML = data.me_running;
+    }
+    if(document.getElementById("jobs_finished")){
+      document.getElementById("jobs_finished").innerHTML = data.me_finished;
+    }
+    if(document.getElementById("jobs_failed")){
+      document.getElementById("jobs_failed").innerHTML = data.me_failed;
+    }
     if(document.getElementById("job_" + data.job_id)){
       $.ajax({
           async: true,

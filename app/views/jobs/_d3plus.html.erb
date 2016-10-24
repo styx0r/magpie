@@ -1,5 +1,45 @@
+<%
+
+# Read in the config
+config_lines = {}
+File.open(config_file, "r") do |f|
+  f.each_line do |line|
+    config_lines[line.gsub(/\s+/m, ' ').strip.split(" ")[0]] = line.gsub(/\s+/m, ' ').strip.split(" ")[1]
+  end
+end
+
+# Read in the data
+data_lines = []
+File.open(Pathname.new(config_file).dirname.to_s+"/"+config_lines["data"]) do |f|
+  f.each_line do |line|
+    data_lines.push(line.gsub("\n", ""))
+  end
+end
+
+p "test test test"
+p config_lines.inspect
+p data_lines.inspect
+
+@array = []
+data_lines.each do |line|
+  @hash = {}
+  line.split(",").each do |element|
+    @kv = element.gsub(/\s+/m, ' ').strip.split(" ")
+    @key = @kv[0]
+    @value = @kv[1]
+    @hash[@key] = @value.is_number? ? (@value.to_f) : (@value)
+  end
+  @array.push(@hash)
+end
+
+
+p "hrhr hrhr hrhhr"
+p @array.inspect
+
+%>
+
 <style type="text/css">
-    #viz {
+    #<%= raw "viz_#{job_id}_#{chart_id}" %> {
         position:relative;
         height:400px;
         width:720px;
@@ -11,33 +51,27 @@
 <script src="//d3plus.org/js/d3.js"></script>
 <script src="//d3plus.org/js/d3plus.js"></script>
 
-<div id="viz"></div>
+<div id = <%= raw "viz_#{job_id}_#{chart_id}".to_json %>></div>
 
 <script>
-  var data = [
-    {"year": 1991, "name":"alpha", "value": 15},
-    {"year": 1991, "name":"beta", "value": 10},
-    {"year": 1991, "name":"gamma", "value": 5},
-    {"year": 1991, "name":"delta", "value": 50},
-    {"year": 1992, "name":"alpha", "value": 20},
-    {"year": 1992, "name":"beta", "value": 10},
-    {"year": 1992, "name":"gamma", "value": 10},
-    {"year": 1992, "name":"delta", "value": 43},
-    {"year": 1993, "name":"alpha", "value": 30},
-    {"year": 1993, "name":"beta", "value": 40},
-    {"year": 1993, "name":"gamma", "value": 20},
-    {"year": 1993, "name":"delta", "value": 17},
-    {"year": 1994, "name":"alpha", "value": 60},
-    {"year": 1994, "name":"beta", "value": 60},
-    {"year": 1994, "name":"gamma", "value": 25},
-    {"year": 1994, "name":"delta", "value": 32}
-  ]
+
+  var data = <%= raw @array.to_json %>
+
   var visualization = d3plus.viz()
-    .container("#viz")
-    .data(data)
-    .type("bar")
-    .id("name")
-    .x("year")
-    .y("value")
-    .draw()
+   .container(<%= raw "#viz_#{job_id}_#{chart_id}".to_json %>)
+   .data(data)
+   .type({
+     "value": "box",
+     "mode": "extent"  // changes box/whisker from tukey to extent mode
+     })
+   .id("value")
+   .x("id")
+   .y("value")
+   .ui([{
+        "label": "Visualization Type",
+        "method": "type",
+        "value": ["box","scatter", "bar"]
+    }])
+   .draw()
+
 </script>
