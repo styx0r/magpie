@@ -44,8 +44,8 @@ module JobsHelper
       return data
   end
 
-  def is_d3element(f)
-    ['.d3hist', '.d3bar', '.d3box'].include? File.extname(f)
+  def iplot?(f)
+    ['.iplot'].include? File.extname(f)
   end
 
   def is_text_file(f)

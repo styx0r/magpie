@@ -4,21 +4,18 @@
 config_lines = {}
 File.open(config_file, "r") do |f|
   f.each_line do |line|
-    config_lines[line.gsub(/\s+/m, ' ').strip.split(" ")[0]] = line.gsub(/\s+/m, ' ').strip.split(" ")[1]
+    @split_array = line.gsub(/\s+/m, ' ').strip.split(" ")
+    config_lines[@split_array[0]] = Array(@split_array[1,@split_array.length])
   end
 end
 
 # Read in the data
 data_lines = []
-File.open(Pathname.new(config_file).dirname.to_s+"/"+config_lines["data"]) do |f|
+File.open(Pathname.new(config_file).dirname.to_s+"/"+config_lines["data"][0]) do |f|
   f.each_line do |line|
     data_lines.push(line.gsub("\n", ""))
   end
 end
-
-p "test test test"
-p config_lines.inspect
-p data_lines.inspect
 
 @array = []
 data_lines.each do |line|
@@ -32,9 +29,8 @@ data_lines.each do |line|
   @array.push(@hash)
 end
 
-
-p "hrhr hrhr hrhhr"
-p @array.inspect
+p "test test test hrhr hrhr hrhr"
+p config_lines.inspect
 
 %>
 
@@ -48,30 +44,31 @@ p @array.inspect
 
 <meta charset="utf-8">
 
-<script src="//d3plus.org/js/d3.js"></script>
-<script src="//d3plus.org/js/d3plus.js"></script>
-
 <div id = <%= raw "viz_#{job_id}_#{chart_id}".to_json %>></div>
 
 <script>
 
   var data = <%= raw @array.to_json %>
+  var plot_types = <%= raw config_lines['type'].to_json %>
 
-  var visualization = d3plus.viz()
-   .container(<%= raw "#viz_#{job_id}_#{chart_id}".to_json %>)
-   .data(data)
-   .type({
-     "value": "box",
-     "mode": "extent"  // changes box/whisker from tukey to extent mode
-     })
-   .id("value")
-   .x("id")
-   .y("value")
-   .ui([{
-        "label": "Visualization Type",
-        "method": "type",
-        "value": ["box","scatter", "bar"]
-    }])
-   .draw()
+  //$(<%= raw "#viz_#{job_id}_#{chart_id}".to_json %>).click(function() {
+
+    var visualization = d3plus.viz()
+     .container(<%= raw "#viz_#{job_id}_#{chart_id}".to_json %>)
+     .data(data)
+     .type({
+       "value": <%= raw "#{config_lines['type'][0]}".to_json %>
+       })
+     .id(<%= raw "#{config_lines['id'][0]}".to_json %>)
+     .x(<%= raw "#{config_lines['x'][0]}".to_json %>)
+     .y(<%= raw "#{config_lines['y'][0]}".to_json %>)
+     .ui([{
+          "label": "Visualization Type",
+          "method": "type",
+          "value": plot_types
+      }])
+     .draw()
+
+   //})
 
 </script>

@@ -101,13 +101,13 @@ end
 @model4.initializer
 @model4.save
 
-@model5 = Model.create!(name:         "D3 Simple Model",
-                        description:  "__Simple__ demo for D3 interactive visualization.",
-                        help:         "Display random bar charts with MAGPIE",
-                        source:       File.open("#{Rails.application.config.root}/test/zip/d3simple.zip"),
-                        user_id:      2)
-@model5.initializer
-@model5.save
+#@model5 = Model.create!(name:         "D3 Simple Model",
+#                        description:  "__Simple__ demo for D3 interactive visualization.",
+#                        help:         "Display random bar charts with MAGPIE",
+#                        source:       File.open("#{Rails.application.config.root}/test/zip/d3simple.zip"),
+#                        user_id:      2)
+#@model5.initializer
+#@model5.save
 
 @model6 = Model.create!(name:         "D3 Plot Model",
                         description:  "Model for creating and testing all different d3 plots, including barcharts, boxplots and histograms.",

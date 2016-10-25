@@ -33,8 +33,8 @@
     <div class="panel-body">
       <b>Resultfiles</b><br><br>
       <% (job.resultfiles+
-          Dir[job.directory+"/*.d3box"]).each_with_index do |element, i| %>
-        <% if is_d3element(element) %>
+          Dir[job.directory+"/*.iplot"]).each_with_index do |element, i| %>
+        <% if iplot?(element) %>
             <td>
               <%= render(:layout => false, :partial => "jobs/d3plus", :locals => {:config_file => element, :job_id => job.id, :chart_id => i})%>
             </td>
