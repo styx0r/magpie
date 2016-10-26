@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<div class="jumbotron">
+  <h1><%= "##{@hashtag.tag}" %></h1>
+</div>
+
+<div class="panel-group">
+
+  <% if @hashtag.models.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading"><b>Associated Models</b></div>
+    <div class="panel-body">
+      <% @hashtag.models.each do |model|%>
+      <% @model = model %>
+      <%= render :partial => "models/header" %>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+
+  <% if @hashtag.projects.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading"><b>Associated Projects</b></div>
+    <div class="panel-body">
+      <% @hashtag.projects.each do |project|%>
+      <% @project = project %>
+      <%= render :partial => "projects/header" %>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+
+  <% if @hashtag.users.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading"><b>Associated Users</b></div>
+    <div class="panel-body">
+      <% @hashtag.users.each do |user|%>
+      <%= gravatar_for user, "50" %>
+      <%= link_to user.name, user %>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+
+  <% if @hashtag.microposts.any? %>
+  <div class = "panel panel-default">
+    <div class="panel-heading"><b>Associated Microposts</b></div>
+      <div class="panel-body">
+        <% if @hashtag.microposts.any? %>
+        <ol class = "microposts">
+        <%= render @hashtag.microposts %>
+        </ol>
+        <% end %>
+      </div>
+    </div>
+</div>
+<% end %>

@@ -17,6 +17,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def hashtag_delete
+    @user = User.find(params[:user_id])
+    @user.hashtags.delete(Hashtag.find_by(tag: params[:tag]))
+    respond_to do |format|
+      format.html { redirect_to user_path({:id => @user.id}), notice: "Hashtag ##{params[:tag]} has been removed." }
+      format.json { head :no_content }
+    end
+  end
+
   def delete_all_projects
     @user = User.find(params[:user_id])
     @user.projects.destroy_all
@@ -61,8 +70,21 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+
+    if user_params[:new_hashtags]
+      usertags = user_params[:new_hashtags].split(/\s*[,;]\s*|\s{1,}/x)
+      usertags.each do |rawtag|
+        tag = rawtag.to_s.downcase.gsub(/#/, '')
+        if !Hashtag.exists?(tag: tag)
+          @user.hashtags.create(tag: tag)
+        else
+          @user.hashtags << Hashtag.find_by(tag: tag)
+        end
+    end
+  end
+
     if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
+      flash[:success] = "Profile updated."
       redirect_to @user
     else
       render 'edit'
@@ -86,7 +108,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :guest)
+      params.require(:user).permit(:name, :identity, :email, :password, :password_confirmation, :guest, :new_hashtags)
     end
 
 

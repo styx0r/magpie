@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   resources :models
 
+  resources :hashtags, param: :tag
+
   # New routes
   resources :users do
     resources :projects
@@ -9,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :users do
       get 'delete_all_projects'
+      get 'hashtag_delete'
   end
 
   #TODO Obsolete, but somethow needed by the form ...

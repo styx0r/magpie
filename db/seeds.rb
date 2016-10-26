@@ -8,23 +8,31 @@
 
 require 'open3'
 
-User.create!( name:                   "Christoph Baldow",
-              email:                  "christoph.baldow@tu-dresden.de",
-              password:               "imb_christoph.baldow_6102",
-              password_confirmation:  "imb_christoph.baldow_6102",
-              admin:                  true,
-              activated:              true,
-              activated_at:           Time.zone.now)
+@u1 = User.create!( name:                   "Christoph Baldow",
+                    identity:               "christophb",
+                    email:                  "christoph.baldow@tu-dresden.de",
+                    password:               "imb_christoph.baldow_6102",
+                    password_confirmation:  "imb_christoph.baldow_6102",
+                    admin:                  true,
+                    activated:              true,
+                    activated_at:           Time.zone.now)
+[{tag: "imb"}, {tag: "trumpets"}, {tag: "carloc"}, {tag: "models"}].each do |tagdata|
+  @u1.hashtags.find_or_create_by(tagdata) end
 
-User.create!( name:                   "Sebastian Salentin",
-              email:                  "sebastian.salentin@biotec.tu-dresden.de",
-              password:               "biotec_sebastian.salentin_6102",
-              password_confirmation:  "biotec_sebastian.salentin_6102",
-              admin:                  true,
-              activated:              true,
-              activated_at:           Time.zone.now)
+@u2 = User.create!( name:                   "Sebastian Salentin",
+                    identity:               "sebastians",
+                    email:                  "sebastian.salentin@biotec.tu-dresden.de",
+                    password:               "biotec_sebastian.salentin_6102",
+                    password_confirmation:  "biotec_sebastian.salentin_6102",
+                    admin:                  true,
+                    activated:              true,
+                    activated_at:           Time.zone.now)
+
+[{tag: "biotec"}, {tag: "dresden"}, {tag: "freeharambe"}].each do |tagdata|
+  @u2.hashtags.find_or_create_by(tagdata) end
 
 User.create!( name:                   "Lars Thielecke",
+              identity:               "larst",
               email:                  "lars.thielecke@tu-dresden.de",
               password:               "imb_lars.thielecke_6102",
               password_confirmation:  "imb_lars.thielecke_6102",
@@ -33,6 +41,7 @@ User.create!( name:                   "Lars Thielecke",
               activated_at:           Time.zone.now)
 
 User.create!( name:                   "Non-Admin User",
+              identity:               "nonadminu",
               email:                  "user@user.kp",
               password:               "nonadmin.mypass?.7699_8",
               password_confirmation:  "nonadmin.mypass?.7699_8",
@@ -40,6 +49,7 @@ User.create!( name:                   "Non-Admin User",
               activated_at:           Time.zone.now)
 
 User.create!( name:                   Rails.application.config.postbot_name,
+              identity:               "postbot",
               email:                  Rails.application.config.postbot_email,
               password:               "nonadmin.mypass?.7699_9",
               password_confirmation:  "nonadmin.mypass?.7699_9",
@@ -53,10 +63,10 @@ User.create!( name:                   Rails.application.config.postbot_name,
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/sleep.zip"),
               user_id:               2)
-#TODO Unterminated quoted string error from shell
-#TODO Git Error: Konnte HEAD nicht als gültige Referenz auflösen
 @model1.initializer
 @model1.save
+[{tag: "versions"}, {tag: "sleepy"}, {tag: "myfirstmodel"}].each do |tagdata|
+  @model1.hashtags.find_or_create_by(tagdata) end
 # Now, let's create some more random revisions in the repository
 tmp_path = Dir.mktmpdir
 system("cd #{tmp_path}; git clone #{@model1.path} #{tmp_path}")
@@ -66,10 +76,8 @@ for i in 0..10
   randomtagdesc = Faker::Hacker.say_something_smart.gsub("'", "")
   randomcommitmessage = Faker::Lorem.sentence
   fakefile = Faker::Name.name
-  p '----%%%%%%%------'
   p randomtag, randomtagdesc, randomcommitmessage, fakefile
   system("cd #{tmp_path}; touch '#{fakefile}'; git add -A; git tag -a v#{randomtag} -m '#{randomtagdesc}';")
-  p "--------------"
   system("cd #{tmp_path}; git commit -m '#{randomcommitmessage}'; git push origin master --tags;")
   revision, status = Open3.capture2("cd #{@model1.path}; git rev-parse --verify HEAD;")
   p revision, randomtag
@@ -84,6 +92,8 @@ end
               user_id:               2)
 @model2.initializer
 @model2.save
+[{tag: "completefailure"}, {tag: "owned"}, {tag: "syntaxerror"}].each do |tagdata|
+  @model2.hashtags.find_or_create_by(tagdata) end
 
 @model3 = Model.create!(name:        "PFSPA",
               description:           "Novel particle system combining reaction-diffusion with motion.",
@@ -92,6 +102,8 @@ end
               user_id:               1)
 @model3.initializer
 @model3.save
+[{tag: "PFSPA"}, {tag: "particles"}].each do |tagdata|
+  @model3.hashtags.find_or_create_by(tagdata) end
 
 @model4 = Model.create!(name:        "Multiplexing Clonality",
               description:           "Analysing simultaneously barcoded and fluroscence marked cells.",
@@ -100,6 +112,8 @@ end
               user_id:               3)
 @model4.initializer
 @model4.save
+[{tag: "attackoftheclones"}, {tag: "barcoding"}, {tag: "fancy"}].each do |tagdata|
+  @model4.hashtags.find_or_create_by(tagdata) end
 
 #@model5 = Model.create!(name:         "D3 Simple Model",
 #                        description:  "__Simple__ demo for D3 interactive visualization.",

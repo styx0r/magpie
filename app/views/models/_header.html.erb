@@ -21,5 +21,12 @@
       <%= @model.mainscript %>
     </p>
 
+    <p>
+      <strong>Hashtags:</strong>
+      <% @model.hashtags.each do |h|%>
+      <%= hashtag_link(h.tag) %>
+      <% end %>
+    </p>
+
   </div>
 </div>

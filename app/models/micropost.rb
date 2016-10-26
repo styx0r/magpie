@@ -1,5 +1,8 @@
 class Micropost < ActiveRecord::Base
+  include ActionView::Helpers::UrlHelper
   belongs_to :user
+  has_many :taggings
+  has_many :hashtags, through: :taggings
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader
   validates :user_id, presence: true
@@ -8,10 +11,44 @@ class Micropost < ActiveRecord::Base
 
   def formatted_content
     fstring = self.content
-    fstring.gsub!(/#\w+/) do |tag| "<font color='blue'>#{tag}</font>" end
-    fstring.gsub!(/@\w+/) do |tag| "<font color='red'>#{tag}</font>" end
+    fstring.gsub!(/#\w+/) do |tag|
+      tag.sub!(/^#/, '')
+      if Hashtag.exists?(tag: tag.downcase)
+        link_to(raw("<font color='blue'>##{tag}</font>"), Rails.application.routes.url_helpers.hashtag_path(tag))
+      else
+        "##{tag}"
+      end
+    end
+    fstring.gsub!(/@\w+/) do |user|
+    user.sub!(/^@/, '')
+    if User.exists?(identity: user)
+      link_to(raw("<font color='red'>@#{user}</font>"), Rails.application.routes.url_helpers.user_path(User.find_by(identity: user)))
+    else
+      "@#{user}"
+    end
+    end
     fstring.html_safe
   end
+
+  def hashtag_mentions
+    self.content.scan(/#\w+/)
+  end
+
+  def user_mentions
+    self.content.scan(/@\w+/)
+  end
+
+  def extract_hashtags
+    self.hashtag_mentions.each do |tag|
+      tag.sub!(/^#/, '').downcase!
+      #TODO With find_or_create_by, it doesnt work ...
+      if !Hashtag.exists?(tag: tag)
+        self.hashtags.create(tag: tag)
+      else
+        self.hashtags << Hashtag.find_by(tag: tag)
+      end
+  end
+end
 
 end
 

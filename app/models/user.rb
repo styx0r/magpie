@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
+  has_many :taggings
+  has_many :hashtags, through: :taggings
   has_many :active_relationships, class_name:   "Relationship",
                                   foreign_key:  "follower_id",
                                   dependent:    :destroy
@@ -9,11 +11,12 @@ class User < ActiveRecord::Base
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :projects, dependent: :destroy
-  attr_accessor :remember_token, :activation_token, :reset_token
+  attr_accessor :remember_token, :activation_token, :reset_token, :new_hashtags
   before_save :downcase_email, unless: :guest?
   before_create :create_activation_digest, unless: :guest
   validates :name, presence: true,
                    length: { maximum: 50 }
+  validates :identity, :format => { with: /\A(?=.*[a-z])[a-z\d]+\Z/i }, length: { maximum: 20}
   VALID_EMAIL_REGEX = /.+@.+/#/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, presence: true,
                     length: { maximum: 255 },
@@ -34,7 +37,7 @@ class User < ActiveRecord::Base
    end
 
    def self.new_guest
-     new { |u| u.guest = true, u.name = "Guest User", u.password = "guest" }
+     new { |u| u.guest = true, u.name = "Guest User", u.password = "guest", u.identity = "guest#{Random.new(1234).rand(10000000)}"}
    end
 
    # Returns a random token.
@@ -92,12 +95,19 @@ class User < ActiveRecord::Base
   def feed
     following_ids = "SELECT followed_id FROM relationships
                      WHERE  follower_id = :user_id"
-    # All microposts from following and all from post bot
-    Micropost.where("user_id IN (#{following_ids})
-                     OR user_id = :user_id
-                     OR user_id = :postbot_id",
-                     user_id: id,
-                     postbot_id: User.find_by(email: Rails.application.config.postbot_email).id)
+    hashtags = self.hashtags.map { |h| "'#{h.tag}'" }.join(", ")
+    # All microposts from
+    #   following
+    #   OR self
+    #   OR post bot
+    #   OR containing hashtags of interest
+    Micropost.joins(:hashtags).where(
+              "microposts.user_id IN (#{following_ids})
+               OR microposts.user_id = :user_id
+               OR microposts.user_id = :postbot_id
+               OR hashtags.tag IN (#{hashtags})",
+               user_id: id,
+               postbot_id: User.find_by(email: Rails.application.config.postbot_email).id).uniq
   end
 
   # Following a user.

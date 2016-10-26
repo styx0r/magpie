@@ -10,6 +10,20 @@
     <section class="stats">
       <%= render 'shared/stats' %>
     </section>
+    <section class="tagcloud">
+      <% @hashtags = @user.hashtags %>
+      <%= render :partial => "hashtags/tagcloud", :locals => {:delete_links => true} %>
+      <p></p>
+
+    <%= simple_form_for(@user) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label "More hashtags" %>
+      <%= f.text_field :new_hashtags, class: 'form-control' %>
+
+      <%= f.submit "Add", class: "btn btn-primary" %>
+    <% end %>
+
   </aside>
   <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>
