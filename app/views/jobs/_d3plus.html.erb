@@ -46,10 +46,10 @@ p config_lines.inspect
 
 <div id = <%= raw "viz_#{job_id}_#{chart_id}".to_json %>></div>
 
-<script>
+<script type="text/javascript" id = <%= raw "sid_#{job_id}_#{chart_id}".to_json %>>
 
-  var data = <%= raw @array.to_json %>
-  var plot_types = <%= raw config_lines['type'].to_json %>
+  var data = <%= raw @array.to_json %>;
+  var plot_types = <%= raw config_lines['type'].to_json %>;
 
   //$(<%= raw "#viz_#{job_id}_#{chart_id}".to_json %>).click(function() {
 

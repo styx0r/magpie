@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy, :download, :download_config, :images]
+  skip_before_filter :verify_authenticity_token, :only => [:running]
 
   # GET /jobs
   # GET /jobs.json
