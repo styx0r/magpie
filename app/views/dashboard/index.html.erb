@@ -1,7 +1,7 @@
 <%= provide(:title, "Home")%>
 <div class="center jumbotron">
   <h1>Welcome!</h1>
-  <h2>This is your personal dashboard for the MF-Project</h2>
+  <h2>This is your personal dashboard for the MAGPIE Project</h2>
   <% if !logged_in? %>
     <%= link_to "Register | Login", login_path, class: "btn btn-lg btn-primary" %>
     <%= link_to "Try as a guest", users_path, method: :post, class: "btn btn-lg btn-info" %>
