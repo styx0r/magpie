@@ -1,5 +1,5 @@
 class ModelsController < ApplicationController
-  before_action :set_model, only: [:show, :edit, :update, :destroy]
+  before_action :set_model, only: [:show, :edit, :update, :destroy, :downlaod]
   before_action :admin_user, only: [:index, :new]
 
   # GET /models
@@ -79,6 +79,11 @@ class ModelsController < ApplicationController
         format.json { render json: @model.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def download
+    @model = Model.find(params[:id])
+    send_file @model.provide_source(params[:revision]), :type => 'application/zip', :disposition => 'attachment', :filename => "#{@model.name.gsub!(' ', '_')}_#{params[:revision][1..6]}.zip"
   end
 
   # DELETE /models/1

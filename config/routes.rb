@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     get 'download_config', on: :member
   end
 
+  get 'models/:id/:revision/download', to: 'models#download', as: "model_download"
+
   get 'images/:id/files/:fileid', to: 'jobs#images', constraints: { id: /[0-9]+(\%7C[0-9]+)*/ }
 
   get 'password_resets/new'

@@ -7,6 +7,7 @@ class Project < ActiveRecord::Base
   attr_accessor :usertags
   accepts_nested_attributes_for :jobs, :allow_destroy => true
 
+
   def tag_to_revision tag
     require 'open3'
     output, status = Open3.capture2("cd #{self.model.path}; git rev-list -n 1 #{tag}")

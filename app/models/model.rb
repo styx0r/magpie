@@ -58,6 +58,22 @@ class Model < ActiveRecord::Base
     output.split
   end
 
+  def tag_to_revision tag
+    require 'open3'
+    output, status = Open3.capture2("cd #{self.path}; git rev-list -n 1 #{tag}")
+    output.strip
+  end
+
+  def provide_source revision
+    require 'tmpdir'
+    require 'zip'
+    tmp_path = Dir.mktmpdir
+    system("git clone #{self.path} #{tmp_path}")
+    zipfile = "#{tmp_path}/#{self.id}_#{revision}.zip"
+    system("cd #{tmp_path}; git reset --hard #{revision};zip -r #{zipfile} . -x *.git*")
+    zipfile
+    end
+
   def unzip_source(spath,opath)
     require 'zip'
     Zip::File.open(spath) do |zip_file|

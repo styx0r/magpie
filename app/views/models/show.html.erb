@@ -12,7 +12,12 @@
   <div class="panel-body">
     <ul>
     <% @model.versions.each do |tag| %>
-    <li><%= "#{tag}" %></li>
+    <li>
+      <%= link_to model_download_path(@model.id, @model.tag_to_revision(tag)), 'data-turbolinks' => false, class: "btn btn-default btn-sm" do %>
+      <span class="glyphicon glyphicon-download aria-hidden='false'"></span>
+      <span> <%= tag %> </span>
+      <% end %>
+    </li>
     <% end %>
   </ul>
   </div>
