@@ -1,6 +1,6 @@
 <h1>Available Models</h1>
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -10,14 +10,11 @@
 
   <tbody>
     <% @models.each do |model| %>
-      <tr>
+    <tr class='clickable-row' data-href='<%= model_path model%>' </tr>
         <td><%= model.name %></td>
-        <td><%= link_to 'More', model, :class => "btn btn-mini" %></td>
         <td><%= link_to 'Destroy', model, method: :delete, data: { confirm: 'Are you sure? This will delete all associated model files.' }, :class => "btn btn-mini btn-danger"  %></td>
         <td><%= link_to 'Update', edit_model_path(model), :class => "btn btn-mini btn-info"  %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
