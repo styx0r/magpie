@@ -6,9 +6,14 @@ class HashtagsController < ApplicationController
   end
 
   def autocomplete
-  hashtags = Hashtag.all.map do |htag|
+  # Match all hashtags starting with query
+  lastword = params[:query].split(' ')[-1]
+  if lastword.start_with?('#')
+    lastword.gsub!('#','')
+  end
+  hashtags = Hashtag.where("tag like ?", "#{lastword}%").map do |htag|
     {
-      tag: htag.tag
+      tag: "##{htag.tag}"
     }
   end
 

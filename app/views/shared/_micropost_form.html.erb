@@ -1,16 +1,12 @@
 <%= form_for(@micropost, html: { multipart: true }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_area :content, placeholder: "Compose new micropost ..." %>
+    <%= f.text_area :content, class: 'typeahead-hashtags form-control col-md-6', placeholder: "Compose new micropost ..." %>
   </div>
   <%= f.submit "Post", class: "btn btn-primary" %>
   <span class="picture">
     <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
   </span>
-  <div id="prefetch">
-    <%= f.label :content %><br/>
-    <%= f.text_field :content, placeholder: 'Autocompletion test', class: 'typeahead-hashtags form-control' %>
-  </div>
 <% end %>
 
 <script type="text/javascript">
