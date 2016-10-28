@@ -7,6 +7,10 @@
   <span class="picture">
     <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
   </span>
+  <div id="prefetch">
+    <%= f.label :content %><br/>
+    <%= f.text_field :content, placeholder: 'Autocompletion test', class: 'typeahead-hashtags form-control' %>
+  </div>
 <% end %>
 
 <script type="text/javascript">

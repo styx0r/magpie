@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   resources :hashtags, param: :tag
 
+  # Autocomplete routes
+  get "autocomplete/hashtags" => "hashtags#autocomplete"
+  ######
+
   # New routes
   resources :users do
     resources :projects

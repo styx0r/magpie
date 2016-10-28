@@ -5,6 +5,16 @@ class HashtagsController < ApplicationController
     @hashtags = Hashtag.all
   end
 
+  def autocomplete
+  hashtags = Hashtag.all.map do |htag|
+    {
+      tag: htag.tag
+    }
+  end
+
+  render json: hashtags
+end
+
 
   # GET /hashtags/tag
   # GET /hashtags/tag.json

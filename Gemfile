@@ -88,3 +88,6 @@ gem 'puma', '3.1.0'
 gem 'redis', '~> 3.0'
 
 gem 'docker-api'
+
+# Autocompletion
+gem 'twitter-typeahead-rails'
