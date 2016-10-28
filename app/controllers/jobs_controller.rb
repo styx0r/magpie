@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :set_job, only: [:show, :edit, :update, :destroy, :download, :download_config, :images]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :download, :download_config, :images, :highlight]
   skip_before_filter :verify_authenticity_token, :only => [:running]
 
   # GET /jobs
@@ -86,6 +86,19 @@ class JobsController < ApplicationController
     send_file zipfile, :type => 'application/zip', :disposition => 'attachment', :filename => "config_#{@job.project.name}_#{@job.id.to_s}.zip"
   end
 
+  def highlight
+    respond_to do |format|
+      if @job.update(highlight_params)
+        format.html { redirect_to @job.project, notice: 'Job was successfully updated.' }
+        format.json { render :show, status: :ok, location: @job }
+      else
+        format.html { render :edit }
+        format.json { render json: @job.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
   def images
     #TODO Handle missing images
     fileid = params[:fileid].to_i
@@ -104,8 +117,13 @@ class JobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_params
-      params.require(:job).permit(:status, :user_id, :project_id, :arguments, :config, :usertags)
+      params.require(:job).permit(:status, :user_id, :project_id, :arguments, :config, :usertags, :highlight)
     end
+
+    def highlight_params
+      params.require(:job).permit(:highlight)
+    end
+
 
     def config_params
       # Config parameter set

@@ -1,7 +1,22 @@
 <div class="panel <%= status_color_panel(job.id) %>">
   <div class="panel-heading">
+    <div class="btn-group btn-group-xs" role="group" aria-label="Basic example">
+        <%= link_to highlight_job_path(job, job:{:id => job.id, :highlight => "activated"}), :method => :put, :class => "btn btn-secondary btn-link active #{job.highlight != "activated" ? 'active' : 'disabled'}" do%>
+        <i class="glyphicon glyphicon-chevron-up"></i>
+        <% end %>
+        <%= link_to highlight_job_path(job, job:{:id => job.id, :highlight => "neutral"}), :method => :put, :class => "btn btn-secondary btn-link active #{job.highlight != "neutral" ? 'active' : 'disabled'}" do%>
+        <i class="glyphicon glyphicon-stop"></i>
+        <% end %>
+        <%= link_to highlight_job_path(job, job:{:id => job.id, :highlight => "hidden"}), :method => :put, :class => "btn btn-secondary btn-link active #{job.highlight != "hidden" ? 'active' : 'disabled'}" do%>
+        <i class="glyphicon glyphicon-chevron-down"></i>
+        <% end %>
+    </div>
       <a data-toggle="collapse" data-parent="#alljobs" href="#<%=dom_id(job)%>">
-        <b> Job ID: <%= job.id %> </b> | Created <%= time_ago_in_words(job.created_at) %> ago | Status: <%= job.status %>
+        <span align="center">
+          <b>&nbsp&nbsp Job ID: <%= job.id %> </b> |
+          Created <%= time_ago_in_words(job.created_at) %> ago |
+          Status: <%= job.status %>
+        </span>
       </a>
   </div>
   <div id="<%=dom_id(job)%>" class="panel-collapse collapse">
@@ -68,4 +83,5 @@
     <% end %>
 
   </div>
+
 </div>

@@ -1,9 +1,33 @@
 <%= render :partial => "projects/header" %>
 <div class="panel-group" id="alljobs">
-  <% @project.jobs.each do |job| %>
-  <div class = "panel" id="job_id <%= job.id %>">
-    <%= render :layout => false, partial: 'jobs/running', locals: {:job => job} %>
-  </div>
+  <% if @project.jobs.where(:highlight => "activated").any? %>
+    <h2>Highlighted</h2>
+    <% @project.jobs.where(:highlight => "activated").each do |job| %>
+    <div class = "panel" id="job_id <%= job.id %>">
+      <%= render :layout => false, partial: 'jobs/running', locals: {:job => job} %>
+    </div>
+    <% end %>
+  <% end %>
+  <br>
+  <% if (@project.jobs.where(:highlight => "activated").any? || @project.jobs.where(:highlight => "hidden").any?) && @project.jobs.where(:highlight => "neutral").any?%>
+    <h2>Neutral</h2>
+    <% end %>
+    <% if @project.jobs.where(:highlight => "neutral").any? %>
+    <% @project.jobs.where(:highlight => "neutral").each do |job| %>
+      <div class = "panel" id="job_id <%= job.id %>">
+      <%= render :layout => false, partial: 'jobs/running', locals: {:job => job} %>
+    </div>
+    <% end %>
+  <% end %>
+  <br>
+
+  <% if @project.jobs.where(:highlight => "hidden").any? %>
+    <h2>Uninteresting | <b><%= link_to "Delete", project_delete_marked_jobs_path(@project), data: { confirm: 'Delete all uninteresting jobs.Are you sure?'} %></b></h2>
+    <% @project.jobs.where(:highlight => "hidden").each do |job| %>
+    <div class = "panel" id="job_id <%= job.id %>">
+      <%= render :layout => false, partial: 'jobs/running', locals: {:job => job} %>
+    </div>
+    <% end %>
   <% end %>
 </div>
 <% if @project.model %>

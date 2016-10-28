@@ -17,11 +17,13 @@ Rails.application.routes.draw do
   #TODO Obsolete, but somethow needed by the form ...
   resources :projects do
     get 'download', on: :member
+    get 'delete_marked_jobs'
   end
 
   resources :jobs do   # For file download (result files)
     get 'download', on: :member
     get 'download_config', on: :member
+    put 'highlight', on: :member
   end
 
   get 'models/:id/:revision/download', to: 'models#download', as: "model_download"

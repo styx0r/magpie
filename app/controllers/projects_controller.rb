@@ -40,6 +40,15 @@ class ProjectsController < ApplicationController
     locals: {:model_description => model_description}
   end
 
+  def delete_marked_jobs
+    @project = Project.find(params[:project_id])
+    @project.jobs.where(:highlight => "hidden").destroy_all
+    respond_to do |format|
+      format.html { redirect_to project_path(@project), notice: 'All marked jobs have been deleted.' }
+      format.json { head :no_content }
+    end
+  end
+
   def modelconfig
 
       model_selected = Model.find_by name: params[:model_name]

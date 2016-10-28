@@ -101,12 +101,14 @@ class User < ActiveRecord::Base
     #   OR self
     #   OR post bot
     #   OR containing hashtags of interest
-    Micropost.joins(:hashtags).where(
+    #! LEFT_JOIN because we want also microposts without hashtags/taggings
+    Micropost.joins("LEFT JOIN taggings ON taggings.micropost_id = microposts.id
+                     LEFT JOIN hashtags ON hashtags.id = taggings.hashtag_id").where(
               "microposts.user_id IN (#{following_ids})
                OR microposts.user_id = :user_id
                OR microposts.user_id = :postbot_id
                OR hashtags.tag IN (#{hashtags})",
-               user_id: id,
+               user_id: self.id,
                postbot_id: User.find_by(email: Rails.application.config.postbot_email).id).uniq
   end
 
