@@ -1,5 +1,5 @@
 <% if model_description == "nil" %>
   Select a model to see model information!
 <% else %>
-<%= model_description %>
+<%= markdown(model_description) %>
 <% end %>

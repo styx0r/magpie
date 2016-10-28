@@ -17,7 +17,7 @@ require 'open3'
                     activated:              true,
                     activated_at:           Time.zone.now)
 [{tag: "imb"}, {tag: "trumpets"}, {tag: "carloc"}, {tag: "models"}].each do |tagdata|
-  @u1.hashtags.find_or_create_by(tagdata) end
+  @u1.hashtags.create(tagdata) end
 
 @u2 = User.create!( name:                   "Sebastian Salentin",
                     identity:               "sebastians",
@@ -29,7 +29,7 @@ require 'open3'
                     activated_at:           Time.zone.now)
 
 [{tag: "biotec"}, {tag: "dresden"}, {tag: "freeharambe"}].each do |tagdata|
-  @u2.hashtags.find_or_create_by(tagdata) end
+  @u2.hashtags.create(tagdata) end
 
 User.create!( name:                   "Lars Thielecke",
               identity:               "larst",
@@ -66,7 +66,7 @@ User.create!( name:                   Rails.application.config.postbot_name,
 @model1.initializer
 @model1.save
 [{tag: "versions"}, {tag: "sleepy"}, {tag: "myfirstmodel"}].each do |tagdata|
-  @model1.hashtags.find_or_create_by(tagdata) end
+  @model1.hashtags.create(tagdata) end
 # Now, let's create some more random revisions in the repository
 tmp_path = Dir.mktmpdir
 system("cd #{tmp_path}; git clone #{@model1.path} #{tmp_path}")
@@ -93,7 +93,7 @@ end
 @model2.initializer
 @model2.save
 [{tag: "completefailure"}, {tag: "owned"}, {tag: "syntaxerror"}].each do |tagdata|
-  @model2.hashtags.find_or_create_by(tagdata) end
+  @model2.hashtags.create(tagdata) end
 
 @model3 = Model.create!(name:        "PFSPA",
               description:           "Novel particle system combining reaction-diffusion with motion.",
@@ -103,7 +103,7 @@ end
 @model3.initializer
 @model3.save
 [{tag: "PFSPA"}, {tag: "particles"}].each do |tagdata|
-  @model3.hashtags.find_or_create_by(tagdata) end
+  @model3.hashtags.create(tagdata) end
 
 @model4 = Model.create!(name:        "Multiplexing Clonality",
               description:           "Analysing simultaneously barcoded and fluroscence marked cells.",
@@ -113,23 +113,15 @@ end
 @model4.initializer
 @model4.save
 [{tag: "attackoftheclones"}, {tag: "barcoding"}, {tag: "fancy"}].each do |tagdata|
-  @model4.hashtags.find_or_create_by(tagdata) end
+  @model4.hashtags.create(tagdata) end
 
-#@model5 = Model.create!(name:         "D3 Simple Model",
-#                        description:  "__Simple__ demo for D3 interactive visualization.",
-#                        help:         "Display random bar charts with MAGPIE",
-#                        source:       File.open("#{Rails.application.config.root}/test/zip/d3simple.zip"),
-#                        user_id:      2)
-#@model5.initializer
-#@model5.save
-
-@model6 = Model.create!(name:         "D3 Plot Model",
+@model5 = Model.create!(name:         "D3 Plot Model",
                         description:  "Model for creating and testing all different d3 plots, including barcharts, boxplots and histograms.",
                         help:         "Displays the different defined barcharts",
                         source:        File.open("#{Rails.application.config.root}/test/zip/d3Model.zip"),
                         user_id:      1)
-@model6.initializer
-@model6.save
+@model5.initializer
+@model5.save
 
 # Initialize the docker image
 # TODO: integrate in execution: docker run -it -v /Users/baldow/.magpie/docker/:/root -w /root magpie:default ./run_mf.sh

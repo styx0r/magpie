@@ -2,7 +2,7 @@ class Micropost < ActiveRecord::Base
   include ActionView::Helpers::UrlHelper
   belongs_to :user
   has_many :taggings
-  has_many :hashtags, through: :taggings
+  has_many :hashtags, -> { distinct }, through: :taggings
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader
   validates :user_id, presence: true
@@ -41,7 +41,6 @@ class Micropost < ActiveRecord::Base
   def extract_hashtags
     self.hashtag_mentions.each do |tag|
       tag.sub!(/^#/, '').downcase!
-      #TODO With find_or_create_by, it doesnt work ...
       if !Hashtag.exists?(tag: tag)
         self.hashtags.create(tag: tag)
       else
