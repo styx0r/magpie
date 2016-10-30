@@ -1,5 +1,10 @@
+*** PLEASE DO NOT REPLY TO THIS EMAIL! ***
+
 Hi <%= @user.name %>
 
-Welcome to the mf-www Project! Click on the link below to activate your account:
+Welcome to the MAGPIE Project! Click on the link below to activate your account:
 
 <%= edit_account_activation_url(@user.activation_token, email: @user.email) %>
+
+Kind regards,
+your MAGPIE Team
