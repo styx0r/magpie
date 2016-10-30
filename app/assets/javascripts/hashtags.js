@@ -1,6 +1,8 @@
 
 
 var ready;
+var original_value;
+var suggestion;
 ready = function() {
 
   var hashtags = new Bloodhound({
@@ -23,12 +25,27 @@ ready = function() {
       highlight: true,
       name: 'hashtags',
       displayKey: 'tag',
-      // `ttAdapter` wraps the suggestion engine in an adapter that
-      // is compatible with the typeahead jQuery plugin
-      source: hashtags.ttAdapter()
-    });
-
+      source: hashtags.ttAdapter(),
+    }).on('typeahead:render', function (event, suggestion) {
+          var inField = event.target.value;
+          var lastIndex = inField.lastIndexOf(" ");
+          original_value = inField.substring(0, lastIndex) + " ";
+          console.log('Render triggered');
+      }).on('typeahead:select', function (event, sugg) {
+          suggestion = sugg;
+          console.log('Select triggered');
+      }).on('typeahead:close', function (event) {
+          console.log('Close triggered');
+          var newValue = original_value + suggestion.tag;
+          event.target.value = newValue;
+          original_value = newValue;
+      }).on('typeahead:change', function () {
+          console.log('Change triggered');
+          this.value = original_value
+          console.log(original_value)
+      });
   }
+
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
