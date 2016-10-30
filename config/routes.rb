@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   # Autocomplete routes
   get "autocomplete/hashtags" => "hashtags#autocomplete"
+  get "autocomplete/users" => "users#autocomplete"
   ######
 
   # New routes

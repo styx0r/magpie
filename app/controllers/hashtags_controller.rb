@@ -6,18 +6,19 @@ class HashtagsController < ApplicationController
   end
 
   def autocomplete
-  # Match all hashtags starting with query
-  lastword = params[:query].split(' ')[-1]
-  if lastword.start_with?('#')
-    lastword.gsub!('#','')
-  end
-  hashtags = Hashtag.where("tag like ?", "#{lastword}%").map do |htag|
+  # Match all hashtags starting with query in URL
+  query = params[:query]
+  if query.blank? # Only whitespace
+    render json: []
+  else
+    hashtags = Hashtag.where("tag like ?", "#{query}%").map do |htag|
     {
       tag: "##{htag.tag}"
     }
   end
-
   render json: hashtags
+end
+
 end
 
 

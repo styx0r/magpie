@@ -17,6 +17,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def autocomplete
+  # Match all users starting with query in URL
+  query = params[:query]
+  if query.blank? # Only whitespace
+    render json: []
+  else
+    users = User.where("identity like ?", "#{query}%").map do |user|
+    {
+      tag: "@#{user.identity}",
+      name: user.name
+    }
+  end
+  render json: users
+end
+end
+
   def hashtag_delete
     @user = User.find(params[:user_id])
     @user.hashtags.delete(Hashtag.find_by(tag: params[:tag]))
