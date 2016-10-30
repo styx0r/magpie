@@ -63,7 +63,7 @@ ready = function() {
     users.initialize();
     hashtags.initialize();
 
-    $('.typeahead-hashtags').typeahead(null,
+    $('.typeahead').typeahead(null,
       [
       {
       hint: true,
@@ -88,28 +88,39 @@ ready = function() {
       templates: {
         empty: [],
         suggestion: function (term) {
-          return '<p>' + term.identity + '(' + term.name + ')</p>';
+          return '<p>' + term.tag + '(' + term.name + ')</p>';
           }
        }
     }
-  ]).on('typeahead:render', function (event, suggestion) {
+  ]).on('typeahead:render', function (event, sugg) {
           var inField = event.target.value;
           var lastIndex = inField.lastIndexOf(" ");
+          if (lastIndex > 0) {
           original_value = inField.substring(0, lastIndex) + " ";
+          }
+          else {
+            original_value = inField.substring(0, lastIndex)
+          }
       }).on('typeahead:select', function (event, sugg) {
           suggestion = sugg;
-          console.log('Selected suggestion:' + sugg)
+          console.log('Select event')
+          console.log('Selected suggestion:' + sugg.tag)
       }).on('typeahead:close', function (event) {
+        console.log('Close event')
           if (typeof suggestion != 'undefined') {
           var newValue = original_value + suggestion.tag;
           this.value = newValue;
           original_value = newValue;
           }
+          suggestion = undefined
       }).on('typeahead:change', function () {
-          this.value = original_value;
-      }).on('typeahead:cursorchange', function (event, suggestion) {
-          if (typeof suggestion != 'undefined') {
-            this.value = original_value + suggestion.tag;
+        console.log('Change event')
+        console.log('original: ' + original_value)
+        console.log('suggestion: ' + suggestion)
+      }).on('typeahead:cursorchange', function (event, sugg) {
+        console.log('Cursorchange event')
+          if (typeof sugg != 'undefined') {
+            this.value = original_value + sugg.tag;
           }
       });
   }

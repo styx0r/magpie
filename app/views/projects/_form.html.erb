@@ -7,7 +7,8 @@
         <%= f.input :revision, collection: ['HEAD'], required: true, selected:'HEAD' %>
       </div>
       <%= f.input :name, placeholder: 'Give your project a name', required: true %>
-      <%= f.input :usertags, required: false, label: "#hashtags" %>
+        <%= f.label "#Hashtags" %>
+        <%= f.text_field :usertags, required: false, class: 'typeahead form-control' %>
       <%= f.input :public, as: :boolean, checked_value: true, unchecked_value: false %>
 
       <%= f.simple_fields_for :job do |job_form| %>
