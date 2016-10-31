@@ -16,5 +16,4 @@
 //= require turbolinks
 //= require_tree .
 //= require d3
-//= require tables
 //= require twitter/typeahead

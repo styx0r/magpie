@@ -1,6 +1,8 @@
 var ready;
-var original_value;
-var suggestion;
+
+var preSuggestion;
+var lastSuggestion;
+var inField;
 ready = function() {
 
   var hashtags = new Bloodhound({
@@ -92,39 +94,37 @@ ready = function() {
           }
        }
     }
-  ]).on('typeahead:render', function (event, sugg) {
-          var inField = event.target.value;
+  ]).on('typeahead:render', function (event, suggestion) {
+          // Always remember the current value before the last word
+          // The last word needs to be replaced with the suggestion
+          inField = event.target.value;
           var lastIndex = inField.lastIndexOf(" ");
           if (lastIndex > 0) {
-          original_value = inField.substring(0, lastIndex) + " ";
+          preSuggestion = inField.substring(0, lastIndex) + " ";
           }
           else {
-            original_value = inField.substring(0, lastIndex)
+            preSuggestion = inField.substring(0, lastIndex)
           }
-      }).on('typeahead:select', function (event, sugg) {
-          suggestion = sugg;
-          console.log('Select event')
-          console.log('Selected suggestion:' + sugg.tag)
+      }).on('typeahead:select', function (event, suggestion) {
+          // We remember the last chosen suggestion
+          lastSuggestion = suggestion;
       }).on('typeahead:close', function (event) {
-        console.log('Close event')
-          if (typeof suggestion != 'undefined') {
-          var newValue = original_value + suggestion.tag;
-          this.value = newValue;
-          original_value = newValue;
+          // If the selection box is closed, start autocompletion
+          if (typeof lastSuggestion != 'undefined') {
+          console.log('Inserting completed text: ' + preSuggestion + lastSuggestion.tag )
+          var postSuggestion = preSuggestion + lastSuggestion.tag + ' ';
+          this.value = postSuggestion;
+          preSuggestion = postSuggestion;
           }
-          suggestion = undefined
+          lastSuggestion = undefined;
+          inField = this.value;
       }).on('typeahead:change', function () {
-        console.log('Change event')
-        console.log('original: ' + original_value)
-        console.log('suggestion: ' + suggestion)
-      }).on('typeahead:cursorchange', function (event, sugg) {
-        console.log('Cursorchange event')
-          if (typeof sugg != 'undefined') {
-            this.value = original_value + sugg.tag;
-          }
+        // When the field loses focus, restore its original value
+        this.value = inField;
       });
   }
 
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
+//$(document).on('turbolinks:load', ready);

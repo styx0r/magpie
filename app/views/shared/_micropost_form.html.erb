@@ -1,7 +1,7 @@
 <%= form_for(@micropost, html: { multipart: true }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_area :content, class: 'col-md6 typeahead', placeholder: "Compose new micropost ..." %>
+    <%= f.text_area :content, class: 'col-md6 typeahead' %>
   </div>
   <%= f.submit "Post", class: "btn btn-primary" %>
   <span class="picture">
