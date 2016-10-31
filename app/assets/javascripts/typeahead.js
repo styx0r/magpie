@@ -121,10 +121,14 @@ ready = function() {
       }).on('typeahead:change', function () {
         // When the field loses focus, restore its original value
         this.value = inField;
+      }).on('typeahead:cursorchange', function (event, suggestion) {
+          // When the user is selecting a suggestion with the mouse or cursor ...
+          // Set the autocompleted text in the field
+          if (typeof suggestion != 'undefined') {
+            this.value = preSuggestion + suggestion.tag;
+          }
       });
   }
 
 
-$(document).ready(ready);
-$(document).on('page:load', ready);
-//$(document).on('turbolinks:load', ready);
+$(document).on('turbolinks:load', ready);
