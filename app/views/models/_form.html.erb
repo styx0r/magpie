@@ -6,6 +6,8 @@
     <%= f.file_field :source, required: true %>
     <%= f.input :description, required: true%>
     <%= f.input :help, required: false%>
+    <%= f.input :citation, required: false%>
+    <%= f.input :doi, required: false%>
     <div class="field">
       <%= f.label "#Hashtags" %>
       <%= f.text_field :usertags, required: false,class: 'typeahead form-control' %>

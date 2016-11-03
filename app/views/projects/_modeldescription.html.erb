@@ -3,3 +3,12 @@
 <% else %>
 <%= markdown(model_description) %>
 <% end %>
+<% if !citation.blank? %>
+<p><%= citation %></p>
+<% end %>
+<% if !doi.blank? %>
+<p>
+  <b>DOI: </b>
+  <a target="_blank" href="http://doi.org/<%= doi %>"><%= doi %></a>
+</p>
+<% end %>

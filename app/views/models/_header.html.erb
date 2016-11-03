@@ -22,11 +22,22 @@
     </p>
 
     <p>
+      <strong>Citation Info:</strong>
+      <%= @model.citation %>
+    </p>
+
+    <p>
+      <strong>DOI:</strong>
+      <a target="_blank" href="http://doi.org/<%= @model.doi %>"><%= @model.doi %></a>
+    </p>
+
+    <p>
       <strong>Hashtags:</strong>
       <% @model.hashtags.each do |h|%>
       <%= hashtag_link(h.tag) %>
       <% end %>
     </p>
 
+    </p>
   </div>
 </div>
