@@ -85,7 +85,7 @@ ready = function() {
       hint: true,
       highlight: true,
       name: 'users',
-      displayKey: 'identity',
+      displayKey: 'tag',
       source: users.ttAdapter(),
       templates: {
         empty: [],

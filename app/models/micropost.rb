@@ -38,6 +38,17 @@ class Micropost < ActiveRecord::Base
     self.content.scan(/@\w+/)
   end
 
+  def extract_mentions
+    self.user_mentions.each do |mention|
+      mention.sub!(/^@/, '').downcase!
+      if self.mentions.blank?
+        self.update_attribute(:mentions, mention)
+      else
+        self.update_attribute(:mentions, "#{self.mentions} #{mention}")
+      end
+    end
+  end
+
   def extract_hashtags
     self.hashtag_mentions.each do |tag|
       tag.sub!(/^#/, '').downcase!
