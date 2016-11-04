@@ -91,3 +91,6 @@ gem 'docker-api'
 
 # Autocompletion
 gem 'twitter-typeahead-rails'
+
+# Auto URL linking
+gem 'rinku'

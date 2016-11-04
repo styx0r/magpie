@@ -11,6 +11,9 @@ class Micropost < ActiveRecord::Base
 
   def formatted_content
     fstring = self.content
+    # Use rinku to autolink urls (HTTP/FTP/mailto)
+    fstring = Rinku.auto_link(fstring, mode=:all, link_attr=nil, skip_tags=nil)
+
     fstring.gsub!(/#\S+/) do |tag|
       tag.sub!(/^#/, '')
       if Hashtag.exists?(tag: tag.downcase)

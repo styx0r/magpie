@@ -255,6 +255,7 @@ GEM
     redcarpet (3.3.4)
     redis (3.3.1)
     ref (2.0.0)
+    rinku (2.0.2)
     ruby-filemagic (0.7.1)
     rubyzip (1.2.0)
     sass (3.4.22)
@@ -339,6 +340,7 @@ DEPENDENCIES
   rails (>= 5.0.0.rc2, < 5.1)
   redcarpet
   redis (~> 3.0)
+  rinku
   ruby-filemagic
   rubyzip
   sass-rails (~> 5.0)
