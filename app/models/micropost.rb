@@ -11,7 +11,7 @@ class Micropost < ActiveRecord::Base
 
   def formatted_content
     fstring = self.content
-    fstring.gsub!(/#\w+/) do |tag|
+    fstring.gsub!(/#\S+/) do |tag|
       tag.sub!(/^#/, '')
       if Hashtag.exists?(tag: tag.downcase)
         link_to(raw("<font color='blue'>##{tag}</font>"), Rails.application.routes.url_helpers.hashtag_path(tag))
@@ -31,7 +31,7 @@ class Micropost < ActiveRecord::Base
   end
 
   def hashtag_mentions
-    self.content.scan(/#\w+/)
+    self.content.scan(/#\S+/)
   end
 
   def user_mentions
