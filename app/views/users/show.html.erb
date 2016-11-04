@@ -18,8 +18,10 @@
     <%= simple_form_for(@user) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
-      <%= f.label "More hashtags" %>
-      <%= f.text_field :new_hashtags, class: 'form-control' %>
+      <div class="field">
+        <%= f.label "More hashtags" %>
+        <%= f.text_field :new_hashtags,class: 'typeahead form-control' %>
+      </div>
 
       <%= f.submit "Add", class: "btn btn-primary" %>
     <% end %>
