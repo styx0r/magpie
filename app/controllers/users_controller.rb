@@ -34,10 +34,21 @@ end
 end
 
   def hashtag_delete
+    session[:return_to] ||= request.referer
     @user = User.find(params[:user_id])
     @user.hashtags.delete(Hashtag.find_by(tag: params[:tag]))
     respond_to do |format|
-      format.html { redirect_to user_path({:id => @user.id}), notice: "Hashtag ##{params[:tag]} has been removed." }
+      format.html { redirect_to session.delete(:return_to), notice: "Hashtag ##{params[:tag]} has been removed." }
+      format.json { head :no_content }
+    end
+  end
+
+  def hashtag_add
+    session[:return_to] ||= request.referer
+    @user = User.find(params[:user_id])
+    @user.hashtags << Hashtag.find_by(tag: params[:tag])
+    respond_to do |format|
+      format.html { redirect_to session.delete(:return_to), notice: "Hashtag ##{params[:tag]} has been removed." }
       format.json { head :no_content }
     end
   end

@@ -97,12 +97,25 @@ class ProjectsController < ApplicationController
       if @project.save
         # Save all user-supplied hashtags
         usertags = project_params[:usertags].split(/\s*[,;]\s*|\s{1,}/x)
+
+        project_hashtag_format = /^[a-z0-9][a-z0-9]project[0-9]+$/
+        model_hashtag_format = /^[a-z0-9][a-z0-9]model[0-9]+$/
+
+
+        # Add unique project hashtags
+        require 'securerandom'
+        random_string = SecureRandom.hex(1)
+        project_hashtag = random_string+'project'+@project.id.to_s
+        @project.hashtags.create(tag: project_hashtag, reserved: true)
+
         usertags.each do |rawtag|
           tag = rawtag.to_s.downcase.gsub(/#/, '')
-          if !Hashtag.exists?(tag: tag)
-            @project.hashtags.create(tag: tag)
-          else
-            @project.hashtags << Hashtag.find_by(tag: tag)
+          if !(project_hashtag_format.match(tag) or model_hashtag_format.match(tag))
+            if !Hashtag.exists?(tag: tag)
+              @project.hashtags.create(tag: tag)
+            else
+              @project.hashtags << Hashtag.find_by(tag: tag)
+            end
           end
         end
         postbot_says("User #{@user.name} created a new project using the model #{@project.model.name}", @project.hashtags)

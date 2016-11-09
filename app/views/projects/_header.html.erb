@@ -1,5 +1,15 @@
 <div class="panel panel-primary">
-  <div class="panel-heading">Project | <%= @project.name%></div>
+  <div class="panel-heading">
+    Project | <%= @project.name%> |
+      <% @project_hashtag = @project.hashtags.find_by(reserved: true) %>
+      <% if !@project_hashtag.nil? %>
+      <% if !current_user.hashtags.find_by(tag: @project_hashtag.tag) %>
+        <%= link_to "Follow", { :controller => "users", :action => "hashtag_add", :user_id => current_user.id, :tag => @project_hashtag.tag }, :method => :get, :style => "color: white" %>
+      <% else %>
+        <%= link_to "Unfollow", { :controller => "users", :action => "hashtag_delete", :user_id => current_user.id, :tag => @project_hashtag.tag }, :method => :get, :style => "color: white" %>
+      <% end %>
+      <% end %>
+  </div>
   <div class="panel-body">
     <p>
       <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -14,7 +24,11 @@
     <p>
       <strong>Hashtags:</strong>
       <% @project.hashtags.each do |h| %>
+      <% if h.reserved %>
+      <b><%= hashtag_link(h.tag) %></b>
+      <% else %>
       <%= hashtag_link(h.tag) %>
+      <% end %>
       <% end %>
     </p>
 
@@ -22,6 +36,7 @@
       <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
       <%= @project.public ? 'Public' : 'Private'%>
     </p>
+
 
   </div>
 </div>

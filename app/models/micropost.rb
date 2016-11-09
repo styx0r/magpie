@@ -12,12 +12,17 @@ class Micropost < ActiveRecord::Base
   def formatted_content
     fstring = self.content
     # Use rinku to autolink urls (HTTP/FTP/mailto)
-    fstring = Rinku.auto_link(fstring, mode=:all, link_attr=nil, skip_tags=nil)
+    fstring = Rinku.auto_link(fstring, mode=:all, 'target="_blank"', link_attr=nil, skip_tags=nil)
 
     fstring.gsub!(/#\S+/) do |tag|
       tag.sub!(/^#/, '')
       if Hashtag.exists?(tag: tag.downcase)
-        link_to(raw("<font color='blue'>##{tag}</font>"), Rails.application.routes.url_helpers.hashtag_path(tag))
+        linked_hashtag = link_to(raw("<font color='blue'>##{tag}</font>"), Rails.application.routes.url_helpers.hashtag_path(tag))
+        if Hashtag.find_by(tag: tag).reserved
+          "<b>#{linked_hashtag}</b>"
+        else
+          linked_hashtag
+        end
       else
         "##{tag}"
       end

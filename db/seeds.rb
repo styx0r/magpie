@@ -65,7 +65,7 @@ User.create!( name:                   Rails.application.config.postbot_name,
               user_id:               2)
 @model1.initializer
 @model1.save
-[{tag: "versions"}, {tag: "sleepy"}, {tag: "myfirstmodel"}].each do |tagdata|
+[{tag: "8zmodel1", reserved: true}, {tag: "versions"}, {tag: "sleepy"}, {tag: "myfirstmodel"}].each do |tagdata|
   @model1.hashtags.create(tagdata) end
 # Now, let's create some more random revisions in the repository
 tmp_path = Dir.mktmpdir
@@ -92,7 +92,7 @@ end
               user_id:               2)
 @model2.initializer
 @model2.save
-[{tag: "completefailure"}, {tag: "owned"}, {tag: "syntaxerror"}].each do |tagdata|
+[{tag: "9rmodel2", reserved: true},{tag: "completefailure"}, {tag: "owned"}, {tag: "syntaxerror"}].each do |tagdata|
   @model2.hashtags.create(tagdata) end
 
 @model3 = Model.create!(name:        "PFSPA",
@@ -102,7 +102,7 @@ end
               user_id:               1)
 @model3.initializer
 @model3.save
-[{tag: "PFSPA"}, {tag: "particles"}].each do |tagdata|
+[{tag: "eemodel3", reserved: true},{tag: "PFSPA"}, {tag: "particles"}].each do |tagdata|
   @model3.hashtags.create(tagdata) end
 
 @model4 = Model.create!(name:        "Multiplexing Clonality",
@@ -112,7 +112,7 @@ end
               user_id:               3)
 @model4.initializer
 @model4.save
-[{tag: "attackoftheclones"}, {tag: "barcoding"}, {tag: "fancy"}].each do |tagdata|
+[{tag: "2smodel4", reserved: true},{tag: "attackoftheclones"}, {tag: "barcoding"}, {tag: "fancy"}].each do |tagdata|
   @model4.hashtags.create(tagdata) end
 
 @model5 = Model.create!(name:         "D3 Plot Model",
