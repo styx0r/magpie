@@ -33,8 +33,17 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
 
+    uploads = {}
+    config_params_mod = config_params
+    config_params.each do |key, value|
+      if !(defined? value.tempfile).nil?
+        uploads[key] = [value.tempfile.path, value.original_filename]
+        config_params_mod[key] = value.original_filename
+      end
+    end
+
     # Also, start a delayed job
-    @user_job = UserJob.perform_later(@job, config_params)
+    @user_job = UserJob.perform_later(@job, {:config => config_params_mod, :uploads => uploads})
 
 
     respond_to do |format|

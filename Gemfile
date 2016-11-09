@@ -64,7 +64,7 @@ gem 'ruby-filemagic' # requires libmagic-dev library installed
 # gem 'capistrano-rails', group: :development
 
 #For image upload
-gem 'carrierwave',  '0.10.0'
+gem 'carrierwave',   '0.10.0'
 gem 'mini_magick'
 gem 'fog',           '1.36.0'
 

@@ -133,6 +133,16 @@ end
 @model6.initializer
 @model6.save
 
+@model7 = Model.create!(name:         "Config Test",
+                        description:  "This model is used to test different model parameter tests.",
+                        help:         "Nothing important here.",
+                        source:        File.open("#{Rails.application.config.root}/test/zip/configtest.zip"),
+                        user_id:      1,
+                        doi:          "",
+                        citation:     "")
+@model7.initializer
+@model7.save
+
 # Initialize the docker image
 # TODO: integrate in execution: docker run -it -v /Users/baldow/.magpie/docker/:/root -w /root magpie:default ./run_mf.sh
 system("rm -fR #{Rails.application.config.docker_path}")

@@ -9,7 +9,13 @@ class UserJob < ApplicationJob
   end
 
   def perform(*args)
-    @config_params = self.arguments[1]
+    @config_params = self.arguments[1][:config]
+    p "JHKLWKLWHGJKWHGJKLEWHGJKLHEWJKLGHJKLWHGJKLWHGJKLHEW"
+    p @config_params.inspect
+    @uploads = self.arguments[1][:uploads]
+    #@upload = self.arguments[2]
+    #p "PERFORM ARGUMENTS 2 UPLOAD"
+    #p @upload.inspect
     @job = self.arguments.first
     @project = @job.project
     user = @job.user
@@ -21,6 +27,11 @@ class UserJob < ApplicationJob
     system("cd #{@userdir}; git reset --hard #{@project.revision}")
 
     files_before = Dir.glob(Rails.root.join(@userdir, '*'))
+
+    # Copy the uploaded files to the directory
+    @uploads.each do |key, value|
+      FileUtils.cp value[0], "#{@userdir}/"+value[1]
+    end
 
     if !@config_params.nil?
       create_configs

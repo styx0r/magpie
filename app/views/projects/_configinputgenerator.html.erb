@@ -26,6 +26,7 @@ for @line in @file_string
             wrapper_html: { title: @comment },
             hint: @param_name %>
 <% elsif @param_type == "range" %>
+
 <% elsif @param_type == "file" %>
   <% @param_default = @line[2] %>
   <%= f.input "#{@cfile}_#{@param_name}".to_sym,
@@ -35,6 +36,7 @@ for @line in @file_string
         wrapper_html: { title: @comment },
         input_html: { class: "input-hundredpercent" },
         hint: @param_name %>
+
 <% elsif @param_type == "dropdown" %>
   <% @param_default = @line[2] %>
   <%= f.input "#{@cfile}_#{@param_name}".to_sym,

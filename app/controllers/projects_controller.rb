@@ -79,8 +79,19 @@ class ProjectsController < ApplicationController
     @project = @user.projects.create(project_params)
     @project.revision = @project.tag_to_revision(config_params[:revision])
     # Then, start the job
+    uploads = {}
+    config_params_mod = config_params
+    config_params.each do |key, value|
+      if !(defined? value.tempfile).nil?
+        uploads[key] = [value.tempfile.path, value.original_filename]
+        config_params_mod[key] = value.original_filename
+      end
+    end
+
+    # Create jobs
     job = Job.create(job_params[:job].merge(:project_id => @project.id))
-    @user_job = UserJob.perform_later(job, config_params)
+
+    @user_job = UserJob.perform_later(job, {:config => config_params_mod, :uploads => uploads})
 
     respond_to do |format|
       if @project.save
