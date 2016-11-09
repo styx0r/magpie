@@ -15,8 +15,6 @@ for @line in @file_string
 %>
 
 <% if @param_name != "" %>
-<% if @param_type == "range" %>
-<% end #if defined as numeric %>
 <div class = "col-md-6">
 <% if @param_type == "integer" || @param_type == "double" || @param_type == "float" %>
   <% @param_default = @line[2] %>
@@ -27,6 +25,26 @@ for @line in @file_string
             :input_html => { :value => @param_default },
             wrapper_html: { title: @comment },
             hint: @param_name %>
+<% elsif @param_type == "range" %>
+<% elsif @param_type == "file" %>
+  <% @param_default = @line[2] %>
+  <%= f.input "#{@cfile}_#{@param_name}".to_sym,
+        label: "",
+        required: true,
+        as: :file,
+        wrapper_html: { title: @comment },
+        input_html: { class: "input-hundredpercent" },
+        hint: @param_name %>
+<% elsif @param_type == "dropdown" %>
+  <% @param_default = @line[2] %>
+  <%= f.input "#{@cfile}_#{@param_name}".to_sym,
+          label: "",
+          required: true,
+          as: :select,
+          :collection => @line[3..(@line.length-1)],
+          :selected => @param_default,
+          wrapper_html: { title: @comment },
+          hint: @param_name %>
 <% elsif @param_type == "string" %>
   <% @param_default = @line[2..@line.length].join(" ") %>
   <%= f.input "#{@cfile}_#{@param_name}".to_sym,
