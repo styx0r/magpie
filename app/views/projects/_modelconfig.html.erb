@@ -17,10 +17,17 @@
     <%  for @cfile in @config_files %>
         <div class = "col-md-12">
           <div class = "panel-info">
-            <div class = "panel-heading">
+            <div class = "panel-heading" data-toggle="collapse" href = "<%= '#collapse_config_'+@cfile.split(".")[0] %>">
               <center><%= @cfile %></center>
             </div>
-            <div class = "panel-body">
+            <div id = "<%= 'collapse_config_'+@cfile.split(".")[0] %>" class = "
+              <%=
+                  if @cfile == @config_files.last
+                    'panel-body collapse in'
+                  else
+                    'panel-body collapse'
+                  end
+              %>">
               <%
                 require("csv")
                 #@content, status = Open3.capture2("cd #{model_selected.path}; git cat-file blob #{@project.revision}:#{@cfile}")
@@ -39,16 +46,26 @@
 
                 <%= render :layout => false, partial: 'projects/configinputgenerator',
                       locals: { :f => f} %>
+        </div>
+      </div>
+    </div>
         <% end #simple form %>
       <% end %>
       <% else %>
           <%  for @cfile in @config_files %>
               <div class = "col-md-12">
                 <div class = "panel-info">
-                  <div class = "panel-heading">
+                  <div class = "panel-heading" data-toggle="collapse" href = "<%= '#collapse_config_'+@cfile.split(".")[0] %>">
                     <center><%= @cfile %></center>
                   </div>
-                  <div class = "panel-body">
+                  <div id = "<%= 'collapse_config_'+@cfile.split(".")[0] %>" class = "
+                    <%=
+                        if @cfile == @config_files.last
+                          'panel-body collapse in'
+                        else
+                          'panel-body collapse'
+                        end
+                    %>">
                     <%
                       require("csv")
                       @content, status = Open3.capture2("cd #{model_selected.path}; git cat-file blob #{@project.revision}:#{@cfile}")
@@ -67,11 +84,11 @@
                     wrapper: :horizontal_form do |job_form| %>
             <%= render :layout => false, partial: 'projects/configinputgenerator',
                   locals: { :f => job_form} %>
+                </div>
+              </div>
+            </div>
           <% end %>
           <%end%>
-          </div>
-        </div>
-      </div>
   <% end %>
   <% end %>
 <% end %>
