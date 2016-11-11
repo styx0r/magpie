@@ -1,5 +1,54 @@
-<%
+<% #Collect all depends on elements
+@depends_on = {}
 for @line in @file_string
+  if @line.empty?
+    next
+  elsif @line.first[0] == "#" || @line.first[0] == " " || @line.first[0] == "/"
+    @comment = @line.first
+  else
+    @line = @line.first.gsub(/\s+/m, ' ').strip.split(" ")
+    if @line.length == 1
+      next
+    end
+    @type = @line[0]
+    if @type == "depends_on"
+      @depends_on[@line[1]] = @line[2,3]
+    end
+  end
+end
+%>
+<% #Collect the default values for the dependents
+@dependent_std = {}
+@dependent = {}
+@depends_on.each do |key, value|
+  @dependent_std[value[0]] = ""
+  @dependent[value[0]] = []
+end
+@depends_on.each do |key, value|
+  @dependent[value[0]].push(key)
+end
+for @line in @file_string
+  if @line.empty?
+    next
+  elsif @line.first[0] == "#" || @line.first[0] == " " || @line.first[0] == "/"
+    @comment = @line.first
+  else
+    @line = @line.first.gsub(/\s+/m, ' ').strip.split(" ")
+    if @line.length == 1
+      next
+    end
+    @param_name = @line[0]
+    if @param_name.in?(@dependent_std.keys)
+      @dependent_std[@param_name] = @line[2]
+    end
+  end
+end
+%>
+
+<%
+
+for @line in @file_string
+  @hidden = false
   if @line.empty?
     next
   elsif @line.first[0] == "#" || @line.first[0] == " " || @line.first[0] == "/"
@@ -14,13 +63,30 @@ for @line in @file_string
   end
 %>
 
-<% if @param_name != "" %>
+<% if @param_name != ""  && @param_name != "depends_on" %>
+<%
+  # check for dependent, depends_on elements and set the active flag
+  if @param_name.in?(@depends_on.keys) && @depends_on[@param_name][1] != @dependent_std[@depends_on[@param_name][0]]
+    @hidden = true
+  end
+%>
 <div class = "col-md-6">
+<% if @param_name.in?(@depends_on.keys) %>
+<div class = <%= "toggle_hidden_"+
+                  @depends_on[@param_name][0]+
+                  "_"+
+                  @depends_on[@param_name][1] %> style =
+  <%= if @hidden
+        "display:none;"
+      end
+  %>
+>
+<% end %>
 <% if @param_type == "integer" || @param_type == "double" || @param_type == "float" %>
   <% @param_default = @line[2] %>
   <%= f.input "#{@cfile}_#{@param_name}".to_sym,
             label: "",
-            required: true,
+            required: !@hidden,
             as: :numeric ,
             :input_html => { :value => @param_default },
             wrapper_html: { title: @comment },
@@ -31,33 +97,43 @@ for @line in @file_string
   <% @param_default = @line[2] %>
   <%= f.input "#{@cfile}_#{@param_name}".to_sym,
         label: "",
-        required: true,
+        required: !@hidden,
         as: :file,
         wrapper_html: { title: @comment },
-        input_html: { class: "input-hundredpercent" },
         hint: @param_name %>
 
 <% elsif @param_type == "dropdown" %>
+  <%
+    @js_onclick = ""
+    if @param_name.in?(@dependent_std.keys)
+      @js_onclick = "parameterDisplayToggle(this,'"+
+      @param_name+"',"+@dependent[@param_name].to_json+")"
+    end
+  %>
   <% @param_default = @line[2] %>
   <%= f.input "#{@cfile}_#{@param_name}".to_sym,
           label: "",
-          required: true,
+          required: !@hidden,
           as: :select,
           :collection => @line[3..(@line.length-1)],
           :selected => @param_default,
           wrapper_html: { title: @comment },
+          input_html: { :onchange => ""+@js_onclick },
           hint: @param_name %>
 <% elsif @param_type == "string" %>
   <% @param_default = @line[2..@line.length].join(" ") %>
   <%= f.input "#{@cfile}_#{@param_name}".to_sym,
             label: "",
-            required: true,
+            required: !@hidden,
             as: :string ,
             :input_html => { :value => @param_default },
             wrapper_html: { title: @comment },
             hint: @param_name %>
 <% end #if defined as numeric %>
+</div>
+<% if @param_name.in?(@depends_on.keys) %>
   </div>
+<% end %>
 <%
 @comment = ""
 @param_name = ""
@@ -67,5 +143,5 @@ for @line in @file_string
 @param_min = ""
 @param_max = ""
 %>
-<% end #if @param_name is not empty %>
+<% end #if @param_name is not empty as well as not depends_on %>
 <% end #line loop %>
