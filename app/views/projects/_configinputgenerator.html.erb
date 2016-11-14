@@ -47,11 +47,13 @@ end
 
 <%
 for @line in @file_string
+  
   @hidden = false
   if @line.empty?
     next
   elsif @line.first[0] == "#" || @line.first[0] == " " || @line.first[0] == "/"
     @comment = @line.first
+    next
   else
     @line = @line.first.gsub(/\s+/m, ' ').strip.split(" ")
     if @line.length == 1
@@ -70,6 +72,7 @@ for @line in @file_string
   end
 %>
 <div class = "col-md-6">
+
 <% if @param_name.in?(@depends_on.keys) %>
 <div class = <%= "toggle_hidden_"+
                   @depends_on[@param_name][0]+
@@ -131,7 +134,7 @@ for @line in @file_string
 <% end #if defined as numeric %>
 </div>
 <% if @param_name.in?(@depends_on.keys) %>
-  </div>
+</div>
 <% end %>
 <%
 @comment = ""
