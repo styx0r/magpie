@@ -9,6 +9,8 @@ Bundler.require(*Rails.groups)
 module MfRails
   class Application < Rails::Application
 
+    config.docker_timeout = 60 * 60 * 24 * 7
+
     # Autoload app to make classes available to the console
     config.autoload_paths += %W(#{config.root}/app)
 

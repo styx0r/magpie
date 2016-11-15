@@ -96,9 +96,13 @@ class UserJob < ApplicationJob
   def execute_script
     ### Go to the temporary working directory and execute the script
     Dir.chdir(@userdir) do
-      container = Docker::Container.create('Image' => 'magpie:default', 'Tty' => true, 'Binds' => ["#{@userdir}:/root:rw"])
-      container.start
-      c_out = container.exec(["/bin/bash", "-c", "cd /root; sh #{@job.project.model.mainscript[@job.project.revision]}"])
+      container = Docker::Container.create('Image' => 'magpie:default',
+                                           'Tty' => true,
+                                           'Binds' => ["#{@userdir}:/root:rw"])
+      container.start()
+      #container.wait(100)
+      c_out = container.exec(["/bin/bash", "-c", "cd /root; sh #{@job.project.model.mainscript[@job.project.revision]}"],
+                             wait: Rails.application.config.docker_timeout)
       container.stop
       container.remove
       @stdout = c_out[0]
