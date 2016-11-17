@@ -123,15 +123,15 @@ end
 @model5.initializer
 @model5.save
 
-@model6 = Model.create!(name:         "PLIP REST Query",
-                        description:  "Queries the PLIP web service to retrieve interaction information for a PDB structure.",
-                        help:         "Only queries via PDB IDs are allowed. Possible result formats are __xml__ and __txt__.",
-                        source:        File.open("#{Rails.application.config.root}/test/zip/pliprest.zip"),
-                        user_id:      2,
-                        doi:          "10.1093/nar/gkv315",
-                        citation:     "Salentin,S. et al. PLIP: fully automated protein-ligand interaction profiler. Nucl. Acids Res. (1 July 2015) 43 (W1): W443-W447.")
-@model6.initializer
-@model6.save
+#@model6 = Model.create!(name:         "PLIP REST Query",
+#                        description:  "Queries the PLIP web service to retrieve interaction information for a PDB structure.",
+#                        help:         "Only queries via PDB IDs are allowed. Possible result formats are __xml__ and __txt__.",
+#                        source:        File.open("#{Rails.application.config.root}/test/zip/pliprest.zip"),
+#                        user_id:      2,
+#                        doi:          "10.1093/nar/gkv315",
+#                        citation:     "Salentin,S. et al. PLIP: fully automated protein-ligand interaction profiler. Nucl. Acids Res. (1 July 2015) 43 (W1): W443-W447.")
+#@model6.initializer
+#@model6.save
 
 @model7 = Model.create!(name:         "Config Test",
                         description:  "This model is used to test different model parameter tests.",
