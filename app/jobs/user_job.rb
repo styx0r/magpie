@@ -98,10 +98,10 @@ class UserJob < ApplicationJob
     Dir.chdir(@userdir) do
       container = Docker::Container.create('Image' => 'magpie:default',
                                            'Tty' => true,
-                                           'Binds' => ["#{@userdir}:/root:rw"])
+                                           'Binds' => ["#{@userdir}:/root/job:rw"])
       container.start()
       #container.wait(100)
-      c_out = container.exec(["/bin/bash", "-c", "cd /root; sh #{@job.project.model.mainscript[@job.project.revision]}"],
+      c_out = container.exec(["/bin/bash", "-c", "cd /root/job; sh #{@job.project.model.mainscript[@job.project.revision]}"],
                              wait: Rails.application.config.docker_timeout)
       container.stop
       container.remove
