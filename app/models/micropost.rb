@@ -18,7 +18,7 @@ class Micropost < ActiveRecord::Base
       tag.sub!(/^#/, '')
       if Hashtag.exists?(tag: tag.downcase)
         linked_hashtag = link_to(raw("<font color='blue'>##{tag}</font>"), Rails.application.routes.url_helpers.hashtag_path(tag))
-        if Hashtag.find_by(tag: tag).reserved
+        if Hashtag.find_by(tag: tag.downcase).reserved
           "<b>#{linked_hashtag}</b>"
         else
           linked_hashtag

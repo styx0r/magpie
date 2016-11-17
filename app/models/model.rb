@@ -78,7 +78,7 @@ class Model < ActiveRecord::Base
     require 'zip'
     Zip::File.open(spath) do |zip_file|
       zip_file.each do |f|
-        fpath = File.join(opath, File.basename(f.name))
+        fpath = File.join(opath, f.name)
         zip_file.extract(f, fpath) unless File.exist?(fpath)
       end
     end
