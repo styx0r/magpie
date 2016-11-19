@@ -29,8 +29,7 @@ class Model < ActiveRecord::Base
     self.unzip_source(self.source.file.file, self.tmp_path)
     system("cd #{self.tmp_path}; git add -A; git commit -m 'Initial commit for model #{self.name}'; git tag -a initial -m 'Initial version'; git push origin master --tags;")
 
-    current_revision, status = Open3.capture2("cd #{self.path}; git rev-parse HEAD;")
-    self.mainscript = Hash[current_revision.strip, get_main_script]
+    self.mainscript = Hash[self.current_revision.strip, get_main_script]
     self.save
   end
 
@@ -43,6 +42,11 @@ class Model < ActiveRecord::Base
     system("cd #{self.tmp_path}; git rm *")
     unzip_source(self.source.file.file, self.tmp_path)
     system("cd #{self.tmp_path}; git add -A; git tag -a #{newtag} -m 'User uploaded new version'; git commit -m 'User uploaded new version'; git push origin master --tags;")
+  end
+
+  def current_revision
+    revision, status = Open3.capture2("cd #{self.path}; git rev-parse HEAD;")
+    return revision
   end
 
   def get_main_script

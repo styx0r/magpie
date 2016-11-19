@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :models
+  resources :models do
+    get 'reupload', on: :member
+  end
 
   resources :hashtags, param: :tag
 

@@ -1,5 +1,5 @@
 class ModelsController < ApplicationController
-  before_action :set_model, only: [:show, :edit, :update, :destroy, :downlaod]
+  before_action :set_model, only: [:show, :edit, :update, :destroy, :download, :reupload]
   before_action :admin_user, only: [:index, :new]
 
   # GET /models
@@ -38,6 +38,12 @@ class ModelsController < ApplicationController
         end
       end
     end
+  end
+
+  def reupload
+      respond_to do |format|
+          format.html { return render :reupload}
+      end
   end
 
   # POST /models
@@ -81,8 +87,11 @@ class ModelsController < ApplicationController
   def update
     respond_to do |format|
       if @model.update(model_params)
-        if model_params.key?(:source)
-          @model.update_files(model_params[:source],model_params[:tag])
+        if model_params.key?(:source) # In case of reupload
+          @model.update_files(model_params[:source],model_params[:tag]) # Update actual scripts and files
+          @model.mainscript[@model.current_revision] = @model.get_main_script
+          @model.save
+          # Update main script #TODO
         end
         format.html { redirect_to @model, notice: 'Model was successfully updated.' }
         format.json { render :show, status: :ok, location: @model }

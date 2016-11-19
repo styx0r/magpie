@@ -12,8 +12,6 @@
     <% @models.each do |model| %>
     <tr class='clickable-row' data-href='<%= model_path model%>' </tr>
         <td><%= model.name %></td>
-        <td><%= link_to 'Destroy', model, method: :delete, data: { confirm: 'Are you sure? This will delete all associated model files.' }, :class => "btn btn-mini btn-danger"  %></td>
-        <td><%= link_to 'Update', edit_model_path(model), :class => "btn btn-mini btn-info"  %></td>
       </tr>
     <% end %>
   </tbody>
