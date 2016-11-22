@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag 'modalJobs' %>
 <div class="panel <%= status_color_panel(job.id) %>">
   <div class="panel-heading">
     <div class="btn-group btn-group-xs" role="group" aria-label="Basic example">
@@ -29,44 +30,109 @@
     <% end %>
 
     <% if !job.output.blank? %>
-    <% if !job.output[:stdout].blank? %>
-    <div class="panel-body">
-      <b>STDOUT</b>
-      <%= simple_format(job.output[:stdout].join()) %>
-    </div>
-    <% end %>
+      <% if !job.output[:stdout].blank? %>
+        <div class="panel-body">
+          <b>STDOUT</b>
+          <%= simple_format(job.output[:stdout].join()) %>
+        </div>
+      <% end %>
 
-    <% if !job.output[:stderr].blank? %>
-    <div class="panel-body">
-      <b>STDERR | </b>
-      <%= simple_format(job.output[:stderr].join()) %>
-    </div>
-    <% end %>
+      <% if !job.output[:stderr].blank? %>
+        <div class="panel-body">
+          <b>STDERR | </b>
+          <%= simple_format(job.output[:stderr].join()) %>
+        </div>
+      <% end %>
     <% end %>
 
     <% if !job.resultfiles.blank? %>
+    <% @additional_files = [] %>
+    <% @vis_counter = 0 %>
+    <% @additional_file = false %>
     <div class="panel-body">
-      <b>Resultfiles</b><br><br>
+      <div class="col-xs-12 col-md-12"><b>Resultfiles</b></div>
+      <br /><br />
       <% (job.resultfiles+
           Dir[job.directory+"/*.iplot"]).each_with_index do |element, i| %>
-        <% if iplot?(element) %>
-            <td>
-              <%= render(:layout => false, :partial => "jobs/d3plus", :locals => {:config_file => element, :job_id => job.id, :chart_id => i})%>
-            </td>
-            <figcaption><%= "Fig #{i+1}, - #{File.basename(element)}" %></figcaption>
-        <% elsif is_text_file(element)%>
-        <pre>
-          <%= render :plain => get_text_from_file(element)%>
-        </pre>
-        <figcaption><%= "Txt #{i+1}. - #{File.basename(element)}" %></figcaption>
-        <% elsif is_image(element)%>
-         <td><%= image_tag get_image_path(job.id, i) %>
-           <figcaption><%= "Fig #{i+1}. - #{File.basename(element)}" %></figcaption>
-         </td>
-         <% else %>
-           Additional file: <%= element %><br>
+        <% if @vis_counter == 0  && !@additional_file %>
+          <div id = "blackRow", class = "col-xs-12 col-md-12"></div>
         <% end %>
-        <br>
+        <% @additional_file = false %>
+        <% if iplot?(element) %>
+            <div class="col-xs-12 col-md-12">
+              <%= render(:layout => false, :partial => "jobs/d3plus", :locals => {:config_file => element, :job_id => job.id, :chart_id => i})%>
+              <figcaption><%= "Fig. #{i+1} - #{File.basename(element)}" %></figcaption>
+            </div>
+            <% @vis_counter = 0 %>
+        <% elsif is_text_file(element)%>
+        <div class="col-xs-6 col-md-6">
+          <div class= "img-thumbnail", data-toggle= "modal",
+            data-target= "<%= "#modaljobID-#{job.id}-txtID-#{i+1}"%>">
+            <pre>
+              <%= render :plain => get_text_from_file(element)%>
+            </pre>
+          </div>
+          <div id="modal<%= "jobID-#{job.id}-txtID-#{i+1}" %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"><%= "Fig #{i+1}. - #{File.basename(element)}" %></h4>
+                </div>
+                <div class="modal-body">
+                  <%= render :plain => get_text_from_file(element) %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        <figcaption><%= "Txt. #{i+1} - #{File.basename(element)}" %></figcaption>
+        </div>
+        <% @vis_counter = (@vis_counter + 1).modulo(2) %>
+        <% elsif is_image(element)%>
+          <div class="col-xs-6 col-md-6">
+            <%= image_tag(get_image_path(job.id, i),
+              class: "img-thumbnail",
+                "data-toggle": "modal",
+                "data-target": "#modaljobID-#{job.id}-figID-#{i+1}") %>
+                <figcaption><%= "Fig. #{i+1} - #{File.basename(element)}" %></figcaption>
+          </div>
+          <!-- Modal -->
+          <div id="modal<%= "jobID-#{job.id}-figID-#{i+1}" %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"><%= "Fig #{i+1}. - #{File.basename(element)}" %></h4>
+                </div>
+                <div class="modal-body">
+                  <%= image_tag(get_image_path(job.id, i), width: "100%") %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <% @vis_counter = (@vis_counter + 1).modulo(2) %>
+         <% else %>
+           <% @additional_files.push(element) %>
+           <% @additional_file = true %>
+        <% end %>
+      <% end %>
+      <% if @additional_files.size() > 0 %>
+        <div class="col-xs-12 col-md-12">Additional files:</div>
+        <% @additional_files.each do |e| %>
+          <div class="col-xs-12 col-md-12"><%= e %></div>
+        <% end %>
       <% end %>
     </div>
 
