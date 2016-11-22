@@ -59,10 +59,10 @@
         <% end %>
         <% @additional_file = false %>
         <% if iplot?(element) %>
-            <div class="col-xs-12 col-md-12">
+            <div class="col-xs-12 col-md-12"><center>
               <%= render(:layout => false, :partial => "jobs/d3plus", :locals => {:config_file => element, :job_id => job.id, :chart_id => i})%>
               <figcaption><%= "Fig. #{i+1} - #{File.basename(element)}" %></figcaption>
-            </div>
+            </center></div>
             <% @vis_counter = 0 %>
         <% elsif is_text_file(element)%>
         <div class="col-xs-6 col-md-6">
