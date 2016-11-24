@@ -5,6 +5,9 @@
         <li><%= link_to "magpie", root_path, id: "logo" %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <% if logged_in? %>
+          <li><%= link_to "#", "hashtags" %></li>
+        <% end %>
         <li><%= link_to "Home", root_path %></li>
         <% if logged_in? %>
           <li class="dropdown">
