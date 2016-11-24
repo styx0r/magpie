@@ -12,13 +12,20 @@
   </div>
   <% else %>
     <% if f == nil %>
+    <div class = "col-md-12">
+      <b>Model Configs</b>
+    </div>
     <%= simple_form_for :config, :html => { :class => 'form-horizontal' },
               wrapper: :horizontal_form do |f| %>
     <%  for @cfile in @config_files %>
         <div class = "col-md-12">
-          <div class = "panel-info">
+          <div class = "panel-group">
+            <div class = "panel panel-default">
             <div class = "panel-heading" data-toggle="collapse" href = "<%= '#collapse_config_'+@cfile.split(".")[0] %>">
-              <center><%= @cfile %></center>
+              <a class="btn btn-info btn-block" role="button" data-toggle="collapse" href="<%= '#collapse_config_'+@cfile.split(".")[0] %>"
+                aria-expanded="true" aria-controls="<%= 'collapse_config_'+@cfile.split(".")[0] %>">
+                <%= @cfile %>
+              </a>
             </div>
             <div id = "<%= 'collapse_config_'+@cfile.split(".")[0] %>" class = "
               <%=
@@ -47,6 +54,7 @@
                 <%= render :layout => false, partial: 'projects/configinputgenerator',
                       locals: { :f => f} %>
 
+          </div>
         </div>
       </div>
     </div>
@@ -55,9 +63,12 @@
       <% else %>
           <%  for @cfile in @config_files %>
               <div class = "col-md-12">
-                <div class = "panel-info">
+                  <div class = "panel panel-default">
                   <div class = "panel-heading" data-toggle="collapse" href = "<%= '#collapse_config_'+@cfile.split(".")[0] %>">
-                    <center><%= @cfile %></center>
+                    <a class="btn btn-info btn-block" role="button" data-toggle="collapse" href="<%= '#collapse_config_'+@cfile.split(".")[0] %>"
+                      aria-expanded="true" aria-controls="<%= 'collapse_config_'+@cfile.split(".")[0] %>">
+                      <%= @cfile %>
+                    </a>
                   </div>
                   <div id = "<%= 'collapse_config_'+@cfile.split(".")[0] %>" class = "
                     <%=
@@ -86,7 +97,7 @@
 
               <%= render :layout => false, partial: 'projects/configinputgenerator',
                     locals: { :f => job_form} %>
-            
+
           <% end %>
                 </div>
               </div>
