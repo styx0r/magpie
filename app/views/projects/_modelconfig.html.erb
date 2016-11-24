@@ -46,6 +46,7 @@
 
                 <%= render :layout => false, partial: 'projects/configinputgenerator',
                       locals: { :f => f} %>
+
         </div>
       </div>
     </div>
@@ -82,12 +83,14 @@
                       %>
           <%= f.simple_fields_for :config, :html => { :class => 'form-horizontal' },
                     wrapper: :horizontal_form do |job_form| %>
-            <%= render :layout => false, partial: 'projects/configinputgenerator',
-                  locals: { :f => job_form} %>
+
+              <%= render :layout => false, partial: 'projects/configinputgenerator',
+                    locals: { :f => job_form} %>
+            
+          <% end %>
                 </div>
               </div>
             </div>
-          <% end %>
           <%end%>
   <% end %>
   <% end %>

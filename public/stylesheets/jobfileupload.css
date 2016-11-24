@@ -1,0 +1,26 @@
+.file {
+  float: center;
+  margin: 0px 5px 20px 21%;
+  white-space: nowrap;
+}
+
+input[type = "file"].file {
+  position: relative;
+  overflow: hidden;
+  float: right;
+  margin-left: 20px;
+  margin-top: 5px;
+  margin-right: 0px;
+  width: 70%;
+  height: 32px;
+  border: 2px solid #AAA;
+  border-radius: 10px;
+  padding: 2px 5px;
+  background: #F3F3F3;
+  display: inline-block;
+}
+
+.file p {
+  margin-top: 23px;
+  margin-left: 30%;
+}

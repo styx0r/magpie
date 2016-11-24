@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag "jobfileupload" %>
 <% #Collect all depends on elements
 @depends_on = {}
 for @line in @file_string
@@ -47,7 +48,7 @@ end
 
 <%
 for @line in @file_string
-  
+
   @hidden = false
   if @line.empty?
     next
