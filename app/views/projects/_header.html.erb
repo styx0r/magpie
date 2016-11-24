@@ -4,9 +4,9 @@
       <% @project_hashtag = @project.hashtags.find_by(reserved: true) %>
       <% if !@project_hashtag.nil? %>
       <% if !current_user.hashtags.find_by(tag: @project_hashtag.tag) %>
-        <%= link_to "Follow", { :controller => "users", :action => "hashtag_add", :user_id => current_user.id, :tag => @project_hashtag.tag }, :method => :get, :style => "color: white" %>
+        <%= link_to "Follow", { :controller => "users", :action => "hashtag_add", :user_id => current_user.id, :tag => @project_hashtag.tag }, :method => :get, :style => "color: white", :class => "btn btn-xs btn-info" %>
       <% else %>
-        <%= link_to "Unfollow", { :controller => "users", :action => "hashtag_delete", :user_id => current_user.id, :tag => @project_hashtag.tag }, :method => :get, :style => "color: white" %>
+        <%= link_to "Unfollow", { :controller => "users", :action => "hashtag_delete", :user_id => current_user.id, :tag => @project_hashtag.tag }, :method => :get, :style => "color: white", :class => "btn btn-xs btn-info" %>
       <% end %>
       <% end %>
   </div>
