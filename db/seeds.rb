@@ -8,6 +8,24 @@
 
 require 'open3'
 
+### Generate the reviewer accounts
+File.open('/tmp/reviewerpasses.txt', 'w') { |file|
+file.write("User\tPassword\n")
+for i in 1..20
+  mail = "rev#{i}@magpie.nar.review"
+  pw = Faker::Internet.password(8)
+  file.write("#{mail}\t#{pw}\n")
+  @u1 = User.create!( name:                   "ReviewerAccount#{i}",
+                      identity:               "revacc#{i}",
+                      email:                  mail,
+                      password:               pw,
+                      password_confirmation:  pw,
+                      admin:                  false,
+                      activated:              true,
+                      activated_at:           Time.zone.now)
+end
+}
+
 @u1 = User.create!( name:                   "Christoph Baldow",
                     identity:               "christophb",
                     email:                  "christoph.baldow@tu-dresden.de",
