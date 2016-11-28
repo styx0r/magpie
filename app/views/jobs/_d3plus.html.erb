@@ -29,9 +29,6 @@ data_lines.each do |line|
   @array.push(@hash)
 end
 
-p "test test test hrhr hrhr hrhr"
-p config_lines.inspect
-
 %>
 
 <style type="text/css">
@@ -62,11 +59,13 @@ p config_lines.inspect
      .id(<%= raw "#{config_lines['id'][0]}".to_json %>)
      .x(<%= raw "#{config_lines['x'][0]}".to_json %>)
      .y(<%= raw "#{config_lines['y'][0]}".to_json %>)
+     <% if config_lines['type'].length > 1 %>
      .ui([{
           "label": "Visualization Type",
           "method": "type",
           "value": plot_types
       }])
+     <% end %>
      .draw()
 
    //})
