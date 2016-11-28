@@ -123,10 +123,13 @@ end
 @model5.initializer
 @model5.save
 
+
+plip_desc = File.open(File.join(Rails.root, 'test', 'seedextra', 'plip_description.md')).read
+plip_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'plip_help.md')).read
 @model6 = Model.create!(name:         "PLIP",
-                        description:  "Run Protein-Ligand Interaction Profiler (PLIP) analysis using custom PDB files or PDB IDs.",
-                        help:         "Has almost full functionality of the PLIP command line tool, including adaption of detection thresholds.",
-                        source:        File.open("#{Rails.application.config.root}/test/zip/pliplocal.zip"),
+                        description:  plip_desc,
+                        help:         plip_help,
+                        source:       File.open("#{Rails.application.config.root}/test/zip/pliplocal.zip"),
                         user_id:      2,
                         doi:          "10.1093/nar/gkv315",
                         citation:     "Salentin,S. et al. PLIP: fully automated protein-ligand interaction profiler. Nucl. Acids Res. (1 July 2015) 43 (W1): W443-W447.")
