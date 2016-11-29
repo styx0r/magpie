@@ -5,7 +5,7 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
-    @jobs = Job.all
+    @jobs = policy_scope(Job)
   end
 
   # GET /jobs/1
@@ -23,6 +23,8 @@ class JobsController < ApplicationController
   end
 
   def running
+    authorize Job
+
     job_id = params[:job_id].to_i
     job = Job.find_by_id job_id
     render :layout => false, partial: 'jobs/running', locals: {:job => job}
@@ -31,6 +33,8 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.json
   def create
+    authorize Job
+
     @job = Job.new(job_params)
 
     uploads = {}
@@ -109,6 +113,7 @@ class JobsController < ApplicationController
   end
 
   def images
+    authorize Job
     #TODO Handle missing images
     fileid = params[:fileid].to_i
     send_file(@job.resultfiles[fileid])

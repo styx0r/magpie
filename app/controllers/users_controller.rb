@@ -1,17 +1,19 @@
 class UsersController < ApplicationController
 
   before_action :logged_in_user,  only: [:index, :edit, :update, :destroy, :following, :followers]
-  before_action :correct_user,    only: [:edit, :update, :destroy]
-  before_action :admin_user,      only: [:index]
-  before_action :can_destroy,     only: [:destroy]
+  before_action :correct_user,    only: [:edit, :update]
+  #before_action :admin_user,      only: [:index]
+  #before_action :can_destroy,     only: [:destroy]
 
   def destroy
-    if @user.guest?
-      User.find(params[:id]).destroy
+    @user = User.find(params[:id])
+    authorize @user
+    if current_user.guest?
+      @user.destroy
       flash[:success] = "Session data deleted"
       redirect_to root_url
     else
-      User.find(params[:id]).destroy
+      @user.destroy
       flash[:success] = "User deleted"
       redirect_to users_url
     end
@@ -67,6 +69,7 @@ end
   end
 
   def show
+    skip_authorization
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
   end
@@ -161,7 +164,8 @@ end
 
     # User allowed to destroy if he want to destroy his guest account or is admin_user
     def can_destroy
-      current_user.admin? || (params[:id] == current_user.id && current_user.guest?)
+      @user = User.find(params[:id])
+      current_user.admin? || (@user.id == current_user.id && current_user.guest?)
     end
 
 end

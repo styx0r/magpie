@@ -8,18 +8,20 @@ class ProjectsController < ApplicationController
   def index
     # Only index projects of the current user
     @projects = current_user.projects
-    @public_projects = Project.where(public: true)
+    @public_projects = policy_scope(Project)
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
+    authorize Project
     # New jobs can be created from the projects view
     @job = Job.new
   end
 
   # GET /projects/new
   def new
+    authorize Project
     @project = Project.new
     @job = @project.jobs.new
     @model = params
@@ -31,6 +33,9 @@ class ProjectsController < ApplicationController
 
   def modeldescription
     model_selected = Model.find_by name: params[:model_name]
+
+    authorize Project
+
     if model_selected == NIL
       model_description = "nil"
     else
@@ -54,6 +59,9 @@ class ProjectsController < ApplicationController
   def modelconfig
 
       model_selected = Model.find_by name: params[:model_name]
+
+      authorize Project
+
       model_revision = params[:model_revision]
       render :layout => false, partial: 'projects/modelconfig',
         locals: { :model_selected => model_selected,
@@ -65,6 +73,9 @@ class ProjectsController < ApplicationController
   def modelrevisions
 
       model_selected = Model.find_by name: params[:model_name]
+
+      authorize Project
+
       render :layout => false, partial: 'projects/modelrevisions',
         locals: { :model_selected => model_selected,
                   :model_revisions => model_selected.versions }
@@ -74,6 +85,7 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
+    authorize Project
     # First, create the project itself
     @user = current_user
     @project = @user.projects.create(project_params)

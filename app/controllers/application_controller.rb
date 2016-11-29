@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
 
+  include Pundit
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
+
   def strict_transport_security
     if request.ssl?
       response.headers['Strict-Transport-Security'] = "max-age=31536000; includeSubDomains"

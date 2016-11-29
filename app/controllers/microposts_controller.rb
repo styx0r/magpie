@@ -4,6 +4,7 @@ class MicropostsController < ApplicationController
   before_action :correct_user,   only: :destroy
 
   def create
+    authorize Micropost
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
       @micropost.extract_hashtags
@@ -22,6 +23,7 @@ class MicropostsController < ApplicationController
 
 
   def destroy
+    authorize @micropost    
     @micropost.destroy
     flash[:success] = "Micropost deleted"
     redirect_to request.referrer || root_url

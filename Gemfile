@@ -94,3 +94,6 @@ gem 'twitter-typeahead-rails'
 
 # Auto URL linking
 gem 'rinku'
+
+# Authorization settings done via
+gem 'pundit'
