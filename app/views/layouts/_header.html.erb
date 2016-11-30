@@ -27,12 +27,12 @@
             <ul class="dropdown-menu">
               <li><%= link_to "Social", current_user %></li>
               <li><%= link_to "Profile", edit_user_path(current_user) %></li>
-              <% if current_user.admin? %>
+              <%# if current_user.admin? %>
               <li class="divider"></li>
               <li><%= link_to "Users", users_path %></li>
               <li><%= link_to "Models", models_path %></li>
               <li><%= link_to "Register Model", new_model_path %></li>
-              <% end %>
+              <%# end %>
             </ul>
           </li>
           <% end %>

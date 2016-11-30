@@ -2,7 +2,7 @@ class HashtagsController < ApplicationController
   before_action :set_hashtag, only: :show
 
   def index
-    @hashtags = Hashtag.all
+    @hashtags = policy_scope(Hashtag)
   end
 
   def autocomplete
@@ -25,6 +25,7 @@ end
   # GET /hashtags/tag
   # GET /hashtags/tag.json
   def show
+    authorize Hashtag
     redirect_to(root_url, :notice => 'Hashtag not found') unless @hashtag
   end
 

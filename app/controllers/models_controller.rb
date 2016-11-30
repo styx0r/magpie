@@ -1,25 +1,29 @@
 class ModelsController < ApplicationController
   before_action :set_model, only: [:show, :edit, :update, :destroy, :download, :reupload]
-  before_action :admin_user, only: [:index, :new]
+  #before_action :admin_user, only: [:index, :new]
 
   # GET /models
   # GET /models.json
   def index
-    @models = Model.all
+    @models = policy_scope(Model)
   end
 
   # GET /models/1
   # GET /models/1.json
   def show
+    authorize Model
   end
 
   # GET /models/new
   def new
+    authorize Model
     @model = Model.new
   end
 
   # GET /models/1/edit
   def edit
+    @model = Model.find(params[:id])
+    authorize @model
   end
 
   def register_model
@@ -41,6 +45,7 @@ class ModelsController < ApplicationController
   end
 
   def reupload
+    authorize @model
       respond_to do |format|
           format.html { return render :reupload}
       end
@@ -49,6 +54,7 @@ class ModelsController < ApplicationController
   # POST /models
   # POST /models.json
   def create
+    authorize Model
     @model = Model.new(model_params)
     if name_is_unique
       register_model
@@ -85,6 +91,7 @@ class ModelsController < ApplicationController
   # PATCH/PUT /models/1
   # PATCH/PUT /models/1.json
   def update
+    authorize @model
     respond_to do |format|
       if @model.update(model_params)
         if model_params.key?(:source) # In case of reupload
@@ -104,12 +111,14 @@ class ModelsController < ApplicationController
 
   def download
     @model = Model.find(params[:id])
+    authorize @model
     send_file @model.provide_source(params[:revision]), :type => 'application/zip', :disposition => 'attachment', :filename => "#{@model.name.gsub!(' ', '_')}_#{params[:revision][1..6]}.zip"
   end
 
   # DELETE /models/1
   # DELETE /models/1.json
   def destroy
+    authorize @model
     @model.delete_files
     @model.destroy
     respond_to do |format|

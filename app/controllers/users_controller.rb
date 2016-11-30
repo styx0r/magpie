@@ -36,6 +36,7 @@ end
 end
 
   def hashtag_delete
+    authorize User
     session[:return_to] ||= request.referer
     @user = User.find(params[:user_id])
     @user.hashtags.delete(Hashtag.find_by(tag: params[:tag]))
@@ -46,6 +47,7 @@ end
   end
 
   def hashtag_add
+    authorize User
     session[:return_to] ||= request.referer
     @user = User.find(params[:user_id])
     @user.hashtags << Hashtag.find_by(tag: params[:tag])
@@ -65,7 +67,7 @@ end
   end
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = policy_scope(User.paginate(page: params[:page]))
   end
 
   def show
@@ -96,6 +98,7 @@ end
 
   def edit
     @user = User.find(params[:id])
+    authorize @user
   end
 
   def update

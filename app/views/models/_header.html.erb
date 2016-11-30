@@ -9,10 +9,14 @@
       <%= link_to "Unfollow", { :controller => "users", :action => "hashtag_delete", :user_id => current_user.id, :tag => @model_hashtag.tag }, :method => :get, :class => "btn btn-xs btn-info"   %>
     <% end %>
     <% end %>
-    <% if current_user == @model.user || current_user.admin? %>
-    <%= link_to 'Edit', edit_model_path(@model), :class => "btn btn-xs btn-success"  %>
-    <%= link_to 'Update', reupload_model_path(@model), :class => "btn btn-xs btn-success"  %>
-    <%= link_to 'Destroy', @model, method: :delete, data: { confirm: 'Are you sure? This will delete all associated model files.' }, :class => "btn btn-xs btn-danger"  %>
+    <% if policy(@model).edit? %>
+      <%= link_to 'Edit', edit_model_path(@model), :class => "btn btn-xs btn-success"  %>
+    <% end %>
+    <% if policy(@model).update? %>
+      <%= link_to 'Update', reupload_model_path(@model), :class => "btn btn-xs btn-success"  %>
+    <% end %>
+    <% if policy(@model).destroy? %>
+      <%= link_to 'Destroy', @model, method: :delete, data: { confirm: 'Are you sure? This will delete all associated model files.' }, :class => "btn btn-xs btn-danger"  %>
     <% end %>
   </div>
   <div class="panel-body">
