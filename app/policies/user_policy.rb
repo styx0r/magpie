@@ -5,7 +5,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def hashtag_add?
-    !user.nil?
+    !user.nil? && user == record
   end
 
   def hashtag_delete?

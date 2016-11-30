@@ -48,9 +48,9 @@ end
   end
 
   def hashtag_add
-    authorize User
     session[:return_to] ||= request.referer
     @user = User.find(params[:user_id])
+    authorize @user
     @user.hashtags << Hashtag.find_by(tag: params[:tag])
     respond_to do |format|
       format.html { redirect_to session.delete(:return_to), notice: "Hashtag ##{params[:tag]} has been removed." }
