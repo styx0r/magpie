@@ -23,9 +23,9 @@ class MicropostsController < ApplicationController
 
 
   def destroy
-    authorize @micropost    
+    authorize @micropost
     @micropost.destroy
-    flash[:success] = "Micropost deleted"
+    flash[:warning] = "Micropost deleted"
     redirect_to request.referrer || root_url
     for user in current_user.followers
       ActionCable.server.broadcast("microposts_#{user.id}",

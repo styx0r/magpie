@@ -8,7 +8,7 @@ class JobPolicy < ApplicationPolicy
     !user.nil?
   end
 
-  def running
+  def running?
     !user.nil?
   end
 

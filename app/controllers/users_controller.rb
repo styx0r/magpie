@@ -41,7 +41,8 @@ end
     @user = User.find(params[:user_id])
     @user.hashtags.delete(Hashtag.find_by(tag: params[:tag]))
     respond_to do |format|
-      format.html { redirect_to session.delete(:return_to), notice: "Hashtag ##{params[:tag]} has been removed." }
+      format.html { redirect_to session.delete(:return_to) }
+      flash[:warning] = "Hashtag ##{params[:tag]} has been removed."
       format.json { head :no_content }
     end
   end
@@ -58,6 +59,7 @@ end
   end
 
   def delete_all_projects
+    authorize User
     @user = User.find(params[:user_id])
     @user.projects.destroy_all
     respond_to do |format|
@@ -103,6 +105,7 @@ end
 
   def update
     @user = User.find(params[:id])
+    authorize @user
 
     if user_params[:new_hashtags]
       usertags = user_params[:new_hashtags].split(/\s*[,;]\s*|\s{1,}/x)

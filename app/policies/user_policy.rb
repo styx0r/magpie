@@ -1,5 +1,9 @@
 class UserPolicy < ApplicationPolicy
 
+  def delete_all_projects?
+    !user.nil?
+  end
+
   def hashtag_add?
     !user.nil?
   end
@@ -13,6 +17,10 @@ class UserPolicy < ApplicationPolicy
   end
 
   def edit?
+    user == record
+  end
+
+  def update?
     user == record
   end
 
