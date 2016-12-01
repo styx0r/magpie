@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161109175434) do
+ActiveRecord::Schema.define(version: 20161201155734) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20161109175434) do
     t.string   "source"
     t.string   "doi"
     t.string   "citation"
+    t.string   "category"
+    t.binary   "logo"
     t.index ["user_id"], name: "index_models_on_user_id"
   end
 

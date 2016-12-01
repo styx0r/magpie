@@ -30,7 +30,15 @@ class Model < ActiveRecord::Base
     system("cd #{self.tmp_path}; git add -A; git commit -m 'Initial commit for model #{self.name}'; git tag -a initial -m 'Initial version'; git push origin master --tags;")
 
     self.mainscript = Hash[self.current_revision.strip, get_main_script]
+    self.set_default_logo
     self.save
+  end
+
+  def set_default_logo
+    require 'mini_magick'
+    if self.logo.nil?
+      self.logo = MiniMagick::Image.open("#{Rails.application.config.root}/test/zip/logos/magpie.png").to_blob
+    end
   end
 
   def update_files(src,newtag)

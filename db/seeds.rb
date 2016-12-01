@@ -7,6 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 require 'open3'
+require 'mini_magick'
 
 ### Generate the reviewer accounts
 File.open('/tmp/reviewerpasses.txt', 'w') { |file|
@@ -150,7 +151,8 @@ plip_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'plip_help.md')
                         source:       File.open("#{Rails.application.config.root}/test/zip/pliplocal.zip"),
                         user_id:      2,
                         doi:          "10.1093/nar/gkv315",
-                        citation:     "Salentin,S. et al. PLIP: fully automated protein-ligand interaction profiler. Nucl. Acids Res. (1 July 2015) 43 (W1): W443-W447.")
+                        citation:     "Salentin,S. et al. PLIP: fully automated protein-ligand interaction profiler. Nucl. Acids Res. (1 July 2015) 43 (W1): W443-W447.",
+                        logo:         MiniMagick::Image.open("#{Rails.application.config.root}/test/zip/logos/plip.png").to_blob)
 @model6.initializer
 @model6.save
 

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :models do
     get 'reupload', on: :member
+    get 'show_logo', on: :member
   end
 
   resources :hashtags, param: :tag

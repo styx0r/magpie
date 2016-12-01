@@ -107,6 +107,11 @@ class ModelsController < ApplicationController
     send_file @model.provide_source(params[:revision]), :type => 'application/zip', :disposition => 'attachment', :filename => "#{@model.name.gsub!(' ', '_')}_#{params[:revision][1..6]}.zip"
   end
 
+def show_logo
+    @model = Model.find(params[:id])
+    send_data @model.logo, :type => 'image/png',:disposition => 'inline'
+
+  end
   # DELETE /models/1
   # DELETE /models/1.json
   def destroy

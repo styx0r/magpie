@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
-    Project: <%= @model.name%>
+    <%= image_tag url_for(:controller => "models", :action => "show_logo", :id => @model.id), size: "30"%>
     <% @model_hashtag = @model.hashtags.find_by(reserved: true) %>
     <% if !@model_hashtag.nil? %>
     <% if !current_user.hashtags.find_by(tag: @model_hashtag.tag) %>
@@ -56,6 +56,7 @@
       <% end %>
       <% end %>
     </p>
+
 
     </p>
   </div>

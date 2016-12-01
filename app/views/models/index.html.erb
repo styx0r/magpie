@@ -1,18 +1,19 @@
 <h1>Available Models</h1>
 
-<table class="table table-striped table-hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @models.each do |model| %>
-    <tr class='clickable-row' data-href='<%= model_path model%>' </tr>
-        <td><%= model.name %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @models.in_groups_of(4, false).each do |group| %>
+<div class="row">
+  <% group.each do |model| %>
+  <div class="col-sm-6 col-md-3">
+    <div class="thumbnail">
+      <%= image_tag url_for(:controller => "models", :action => "show_logo", :id => model.id), size: "50"%>
+      <div class="caption">
+        <h2><%= model.name %></h2>
+        <p><%= model.description.truncate(70, separator: ' ') %></p>
+  <%= link_to "View", model_path(model), :class => "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+<% end %>
