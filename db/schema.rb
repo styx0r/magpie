@@ -100,16 +100,16 @@ ActiveRecord::Schema.define(version: 20161201124807) do
   end
 
   create_table "rights", force: :cascade do |t|
-    t.boolean  "user_delete"
-    t.boolean  "user_index"
-    t.boolean  "user_add"
-    t.boolean  "docker_image_modify"
-    t.boolean  "projects_delete"
-    t.boolean  "model_add"
-    t.boolean  "model_delete"
+    t.boolean  "user_delete",         default: false
+    t.boolean  "user_index",          default: false
+    t.boolean  "user_add",            default: false
+    t.boolean  "docker_image_modify", default: false
+    t.boolean  "projects_delete",     default: false
+    t.boolean  "model_add",           default: false
+    t.boolean  "model_delete",        default: false
     t.integer  "user_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "taggings", force: :cascade do |t|
