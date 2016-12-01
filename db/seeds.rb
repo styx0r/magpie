@@ -9,24 +9,6 @@
 require 'open3'
 require 'mini_magick'
 
-### Generate the reviewer accounts
-File.open('/tmp/reviewerpasses.txt', 'w') { |file|
-file.write("User\tPassword\n")
-for i in 1..20
-  mail = "rev#{i}@magpie.nar.review"
-  pw = Faker::Internet.password(8)
-  file.write("#{mail}\t#{pw}\n")
-  @u1 = User.create!( name:                   "ReviewerAccount#{i}",
-                      identity:               "revacc#{i}",
-                      email:                  mail,
-                      password:               pw,
-                      password_confirmation:  pw,
-                      admin:                  false,
-                      activated:              true,
-                      activated_at:           Time.zone.now)
-end
-}
-
 @u1 = User.create!( name:                   "Christoph Baldow",
                     identity:               "christophb",
                     email:                  "christoph.baldow@tu-dresden.de",
@@ -76,11 +58,30 @@ User.create!( name:                   Rails.application.config.postbot_name,
               activated:              true,
               activated_at:           Time.zone.now)
 
+### Generate the reviewer accounts
+File.open('/tmp/reviewerpasses.txt', 'w') { |file|
+file.write("User\tPassword\n")
+for i in 1..20
+  mail = "rev#{i}@magpie.nar.review"
+  pw = Faker::Internet.password(8)
+  file.write("#{mail}\t#{pw}\n")
+  @u1 = User.create!( name:                   "ReviewerAccount#{i}",
+                      identity:               "revacc#{i}",
+                      email:                  mail,
+                      password:               pw,
+                      password_confirmation:  pw,
+                      admin:                  false,
+                      activated:              true,
+                      activated_at:           Time.zone.now)
+  end
+}
+
 @model1 = Model.create!(name:        "Versioned Sleep Studies",
               description:           "Sleeps for a given amount of time.
                                      Time [s] can be set as an argument.",
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/sleep.zip"),
+              category:              'Showcase',
               user_id:               2)
 @model1.initializer
 @model1.save
@@ -118,6 +119,7 @@ end
               description:           "Novel particle system combining reaction-diffusion with motion.",
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/pfspa.zip"),
+              category:              'Cell Modelling',
               user_id:               1)
 @model3.initializer
 @model3.save
@@ -128,6 +130,7 @@ end
               description:           "Analysing simultaneously barcoded and fluroscence marked cells.",
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/multiplex.zip"),
+              category:              'Cell Modelling',
               user_id:               3)
 @model4.initializer
 @model4.save
@@ -138,6 +141,7 @@ end
                         description:  "Model for creating and testing all different d3 plots, including barcharts, boxplots and histograms.",
                         help:         "Displays the different defined barcharts",
                         source:        File.open("#{Rails.application.config.root}/test/zip/d3Model.zip"),
+                        category:     'Visualization',
                         user_id:      1)
 @model5.initializer
 @model5.save
@@ -152,6 +156,7 @@ plip_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'plip_help.md')
                         user_id:      2,
                         doi:          "10.1093/nar/gkv315",
                         citation:     "Salentin,S. et al. PLIP: fully automated protein-ligand interaction profiler. Nucl. Acids Res. (1 July 2015) 43 (W1): W443-W447.",
+                        category:     'Structural Bioinformatics',
                         logo:         MiniMagick::Image.open("#{Rails.application.config.root}/test/zip/logos/plip.png").to_blob)
 @model6.initializer
 @model6.save

@@ -1,7 +1,10 @@
 <h1>Available Models</h1>
 
-
-<% @models.in_groups_of(4, false).each do |group| %>
+<% Rails.application.config.model_categories.each do |category| %>
+<% category_models = @models.where(:category => category) %>
+<% if !category_models.blank? %>
+<h2><%= category %></h2>
+<% category_models.in_groups_of(4, false).each do |group| %>
 <div class="row">
   <% group.each do |model| %>
   <div class="col-sm-6 col-md-3">
@@ -17,3 +20,7 @@
   <% end %>
 </div>
 <% end %>
+<% end %>
+<% end %>
+
+<%=  %>
