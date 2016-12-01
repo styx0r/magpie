@@ -23,6 +23,8 @@ for i in 1..20
                       admin:                  false,
                       activated:              true,
                       activated_at:           Time.zone.now)
+  @u1.create_right
+  @u1.right.user_delete = false
 end
 }
 
@@ -34,6 +36,7 @@ end
                     admin:                  true,
                     activated:              true,
                     activated_at:           Time.zone.now)
+@u1.create_right
 [{tag: "imb"}, {tag: "trumpets"}, {tag: "carloc"}, {tag: "models"}].each do |tagdata|
   @u1.hashtags.create(tagdata) end
 
@@ -45,28 +48,30 @@ end
                     admin:                  true,
                     activated:              true,
                     activated_at:           Time.zone.now)
-
+@u2.create_right
 [{tag: "biotec"}, {tag: "dresden"}, {tag: "freeharambe"}].each do |tagdata|
   @u2.hashtags.create(tagdata) end
 
-User.create!( name:                   "Lars Thielecke",
+@u1 = User.create!( name:                   "Lars Thielecke",
               identity:               "larst",
               email:                  "lars.thielecke@tu-dresden.de",
               password:               "imb_lars.thielecke_6102",
               password_confirmation:  "imb_lars.thielecke_6102",
-              admin:                  true,
+              admin:                  false,
               activated:              true,
               activated_at:           Time.zone.now)
+@u1.create_right
 
-User.create!( name:                   "Non-Admin User",
+@u1 = User.create!( name:                   "Non-Admin User",
               identity:               "nonadminu",
               email:                  "user@user.kp",
               password:               "nonadmin.mypass?.7699_8",
               password_confirmation:  "nonadmin.mypass?.7699_8",
               activated:              true,
               activated_at:           Time.zone.now)
+@u1.create_right
 
-User.create!( name:                   Rails.application.config.postbot_name,
+@u1 = User.create!( name:                   Rails.application.config.postbot_name,
               identity:               "postbot",
               email:                  Rails.application.config.postbot_email,
               password:               "nonadmin.mypass?.7699_9",
@@ -74,6 +79,7 @@ User.create!( name:                   Rails.application.config.postbot_name,
               bot:                    true,
               activated:              true,
               activated_at:           Time.zone.now)
+@u1.create_right
 
 @model1 = Model.create!(name:        "Versioned Sleep Studies",
               description:           "Sleeps for a given amount of time.

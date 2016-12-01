@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161109175434) do
+ActiveRecord::Schema.define(version: 20161201124807) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -97,6 +97,19 @@ ActiveRecord::Schema.define(version: 20161109175434) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "rights", force: :cascade do |t|
+    t.boolean  "user_delete"
+    t.boolean  "user_index"
+    t.boolean  "user_add"
+    t.boolean  "docker_image_modify"
+    t.boolean  "projects_delete"
+    t.boolean  "model_add"
+    t.boolean  "model_delete"
+    t.integer  "user_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "taggings", force: :cascade do |t|
