@@ -1,5 +1,13 @@
 class JobPolicy < ApplicationPolicy
 
+  def download?
+    !user.nil?
+  end
+
+  def download_config?
+    !user.nil?
+  end
+
   def images?
     !user.nil?
   end

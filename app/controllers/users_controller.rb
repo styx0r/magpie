@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   end
 
   def autocomplete
+  authorize User
   # Match all users starting with query in URL
   query = params[:query]
   if query.blank? # Only whitespace
@@ -36,9 +37,9 @@ end
 end
 
   def hashtag_delete
-    authorize User
     session[:return_to] ||= request.referer
     @user = User.find(params[:user_id])
+    authorize @user
     @user.hashtags.delete(Hashtag.find_by(tag: params[:tag]))
     respond_to do |format|
       format.html { redirect_to session.delete(:return_to) }
@@ -63,7 +64,8 @@ end
     @user = User.find(params[:user_id])
     @user.projects.destroy_all
     respond_to do |format|
-      format.html { redirect_to edit_user_path({:id => @user.id}), notice: 'All projects have been deleted.' }
+      format.html { redirect_to edit_user_path({:id => @user.id}) }
+      flash[:warning] = "All projects have been deleted."
       format.json { head :no_content }
     end
   end
@@ -128,6 +130,7 @@ end
   end
 
   def following
+    authorize User
     @title = "Following"
     @user = User.find(params[:id])
     @users = @user.following.paginate(page: params[:page])
@@ -135,6 +138,7 @@ end
   end
 
   def followers
+    authorize User
     @title = "Followers"
     @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])

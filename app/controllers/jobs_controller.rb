@@ -86,6 +86,7 @@ class JobsController < ApplicationController
   end
 
   def download
+    authorize @job
     # Initializes file download
     dir = @job.directory
     zipfile = "#{dir}/all-resultfiles-#{@job.project.name}-#{@job.id.to_s}.zip"
@@ -93,6 +94,7 @@ class JobsController < ApplicationController
   end
 
   def download_config
+    authorize @job
     # Initializes file download
     dir = @job.directory
     zipfile = "#{dir}/config-#{@job.project.name}-#{@job.id.to_s}.zip"

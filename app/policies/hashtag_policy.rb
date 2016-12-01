@@ -4,6 +4,10 @@ class HashtagPolicy < ApplicationPolicy
     !user.nil?
   end
 
+  def autocomplete?
+    !user.nil?
+  end
+
   class Scope < Scope
     def resolve
       scope.all

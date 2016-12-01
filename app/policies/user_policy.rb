@@ -9,6 +9,10 @@ class UserPolicy < ApplicationPolicy
   end
 
   def hashtag_delete?
+    !user.nil? && user == record
+  end
+
+  def autocomplete?
     !user.nil?
   end
 
@@ -22,6 +26,14 @@ class UserPolicy < ApplicationPolicy
 
   def update?
     user == record
+  end
+
+  def followers?
+    !user.nil?
+  end
+
+  def following?
+    !user.nil?
   end
 
   class Scope < Scope

@@ -6,6 +6,7 @@ class HashtagsController < ApplicationController
   end
 
   def autocomplete
+  authorize Hashtag
   # Match all hashtags starting with query in URL
   query = params[:query]
   if query.blank? # Only whitespace
