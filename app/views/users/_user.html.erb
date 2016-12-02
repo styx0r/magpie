@@ -1,11 +1,31 @@
 <li>
   <%= gravatar_for user, "50" %>
+  <b>
   <%= link_to user.name, user %>
-
-  
-
-  <% if policy(user).destroy? %>
-    | <%= link_to "delete", user, method: :delete,
-            data: { confirm: "You sure?" } %>
+  </b>
+  <div>
+  <% if policy(user).set_right? %>
+    <% cols_right = Right.columns.map(&:type) %>
+    <% i_bools_right = cols_right.each_index.select{|i| cols_right[i] == :boolean} %>
+    <% roles = Right.columns.map(&:name) %>
+    <% i_bools_right.each do |index_role| %>
+     <% if user.right[roles[index_role]] %>
+      <%= link_to "#{roles[index_role]} on", { :controller => "users", :action => "set_right",
+          :user_id => user.id, :role => roles[index_role]},
+          data: { confirm: "You sure?" },
+          :method => :get, :style => "color: white", :class => "btn btn-xs btn-warning" %> |
+     <% else %>
+      <%= link_to "#{roles[index_role]} off", { :controller => "users", :action => "set_right",
+          :user_id => user.id, :role => roles[index_role]},
+          data: { confirm: "You sure?" },
+          :method => :get, :style => "color: white", :class => "btn btn-xs btn-success" %> |
+     <% end %>
+    <% end %>
   <% end %>
+  <% if policy(user).destroy? %>
+    <%= link_to "delete", user, method: :delete,
+            data: { confirm: "You sure?" },
+            :class => "btn btn-xs btn-danger" %>
+  <% end %>
+  </div>
 </li>

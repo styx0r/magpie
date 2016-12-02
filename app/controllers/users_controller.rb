@@ -59,6 +59,18 @@ end
     end
   end
 
+  def set_right
+    session[:return_to] ||= request.referer
+    authorize User
+    @user = User.find(params[:user_id])
+    @role = params[:role]
+    @user.right.update_attribute(@role, !@user.right[@role])
+    respond_to do |format|
+      format.html { redirect_to session.delete(:return_to), notice: "Changed successfully done!" }
+      format.json { head :no_content }
+    end
+  end
+
   def delete_all_projects
     authorize User
     @user = User.find(params[:user_id])

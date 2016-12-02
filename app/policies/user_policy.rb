@@ -8,6 +8,10 @@ class UserPolicy < ApplicationPolicy
     !user.nil? && user == record
   end
 
+  def set_right?
+    !user.nil? && user.admin?
+  end
+
   def hashtag_delete?
     !user.nil? && user == record
   end
@@ -17,7 +21,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.admin? || (user.guest? && user == record)
+    user.admin? || user.right.user_delete? || (user.guest? && user == record)
   end
 
   def edit?
