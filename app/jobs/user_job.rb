@@ -10,12 +10,7 @@ class UserJob < ApplicationJob
 
   def perform(*args)
     @config_params = self.arguments[1][:config]
-    p "JHKLWKLWHGJKWHGJKLEWHGJKLHEWJKLGHJKLWHGJKLWHGJKLHEW"
-    p @config_params.inspect
     @uploads = self.arguments[1][:uploads]
-    #@upload = self.arguments[2]
-    #p "PERFORM ARGUMENTS 2 UPLOAD"
-    #p @upload.inspect
     @job = self.arguments.first
     @project = @job.project
     user = @job.user
@@ -42,11 +37,9 @@ class UserJob < ApplicationJob
     @job.output = {stdout: @stdout, stderr: @stderr}
 
     files_after = Dir.glob(Rails.root.join(@userdir, '*'))
-    @configfiles = Dir.glob(@userdir + "/*.config")
     @job.resultfiles = files_after.reject{|fil| files_before.include? fil}
     @job.save
-
-    zip_result_files
+    @job.zip_result_files
 
   end
 
@@ -74,23 +67,6 @@ class UserJob < ApplicationJob
     block.call
     puts "[Job: #{self.job_id}] After enqueing ..."
     notify
-  end
-
-  def zip_result_files
-    ## Now, create a zipped archive of all resultfiles, if there are any
-    require 'zip'
-    zip_results = "#{@userdir}/all-resultfiles-#{@project.name}-#{@job.id.to_s}.zip"
-    zip_config = "#{@userdir}/config-#{@job.project.name}-#{@job.id.to_s}.zip"
-    Zip::File.open(zip_results, Zip::File::CREATE) do |zipfile|
-      @job.resultfiles.each do |resultfile|
-        zipfile.add(File.basename(resultfile), resultfile)
-      end
-    end
-    Zip::File.open(zip_config, Zip::File::CREATE) do |zipfile|
-      @configfiles.each do |configfile|
-        zipfile.add(File.basename(configfile), configfile)
-      end
-    end
   end
 
   def execute_script
