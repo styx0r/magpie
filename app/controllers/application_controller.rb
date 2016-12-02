@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   def strict_transport_security
     if request.ssl?
       response.headers['Strict-Transport-Security'] = "max-age=31536000; includeSubDomains"
@@ -42,5 +44,10 @@ class ApplicationController < ActionController::Base
     def random_advice
       Rails.application.config.postbot_advice.sample
     end
+
+    def user_not_authorized
+    flash[:danger] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
+  end
 
 end

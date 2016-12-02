@@ -83,6 +83,7 @@ end
   end
 
   def index
+    authorize User
     @users = policy_scope(User.paginate(page: params[:page]))
   end
 

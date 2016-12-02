@@ -1,11 +1,11 @@
 class ModelPolicy < ApplicationPolicy
 
   def create?
-    !user.nil?
+    !user.nil? && (user.admin || user.right.model_add)
   end
 
   def new?
-    !user.nil?
+    !user.nil? && (user.admin || user.right.model_add)
   end
 
   def reupload?
@@ -21,7 +21,7 @@ class ModelPolicy < ApplicationPolicy
   end
 
   def destroy?
-    record.user == user || user.admin?
+    record.user == user || user.admin? || user.right.model_delete
   end
 
   def download?
