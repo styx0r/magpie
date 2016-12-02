@@ -13,7 +13,10 @@
       <div class="caption">
         <h2><%= model.name %></h2>
         <p><%= model.description.truncate(70, separator: ' ') %></p>
-  <%= link_to "View", model_path(model), :class => "btn btn-primary" %>
+  <%= link_to "View", model_path(model), :class => "btn btn-xs btn-primary" %>
+  <% @model = model %>
+  <%= render :partial => "models/follow" %>
+
       </div>
     </div>
   </div>

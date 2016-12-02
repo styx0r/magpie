@@ -1,14 +1,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
     <%= image_tag url_for(:controller => "models", :action => "show_logo", :id => @model.id), size: "30"%>
-    <% @model_hashtag = @model.hashtags.find_by(reserved: true) %>
-    <% if !@model_hashtag.nil? %>
-    <% if !current_user.hashtags.find_by(tag: @model_hashtag.tag) %>
-      <%= link_to "Follow", { :controller => "users", :action => "hashtag_add", :user_id => current_user.id, :tag => @model_hashtag.tag }, :method => :get, :class => "btn btn-xs btn-info" %>
-    <% else %>
-      <%= link_to "Unfollow", { :controller => "users", :action => "hashtag_delete", :user_id => current_user.id, :tag => @model_hashtag.tag }, :method => :get, :class => "btn btn-xs btn-info"   %>
-    <% end %>
-    <% end %>
+    <%= render :partial => "models/follow" %>
     <% if current_user == @model.user || current_user.admin? %>
     <%= link_to 'Edit', edit_model_path(@model), :class => "btn btn-xs btn-success"  %>
     <%= link_to 'Update', reupload_model_path(@model), :class => "btn btn-xs btn-success"  %>
