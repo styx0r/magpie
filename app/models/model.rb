@@ -31,7 +31,16 @@ class Model < ActiveRecord::Base
 
     self.mainscript = Hash[self.current_revision.strip, get_main_script]
     self.set_default_logo
+    self.assign_unique_hashtag
     self.save
+  end
+
+  def assign_unique_hashtag
+    # Add unique project hashtags
+    require 'securerandom'
+    random_string = SecureRandom.hex(1)
+    project_hashtag = random_string+'model'+self.id.to_s
+    self.hashtags.create(tag: project_hashtag, reserved: true)
   end
 
   def set_default_logo

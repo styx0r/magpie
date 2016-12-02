@@ -101,12 +101,7 @@ class ProjectsController < ApplicationController
         project_hashtag_format = /^[a-z0-9][a-z0-9]project[0-9]+$/
         model_hashtag_format = /^[a-z0-9][a-z0-9]model[0-9]+$/
 
-
-        # Add unique project hashtags
-        require 'securerandom'
-        random_string = SecureRandom.hex(1)
-        project_hashtag = random_string+'project'+@project.id.to_s
-        @project.hashtags.create(tag: project_hashtag, reserved: true)
+        @project.assign_unique_hashtag
 
         usertags.each do |rawtag|
           tag = rawtag.to_s.downcase.gsub(/#/, '')
