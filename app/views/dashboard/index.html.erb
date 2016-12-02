@@ -1,13 +1,22 @@
 <%= provide(:title, "Home")%>
 <div class="center jumbotron">
-  <h1>Welcome!</h1>
-  <h2>This is your personal dashboard for the MAGPIE Project</h2>
-  <% if !logged_in? %>
-    <%= link_to "Register | Login", login_path, class: "btn btn-lg btn-primary" %>
-    <%= link_to "Try as a guest", users_path, method: :post, class: "btn btn-lg btn-info" %>
-  <% else %>
-    <%= link_to 'Start with a new project', new_user_project_path(current_user), :class => "btn btn-primary" %>
-  <% end %>
+  <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <div class="col-md-3">
+          <%= image_tag("magpie_logo.svg", alt: "Magpie", :height => 150) %>
+            </div>
+        <h1>Welcome</h1>
+        <% if !logged_in? %>
+          <h2>to MAGPIE.</h2>
+          <%= link_to "Try it out", users_path, method: :post, class: "btn btn-lg btn-info" %>
+          <%= link_to "Register | Login", login_path, class: "btn btn-lg btn-primary" %>
+        <% else %>
+          <h2>to your personal dashboard.</h2>
+          <%= link_to 'Start with a new project', new_user_project_path(current_user), :class => "btn btn-primary" %>
+        <% end %>
+      </div>
+</div>
 </div>
 <% if logged_in? %>
   <div class = "row">
