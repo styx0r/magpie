@@ -28,6 +28,9 @@ for i in 1..20
 end
 }
 
+require 'mini_magick'
+
+
 @u1 = User.create!( name:                   "Christoph Baldow",
                     identity:               "christophb",
                     email:                  "christoph.baldow@tu-dresden.de",
@@ -86,11 +89,12 @@ end
                                      Time [s] can be set as an argument.",
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/sleep.zip"),
+              category:              'Showcase',
               user_id:               2)
 @model1.initializer
-@model1.save
-[{tag: "8zmodel1", reserved: true}, {tag: "versions"}, {tag: "sleepy"}, {tag: "myfirstmodel"}].each do |tagdata|
+[{tag: "versions"}, {tag: "sleepy"}, {tag: "myfirstmodel"}].each do |tagdata|
   @model1.hashtags.create(tagdata) end
+@model1.save
 # Now, let's create some more random revisions in the repository
 tmp_path = Dir.mktmpdir
 system("cd #{tmp_path}; git clone #{@model1.path} #{tmp_path}")
@@ -115,34 +119,37 @@ end
               source:                File.open("#{Rails.application.config.root}/test/zip/failed.zip"),
               user_id:               2)
 @model2.initializer
-@model2.save
-[{tag: "9rmodel2", reserved: true},{tag: "completefailure"}, {tag: "owned"}, {tag: "syntaxerror"}].each do |tagdata|
+[{tag: "completefailure"}, {tag: "owned"}, {tag: "syntaxerror"}].each do |tagdata|
   @model2.hashtags.create(tagdata) end
+@model2.save
 
 @model3 = Model.create!(name:        "PFSPA",
               description:           "Novel particle system combining reaction-diffusion with motion.",
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/pfspa.zip"),
+              category:              'Cell Modelling',
               user_id:               1)
 @model3.initializer
-@model3.save
-[{tag: "eemodel3", reserved: true},{tag: "PFSPA"}, {tag: "particles"}].each do |tagdata|
+[{tag: "PFSPA"}, {tag: "particles"}].each do |tagdata|
   @model3.hashtags.create(tagdata) end
+@model3.save
 
 @model4 = Model.create!(name:        "Multiplexing Clonality",
               description:           "Analysing simultaneously barcoded and fluroscence marked cells.",
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/multiplex.zip"),
+              category:              'Cell Modelling',
               user_id:               3)
 @model4.initializer
-@model4.save
-[{tag: "2smodel4", reserved: true},{tag: "attackoftheclones"}, {tag: "barcoding"}, {tag: "fancy"}].each do |tagdata|
+[{tag: "attackoftheclones"}, {tag: "barcoding"}, {tag: "fancy"}].each do |tagdata|
   @model4.hashtags.create(tagdata) end
+@model4.save
 
 @model5 = Model.create!(name:         "D3 Plot Model",
                         description:  "Model for creating and testing all different d3 plots, including barcharts, boxplots and histograms.",
                         help:         "Displays the different defined barcharts",
                         source:        File.open("#{Rails.application.config.root}/test/zip/d3Model.zip"),
+                        category:     'Visualization',
                         user_id:      1)
 @model5.initializer
 @model5.save
@@ -156,7 +163,9 @@ plip_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'plip_help.md')
                         source:       File.open("#{Rails.application.config.root}/test/zip/pliplocal.zip"),
                         user_id:      2,
                         doi:          "10.1093/nar/gkv315",
-                        citation:     "Salentin,S. et al. PLIP: fully automated protein-ligand interaction profiler. Nucl. Acids Res. (1 July 2015) 43 (W1): W443-W447.")
+                        citation:     "Salentin,S. et al. PLIP: fully automated protein-ligand interaction profiler. Nucl. Acids Res. (1 July 2015) 43 (W1): W443-W447.",
+                        category:     'Structural Bioinformatics',
+                        logo:         MiniMagick::Image.open("#{Rails.application.config.root}/test/zip/logos/plip.png").to_blob)
 @model6.initializer
 @model6.save
 

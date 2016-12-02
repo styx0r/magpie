@@ -1,14 +1,8 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
-    Project: <%= @model.name%>
-    <% @model_hashtag = @model.hashtags.find_by(reserved: true) %>
-    <% if !@model_hashtag.nil? %>
-    <% if !current_user.hashtags.find_by(tag: @model_hashtag.tag) %>
-      <%= link_to "Follow", { :controller => "users", :action => "hashtag_add", :user_id => current_user.id, :tag => @model_hashtag.tag }, :method => :get, :class => "btn btn-xs btn-info" %>
-    <% else %>
-      <%= link_to "Unfollow", { :controller => "users", :action => "hashtag_delete", :user_id => current_user.id, :tag => @model_hashtag.tag }, :method => :get, :class => "btn btn-xs btn-info"   %>
-    <% end %>
-    <% end %>
+    <%= image_tag url_for(:controller => "models", :action => "show_logo", :id => @model.id), size: "30"%>
+    <%= render :partial => "models/follow" %>
+    <% if current_user == @model.user || current_user.admin? %>
     <% if policy(@model).edit? %>
       <%= link_to 'Edit', edit_model_path(@model), :class => "btn btn-xs btn-success"  %>
     <% end %>
@@ -17,6 +11,7 @@
     <% end %>
     <% if policy(@model).destroy? %>
       <%= link_to 'Destroy', @model, method: :delete, data: { confirm: 'Are you sure? This will delete all associated model files.' }, :class => "btn btn-xs btn-danger"  %>
+    <% end %>
     <% end %>
   </div>
   <div class="panel-body">
@@ -60,6 +55,13 @@
       <% end %>
       <% end %>
     </p>
+
+    <p>
+      <strong>Category:</strong>
+      <%= @model.category %>
+    </p>
+
+
 
     </p>
   </div>

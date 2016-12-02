@@ -32,6 +32,10 @@ class ModelPolicy < ApplicationPolicy
     !user.nil?
   end
 
+  def show_logo?
+    !user.nil?
+  end
+
   class Scope < Scope
     def resolve
       scope.all

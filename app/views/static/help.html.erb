@@ -1,5 +1,26 @@
 <%= provide(:title, "Help")%>
 <div class="center jumbotron">
-  <h1>Help</h1>
-  <h2>In case you get stuck...</h2>
+  <div class="row">
+      <div class="col-md-3"></div>
+
+      <div class="col-md-6">
+        <div class="col-md-3">
+          <%= image_tag("magpie_logo.svg", alt: "Magpie", :height => 150) %>
+            </div>
+        <h1>Help</h1>
+        <h2>MAGPIE explained.</h2>
+      </div>
+</div>
+</div>
+
+<div class="panel-group", id="helppanels">
+  <%= render partial: "static/help/overview", layout:"help_section", locals:{:section=>"Overview", :id=>"overview", :type=>"primary"} %>
+  <%= render partial: "static/help/models", layout:"help_section", locals:{:section=>"Models", :id=>"models", :type=>"default"} %>
+  <%= render partial: "static/help/projects", layout:"help_section", locals:{:section=>"Projects", :id=>"projects", :type=>"default"} %>
+  <%= render partial: "static/help/jobs", layout:"help_section", locals:{:section=>"Jobs", :id=>"jobs", :type=>"default"} %>
+  <%= render partial: "static/help/config", layout:"help_section", locals:{:section=>"Configuration Files", :id=>"config", :type=>"default"} %>
+  <%= render partial: "static/help/d3", layout:"help_section", locals:{:section=>"Interactive Plots", :id=>"d3", :type=>"default"} %>
+  <%= render partial: "static/help/social", layout:"help_section", locals:{:section=>"Sharing and Following", :id=>"social", :type=>"default"} %>
+  <%= render partial: "static/help/tutorial_plip", layout:"help_section", locals:{:section=>"MAGPIE Tutorial", :id=>"tutorial_plip", :type=>"primary"} %>
+  <%= render partial: "static/help/faq", layout:"help_section", locals:{:section=>"Frequently Asked Questions", :id=>"faq", :type=>"info"} %>
 </div>

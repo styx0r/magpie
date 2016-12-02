@@ -14,6 +14,14 @@ class Project < ActiveRecord::Base
     output.strip
   end
 
+  def assign_unique_hashtag
+    # Add unique project hashtags
+    require 'securerandom'
+    random_string = SecureRandom.hex(1)
+    project_hashtag = random_string+'project'+self.id.to_s
+    self.hashtags.create(tag: project_hashtag, reserved: true)
+  end
+
   def tag
     require 'open3'
     output, status = Open3.capture2("cd #{self.model.path}; git tag --points-at #{self.revision}")

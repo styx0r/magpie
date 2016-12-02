@@ -1,0 +1,14 @@
+<div class="panel panel-<%= type %>">
+  <div class="panel-heading">
+  <a data-toggle="collapse" data-parent="#helppanels" href="#<%= id %>">
+    <span align="center">
+  <%= section %>
+</span>
+  </a>
+  </div>
+  <div id="<%= id %>" class="panel-collapse collapse">
+  <div class="panel-body">
+    <%= yield %>
+  </div>
+  </div>
+</div>

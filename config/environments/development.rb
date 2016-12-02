@@ -65,4 +65,9 @@ Rails.application.configure do
                     'Did you know? @christophb and @sebastians developed #MAGPIE in under a year #rapidprotyping #notmeteor',
                     'Did you know? You can not deactivate my messages #icantletyoudothat',
                     'Did you know? We have only four random messages. #justfortesting #thatslife']
+
+  config.model_categories = ['Sequencing', 'Structural Bioinformatics', 'Image Recognition',
+                             'Machine Learning', 'Visualization', 'Medical Science',
+                             'Cell Modelling', 'Chemistry', 'Mathematics', 'Phylogeny', 'Genetics', 'Systems Biology',
+                             'Text Mining', 'Data Mining', 'Uncategorized', 'Showcase']
 end
