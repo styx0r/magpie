@@ -2,8 +2,10 @@
 class JobQueueInfosChannel < ApplicationCable::Channel
 
   def subscribed
-    stream_from "job_queue_infos_#{current_user.id}"
-    notify
+    if !current_user.nil?
+      stream_from "job_queue_infos_#{current_user.id}"
+      notify
+    end
   end
 
   def unsubscribed

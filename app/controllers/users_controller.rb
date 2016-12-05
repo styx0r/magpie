@@ -94,10 +94,12 @@ end
   end
 
   def new
+    skip_authorization
     @user = User.new
   end
 
   def create
+    skip_authorization
     @user = params[:user] ? User.new(user_params) : User.new_guest
     #@user = User.new(user_params)
     if @user.save
@@ -131,12 +133,22 @@ end
         else
           @user.hashtags << Hashtag.find_by(tag: tag)
         end
+      end
     end
-  end
 
+    email_bc = @user.email
     if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated."
-      redirect_to @user
+      if(email_bc != @user.email) #user changed email address
+        @user.update_attribute("activated", false)
+        @user.create_reset_digest
+        @user.send_activation_email
+        session.destroy
+        redirect_to root_url
+        flash[:success] = "Profile updated."
+        flash[:info] = "Please check your (new) email address to reactivate your account."
+      else
+        redirect_to @user
+      end
     else
       render 'edit'
     end

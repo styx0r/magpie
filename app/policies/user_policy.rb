@@ -21,7 +21,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.admin? || user.right.user_delete? || (user.guest? && user == record)
+    user.admin? || (user.guest? && user == record) || user.right.user_delete?
   end
 
   def edit?

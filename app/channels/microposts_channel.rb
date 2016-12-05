@@ -2,8 +2,10 @@
 class MicropostsChannel < ApplicationCable::Channel
 
   def subscribed
-    stream_from "microposts_#{current_user.id}"
-    #notify
+    if !current_user.nil?
+      stream_from "microposts_#{current_user.id}"
+      #notify
+    end
   end
 
   def unsubscribed
