@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201172411) do
+ActiveRecord::Schema.define(version: 20161206090823) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -102,16 +102,14 @@ ActiveRecord::Schema.define(version: 20161201172411) do
   end
 
   create_table "rights", force: :cascade do |t|
-    t.boolean  "user_delete",         default: false
-    t.boolean  "user_index",          default: false
-    t.boolean  "user_add",            default: false
-    t.boolean  "docker_image_modify", default: false
-    t.boolean  "projects_delete",     default: false
-    t.boolean  "model_add",           default: false
-    t.boolean  "model_delete",        default: false
+    t.boolean  "user_delete",     default: false
+    t.boolean  "user_index",      default: false
+    t.boolean  "projects_delete", default: false
+    t.boolean  "model_add",       default: false
+    t.boolean  "model_delete",    default: false
     t.integer  "user_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "taggings", force: :cascade do |t|

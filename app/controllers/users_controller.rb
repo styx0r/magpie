@@ -64,6 +64,10 @@ end
     @user = User.find(params[:user_id])
     authorize @user
     @user.update_attribute("admin", !@user.admin)
+    respond_to do |format|
+      format.html { redirect_to session.delete(:return_to), notice: "Changed successfully done!" }
+      format.json { head :no_content }
+    end
   end
 
   def toggle_right
