@@ -21,7 +21,8 @@ Rails.application.routes.draw do
       get 'delete_all_projects'
       get 'hashtag_delete'
       get 'hashtag_add'
-      get 'set_right'
+      get 'toggle_right'
+      get 'toggle_admin'
   end
 
   #TODO Obsolete, but somethow needed by the form ...

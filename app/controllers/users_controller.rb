@@ -59,10 +59,17 @@ end
     end
   end
 
-  def set_right
+  def toggle_admin
     session[:return_to] ||= request.referer
-    authorize User
     @user = User.find(params[:user_id])
+    authorize @user
+    @user.update_attribute("admin", !@user.admin)
+  end
+
+  def toggle_right
+    session[:return_to] ||= request.referer
+    @user = User.find(params[:user_id])
+    authorize @user
     @role = params[:role]
     @user.right.update_attribute(@role, !@user.right[@role])
     respond_to do |format|

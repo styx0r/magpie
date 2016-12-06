@@ -25,6 +25,7 @@ for i in 1..20
                       activated_at:           Time.zone.now)
   @u1.create_right
   @u1.right.user_delete = false
+  @u1.right.update_attribute("model_add", true)
 end
 }
 

@@ -8,8 +8,12 @@ class UserPolicy < ApplicationPolicy
     !user.nil? && user == record
   end
 
-  def set_right?
-    !user.nil? && user.admin?
+  def toggle_admin?
+    (!user.nil? && user.admin?) && user != record
+  end
+
+  def toggle_right?
+    (!user.nil? && user.admin?) && user != record
   end
 
   def hashtag_delete?
