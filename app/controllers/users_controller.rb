@@ -112,6 +112,7 @@ end
   def create
     skip_authorization
     @user = params[:user] ? User.new(user_params) : User.new_guest
+    @user.create_right
     #@user = User.new(user_params)
     if @user.save
       if !@user.guest
@@ -151,6 +152,7 @@ end
     if @user.update_attributes(user_params)
       if(email_bc != @user.email) #user changed email address
         @user.update_attribute("activated", false)
+        @user.update_email
         @user.send_activation_email
         session.destroy
         redirect_to root_url
