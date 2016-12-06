@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_one  :right, dependent: :destroy
   attr_accessor :remember_token, :activation_token, :reset_token, :new_hashtags
   before_save :downcase_email, unless: :guest?
-  before_create :create_activation_digest, unless: :guest
+  #before_create :create_activation_digest, unless: :guest
   validates :name, presence: true,
                    length: { maximum: 50 }
   validates :identity, :format => { with: /\A(?=.*[a-z])[a-z\d]+\Z/i }, length: { maximum: 20}
@@ -72,6 +72,7 @@ class User < ActiveRecord::Base
 
   # Sends activation email.
   def send_activation_email
+    self.create_activation_digest
     UserMailer.account_activation(self).deliver_now
   end
 
@@ -130,15 +131,15 @@ class User < ActiveRecord::Base
     following.include?(other_user)
   end
 
+  def create_activation_digest
+    self.activation_token = User.new_token
+    self.activation_digest = User.digest(activation_token)
+  end
+
   private
 
     def downcase_email
       self.email = email.downcase
-    end
-
-    def create_activation_digest
-      self.activation_token = User.new_token
-      self.activation_digest = User.digest(activation_token)
     end
 
 end

@@ -140,7 +140,6 @@ end
     if @user.update_attributes(user_params)
       if(email_bc != @user.email) #user changed email address
         @user.update_attribute("activated", false)
-        @user.create_reset_digest
         @user.send_activation_email
         session.destroy
         redirect_to root_url
