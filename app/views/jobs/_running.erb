@@ -33,14 +33,29 @@
       <% if !job.output[:stdout].blank? %>
         <div class="panel-body">
           <b>STDOUT</b>
-          <%= simple_format(job.output[:stdout].join()) %>
+          <% if job.output[:stdout].join().length > 250 %>
+            <div id = "read-more-stdout-job-<%= job.id %>">
+              <%= simple_format truncate( job.output[:stdout].join(), :length => 250 ) %>
+              <a href="javascript:void(0);" onclick="read_more_jobs(<%= job.id %>, 'stdout', <%= (simple_format job.output[:stdout].join()).to_json %>);">... read more</a>
+            </div>
+          <% else %>
+            <%= simple_format job.output[:stdout].join() %>
+          <% end %>
         </div>
       <% end %>
 
       <% if !job.output[:stderr].blank? %>
         <div class="panel-body">
           <b>STDERR | </b>
-          <%= simple_format(job.output[:stderr].join()) %>
+          <% if job.output[:stderr].join().length > 250 %>
+            <div id = "read-more-stderr-job-<%= job.id %>">
+              <%= simple_format truncate( job.output[:stderr].join(), :length => 250 ) %>
+              <a href="javascript:void(0);" onclick="read_more_jobs(<%= job.id %>, 'stderr', <%= (simple_format job.output[:stderr].join()).to_json %>);">... read more</a>
+            </div>
+          <% else %>
+            <% p (simple_format job.output[:stderr].join()).inspect %>
+            <%= simple_format job.output[:stderr].join() %>
+          <% end %>
         </div>
       <% end %>
     <% end %>
