@@ -20,6 +20,14 @@ class JobPolicy < ApplicationPolicy
     !user.nil?
   end
 
+  def read_more?
+    !user.nil?
+  end
+
+  def read_less?
+    !user.nil?
+  end
+
   class Scope < Scope
     def resolve
       scope.all

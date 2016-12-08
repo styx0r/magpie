@@ -64,6 +64,8 @@ Rails.application.routes.draw do
   get 'microposts_feed' => 'dashboard#microposts_feed'
   get 'jobs_status' => 'jobs#status'
   get 'job_running' => 'jobs#running'
+  get 'job_read_more' => 'jobs#read_more'
+  get 'job_read_less' => 'jobs#read_less'
   get 'project_modeldescription' => 'projects#modeldescription'
   get 'project_modelconfig' => 'projects#modelconfig'
   get 'project_modelrevisions' => 'projects#modelrevisions'

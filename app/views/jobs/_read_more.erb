@@ -1,0 +1,7 @@
+<% if type == "stdout" %>
+  <%= simple_format job.output[:stdout].join() %>
+  <a href="javascript:void(0);" onclick="read_less_jobs(<%= job.id %>, 'stdout');">... read less</a>
+<% else %>
+  <%= simple_format job.output[:stderr].join() %>
+  <a href="javascript:void(0);" onclick="read_less_jobs(<%= job.id %>, 'stderr');">... read less</a>
+<% end %>

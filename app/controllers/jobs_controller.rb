@@ -30,6 +30,30 @@ class JobsController < ApplicationController
     render :layout => false, partial: 'jobs/running', locals: {:job => job}
   end
 
+  def read_more
+
+    job_id = params[:job_id].to_i
+    job = Job.find_by_id job_id
+
+    authorize job
+
+    type = params[:type]
+
+    render :layout => false, partial: 'jobs/read_more', locals: {:job => job, :type => type}
+  end
+
+  def read_less
+
+    job_id = params[:job_id].to_i
+    job = Job.find_by_id job_id
+
+    authorize job
+
+    type = params[:type]
+
+    render :layout => false, partial: 'jobs/read_less', locals: {:job => job, :type => type}
+  end
+
   # POST /jobs
   # POST /jobs.json
   def create
