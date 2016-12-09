@@ -170,9 +170,9 @@ plip_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'plip_help.md')
 @model6.initializer
 @model6.save
 
-@model7 = Model.create!(name:         "Config Test",
-                        description:  "This model is used to test different model parameter tests.",
-                        help:         "Nothing important here.",
+@model7 = Model.create!(name:         "Configuration Example",
+                        description:  "This model is used to show the usage of all possible input parameter types.",
+                        help:         "???TODO??? (PUT IN THE LINK TO THE CORRESPONDING HELP SITE)",
                         source:        File.open("#{Rails.application.config.root}/test/zip/configtest.zip"),
                         user_id:      User.find_by(name: "Christoph Baldow").id,
                         doi:          "",

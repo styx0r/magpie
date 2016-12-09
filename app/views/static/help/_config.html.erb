@@ -1,19 +1,71 @@
-<h5>Introduction</h5>
+<h4>Overview</h4>
+<p>
+  Configuration files are used to configure model instances, created within a job.
+  This is also called the parametrization of a model. MAGPIE uses the configuration
+  files for both generating the
+  <b><a href="help?section=<%= section %>#configuration_input_form">configuration input forms</a></b>
+  and creating the
+  <b><a href="help?section=<%= section %>#configuration_instance_files">configuration instance files</a></b>
+  used within a model run.
+</p>
 
-<h5>Format</h5>
+<h4>General</h4>
+<p>
+  Before starting a job (project creation or within a project itself) MAGPIE is
+  collecting all config files associated with the project corresponding model.
+  To make MAGPIE recognizing a config file the filename extension is supposed
+  to be <b>.config</b>. The filename itself can be chosen arbitrary.
+  Within these config files the form output is created. More details on the form
+  creation can be found in section
+  <a href="help?section=<%= section %>#configuration_input_form">configuration input forms</a>.
+  When the form input is finished, MAGPIE is collecting all information made by the user
+  and creates the corresponding
+  <a href="help?section=<%= section %>#configuration_instance_files">configuration instance files</a>.
+  These files can be used by the model itself for read-in and usage of the particular instance.
+  Click <b><a href="help?section=<%= section %>#configuration_example"> here </a></b> if you want to jump to the examples section directly.
+</p>
 
+<div id="configuration_input_form"><h4>Configuration Input Forms</h4>
+
+  <h5> Structure </h5>
+  <p>
+    Every single element of the form consists of two lines in the corresponding
+    config file. The <b>first line</b> is a <b>comment</b>, beginning with <b>#</b>
+    and is used for the tooltip box in the config input form. The second line
+    consists of all relevant information describing the parameter.
+    Therefore, the most simple structure looks like the following:
+    <pre>
+      #COMMENT
+      NAME TYPE DEFAULT (ADDITIONALS)
+    </pre>
+    MAGPIE supports the following types:
+    <li>string</li>
+    <li>numeric</li>
+    <li>integer</li>
+    <li>float</li>
+    <li>double</li>
+    <li>dropdown</li>
+    <li>file</li>
+    All possible types and how they are used is shown within the
+    <b><a href="help?section=<%= section %>#configuration_example"> example</a></b>,
+    which shows the "Configuration Example" Model.
+
+  </p>
+
+  <h5> Conditionals </h5>
+
+</div>
+
+
+<div id="configuration_instance_files"><h4>Configuration Instance Files</h4>
+  HERE SOME MORE OF THIS AND THAT
+</div>
+
+<h4> Example </h4>
 <pre>
-  # Mean of first box
-  mean1 integer 10
-  # Mean of second box
-  mean2 integer 20
-  # Number of values generated for first box
-  n1 integer 100
-  # Number of values generated for second box
-  n2 integer 50
-  # Standard deviation of box 1
-  sd1 integer 1
-  # Standard deviation of box 2
-  sd2 integer 3
+  PUT IN THE CONFIG INPUT EXAMPLE
+
 </pre>
+
+
 <caption>Simple configuration file</caption>

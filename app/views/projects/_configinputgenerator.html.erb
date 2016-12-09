@@ -85,7 +85,7 @@ for @line in @file_string
   %>
 >
 <% end %>
-<% if @param_type == "integer" || @param_type == "double" || @param_type == "float" %>
+<% if @param_type == "numeric" || @param_type == "integer" || @param_type == "double" || @param_type == "float" %>
   <% @param_default = @line[2] %>
   <%= f.input "#{@cfile}_#{@param_name}".to_sym,
             label: "",
@@ -97,7 +97,6 @@ for @line in @file_string
 <% elsif @param_type == "range" %>
 
 <% elsif @param_type == "file" %>
-  <% @param_default = @line[2] %>
   <%= f.input "#{@cfile}_#{@param_name}".to_sym,
         label: "",
         required: !@hidden,

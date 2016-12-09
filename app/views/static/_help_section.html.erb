@@ -6,7 +6,7 @@
 </span>
   </a>
   </div>
-  <div id="<%= id %>" class="panel-collapse collapse">
+  <div id="<%= id %>" class="panel-collapse collapse <%= section == params[:section] ? "in" : "" %>">
   <div class="panel-body">
     <%= yield %>
   </div>
