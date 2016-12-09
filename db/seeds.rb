@@ -114,11 +114,12 @@ for i in 0..10
   @model1.save
 end
 
-@model2 = Model.create!(name:        "Failed!",
+@model2 = Model.create!(name:        "Fail!",
               description:           "Runs a job with a syntax error in the bash script. Will fail 100%.",
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/failed.zip"),
-              user_id:               User.find_by(name: "Sebastian Salentin").id)
+              user_id:               User.find_by(name: "Sebastian Salentin").id,
+              category:              "Showcase")
 @model2.initializer
 [{tag: "completefailure"}, {tag: "owned"}, {tag: "syntaxerror"}].each do |tagdata|
   @model2.hashtags.create(tagdata) end
@@ -140,17 +141,18 @@ end
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/multiplex.zip"),
               category:              'Cell Modelling',
-              user_id:               User.find_by(name: "Lars Thielecke").id)
+              user_id:               User.find_by(name: "Lars Thielecke").id,
+              category:              "Sequencing")
 @model4.initializer
 [{tag: "attackoftheclones"}, {tag: "barcoding"}, {tag: "fancy"}].each do |tagdata|
   @model4.hashtags.create(tagdata) end
 @model4.save
 
-@model5 = Model.create!(name:         "D3 Plot Model",
+@model5 = Model.create!(name:         "D3 Plot Visualization",
                         description:  "Model for creating and testing all different d3 plots, including barcharts, boxplots and histograms.",
                         help:         "Displays the different defined barcharts",
                         source:        File.open("#{Rails.application.config.root}/test/zip/d3Model.zip"),
-                        category:     'Visualization',
+                        category:     'Showcase',
                         user_id:      User.find_by(name: "Christoph Baldow").id)
 @model5.initializer
 @model5.save
@@ -170,13 +172,14 @@ plip_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'plip_help.md')
 @model6.initializer
 @model6.save
 
-@model7 = Model.create!(name:         "Configuration Example",
+@model7 = Model.create!(name:         "Configuration & Parameter Example",
                         description:  "This model is used to show the usage of all possible input parameter types.",
                         help:         "???TODO??? (PUT IN THE LINK TO THE CORRESPONDING HELP SITE)",
-                        source:        File.open("#{Rails.application.config.root}/test/zip/configtest.zip"),
+                        source:        File.open("#{Rails.application.config.root}/test/zip/ConfigurationExample.zip"),
                         user_id:      User.find_by(name: "Christoph Baldow").id,
                         doi:          "",
-                        citation:     "")
+                        citation:     "",
+                        category:     "Showcase")
 @model7.initializer
 @model7.save
 

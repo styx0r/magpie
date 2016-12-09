@@ -73,7 +73,6 @@ for @line in @file_string
   end
 %>
 <div class = "col-md-6">
-
 <% if @param_name.in?(@depends_on.keys) %>
 <div class = <%= "toggle_hidden_"+
                   @depends_on[@param_name][0]+

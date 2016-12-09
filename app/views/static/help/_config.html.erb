@@ -7,6 +7,7 @@
   and creating the
   <b><a href="help?section=<%= section %>#configuration_instance_files">configuration instance files</a></b>
   used within a model run.
+  Click <b><a href="help?section=<%= section %>#configuration_example"> here </a></b> if you want to jump to the examples section directly.
 </p>
 
 <h4>General</h4>
@@ -22,7 +23,6 @@
   and creates the corresponding
   <a href="help?section=<%= section %>#configuration_instance_files">configuration instance files</a>.
   These files can be used by the model itself for read-in and usage of the particular instance.
-  Click <b><a href="help?section=<%= section %>#configuration_example"> here </a></b> if you want to jump to the examples section directly.
 </p>
 
 <div id="configuration_input_form"><h4>Configuration Input Forms</h4>
@@ -47,25 +47,33 @@
     <li>dropdown</li>
     <li>file</li>
     All possible types and how they are used is shown within the
-    <b><a href="help?section=<%= section %>#configuration_example"> example</a></b>,
-    which shows the "Configuration Example" Model.
-
+    <b><a href="help?section=<%= section %>#configuration_example"> "Configuration Example" Model</a></b>.
   </p>
 
   <h5> Conditionals </h5>
+  <p>
+    Conditionals can be used to build switches within a config file.
+    This gives the possiblity to show / hide configuration inputs in a form
+    based on a dropdown menu.
+    <pre>
+      CONDITIONAL AS CODE
+    </pre>
+  </p>
 
 </div>
 
 
 <div id="configuration_instance_files"><h4>Configuration Instance Files</h4>
-  HERE SOME MORE OF THIS AND THAT
+  <p>
+    HERE SOME MORE OF THIS AND THAT
+  </p>
 </div>
 
-<h4> Example </h4>
-<pre>
-  PUT IN THE CONFIG INPUT EXAMPLE
-
-</pre>
+<div id="configuration_example"><h4> Example </h4>
+  <pre>
+    PUT IN THE CONFIG INPUT EXAMPLE
+  </pre>
+</div>
 
 
 <caption>Simple configuration file</caption>

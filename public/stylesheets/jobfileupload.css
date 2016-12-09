@@ -8,11 +8,10 @@ input[type = "file"].file {
   position: relative;
   overflow: hidden;
   float: right;
-  margin-left: 20px;
+  margin-left: 2px;
   margin-top: 5px;
-  margin-right: 0px;
+  margin-right: 12px;
   width: 70%;
-  height: 32px;
   border: 2px solid #AAA;
   border-radius: 10px;
   padding: 2px 5px;
@@ -21,6 +20,6 @@ input[type = "file"].file {
 }
 
 .file p {
-  margin-top: 23px;
-  margin-left: 30%;
+  margin-top: 21px;
+  margin-left: 28%;
 }
