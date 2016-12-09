@@ -91,7 +91,7 @@ require 'mini_magick'
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/sleep.zip"),
               category:              'Showcase',
-              user_id:               2)
+              user_id:               User.find_by(name: "Christoph Baldow").id)
 @model1.initializer
 [{tag: "versions"}, {tag: "sleepy"}, {tag: "myfirstmodel"}].each do |tagdata|
   @model1.hashtags.create(tagdata) end
@@ -118,7 +118,7 @@ end
               description:           "Runs a job with a syntax error in the bash script. Will fail 100%.",
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/failed.zip"),
-              user_id:               2)
+              user_id:               User.find_by(name: "Sebastian Salentin").id)
 @model2.initializer
 [{tag: "completefailure"}, {tag: "owned"}, {tag: "syntaxerror"}].each do |tagdata|
   @model2.hashtags.create(tagdata) end
@@ -129,7 +129,7 @@ end
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/pfspa.zip"),
               category:              'Cell Modelling',
-              user_id:               1)
+              user_id:               User.find_by(name: "Christoph Baldow").id)
 @model3.initializer
 [{tag: "PFSPA"}, {tag: "particles"}].each do |tagdata|
   @model3.hashtags.create(tagdata) end
@@ -140,7 +140,7 @@ end
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/multiplex.zip"),
               category:              'Cell Modelling',
-              user_id:               3)
+              user_id:               User.find_by(name: "Lars Thielecke").id)
 @model4.initializer
 [{tag: "attackoftheclones"}, {tag: "barcoding"}, {tag: "fancy"}].each do |tagdata|
   @model4.hashtags.create(tagdata) end
@@ -151,7 +151,7 @@ end
                         help:         "Displays the different defined barcharts",
                         source:        File.open("#{Rails.application.config.root}/test/zip/d3Model.zip"),
                         category:     'Visualization',
-                        user_id:      1)
+                        user_id:      User.find_by(name: "Christoph Baldow").id)
 @model5.initializer
 @model5.save
 
@@ -162,7 +162,7 @@ plip_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'plip_help.md')
                         description:  plip_desc,
                         help:         plip_help,
                         source:       File.open("#{Rails.application.config.root}/test/zip/pliplocal.zip"),
-                        user_id:      2,
+                        user_id:      User.find_by(name: "Sebastian Salentin").id,
                         doi:          "10.1093/nar/gkv315",
                         citation:     "Salentin,S. et al. PLIP: fully automated protein-ligand interaction profiler. Nucl. Acids Res. (1 July 2015) 43 (W1): W443-W447.",
                         category:     'Structural Bioinformatics',
@@ -174,11 +174,24 @@ plip_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'plip_help.md')
                         description:  "This model is used to test different model parameter tests.",
                         help:         "Nothing important here.",
                         source:        File.open("#{Rails.application.config.root}/test/zip/configtest.zip"),
-                        user_id:      1,
+                        user_id:      User.find_by(name: "Christoph Baldow").id,
                         doi:          "",
                         citation:     "")
 @model7.initializer
 @model7.save
+
+clonal_leukemia_desc = File.open(File.join(Rails.root, 'test', 'seedextra', 'clonal_leukemia_description.md')).read
+clonal_leukemia_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'clonal_leukemia_help.md')).read
+@model8 = Model.create!(name:         "Clonal Leukemia",
+                        description: clonal_leukemia_desc,
+                        help:         clonal_leukemia_help,
+                        source:       File.open("#{Rails.application.config.root}/test/zip/clonalleukemia.zip"),
+                        user_id:      User.find_by(name: "Christoph Baldow").id,
+                        doi:          "10.1371/journal.pone.0165129",
+                        citation:     "Baldow C, Thielecke L, Glauche I (2016) Model Based Analysis of Clonal Developments Allows for Early Detection of Monoclonal Conversion and Leukemia. PLoS ONE 11(10): e0165129.",
+                        category:     "Medical Science",
+                        logo:         MiniMagick::Image.open("#{Rails.application.config.root}/test/zip/logos/clonalleukemia.png").to_blob)
+@model8.initializer
 
 # Initialize the docker image
 # TODO: integrate in execution: docker run -it -v /Users/baldow/.magpie/docker/:/root -w /root magpie:default ./run_mf.sh

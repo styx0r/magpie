@@ -1,11 +1,13 @@
 <%= render :partial => "models/header" %>
 
-<div class="panel panel-info">
-  <div class="panel-heading">Description</div>
-  <div class="panel-body">
-    <%= markdown(@model.description) %>
+<% if !@model.description.empty? %>
+  <div class="panel panel-info">
+    <div class="panel-heading">Description</div>
+    <div class="panel-body">
+      <%= markdown(@model.description) %>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="panel panel-info">
   <div class="panel-heading">Versions</div>
@@ -23,11 +25,13 @@
   </div>
 </div>
 
-<div class="panel panel-info">
-  <div class="panel-heading">Help</div>
-  <div class="panel-body">
-    <%= markdown(@model.help) %>
+<% if !@model.help.empty? %>
+  <div class="panel panel-info">
+    <div class="panel-heading">Help</div>
+    <div class="panel-body">
+      <%= markdown(@model.help) %>
+    </div>
   </div>
-</div>
+<% end %>
 
 <%= link_to 'Back', models_path %>
