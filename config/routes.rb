@@ -88,4 +88,6 @@ Rails.application.routes.draw do
   # with this action cable runs within the same server process when we run rails server
   mount ActionCable.server => '/cable/'
 
+  match '*unmatched_route', :to => 'application#routing_error', :via => :all
+
 end
