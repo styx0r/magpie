@@ -57,6 +57,11 @@ gem 'rubyzip'
 # MIME Type detection
 gem 'ruby-filemagic' # requires libmagic-dev library installed
 
+# Syntax highlighting
+gem 'coderay'
+gem 'coderay_bash'
+
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
