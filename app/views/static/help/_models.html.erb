@@ -1,2 +1,32 @@
-<% @model = Model.find(1) %>
-<%= render :partial => "models/header" %>
+<p>
+  Models are the basis of MAGPIE. They can be
+  <b><a href="help?section=<%= section %>#model_upload">registered / published</a></b>,
+  <b><a href="help?section=<%= section %>#model_update">updated</a></b>,
+  <b><a href="help?section=<%= section %>#model_manage">managed</a></b>,
+  <b><a href="help?section=<%= section %>#model_browse">browsed</a></b>,
+  and used for <b><a href="help?section=Projects#project_create">creating a project</a></b>
+  connected to this model. In general, models are saved within a git repository.
+  Therefore it is also possible to update models and versionize everything,
+  which is model related. In the following a short introduction for all
+  model related operations is given.
+</p>
+
+<div id = "model_upload">
+  <h4> Register </h4>
+  <p>
+    For registration of a model, a user has to have the rights to do so.
+    In case the rights are sufficient, there is a button in the top menu under
+    Model, called register model. There you can register a model:
+  </p>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <% @model = Model.new %>
+      <%= render :partial => "models/form" %>
+    </div>
+  </div>
+  <caption>Register Model Form</caption><br /><br />
+
+</div>
+
+<%# @model = Model.find(1) %>
+<%# render :partial => "models/header" %>
