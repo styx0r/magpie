@@ -87,13 +87,16 @@ class ModelsController < ApplicationController
   def update
     authorize @model
     respond_to do |format|
-      if @model.update(model_params)
-        if model_params.key?(:source) # In case of reupload
-          @model.update_files(model_params[:source],model_params[:tag]) # Update actual scripts and files
-          @model.mainscript[@model.current_revision] = @model.get_main_script
-          @model.save
-          # Update main script #TODO
-        end
+      if model_params.key?(:source) # In case of reupload
+        @model.update_files(model_params[:source],model_params[:tag]) # Update actual scripts and files
+        @model.mainscript[@model.current_revision] = @model.get_main_script
+        @model.save
+      else
+        # As of now, only the main script of the latest revision can be changed #TODO
+        @model.mainscript[@model.current_revision] = model_params[:mainscript]
+        @model.update(model_params.except(:mainscript))
+      end
+      if @model.save
         format.html { redirect_to @model, notice: 'Model was successfully updated.' }
         format.json { render :show, status: :ok, location: @model }
       else

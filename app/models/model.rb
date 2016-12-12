@@ -63,7 +63,7 @@ class Model < ActiveRecord::Base
 
   def current_revision
     revision, status = Open3.capture2("cd #{self.path}; git rev-parse HEAD;")
-    return revision
+    return revision.strip
   end
 
   def get_main_script
