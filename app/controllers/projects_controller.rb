@@ -32,10 +32,12 @@ class ProjectsController < ApplicationController
   end
 
   def toggle_public
+    authorize @project
     respond_to do |format|
     @project.public = !@project.public
     if @project.save
-        format.html { redirect_to :back, notice: 'Project was successfully updated.' }
+        format.html { redirect_to :back }
+        flash['success'] = "Project was successfully updated."
         format.json { render :show, status: :ok, location: @job }
       else
         format.html { render :edit }
@@ -63,9 +65,11 @@ class ProjectsController < ApplicationController
 
   def delete_marked_jobs
     @project = Project.find(params[:project_id])
+    authorize @project
     @project.jobs.where(:highlight => "hidden").destroy_all
     respond_to do |format|
-      format.html { redirect_to project_path(@project), notice: 'All marked jobs have been deleted.' }
+      format.html { redirect_to :back }
+      flash['warning'] = "All marked jobs have been deleted."
       format.json { head :no_content }
     end
   end
@@ -140,7 +144,8 @@ class ProjectsController < ApplicationController
           end
         end
         postbot_says("User #{@user.name} created a new project using the model #{@project.model.name}", @project.hashtags)
-        format.html { redirect_to user_project_path(current_user, @project), notice: 'Project was successfully created.' }
+        format.html { redirect_to user_project_path(current_user, @project) }
+        flash['success'] = "Project was successfully created."
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -154,7 +159,8 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to @project }
+        flash['success'] = "Project was successfully updated."
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -169,7 +175,8 @@ class ProjectsController < ApplicationController
     authorize @project
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to projects_url }
+      flash['warning'] = "Project was successfully destroyed."
       format.json { head :no_content }
     end
   end

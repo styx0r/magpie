@@ -76,7 +76,8 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        format.html { redirect_to user_project_path(@job.user.id, @job.project.id), notice: 'Job was successfully created.' }
+        format.html { redirect_to user_project_path(@job.user.id, @job.project.id) }
+        flash['success'] = "Job was successfully created."
         format.json { render :show, status: :created, location: @job }
       else
         format.html { render :new }
@@ -90,7 +91,8 @@ class JobsController < ApplicationController
   def update
     respond_to do |format|
       if @job.update(job_params)
-        format.html { redirect_to @job, notice: 'Job was successfully updated.' }
+        format.html { redirect_to @job }
+        flash['success'] = "Job was successfully updated."
         format.json { render :show, status: :ok, location: @job }
       else
         format.html { render :edit }
@@ -102,9 +104,11 @@ class JobsController < ApplicationController
   # DELETE /jobs/1
   # DELETE /jobs/1.json
   def destroy
+    authorize @job
     @job.destroy
     respond_to do |format|
-      format.html { redirect_to jobs_url, notice: 'Job was successfully destroyed.' }
+      format.html { redirect_to :back }
+      flash['warning'] = "Job was successfully destroyed."
       format.json { head :no_content }
     end
   end
@@ -126,9 +130,11 @@ class JobsController < ApplicationController
   end
 
   def highlight
+    authorize @job
     respond_to do |format|
       if @job.update(highlight_params)
-        format.html { redirect_to @job.project, notice: 'Job was successfully updated.' }
+        format.html { redirect_to @job.project }
+        flash['success'] = "Job was successfully updated."
         format.json { render :show, status: :ok, location: @job }
       else
         format.html { render :edit }

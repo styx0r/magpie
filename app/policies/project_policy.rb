@@ -28,6 +28,14 @@ class ProjectPolicy < ApplicationPolicy
     !user.nil?
   end
 
+  def toggle_public?
+    user == record.user
+  end
+
+  def delete_marked_jobs?
+    user == record.user
+  end
+
   class Scope < Scope
     def resolve
       scope.where(public: true)
