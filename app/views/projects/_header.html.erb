@@ -1,5 +1,6 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
+    <span class="glyphicon glyphicon-eye-<%=@project.public ? 'open' : 'close'%>" aria-hidden="true"></span>
     Project | <%= @project.name%> |
       <% @project_hashtag = @project.hashtags.find_by(reserved: true) %>
       <% if !@project_hashtag.nil? %>
@@ -33,8 +34,7 @@
     </p>
 
     <p>
-      <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-      <%= @project.public ? 'Public' : 'Private'%>
+
     </p>
 
 
