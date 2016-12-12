@@ -52,9 +52,11 @@ end
     session[:return_to] ||= request.referer
     @user = User.find(params[:user_id])
     authorize @user
-    @user.hashtags << Hashtag.find_by(tag: params[:tag])
+    if !Hashtag.find_by(tag: params[:tag]).nil?
+        @user.hashtags << Hashtag.find_by(tag: params[:tag])
+    end
     respond_to do |format|
-      format.html { redirect_to session.delete(:return_to), notice: "Hashtag ##{params[:tag]} has been removed." }
+      format.html { redirect_to session.delete(:return_to)}
       format.json { head :no_content }
     end
   end
@@ -143,7 +145,9 @@ end
         if !Hashtag.exists?(tag: tag)
           @user.hashtags.create(tag: tag)
         else
-          @user.hashtags << Hashtag.find_by(tag: tag)
+          if !@user.hashtags.find_by(tag: tag).nil?
+            @user.hashtags << Hashtag.find_by(tag: tag)
+          end
         end
       end
     end
