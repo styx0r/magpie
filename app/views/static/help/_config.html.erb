@@ -38,6 +38,7 @@
       #COMMENT
       NAME TYPE DEFAULT (ADDITIONALS)
     </pre>
+    <caption>General structure of configuration files</caption><br /><br />
     MAGPIE supports the following types:
     <li>string</li>
     <li>numeric</li>
@@ -56,8 +57,15 @@
     This gives the possiblity to show / hide configuration inputs in a form
     based on a dropdown menu.
     <pre>
-      CONDITIONAL AS CODE
+      # The file element file_upload is created in the input form only if
+      # dropdown "conditional" is set to file
+      depends_on file_upload conditional file
+
+      # The string element url is created in the input form only if
+      # dropdown "conditional" is set to url
+      depends_on url conditional url
     </pre>
+    <caption>Conditionals in a config file</caption><br /><br />
   </p>
 
 </div>
@@ -65,15 +73,102 @@
 
 <div id="configuration_instance_files"><h4>Configuration Instance Files</h4>
   <p>
-    HERE SOME MORE OF THIS AND THAT
+    Configuration instance files correspond to a job and are generated automatically
+    from the configuration input forms.
   </p>
 </div>
 
 <div id="configuration_example"><h4> Example </h4>
+  <p>In the following configuration example all possible elements are shown:</p>
   <pre>
-    PUT IN THE CONFIG INPUT EXAMPLE
+    # this is the comment for the conditional dropdown
+    conditional dropdown string string file
+
+    # this is the comment for the string based on the conditional dropdown
+    string_conditional string conditional_string
+
+    # this is the comment for the file based on the conditional dropdown
+    file_conditional file conditional.file
+
+    # this is the comment of the string_variable
+    string_variable string default_string
+
+    # this is the comment of the numeric variable
+    numeric_variable numeric 0.0
+
+    # this is the comment of the integer variable
+    integer_variable integer 1
+
+    # this is the comment of the float variable
+    float_variable float 2.0
+
+    # this is the comment of the double variable
+    double_variable double 3.0
+
+    # this is the comment of the dropdown variable
+    dropdown_variable dropdown default_value first_entry default_value third_entry
+
+    # this is the comment of the file input
+    file_arbitrary file arbitrary.file
+
+
+    # Here we define the conditionals #
+    # if conditional is set to string, we show the string_conditional
+    depends_on string_conditional conditional string
+
+    # if conditional is set to file, we show the file_conditional
+    depends_on file_conditional conditional file
   </pre>
+  <caption>Simple configuration file</caption><br /><br />
+  <p>The config file above generates the following input form (used when starting a project / job):</p>
+  <%=
+  render :layout => false, partial: 'projects/modelconfig',
+    locals: { :model_selected => Model.find_by(name: "Configuration & Parameter Example"),
+              :model_revision => "HEAD",
+              :f => nil }
+  %>
+
+  When submitting such forms, a configuration instance is generated. These instance file
+  are put to the job folder and thus can be used for running a model. In these files
+  the type is left out, since this is already defined by the modeler and is not required
+  to saved again for the instance. In case of a file upload, it looks like
+  a simple string variable, with the difference that the file was uploaded and is available in
+  the model running folder. Thus within the model it is accessable via the read in of
+  corresponding variable name.
+
+  The following configuration instance file was generated out of the configuration example above.
+  <pre>
+    # this is the comment for the conditional dropdown
+    conditional string
+
+    # this is the comment for the string based on the conditional dropdown
+    string_conditional conditional_string
+
+    # this is the comment for the file based on the conditional dropdown
+    file_conditional conditional.file
+
+    # this is the comment of the string_variable
+    string_variable default_string
+
+    # this is the comment of the numeric variable
+    numeric_variable 0.0
+
+    # this is the comment of the integer variable
+    integer_variable 1
+
+    # this is the comment of the float variable
+    float_variable 2.0
+
+    # this is the comment of the double variable
+    double_variable 3.0
+
+    # this is the comment of the dropdown variable
+    dropdown_variable default_value
+
+    # this is the comment of the file input
+    file_arbitrary magpie_logo.png
+
+  </pre>
+  <caption>Configuration instance file</caption><br /><br />
+
 </div>
-
-
-<caption>Simple configuration file</caption>

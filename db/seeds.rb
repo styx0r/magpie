@@ -195,6 +195,7 @@ clonal_leukemia_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'clo
                         category:     "Medical Science",
                         logo:         MiniMagick::Image.open("#{Rails.application.config.root}/test/zip/logos/clonalleukemia.png").to_blob)
 @model8.initializer
+@model8.save
 
 # Initialize the docker image
 # TODO: integrate in execution: docker run -it -v /Users/baldow/.magpie/docker/:/root -w /root magpie:default ./run_mf.sh

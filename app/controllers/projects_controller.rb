@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
   end
 
   def modeldescription
-    model_selected = Model.find_by name: params[:model_name]
+    model_selected = Model.find_by id: params[:model_id]
 
     authorize Project
 
@@ -58,7 +58,7 @@ class ProjectsController < ApplicationController
 
   def modelconfig
 
-      model_selected = Model.find_by name: params[:model_name]
+      model_selected = Model.find_by id: params[:model_id]
 
       authorize Project
 
@@ -72,7 +72,7 @@ class ProjectsController < ApplicationController
 
   def modelrevisions
 
-      model_selected = Model.find_by name: params[:model_name]
+      model_selected = Model.find_by id: params[:model_id]
 
       authorize Project
 

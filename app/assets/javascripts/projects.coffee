@@ -6,32 +6,32 @@ selectModel = ->
   if $('#project_model_id').find(":selected").text() != ""
 
     if document.getElementById 'model_info_sync'
-      model_name = $('#project_model_id').find(":selected").text()
+      model_id = $('#project_model_id').find(":selected")[0].value
       $.ajax
         # url has to be modified, in order to update the right job according to the id
         async: true
-        url: "/project_modeldescription?model_name="+model_name
+        url: "/project_modeldescription?model_id="+model_id
         cache: true
         success: (html) ->
           #console.log html
           document.getElementById('model_info_sync').innerHTML = html
 
     if document.getElementById 'project_modelconfig'
-      model_name = $('#project_model_id').find(":selected").text()
+      model_id = $('#project_model_id').find(":selected")[0].value
       model_revision = "HEAD"
       $.ajax
         async: true
-        url: "/project_modelconfig?model_name="+model_name+"&model_revision="+model_revision
+        url: "/project_modelconfig?model_id="+model_id+"&model_revision="+model_revision
         cache: true
         success: (html) ->
           #console.log html
           document.getElementById('project_modelconfig').innerHTML = html
 
      if document.getElementById 'project_modelrevisions'
-       model_name = $('#project_model_id').find(":selected").text()
+       model_id = $('#project_model_id').find(":selected")[0].value
        $.ajax
          async: true
-         url: "/project_modelrevisions?model_name="+model_name
+         url: "/project_modelrevisions?model_id="+model_id
          cache: true
          success: (html) ->
            #console.log html
@@ -42,11 +42,11 @@ selectRevision = ->
   if $('#project_model_id').find(":selected").text() != ""
 
     if document.getElementById 'project_modelconfig'
-      model_name = $('#project_model_id').find(":selected").text()
+      model_id = $('#project_model_id').find(":selected")[0].value
       model_revision = $('#config_revision').find(":selected").text()
       $.ajax
         async: true
-        url: "/project_modelconfig?model_name="+model_name+"&model_revision="+model_revision
+        url: "/project_modelconfig?model_id="+model_id+"&model_revision="+model_revision
         cache: true
         success: (html) ->
           #console.log html
