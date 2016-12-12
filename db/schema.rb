@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206090823) do
+ActiveRecord::Schema.define(version: 20161212215158) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20161206090823) do
     t.string   "directory"
     t.text     "arguments"
     t.string   "highlight",   default: "neutral", null: false
+    t.string   "docker_id"
     t.index ["project_id"], name: "index_jobs_on_project_id"
     t.index ["user_id"], name: "index_jobs_on_user_id"
   end

@@ -72,6 +72,9 @@ class UserJob < ApplicationJob
   def execute_script
     ### Go to the temporary working directory and execute the script
     Dir.chdir(@userdir) do
+
+      @job.docker_id = docker_image_id = `docker images -q magpie:default`.squish      
+
       container = Docker::Container.create('Image' => 'magpie:default',
                                            'Tty' => true,
                                            'Binds' => ["#{@userdir}:/root/job:rw"])
@@ -129,7 +132,7 @@ class UserJob < ApplicationJob
 
   protected
     def notify
-      
+
       Thread.new {
 
         sleep(1)
