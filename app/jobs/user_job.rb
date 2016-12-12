@@ -129,15 +129,22 @@ class UserJob < ApplicationJob
 
   protected
     def notify
-      ActionCable.server.broadcast("job_queue_infos",
-        all_queue: Job.where(:status => "waiting").count)
-      # Announcing changes in the job status
-      ActionCable.server.broadcast("job_queue_infos_#{@job.user_id}",
-        me_queue: Job.where(:user_id => @job.user_id, :status => "waiting").count,
-        me_running: Job.where(:user_id => @job.user_id, :status => "running").count,
-        me_finished: Job.where(:user_id => @job.user_id, :status => "finished").count,
-        me_failed: Job.where(:user_id => @job.user_id, :status => "failed").count,
-        job_id: @job.id)
+      
+      Thread.new {
+
+        sleep(1)
+
+        ActionCable.server.broadcast("job_queue_infos",
+          all_queue: Job.where(:status => "waiting").count)
+        # Announcing changes in the job status
+        ActionCable.server.broadcast("job_queue_infos_#{@job.user_id}",
+          me_queue: Job.where(:user_id => @job.user_id, :status => "waiting").count,
+          me_running: Job.where(:user_id => @job.user_id, :status => "running").count,
+          me_finished: Job.where(:user_id => @job.user_id, :status => "finished").count,
+          me_failed: Job.where(:user_id => @job.user_id, :status => "failed").count,
+          job_id: @job.id)
+
+      }
     end
 
 end
