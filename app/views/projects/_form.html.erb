@@ -1,6 +1,6 @@
 <%= simple_form_for @project, :html => { :class => 'form-horizontal', :multipart => true },
   wrapper: :horizontal_form do |f| %>
-  <div class = "col-md-12">
+  <div class = "row">
     <div class = "col-md-6">
       <%= f.input :model_id, collection: Model.all, required: true %>
       <div id = "project_modelrevisions">
@@ -9,7 +9,7 @@
       <%= f.input :name, placeholder: 'Give your project a name', required: true %>
         <%= f.label "#Hashtags" %>
         <%= f.text_field :usertags, required: false, class: 'typeahead form-control' %>
-      <%= f.input :public, as: :boolean, checked_value: true, unchecked_value: false %>
+      <%= f.input :public, as: :boolean, checked_value: true, unchecked_value: false, :input_html => {'data-toggle'=> "toggle"} %>
 
       <%= f.simple_fields_for :job do |job_form| %>
         <%= job_form.input :status, :as => :hidden, :input_html => { :value => "waiting" } %>
@@ -19,7 +19,7 @@
     <div class = "col-md-6">
       <section class = "model_info">
         <b>Model Information</b><br>
-        <div id = "model_info_sync">
+        <div id = "model_info_sync" style="height:200px;">
           Select a model to see model information!
         </div>
       </section>
