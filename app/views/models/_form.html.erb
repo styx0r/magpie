@@ -1,9 +1,11 @@
 <%= simple_form_for(@model) do |f| %>
 
   <div class="form-inputs">
+    <div class="field">
+      <%= f.label "Source" %>
+      <%= f.file_field :source, required: true, title: "Drag or browse zipped model file here" %>
+    </div>
     <%= f.input :name, required: true%>
-    <%= f.label :source %><br>
-    <%= f.file_field :source, required: true %>
     <%= f.input :description, required: true%>
     <%= f.input :help, required: false%>
     <%= f.input :citation, required: false%>
