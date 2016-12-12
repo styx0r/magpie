@@ -18,15 +18,19 @@
   <p>
     For registration of a model, a user has to have the rights to do so.
     In case the rights are sufficient, there is a button in the top menu under
-    Model, called register model leading to:
+    Model, called "Register Model" leading to:
   </p>
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <% @model = Model.new %>
-      <%= render :partial => "models/form" %>
+  <div class="row">
+    <div class="col-md-6 col-centered">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <% @model = Model.new %>
+          <%= render :partial => "models/form" %>
+        </div>
+      </div>
+      <caption>Register Model Form</caption><br /><br />
     </div>
   </div>
-  <caption>Register Model Form</caption><br /><br />
 
   <div id = "model_browse">
     <h4> Browse </h4>
@@ -46,13 +50,17 @@
       a tag in case a new tag should be awarded. If not, HEAD is
       implicitly chosen as a tag for the latest version, following the git structure.
     </p>
-    <div class = "panel panel-default">
-      <div class = "panel-body">
-        <% @model = Model.first %>
-        <%= render :partial => "models/reupload_form" %>
+    <div class="row">
+      <div class="col-md-6 col-centered">
+        <div class = "panel panel-default">
+          <div class = "panel-body">
+            <% @model = Model.first %>
+            <%= render :partial => "models/reupload_form" %>
+          </div>
+        </div>
+        <caption> Model Update Form</caption>
       </div>
     </div>
-    <caption> Model Update Form</caption>
   </div>
 
   <div id = "model_edit">
@@ -62,13 +70,17 @@
       the user has to be the owner or has the rihts to modify any model. If so
       the edit button in the view of a particular model is active.
     </p>
-    <div class = "panel panel-default">
-      <div class = "panel-body">
-        <% @model = Model.find_by(id: 1) %>
-        <%= render :partial => "models/edit_form" %>
+    <div class="row">
+      <div class="col-md-6 col-centered">
+        <div class = "panel panel-default">
+          <div class = "panel-body">
+            <% @model = Model.find_by(id: 1) %>
+            <%= render :partial => "models/edit_form" %>
+          </div>
+        </div>
+        <caption> Model Edit Form </caption>
       </div>
     </div>
-    <caption> Model Edit Form </caption>
   </div>
 
 
