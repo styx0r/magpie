@@ -31,6 +31,20 @@ class ProjectsController < ApplicationController
   def edit
   end
 
+  def toggle_public
+    respond_to do |format|
+    @project.public = !@project.public
+    if @project.save
+        format.html { redirect_to :back, notice: 'Project was successfully updated.' }
+        format.json { render :show, status: :ok, location: @job }
+      else
+        format.html { render :edit }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
   def modeldescription
     model_selected = Model.find_by id: params[:model_id]
 
@@ -184,6 +198,10 @@ class ProjectsController < ApplicationController
 
     def job_params
       params.require(:project).permit(:job => [:status , :user_id, :arguments])
+    end
+
+    def toggle_public_params
+      params.require(:project)
     end
 
     def config_params

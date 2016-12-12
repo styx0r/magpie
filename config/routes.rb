@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :projects do
     get 'download', on: :member
     get 'delete_marked_jobs'
+    put 'toggle_public', on: :member
   end
 
   resources :jobs do   # For file download (result files)
