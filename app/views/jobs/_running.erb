@@ -85,9 +85,9 @@
             <% @vis_counter = 0 %>
         <% elsif is_text_file(element)%>
         <div class="col-xs-6 col-md-6">
-          <div class= "img-thumbnail", data-toggle= "modal",
+          <div class= "img-thumbnail col-md-12", data-toggle= "modal",
             data-target= "<%= "#modaljobID-#{job.id}-txtID-#{i+1}"%>">
-            <pre>
+            <pre class = "model-text">
               <%= render :plain => get_text_from_file(element)%>
             </pre>
           </div>

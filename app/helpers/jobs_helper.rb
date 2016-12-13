@@ -9,7 +9,7 @@ module JobsHelper
   def get_text_from_file(f)
     #TODO Handle long files (in view?)
     #TODO For now, returns first 500 characters
-    cutoff = 500
+    cutoff = 100000
     file = File.open(f, "rb")
     contents = file.read
     file.close
