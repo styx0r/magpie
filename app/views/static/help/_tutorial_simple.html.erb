@@ -88,5 +88,21 @@
   <h4>Step 4: Run your model in the MAGPIE framework</h4>
   <p>
     With the model successfully registered, you can now create new projects and jobs.
+    Navigate to <b>Projects -> New Project</b> and select your sleep model from the selection.
+    All you have to provide then is a name for your newly created project.
+    When you create a new project, it will automically run your first job with the specified parameters.
+    For an example of the output, see below:
+
   </p>
+  <div class="row">
+    <div class="col-md-9 col-centered">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <% @job = Job.joins(:project).find_by(projects: {name: "Tutorial Sleep"})%>
+          <%= render :partial => "jobs/running", locals: { job: @job } %>
+        </div>
+      </div>
+      <caption>Finished job run for the sleep model</caption><br /><br />
+    </div>
+</div>
 </div>
