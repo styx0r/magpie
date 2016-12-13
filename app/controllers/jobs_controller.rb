@@ -57,9 +57,9 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.json
   def create
-    authorize Job
 
     @job = Job.new(job_params)
+    authorize @job
 
     uploads = {}
     config_params_mod = config_params

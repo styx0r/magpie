@@ -25,7 +25,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def show?
-    !user.nil?
+    !user.nil? && (record.user == user || record.public)
   end
 
   def toggle_public?
@@ -33,6 +33,10 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def delete_marked_jobs?
+    user == record.user
+  end
+
+  def owner?
     user == record.user
   end
 

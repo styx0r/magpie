@@ -14,7 +14,8 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    authorize Project
+    @project = Project.find_by id: params[:id]
+    authorize @project
     # New jobs can be created from the projects view
     @job = Job.new
   end
