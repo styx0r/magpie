@@ -4,9 +4,11 @@ class PasswordResetsController < ApplicationController
   before_action :check_expiration,  only: [:edit, :update]
 
   def new
+    skip_authorization
   end
 
   def create
+    skip_authorization
     @user = User.find_by(email: params[:password_reset][:email].downcase)
     if @user
       @user.create_reset_digest
@@ -23,6 +25,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
+    skip_authorization
     if params[:user][:password].empty?
       @user.errors.add(:password, "can't be empty")
       render 'edit'
