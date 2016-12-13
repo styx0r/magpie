@@ -10,7 +10,7 @@ class MicropostsController < ApplicationController
       @micropost.extract_hashtags
       @micropost.extract_mentions
       flash[:success] = "Micropost created!"
-      redirect_to root_url
+      redirect_to :back
     else
       @feed_items = []
       render "dashboard/index"

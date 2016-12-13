@@ -1,0 +1,93 @@
+<h4>Overview</h4>
+<p>
+  MAGPIE lets you connect with researchers and <a href="help?section=<%= section %>#follow">follow</a> projects you are interested in.
+  In your dashboard, a <a href="help?section=<%= section %>#microposts">feed</a> will keep you updated on posts of other MAGPIE users or see updates on models and projects.
+  Choose the <a href="help?section=<%= section %>#hashtags">hashtags</a> you are interested in and subscribe to other users to get all important updates
+</p>
+
+<div id="microposts">
+<h4>Microposts</h4>
+<p>
+Microposts are similar to tweets on Twitter:
+You can send messages, which will be visible to each user in the current MAGPIE installation.
+Furthermore, you can use <a href="help?section=<%= section %>#hashtags">hashtags</a> (starting with <b>#</b>) to set the topics of your post and mention user users (with their username starting with <b>@</b>).
+Try it out in the form below!
+Why not send a message for <b>@postbot</b> (PostBot Alpha) to talk about your <b>#tutorial</b> experience?
+If you want, you can also attach an image.
+</p>
+<div class="row">
+  <div class="col-md-6 col-centered">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <% @micropost = Micropost.new %>
+        <%= render :partial => "shared/micropost_form" %>
+      </div>
+    </div>
+    <caption>Micropost Form</caption><br /><br />
+  </div>
+</div>
+
+<p>
+A feed in your dashboard shows you all the microposts from other users that
+you either follow or with topics that you are interested in.
+</p>
+
+<div class="row">
+  <div class="col-md-6 col-centered">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <% @feed_items = current_user.feed.paginate(:page => 1, :per_page => 5) %>
+        <%= render :partial => "shared/feed" %>
+      </div>
+    </div>
+    <caption>Your feed</caption><br /><br />
+  </div>
+</div>
+</div>
+
+<div id="following">
+<h4>Following</h4>
+<p>You can follow projects and models you are interested in.
+In the headers with the general information you will also find a follow button.
+Clicking this button lets you subscribe to the model or project:
+all associated posts will appear in your personal feed.</p>
+  <div class="row">
+    <div class="col-md-6 col-centered">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <% @project = Project.joins(:user).find_by(name: "Tutorial Sleep")%>
+          <%= render :partial => "projects/header" %>
+        </div>
+      </div>
+      <caption>Project header with follow button</caption><br /><br />
+    </div>
+</div>
+
+<p>
+You can also follow users.
+Just click on the <b>Follow</b> button in their profile.
+</p>
+</div>
+
+<div id="hashtags">
+<h4>Hashtags</h4>
+<p>
+MAGPIE features a simple but flexible hashtag system.
+It enables you to label models and projects with short terms (hashtags) of your choice.
+</p>
+<div class="row">
+  <div class="col-md-6 col-centered">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <% @model = Model.find_by(name: "Versioned Sleep Studies")%>
+        <%= render :partial => "models/header" %>
+      </div>
+    </div>
+    <caption>Model header with hashtags</caption><br /><br />
+  </div>
+</div>
+The image above shows the hashtags of our <b>Sleep Studies</b> model.
+Notice that one the hashtags is written in bold.
+This is the unique hashtag which is automatically assigned to each model and project upon creation.
+Of course, you can add other hashtags of your choice to add references to topics. 
+</div>
