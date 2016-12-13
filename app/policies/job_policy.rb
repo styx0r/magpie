@@ -13,7 +13,7 @@ class JobPolicy < ApplicationPolicy
   end
 
   def create?
-    !user.nil?
+    !user.nil? && (record.project.user == user)
   end
 
   def running?
