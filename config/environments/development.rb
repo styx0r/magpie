@@ -59,7 +59,9 @@ Rails.application.configure do
   config.jobs_path = ENV['HOME']+"/.magpie/jobs/" # Parent folder for job output
   config.docker_path = ENV['HOME']+"/.magpie/docker/" # Parent folder for docker images
   config.postbot_name = "PostBot Alpha"
-  config.postbot_email = "noreply@magpiedomain.kp"
+  config.tutorialbot_name = "TutorialBot"
+  config.postbot_email = "postbot@magpiedomain.kp"
+  config.tutorialbot_email = "tutorialbot@magpiedomain.kp"
 
   config.postbot_advice = ['Did you know? MAGPIE is named after a bird. #nature #acronym',
                     'Did you know? @christophb and @sebastians developed #MAGPIE in under a year #rapidprotyping #notmeteor',

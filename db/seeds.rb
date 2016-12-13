@@ -75,7 +75,7 @@ require 'mini_magick'
               activated_at:           Time.zone.now)
 @u1.create_right
 
-@u1 = User.create!( name:                   Rails.application.config.postbot_name,
+@b1 = User.create!( name:                   Rails.application.config.postbot_name,
               identity:               "postbot",
               email:                  Rails.application.config.postbot_email,
               password:               "nonadmin.mypass?.7699_9",
@@ -83,7 +83,17 @@ require 'mini_magick'
               bot:                    true,
               activated:              true,
               activated_at:           Time.zone.now)
-@u1.create_right
+@b1.create_right
+
+@b2 = User.create!( name:                   Rails.application.config.tutorialbot_name,
+              identity:               "tutorialbot",
+              email:                  Rails.application.config.tutorialbot_email,
+              password:               "nonadmin.mypass?.7699_9",
+              password_confirmation:  "nonadmin.mypass?.7699_9",
+              bot:                    true,
+              activated:              true,
+              activated_at:           Time.zone.now)
+@b2.create_right
 
 @model1 = Model.create!(name:        "Versioned Sleep Studies",
               description:           "Sleeps for a given amount of time.
@@ -196,6 +206,49 @@ clonal_leukemia_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'clo
                         logo:         MiniMagick::Image.open("#{Rails.application.config.root}/test/zip/logos/clonalleukemia.png").to_blob)
 @model8.initializer
 @model8.save
+
+
+################# Tutorial Projects and jobs ####################
+
+# Sleep (Get Started Tutorial)
+@project1 = Project.create!(name:       "Tutorial Sleep",
+                            user_id:    @b2.id, # TutorialBot
+                            model_id:   @model1.id,
+                            public:     true,
+                            revision:   @model1.current_revision)
+
+@p1_job = Job.create!(status:     "finished",
+                      user_id:    @b2.id,
+                      project_id: @project1.id,
+                      output: {:stdout=>['Slept for 5 seconds!'], :stderr=>[]},
+                      resultfiles: [],
+                      directory: File.join(Rails.root, 'test', 'tutorialjobs', 'sleep').to_s,
+                      arguments: nil,
+                      highlight: "neutral",
+                      docker_id: "08b19d69e7c6")
+
+# PLIP (Advanced Tutorial)
+@project2 = Project.create!(name:       "Tutorial PLIP",
+                            user_id:    @b2.id, # TutorialBot
+                            model_id:   @model6.id,
+                            public:     true,
+                            revision:   @model6.current_revision)
+
+@p2jdir = File.join(Rails.root, 'test', 'tutorialjobs', 'plip')
+@p2jresults = [File.join(@p2jdir, 'report.txt'), File.join(@p2jdir, '1VSN_NFT_A_283.png'), File.join(@p2jdir, '1VSN_NFT_A_283.pse'), File.join(@p2jdir, 'report.xml'), File.join(@p2jdir, '1vsn.pdb'), File.join(@p2jdir, 'distances.data')]
+@p2_job = Job.create!(status:     "finished",
+                      user_id:    @b2.id,
+                      project_id: @project2.id,
+                      output: {:stdout=>[], :stderr=>[]},
+                      resultfiles: @p2jresults,
+                      directory: File.join(Rails.root, 'test', 'tutorialjobs', 'plip').to_s,
+                      arguments: nil,
+                      highlight: "neutral",
+                      docker_id: "08b19d69e7c6")
+
+
+
+#############
 
 # Initialize the docker image
 # TODO: integrate in execution: docker run -it -v /Users/baldow/.magpie/docker/:/root -w /root magpie:default ./run_mf.sh

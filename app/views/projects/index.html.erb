@@ -1,6 +1,8 @@
 <h1>Projects</h1>
 
-<% if @projects.length == 0 %>
+<%@public_projects = @public_projects.joins(:user).where(:users => {:bot => false}) %>
+
+<% if @projects.length == 0 and @public_projects.length == 0%>
 <center>
 <h4>You have no projects yet.</h4>
 <%= link_to 'Create your first one!', new_user_project_path(current_user), :class => "btn btn-primary" %>
@@ -50,7 +52,6 @@
 <% end %>
 
 
-
 <% if @public_projects.length == 0 %>
 <center>
 <h2>No Public Projects</h2>
@@ -70,9 +71,10 @@
     </tr>
   </thead>
 
+
   <tbody>
     <% @public_projects.each do |project| %>
-      <tr>
+      <tr class='clickable-row' data-href='<%= project_path project%>' </tr>
         <td>
           <%= link_to toggle_public_project_path(project, project:{:id => project.id}), :method => :put, :class => "btn btn-secondary btn-link btn-xs active activated" do%>
           <i class="glyphicon glyphicon-eye-<%=project.public ? 'open' : 'close'%>"></i>
