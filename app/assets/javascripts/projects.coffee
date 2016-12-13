@@ -62,5 +62,10 @@ changeRevision = -> if document.getElementById 'project_modelrevisions'
   document.getElementById('project_modelrevisions').onchange = selectRevision
 
 
+changeToggleButton = ->
+  $('#project_public').bootstrapToggle();
+
+
 $( document ).on('turbolinks:load', changeModel)
 $( document ).on('turbolinks:load', changeRevision)
+$( document ).on('turbolinks:load', changeToggleButton)
