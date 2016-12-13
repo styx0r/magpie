@@ -2,7 +2,7 @@
 
   <div class="form-inputs">
     <div class="field">
-      <%= f.label "Source" %>
+      <%= f.label "Source", required: true %><br />
       <%= f.file_field :source, required: true, title: "Drag or browse zipped model file here" %>
     </div>
     <%= f.input :name, required: true%>

@@ -121,12 +121,17 @@
   </pre>
   <caption>Simple configuration file</caption><br /><br />
   <p>The config file above generates the following input form (used when starting a project / job):</p>
-  <%=
-  render :layout => false, partial: 'projects/modelconfig',
-    locals: { :model_selected => Model.find_by(name: "Configuration & Parameter Example"),
-              :model_revision => "HEAD",
-              :f => nil }
-  %>
+  <div class="row">
+    <div class="col-md-10 col-centered">
+          <%=
+          render :layout => false, partial: 'projects/modelconfig',
+            locals: { :model_selected => Model.find_by(name: "Configuration & Parameter Example"),
+                      :model_revision => "HEAD",
+                      :f => nil }
+          %>
+    </div>
+  </div>
+  <caption>Config Input Form</caption>
 
   When submitting such forms, a configuration instance is generated. These instance file
   are put to the job folder and thus can be used for running a model. In these files

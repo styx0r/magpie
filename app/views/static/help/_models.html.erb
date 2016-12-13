@@ -1,2 +1,90 @@
-<% @model = Model.find(1) %>
-<%= render :partial => "models/header" %>
+<h4> Overview </h4>
+<p>
+  Models are the basis of MAGPIE. They can be
+  <b><a href="help?section=<%= section %>#model_upload">registered</a></b>,
+  <b><a href="help?section=<%= section %>#model_browse">browsed</a></b>,
+  <b><a href="help?section=<%= section %>#model_update">updated</a></b> and
+  <b><a href="help?section=<%= section %>#model_edit">edited</a></b>.
+  Once created, models can be used for creating a
+  <b><a href="help?section=Projects">project</a></b>.
+  In general, every models is managed within a particular git repository.
+  Therefore it is also possible to update and versionize models individually.
+  In the following a short introduction for all
+  model related operations is given.
+</p>
+
+<div id = "model_upload">
+  <h4> Register </h4>
+  <p>
+    For registration of a model, a user has to have the rights to do so.
+    In case the rights are sufficient, there is a button in the top menu under
+    Model, called "Register Model" leading to:
+  </p>
+  <div class="row">
+    <div class="col-md-6 col-centered">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <% @model = Model.new %>
+          <%= render :partial => "models/form" %>
+        </div>
+      </div>
+      <caption>Register Model Form</caption><br /><br />
+    </div>
+  </div>
+
+  <div id = "model_browse">
+    <h4> Browse </h4>
+    <p>
+      After clicking on the Model link in the top bar, you can click on "Model Database".
+      On this page all models are listed according to their category. It is possible to
+      view the details as well as follow them.
+    </p>
+  </div>
+
+  <div id = "model_update">
+    <h4> Update </h4>
+    <p>
+      When viewing the details of a model and additionally the user is the owner
+      of the particular model, then the user is able to upload a new version
+      of the model. It consists of the source code of the new version as well as
+      a tag in case a new tag should be awarded. If not, HEAD is
+      implicitly chosen as a tag for the latest version, following the git structure.
+    </p>
+    <div class="row">
+      <div class="col-md-6 col-centered">
+        <div class = "panel panel-default">
+          <div class = "panel-body">
+            <% @model = Model.first %>
+            <%= render :partial => "models/reupload_form" %>
+          </div>
+        </div>
+        <caption> Model Update Form</caption>
+      </div>
+    </div>
+  </div>
+
+  <div id = "model_edit">
+    <h4> Edit </h4>
+    <p>
+      In order to change the model information, f.e. the description, the help or the citation,
+      the user has to be the owner or has the rihts to modify any model. If so
+      the edit button in the view of a particular model is active.
+    </p>
+    <div class="row">
+      <div class="col-md-6 col-centered">
+        <div class = "panel panel-default">
+          <div class = "panel-body">
+            <% @model = Model.find_by(id: 1) %>
+            <%= render :partial => "models/edit_form" %>
+          </div>
+        </div>
+        <caption> Model Edit Form </caption>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<%# @model = Model.find(1) %>
+<%# render :partial => "models/header" %>

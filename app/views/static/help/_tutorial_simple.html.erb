@@ -2,75 +2,91 @@
 <p>
   This tutorial will show you how to prepare a minmal working model for the MAGPIE framework.
   The model will basically just sleep for a certain time which the user can define on the web server.
-  We will start off by preparing the script in <b>step 1</b>, then
-  create the MAGPIE config file in <b>step 2</b>.
-  Then, we are ready to register our model (<b>step 3</b>) in MAGPIE and run
-  jobs with our model in <b>step 4</b>.
+  We will start off by preparing the script in
+  <b><a href="help?section=<%= section %>#step1">step 1</b></a>, then
+  create the MAGPIE config file in
+  <b><a href="help?section=<%= section %>#step2">step 2</b></a>.
+  Then, we are ready to register our model (
+  <b><a href="help?section=<%= section %>#step3">step 3</b></a>) in MAGPIE and run
+  jobs with our model in
+  <b><a href="help?section=<%= section %>#step4">step 4</b></a>.
 </p>
 
-<h4>Step 1: Creating the model</h4>
-<p>
-  For this simple model, we will create a script which reads in the config file and
-  lets the program sleep for a certain time.
-  You can write this script in any language supported on the MAGPIE installation.
-  For this tutorial, we chose <i>R</i>.
-  Now, create a new file called <b>sleep.R</b> with the following contents:
-</p>
-  <% rfile = File.open(File.join(Rails.root, 'app', 'views', 'static', 'help', 'examplefiles', 'simple', 'sleep.R')).read %>
-  <%=raw CodeRay.scan(rfile, :R).div(:line_numbers => :table) %>
+<div id = "step1">
+  <h4>Step 1: Creating the model</h4>
+  <p>
+    For this simple model, we will create a script which reads in the config file and
+    lets the program sleep for a certain time.
+    You can write this script in any language supported on the MAGPIE installation.
+    For this tutorial, we chose <i>R</i>.
+    Now, create a new file called <b>sleep.R</b> with the following contents:
+  </p>
+    <% rfile = File.open(File.join(Rails.root, 'app', 'views', 'static', 'help', 'examplefiles', 'simple', 'sleep.R')).read %>
+    <%=raw CodeRay.scan(rfile, :R).div(:line_numbers => :table) %>
 
-<p>
-  It reads in the config file, extracts the user-defined amount of seconds and sleeps for that time.
-  MAGPIE looks for a main start script to execute, so let's create a small wrapper file <b>main.sh</b>
-  which executes our R script.
-</p>
-<% bfile = File.open(File.join(Rails.root, 'app', 'views', 'static', 'help', 'examplefiles', 'simple', 'sleep.sh')).read %>
-<%=raw CodeRay.scan(bfile, :bash).div(:line_numbers => :table) %>
+  <p>
+    It reads in the config file, extracts the user-defined amount of seconds and sleeps for that time.
+    MAGPIE looks for a main start script to execute, so let's create a small wrapper file <b>main.sh</b>
+    which executes our R script.
+  </p>
+  <% bfile = File.open(File.join(Rails.root, 'app', 'views', 'static', 'help', 'examplefiles', 'simple', 'sleep.sh')).read %>
+  <%=raw CodeRay.scan(bfile, :bash).div(:line_numbers => :table) %>
 
-<p>
-With these two scripts at hand, all that is needed are the MAGPIE config files.
-As you see, our R script <i>sleep.R</i> expects one config file,
-<i>default.config</i>.
-We will create this file in the next step.
-</p>
-
-<h4>Step 2: Creation of config file</h4>
-<p>
-  Create one text file called <i>default.config</i> with the content given below:
-</p>
-
-<% cfile = File.open(File.join(Rails.root, 'app', 'views', 'static', 'help', 'examplefiles', 'simple', 'default.config')).read %>
-<%=raw CodeRay.scan(cfile, :bash).div(:line_numbers => :table) %>
-
-<p>
-
-</p>
-
-<h4>Step 3: Register your model</h4>
-<p>
-  At this point, you should have one config file (<i>default.config</i>), one
-  R scripts for sleeping (<i>sleep.R</i>) as well as the main shell script <i>sleep.sh</i>.
-  Zip all the files into a single archive called <i>sleep.zip</i>.
-</p>
-<p>
-  To upload our model, navigate to the model upload or use the form below.
-  Fill in the required information (name and description) and upload your zipped model.
-</p>
-<div class="row">
-<div class="col-md-6">
-  <% @model = Model.new %>
-  <% @model.name = "Sleep Tutorial Model" %>
-  <% @model.description = "This model was created with help of the **MAGPIE Simple Tutorial**" %>
-  <%=
-  render :layout => false, partial: 'models/form'
-  %>
+  <p>
+  With these two scripts at hand, all that is needed are the MAGPIE config files.
+  As you see, our R script <i>sleep.R</i> expects one config file,
+  <i>default.config</i>.
+  We will create this file in the next step.
+  </p>
 </div>
+
+<div id = "step2">
+  <h4>Step 2: Creation of config file</h4>
+  <p>
+    Create one text file called <i>default.config</i> with the content given below:
+  </p>
+
+  <% cfile = File.open(File.join(Rails.root, 'app', 'views', 'static', 'help', 'examplefiles', 'simple', 'default.config')).read %>
+  <%=raw CodeRay.scan(cfile, :bash).div(:line_numbers => :table) %>
+
+  <p>
+
+  </p>
 </div>
-<p>
 
-</p>
+<div id = "step3">
+  <h4>Step 3: Register your model</h4>
+  <p>
+    At this point, you should have one config file (<i>default.config</i>), one
+    R scripts for sleeping (<i>sleep.R</i>) as well as the main shell script <i>sleep.sh</i>.
+    Zip all the files into a single archive called <i>sleep.zip</i>.
+  </p>
+  <p>
+    To upload our model, navigate to the model upload or use the form below.
+    Fill in the required information (name and description) and upload your zipped model.
+  </p>
 
-<h4>Step 4: Run your model in the MAGPIE framework</h4>
-<p>
-  With the model successfully registered, you can now create new projects and jobs.
-</p>
+  <div class="row">
+    <div class="col-md-6 col-centered">
+      <div class = "panel panel-default">
+        <div class = "panel-body">
+          <% @model = Model.new %>
+          <% @model.name = "Sleep Tutorial Model" %>
+          <% @model.description = "This model was created with help of the **MAGPIE Simple Tutorial**" %>
+          <%=
+          render :layout => false, partial: 'models/form'
+          %>
+        </div>
+      </div>
+      <caption>Model Registration</caption>
+    </div>
+  </div>
+
+</div>
+
+<div id = "step4">
+  <h4>Step 4: Run your model in the MAGPIE framework</h4>
+  <p>
+    With the model successfully registered, you can now create new projects and jobs.
+  </p>
+</div>
