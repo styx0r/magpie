@@ -222,7 +222,7 @@ clonal_leukemia_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'clo
                       project_id: @project1.id,
                       output: {:stdout=>['Slept for 5 seconds!'], :stderr=>[]},
                       resultfiles: [],
-                      directory: File.join(Rails.root, 'test', 'tutorialjobs', 'sleep').to_s,
+                      directory: File.join(Rails.root, 'test', 'tutorialjobs', 'sleeptut').to_s,
                       arguments: nil,
                       highlight: "neutral",
                       docker_id: "08b19d69e7c6")
@@ -234,14 +234,14 @@ clonal_leukemia_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'clo
                             public:     true,
                             revision:   @model6.current_revision)
 
-@p2jdir = File.join(Rails.root, 'test', 'tutorialjobs', 'plip')
+@p2jdir = File.join(Rails.root, 'test', 'tutorialjobs', 'pliptut')
 @p2jresults = [File.join(@p2jdir, 'report.txt'), File.join(@p2jdir, '1VSN_NFT_A_283.png'), File.join(@p2jdir, '1VSN_NFT_A_283.pse'), File.join(@p2jdir, 'report.xml'), File.join(@p2jdir, '1vsn.pdb'), File.join(@p2jdir, 'distances.data')]
 @p2_job = Job.create!(status:     "finished",
                       user_id:    @b2.id,
                       project_id: @project2.id,
                       output: {:stdout=>[], :stderr=>[]},
                       resultfiles: @p2jresults,
-                      directory: File.join(Rails.root, 'test', 'tutorialjobs', 'plip').to_s,
+                      directory: @p2jdir.to_s,
                       arguments: nil,
                       highlight: "neutral",
                       docker_id: "08b19d69e7c6")

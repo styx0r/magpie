@@ -1,0 +1,6 @@
+data distances.data
+type box
+id value
+x id
+y value
+
