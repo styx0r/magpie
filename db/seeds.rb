@@ -216,6 +216,7 @@ clonal_leukemia_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'clo
                             model_id:   @model1.id,
                             public:     true,
                             revision:   @model1.current_revision)
+@project1.assign_unique_hashtag
 
 @p1_job = Job.create!(status:     "finished",
                       user_id:    @b2.id,
@@ -233,6 +234,7 @@ clonal_leukemia_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'clo
                             model_id:   @model6.id,
                             public:     true,
                             revision:   @model6.current_revision)
+@project2.assign_unique_hashtag
 
 @p2jdir = File.join(Rails.root, 'test', 'tutorialjobs', 'pliptut')
 @p2jresults = [File.join(@p2jdir, 'report.txt'), File.join(@p2jdir, '1VSN_NFT_A_283.png'), File.join(@p2jdir, '1VSN_NFT_A_283.pse'), File.join(@p2jdir, 'report.xml'), File.join(@p2jdir, '1vsn.pdb'), File.join(@p2jdir, 'distances.data')]

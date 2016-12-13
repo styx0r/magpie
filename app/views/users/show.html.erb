@@ -4,7 +4,7 @@
     <section class="user_info">
       <h1>
         <%= gravatar_for @user, "50" %>
-        <%= @user.name %>
+        <%= @user.name %><b>  @<%=@user.identity%></b>
       </h1>
     </section>
     <section class="stats">
@@ -26,10 +26,9 @@
         <%= f.submit "Add", class: "btn btn-primary" %>
       <% end %>
     <% end %>
-
+  <%= render 'follow_form' if logged_in? %>
   </aside>
   <div class="col-md-8">
-    <%= render 'follow_form' if logged_in? %>
     <% if @user.microposts.any? %>
     <h3>Microposts (<%= @user.microposts.count %>)</h3>
     <ol class="microposts">

@@ -1,6 +1,6 @@
 <li class="<% if !micropost.mentions.blank? %><% if micropost.mentions.include? current_user.identity %>list-group-item list-group-item-warning<% end %> <% end %>" id="micropost-<%= micropost.id %>">
   <%= link_to gravatar_for(micropost.user, "50"), micropost.user %>
-  <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
+  <span class="user"><%= link_to micropost.user.name, micropost.user%>  <b>@<%=micropost.user.identity%></b></span>
   <span class="content">
     <%= micropost.formatted_content %>
     <%= image_tag micropost.picture.url if micropost.picture? %>
