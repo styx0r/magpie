@@ -2,7 +2,7 @@
 <p>
   Projects are used for running and manage the models in a user specific manner.
   Projects are always related to a specific user and consists of a model as well
-  as jobs. User can create, delete and manage jobs within a project. Additionally,
+  as jobs. Users can create, delete and manage jobs within a project. Additionally,
   projects itself can be managed, i.e. published, privatised or deleted. Publish
   Projects are visible for all users, whereas private projects are visible for
   the owner only.
@@ -10,6 +10,52 @@
 
 <h5> Project Creation </h5>
 <p>
-  When creating a new project, the user has to decide for a specific model,
-  including the revision.
+  Creating a project is done by clicking on Project; New Project. You have to
+  decide for a model and a corresponding Revision. Secondly,
+  a name has to given to the project. Optionally you can give as many
+  hashtags as you want and can decide for making the project public.
+  When creating a project, a job is always started instantaneously according
+  to the selected paramter of the input config (
+  <b><a href = "help?section=Configuration Files">see Configuration Files</a></b>).
+</p>
+<div class="row">
+  <div class="col-md-6 col-centered">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <% @project = Project.new %>
+        <%= render :partial => "projects/form" %>
+      </div>
+    </div>
+    <caption>Create Project</caption><br /><br />
+  </div>
+</div>
+
+<h5> Project Management </h5>
+<p>
+  After creating a project, new jobs can bestarted within the job. If you
+  are the owner it is also
+  possible to delete single jobs and order them according to their importance.
+  For these options you can just click on the buttons on the right corner of a
+  jobs panel. This is the perfect opportunity to highlight jobs with a very
+  high importance and make them better visible for other user, in case the project
+  is public.
+</p>
+<div class="row">
+  <div class="col-md-6 col-centered">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <% @job = Job.joins(:project).find_by(projects: {name: "Tutorial Sleep"})%>
+        <%= render :partial => "jobs/running", locals: { job: @job } %>
+      </div>
+    </div>
+    <caption>Finished Job in a Project</caption><br /><br />
+  </div>
+</div>
+<p> Since you are not the owner of this job you can't see the special options you have
+  on jobs. Go ahead and start your own project!
+</p>
+<p>
+  If you want to delete an existing project or just make it public / private,
+  you can click on "Projects" in the header and then "My Projects". There you
+  can do all you need to manage your projects.
 </p>

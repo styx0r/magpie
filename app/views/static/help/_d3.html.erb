@@ -1,9 +1,7 @@
 <h4>Overview</h4>
 <p>
-  MAGPIE offers the possibility to create interactive <a href="help?section=<%= section %>#d3_plot_types">plots</a> (with <a href="https://d3js.org/" target="_blank">D3.js</a>) as an output.
-  The only thing you need to provide is one additional <a href="help?section=<%= section %>#d3_config">plot config file</a> for each plot.
-  If you are unfamiliar with config files in MAGPIE, see the <a href="help?section=<%= section %>#configuration_example">example</a>.
-  <a href="help?section=<%= section %>#d3_example">Here</a> you can directly jump to a simple example for plot config files.
+  MAGPIE offers the possibility to create interactive <b><a href="help?section=<%= section %>#d3_plot_types">plots</a></b> (with <b><a href="https://d3js.org/" target="_blank">D3.js</a></b>) as an output.
+  The only thing you need to provide is one additional <b><a href="help?section=<%= section %>#d3_config">plot config file</a></b> for each plot and the corresponding data file.
 </p>
 
 
@@ -16,13 +14,40 @@
 <div id="d3_config">
   <h4>Plot Config Files</h4>
   <p>
-    Description coming soon...
+    A simple d3 configuration files consists out of two things. First, the data-file used
+    to create the plot and secondly, the configuration file itself which ends with the
+    filename extension "iplot". According to d3 defintions (see <b><a href="https://d3plus.org/" target="_blank">D3.js</a></b>)
+    a data file is a comma separated file, where every line consists of a key - value pair:
+  </p>
+  <% cfile = File.open(File.join(Rails.root, 'app', 'views', 'static', 'help', 'examplefiles', 'd3', 'boxplotExample.data')).read %>
+  <%=raw CodeRay.scan(cfile, :bash).div(:line_numbers => :table) %>
+  <caption>iplot Data File</caption><br /><br />
+  <p>
+    Here we have two variables, namely id and a value. This could be a typical data.file for
+    a boxplot, where id is the categorial variable, defining groups, and value is the corresponding
+    value for every observation.
+    Based on such a file we could construct a d3 configuration file (.iplot):
+  </p>
+  <% cfile = File.open(File.join(Rails.root, 'app', 'views', 'static', 'help', 'examplefiles', 'd3', 'boxscatterhist.iplot')).read %>
+  <%=raw CodeRay.scan(cfile, :bash).div(:line_numbers => :table) %>
+  <caption>iplot Configuration File</caption><br /><br />
+  <p>
+    With respect to the categorial variable names of the data file we are defining the following:
+    According to d3plus convention a data line defines the file name of the d3 data (here boxplot.data).
+    A type is defines by type and at least one type should be given.
+    In d3plus id describes always a subdivision of the corresponding variable name, thus a categorial
+    variable. Intuitively x and y define the variable which should be drawn on the corresponding axes,
+    respectively.
   </p>
 </div>
 
+
 <div id="d3_example">
-  <h4>Simple Example</h4>
+  <h4>Tutorial Model "D3 Plot Visualization"</h4>
   <p>
-    Description coming soon...
+    Within this model all
+    possible d3 elements are drawn both within R and with help of the interactive model
+    with help of d3plus. In order to check out the details of the config, you can just run
+    this model within a project and download the corresponding config files.
   </p>
 </div>
