@@ -3,4 +3,5 @@ ready = function() {
   $('.file-inputs').bootstrapFileInput();
 }
 
+
 $(document).on('turbolinks:load', ready);
