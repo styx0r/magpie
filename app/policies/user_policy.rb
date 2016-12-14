@@ -37,11 +37,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def followers?
-    !user.nil?
+    !user.nil? && !user.guest?
   end
 
   def following?
-    !user.nil?
+    !user.nil? && !user.guest?
   end
 
   def index?

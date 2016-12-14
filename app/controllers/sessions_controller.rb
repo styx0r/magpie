@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
         log_in user
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
         redirect_back_or home_url
-        postbot_says random_advice
+        #postbot_says random_advice
       else
         message  = "Account not activated."
         message += "Check your email for the activation link."
