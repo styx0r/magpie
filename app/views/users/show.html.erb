@@ -26,7 +26,12 @@
         <%= f.submit "Add", class: "btn btn-primary" %>
       <% end %>
     <% end %>
-  <%= render 'follow_form' if logged_in? %>
+  <% rel = Relationship.where(follower_id: current_user.id, followed_id: @user.id)%>
+  <% if rel.empty? %>
+    <%= link_to "Follow", { :controller => "relationships", :action => "create", :followed_id => @user.id }, :method => :post, :style => "color: white", :class => "btn btn-xs btn-info" %>
+  <% else %>
+    <%= link_to "Unfollow", relationship_path(rel.first.id), :method => :delete, :style => "color: white", :class => "btn btn-xs btn-info" %>
+  <% end %>
   </aside>
   <div class="col-md-8">
     <% if @user.microposts.any? %>
