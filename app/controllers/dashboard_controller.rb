@@ -10,6 +10,9 @@ class DashboardController < ApplicationController
 
 
   def microposts_feed
+
+    skip_authorization
+
     if logged_in?
       @micropost = current_user.microposts.build
       @feed_items = current_user.feed.paginate(page: params[:page])
