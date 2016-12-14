@@ -135,32 +135,36 @@ end
   @model2.hashtags.create(tagdata) end
 @model2.save
 
-@model3 = Model.create!(name:        "PFSPA",
-              description:           "Novel particle system combining reaction-diffusion with motion.",
-              help:                  "",
-              source:                File.open("#{Rails.application.config.root}/test/zip/pfspa.zip"),
-              category:              'Cell Modelling',
-              user_id:               User.find_by(name: "Christoph Baldow").id)
-@model3.initializer
-[{tag: "PFSPA"}, {tag: "particles"}].each do |tagdata|
-  @model3.hashtags.create(tagdata) end
-@model3.save
+#@model3 = Model.create!(name:        "PFSPA",
+#              description:           "Novel particle system combining reaction-diffusion with motion.",
+#              help:                  "",
+#              source:                File.open("#{Rails.application.config.root}/test/zip/pfspa.zip"),
+#              category:              'Cell Modelling',
+#              user_id:               User.find_by(name: "Christoph Baldow").id)
+#@model3.initializer
+#[{tag: "PFSPA"}, {tag: "particles"}].each do |tagdata|
+#  @model3.hashtags.create(tagdata) end
+#@model3.save
 
+multiplexingclonality_desc = File.open(File.join(Rails.root, 'test', 'seedextra', 'multiplexing_clonality_description.md')).read
 @model4 = Model.create!(name:        "Multiplexing Clonality",
-              description:           "Analysing simultaneously barcoded and fluroscence marked cells.",
+              description:           multiplexingclonality_desc,
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/multiplex.zip"),
               category:              'Cell Modelling',
               user_id:               User.find_by(name: "Lars Thielecke").id,
-              category:              "Sequencing")
+              doi:                   "10.1093/nar/gku081",
+              citation:              "Cornils, Kerstin et al. “Multiplexing Clonality: Combining RGB Marking and Genetic Barcoding.” Nucleic Acids Research 42.7 (2014): e56. PMC. Web. 13 Dec. 2016.",
+              category:              "Sequencing",
+              logo:                  MiniMagick::Image.open("#{Rails.application.config.root}/test/zip/logos/multiplexing_clonality.png").to_blob)
 @model4.initializer
 [{tag: "attackoftheclones"}, {tag: "barcoding"}, {tag: "fancy"}].each do |tagdata|
   @model4.hashtags.create(tagdata) end
 @model4.save
 
 @model5 = Model.create!(name:         "D3 Plot Visualization",
-                        description:  "Model for creating and testing all different d3 plots, including barcharts, boxplots and histograms.",
-                        help:         "Displays the different defined barcharts",
+                        description:  "Model for creating and testing all different d3 plots, including barcharts, boxplots, histograms and stacked plots.",
+                        help:         "Find more information about interactive plots in MAGPIE here: https://magpie.imb.medizin.tu-dresden.de/help?section=Interactive%20Plots",
                         source:        File.open("#{Rails.application.config.root}/test/zip/d3Model.zip"),
                         category:     'Showcase',
                         user_id:      User.find_by(name: "Christoph Baldow").id)
@@ -184,7 +188,7 @@ plip_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'plip_help.md')
 
 @model7 = Model.create!(name:         "Configuration & Parameter Example",
                         description:  "This model is used to show the usage of all possible input parameter types.",
-                        help:         "???TODO??? (PUT IN THE LINK TO THE CORRESPONDING HELP SITE)",
+                        help:         "Find more information about configuration files in MAGPIE here: https://magpie.imb.medizin.tu-dresden.de/help?section=Configuration%20Files",
                         source:        File.open("#{Rails.application.config.root}/test/zip/ConfigurationExample.zip"),
                         user_id:      User.find_by(name: "Christoph Baldow").id,
                         doi:          "",

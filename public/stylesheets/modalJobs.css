@@ -14,3 +14,8 @@ height: 5px;
 background-color: white;
 border-bottom: 2px dashed;
 }
+
+pre.model-text {
+  max-height: 335px;
+  min-height: 335px;
+}

@@ -1,0 +1,5 @@
+data boxplot.data
+type box scatter bar
+id value
+x id
+y value

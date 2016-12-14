@@ -7,9 +7,10 @@
         <%= f.input :revision, collection: ['HEAD'], required: true, selected:'HEAD' %>
       </div>
       <%= f.input :name, placeholder: 'Give your project a name', required: true %>
+      <div class = "form-group" id = "create-project-hashtags">
         <%= f.label "#Hashtags" %>
         <%= f.text_field :usertags, required: false, class: 'typeahead form-control' %>
-      <%= f.input :public, as: :boolean, checked_value: true, unchecked_value: false, :input_html => {'data-toggle'=> "toggle"} %>
+      </div>
 
       <%= f.simple_fields_for :job do |job_form| %>
         <%= job_form.input :status, :as => :hidden, :input_html => { :value => "waiting" } %>
@@ -19,10 +20,17 @@
     <div class = "col-md-6">
       <section class = "model_info">
         <b>Model Information</b><br>
-        <div id = "model_info_sync" style="height:200px;">
+        <div id = "model_info_sync" style="height:250px;">
           Select a model to see model information!
         </div>
       </section>
+      <div class = "form-group" id = "create-project-public-project" align = "right">
+      <%= f.label "Public" %>
+      <%= f.input :public, as: :boolean,
+                  checked_value: true, unchecked_value: false,
+                  label: false,
+                  :input_html => {'data-toggle'=> "toggle"} %>
+      </div>
     </div>
   </div>
   <div id = "project_modelconfig">

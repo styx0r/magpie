@@ -57,11 +57,15 @@ class ProjectsController < ApplicationController
       model_description = "nil"
     else
       model_description = model_selected.description
+      model_help = model_selected.help
       doi = model_selected.doi
       citation = model_selected.citation
     end
     render :layout => false, partial: 'projects/modeldescription',
-    locals: {:model_description => model_description, :doi => doi, :citation => citation}
+    locals: {:model_description => model_description,
+             :doi => doi,
+             :citation => citation,
+             :model_help => model_help}
   end
 
   def delete_marked_jobs

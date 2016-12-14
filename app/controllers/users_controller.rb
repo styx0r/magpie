@@ -115,6 +115,10 @@ end
     skip_authorization
     @user = params[:user] ? User.new(user_params) : User.new_guest
     @user.create_right
+    if !@user.guest      
+      @user.right.update_attribute("model_add", true)
+      @user.right.update_attribute("user_index", true)
+    end
     #@user = User.new(user_params)
     if @user.save
       if !@user.guest

@@ -12,3 +12,8 @@
   <a target="_blank" href="http://doi.org/<%= doi %>"><%= doi %></a>
 </p>
 <% end %>
+<% if !model_help.blank? %>
+  <hr>
+  <b>Model Help</b>
+  <%= markdown(model_help) %>
+<% end %>
