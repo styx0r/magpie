@@ -38,7 +38,13 @@ class User < ActiveRecord::Base
    end
 
    def self.new_guest
-     new { |u| u.guest = true, u.name = "Guest User", u.password = "guest", u.identity = "guest#{Random.rand(1000000000)}"}
+     length = 10
+     guest_name = "guest#{Random.rand(length)}"
+     while User.pluck(:identity).include?(guest_name)
+       length = length * 10
+       guest_name = "guest#{Random.rand(length)}"
+     end
+     new { |u| u.guest = true, u.name = "Guest User", u.password = "guest", u.identity = guest_name}
    end
 
    # Returns a random token.

@@ -80,7 +80,7 @@
           <i class="glyphicon glyphicon-eye-<%=project.public ? 'open' : 'close'%>"></i>
           <% end %></td>
         <td><%= project.user.name %></td>
-        <td><%= link_to project.name, user_project_path(current_user, project) , :class => "btn btn-mini"%></td>
+        <td><%= project.name %></td>
         <td><%= project.model.name %></td>
         <td><%= project.jobs.length %></td>
       </tr>
