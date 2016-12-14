@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
    end
 
    def self.new_guest
-     new { |u| u.guest = true, u.name = "Guest User", u.password = "guest", u.identity = "guest#{Random.new(1234).rand(10000000)}"}
+     new { |u| u.guest = true, u.name = "Guest User", u.password = "guest", u.identity = "guest#{Random.rand(1000000000)}"}
    end
 
    # Returns a random token.
