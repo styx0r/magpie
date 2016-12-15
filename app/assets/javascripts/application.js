@@ -17,3 +17,6 @@
 //= require_tree .
 //= require d3
 //= require twitter/typeahead
+//= require chosen-jquery
+//= require chosen-jquery
+//= require scaffold

@@ -102,3 +102,7 @@ gem 'rinku'
 
 # Authorization settings done via
 gem 'pundit'
+
+#nicer choose buttons
+gem 'chosen-rails'
+

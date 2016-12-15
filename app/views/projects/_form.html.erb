@@ -2,9 +2,20 @@
   wrapper: :horizontal_form do |f| %>
   <div class = "row">
     <div class = "col-md-6">
-      <%= f.input :model_id, collection: Model.all, required: true %>
+      <%= f.input :model_id,
+            #:as => :grouped_select,
+            #:group_method => :insertions,
+            collection: Model.all,
+            required: true,
+            #input_html: { class: 'chosen-select' },
+            :include_blank => "Please Choose..."
+      %>
       <div id = "project_modelrevisions">
-        <%= f.input :revision, collection: ['HEAD'], required: true, selected:'HEAD' %>
+        <%= f.input :revision, collection: ['HEAD'],
+              required: true,
+              selected:'HEAD'#, 
+              #input_html: { class: 'chosen-select' }
+        %>
       </div>
       <%= f.input :name, placeholder: 'Give your project a name', required: true %>
       <div class = "form-group" id = "create-project-hashtags">

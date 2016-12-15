@@ -54,6 +54,10 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    chosen-rails (1.5.2)
+      coffee-rails (>= 3.2)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
     coderay (1.1.1)
     coderay_bash (1.0.7)
       coderay (>= 1.0)
@@ -327,6 +331,7 @@ DEPENDENCIES
   bootstrap-will_paginate (~> 0.0.10)
   byebug
   carrierwave (= 0.10.0)
+  chosen-rails
   coderay
   coderay_bash
   coffee-rails (~> 4.1.0)

@@ -2,6 +2,10 @@
 <% else %>
   <%= simple_form_for :config, :html => { :class => 'form-horizontal' },
               wrapper: :horizontal_form do |f| %>
-        <%= f.input :revision, collection: ['HEAD'] + model_revisions.reverse, required: true, selected:'HEAD' %>
+        <%= f.input :revision, collection: ['HEAD'] + model_revisions.reverse,
+              required: true,
+              selected:'HEAD'#, 
+              #input_html: { class: 'chosen-select' }
+        %>
   <% end %>
 <% end %>
