@@ -15,27 +15,62 @@
 <% if logged_in? %>
     <div class = 'navbar-brand'>
       <ul>
-        <li><%= image_tag("queue_single.svg", alt: "Magpie", :height => 15)%>
-          <span id = "queued_jobs_me"> <%= count_jobs_user("waiting") %> </span></li>
-        <li><%= image_tag("queue_all.svg", alt: "Magpie", :height => 15)%>
-          <span id = "queued_jobs_all"> <%= count_jobs("waiting") %> </span></li>
-        <li><font color = "orange">&#149;</font>
-          <span id = "jobs_running"> <%= count_jobs_user("running") %> </span></li>
-        <li><font color = "green">&#149;</font>
-          <span id = "jobs_finished"> <%= count_jobs_user("finished") %> </span></li>
-        <li><font color = "red">&#149;</font>
-          <span id = "jobs_failed"> <%= count_jobs_user("failed") %> </span></li>
+        <li>
+          <div class="tooltip-job-queues">
+            <%= image_tag(load_image(), alt: "load", :height => 15)%>
+            <span id = "queue_load"> <%= count_jobs("running") %>/<%= Rails.application.config.worker_number %> </span>
+            <span class="tooltiptext-job-queues">work load / maximum number of concurrent jobs.</span>
+          </div>
+        </li>
+        <li>
+          <div class="tooltip-job-queues">
+            <%= image_tag("queue_all.svg", alt: "Magpie", :height => 15)%>
+            <span id = "queued_jobs_all"> <%= count_jobs("waiting") %> </span>
+            <span class="tooltiptext-job-queues">Number of all jobs waiting in queue.</span>
+          </div>
+        </li>
+        <li>
+          <div class="tooltip-job-queues">
+            <%= image_tag("queue_single.svg", alt: "Magpie", :height => 15)%>
+            <span id = "queued_jobs_me"> <%= count_jobs_user("waiting") %> </span>
+            <span class="tooltiptext-job-queues">Number of your jobs still waiting in queue.</span>
+          </div>
+        </li>
+        <li>
+          <div class="tooltip-job-queues">
+            <font color = "orange">&#149;</font>
+            <span id = "jobs_running"> <%= count_jobs_user("running") %> </span>
+            <span class="tooltiptext-job-queues">Number of your jobs running right now.</span>
+          </div>
+        </li>
+        <li>
+          <div class="tooltip-job-queues">
+            <font color = "green">&#149;</font>
+            <span id = "jobs_finished"> <%= count_jobs_user("finished") %> </span>
+            <span class="tooltiptext-job-queues">Number of your jobs finished successfully.</span>
+          </div>
+        </li>
+        <li>
+          <div class="tooltip-job-queues">
+            <font color = "red">&#149;</font>
+            <span id = "jobs_failed"> <%= count_jobs_user("failed") %> </span>
+            <span class="tooltiptext-job-queues">Number of your jobs failed.</span>
+          </div>
+        </li>
       </ul>
     </div>
 <% end %>
 
-    <ul class='navbar-right'>
-      <li><%= link_to image_tag("magpie_logo.svg", alt: "Magpie", :height => 20),
-              'https://magpie.imb.medizin.tu-dresden.de', :target => "_blank" %></li>
-      <% if logged_in? %>
-      <li><%= link_to "Help", help_path %></li>
-      <% end %>
-      <li><%= link_to "About", about_path %></li>
-    </ul>
+    <div class='navbar-right'>
+      <ul>
+        <li><%= link_to image_tag("magpie_logo.svg", alt: "Magpie", :height => 20),
+                'https://magpie.imb.medizin.tu-dresden.de', :target => "_blank" %></li>
+        <% if logged_in? %>
+        <li><%= link_to "Help", help_path %></li>
+        <% end %>
+        <li><%= link_to "About", about_path %></li>
+      </ul>
+    </div>
+
   </nav>
 </footer>

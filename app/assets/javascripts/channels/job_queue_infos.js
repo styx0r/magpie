@@ -30,7 +30,6 @@ App.job_queue_infos = App.cable.subscriptions.create("JobQueueInfosChannel", {
           success: function(html) {
             document.getElementById("job_id " + data.job_id).innerHTML = html;
             var sids = document.querySelectorAll('*[id^="sid_'+data.job_id+'_"]');
-            console.log(sids);
             for(sid_index = 0; sid_index < sids.length; sid_index++){
               eval(document.getElementById(sids[sid_index].id).innerHTML);
             }

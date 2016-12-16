@@ -73,7 +73,7 @@ class UserJob < ApplicationJob
     ### Go to the temporary working directory and execute the script
     Dir.chdir(@userdir) do
 
-      @job.docker_id = docker_image_id = `docker images -q magpie:default`.squish      
+      @job.docker_id = docker_image_id = `docker images -q magpie:default`.squish
 
       container = Docker::Container.create('Image' => 'magpie:default',
                                            'Tty' => true,
@@ -138,7 +138,9 @@ class UserJob < ApplicationJob
         sleep(1)
 
         ActionCable.server.broadcast("job_queue_infos",
-          all_queue: Job.where(:status => "waiting").count)
+          all_queue: Job.where(:status => "waiting").count,
+          worker_number: Rails.application.config.worker_number,
+          all_running: Job.where(:status => "running").count)
         # Announcing changes in the job status
         ActionCable.server.broadcast("job_queue_infos_#{@job.user_id}",
           me_queue: Job.where(:user_id => @job.user_id, :status => "waiting").count,

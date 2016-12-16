@@ -13,6 +13,8 @@ class GeneralJobQueueInfosChannel < ApplicationCable::Channel
   protected
     def notify
       ActionCable.server.broadcast("job_queue_infos",
-        all_queue: Job.where(:status => "waiting").count)
+        all_queue: Job.where(:status => "waiting").count,
+        worker_number: Rails.application.config.worker_number,
+        all_running: Job.where(:status => "running").count)
     end
 end

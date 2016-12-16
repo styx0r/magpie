@@ -72,4 +72,6 @@ Rails.application.configure do
                              'Machine Learning', 'Visualization', 'Medical Science',
                              'Cell Modelling', 'Chemistry', 'Mathematics', 'Phylogeny', 'Genetics', 'Systems Biology',
                              'Text Mining', 'Data Mining', 'Uncategorized', 'Showcase']
+
+  config.worker_number = 4
 end
