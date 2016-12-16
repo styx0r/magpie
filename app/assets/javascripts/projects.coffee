@@ -1,6 +1,14 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+
+niceSelectUpdate = ->
+  # enable chosen js
+  $('.chosen-select').chosen
+    allow_single_deselect: true
+    no_results_text: 'No results matched'
+    width: '345px'
+
 selectModel = ->
 
   if $('#project_model_id').find(":selected").text() != ""
@@ -28,6 +36,7 @@ selectModel = ->
           document.getElementById('project_modelconfig').innerHTML = html
           $('input[type=file]').bootstrapFileInput()
           $('.file-inputs').bootstrapFileInput()
+          niceSelectUpdate();
 
      if document.getElementById 'project_modelrevisions'
        model_id = $('#project_model_id').find(":selected")[0].value

@@ -4,8 +4,8 @@
               wrapper: :horizontal_form do |f| %>
         <%= f.input :revision, collection: ['HEAD'] + model_revisions.reverse,
               required: true,
-              selected:'HEAD'#, 
-              #input_html: { class: 'chosen-select' }
+              selected:'HEAD',
+              input_html: { class: 'chosen-select' }
         %>
   <% end %>
 <% end %>
