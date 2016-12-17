@@ -8,6 +8,10 @@ class HashtagPolicy < ApplicationPolicy
     !user.nil?
   end
 
+  def index?
+    !user.nil?
+  end
+
   class Scope < Scope
     def resolve
       scope.all

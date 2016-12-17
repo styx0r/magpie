@@ -2,6 +2,7 @@ class HashtagsController < ApplicationController
   before_action :set_hashtag, only: :show
 
   def index
+    authorize User
     @hashtags = policy_scope(Hashtag)
   end
 

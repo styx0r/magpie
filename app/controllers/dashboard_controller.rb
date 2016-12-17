@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
   skip_after_action :verify_policy_scoped, :only => :index
 
-  def index
+  def index    
     if logged_in?
       @micropost = current_user.microposts.build
       @feed_items = current_user.feed.paginate(page: params[:page])

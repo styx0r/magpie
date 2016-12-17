@@ -1,5 +1,9 @@
 class ProjectPolicy < ApplicationPolicy
 
+  def index?
+    !user.nil?
+  end
+
   def destroy?
     user == record.user
   end

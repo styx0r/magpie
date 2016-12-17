@@ -6,6 +6,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
+    authorize Project
     # Only index projects of the current user
     @projects = current_user.projects
     @public_projects = policy_scope(Project)

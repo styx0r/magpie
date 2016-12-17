@@ -11,6 +11,8 @@ class JobsController < ApplicationController
   # GET /jobs/1
   # GET /jobs/1.json
   def show
+    @job = Job.find_by id: params[:id]
+    authorize @job
   end
 
   # GET /jobs/new
@@ -20,6 +22,8 @@ class JobsController < ApplicationController
 
   # GET /jobs/1/edit
   def edit
+    @job = Job.find_by id: params[:id]
+    authorize @job
   end
 
   def running
