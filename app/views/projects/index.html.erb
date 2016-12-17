@@ -29,19 +29,19 @@
 
   <tbody>
     <% @projects.where(:public => false).each do |project| %>
-    <tr class='clickable-row' data-href='<%= project_path project%>' </tr>
+    <tr class='clickable-row' data-href='<%= project_path project%>'>
         <td>
           <div class="btn-group btn-group-xs" role="group">
-          <%= link_to toggle_public_project_path(project, project:{:id => project.id}), :method => :put, :class => "btn btn-secondary btn-link btn-xs active activated" do%>
-          <i class="glyphicon glyphicon-eye-<%=project.public ? 'open' : 'close'%>"></i>
-          <% end %>
-          <%= link_to project_path(project), method: :delete, data: { confirm: 'Are you really sure you want to delete this project?' }, class: "btn btn-secondary btn-link btn-xs active activated" do %>
-          <span class="glyphicon glyphicon-remove aria-hidden='false'"></span>
-          <% end %>
-        </div>
+            <%= link_to toggle_public_project_path(project, project:{:id => project.id}), :method => :put, :class => "btn btn-secondary btn-link btn-xs active activated" do%>
+              <i class="glyphicon glyphicon-eye-<%=project.public ? 'open' : 'close'%>"></i>
+            <% end %>
+            <%= link_to project_path(project), method: :delete, data: { confirm: 'Are you really sure you want to delete this project?' }, class: "btn btn-secondary btn-link btn-xs active activated" do %>
+              <span class="glyphicon glyphicon-remove aria-hidden='false'"></span>
+            <% end %>
+          </div>
         </td>
-        <td><%= project.name %></td>
-        <td><%= project.model ? project.model.name : 'Deleted model' %></td>
+        <td><a class = "dont-propagate-in-project-a-href" href = '<%= project_path project%>'><%= project.name %></a></td>
+        <td><a class = "dont-propagate-in-project-a-href" href = '<%= model_path project.model%>'><%= project.model ? project.model.name : 'Deleted model' %></a></td>
         <td><%= project.jobs.length %></td>
       </tr>
     <% end %>
@@ -60,7 +60,7 @@
 
 <h2>Public Projects</h2>
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th></th>
@@ -74,14 +74,15 @@
 
   <tbody>
     <% @public_projects.each do |project| %>
-      <tr class='clickable-row' data-href='<%= project_path project%>' </tr>
+      <tr class='clickable-row' data-href='<%= project_path project%>'>
         <td>
           <%= link_to toggle_public_project_path(project, project:{:id => project.id}), :method => :put, :class => "btn btn-secondary btn-link btn-xs active activated" do%>
-          <i class="glyphicon glyphicon-eye-<%=project.public ? 'open' : 'close'%>"></i>
-          <% end %></td>
-        <td><%= project.user.name %></td>
-        <td><%= project.name %></td>
-        <td><%= project.model.name %></td>
+            <i class="glyphicon glyphicon-eye-<%=project.public ? 'open' : 'close'%>"></i>
+          <% end %>
+        </td>
+        <td><a class = "dont-propagate-in-project-a-href" href = '<%= user_path project.user%>'><%= project.user.name %></a></td>
+        <td><a class = "dont-propagate-in-project-a-href" href = '<%= project_path project%>'><%= project.name %></a></td>
+        <td><a class = "dont-propagate-in-project-a-href" href = '<%= model_path project.model%>'><%= project.model ? project.model.name : 'Deleted model' %></a></td>
         <td><%= project.jobs.length %></td>
       </tr>
     <% end %>
