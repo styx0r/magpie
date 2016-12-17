@@ -149,7 +149,9 @@ class ProjectsController < ApplicationController
             end
           end
         end
-        postbot_says("User #{@user.name} created a new project using the model #{@project.model.name}", @project.hashtags)
+        if @project.public
+          postbot_says("User #{@user.name} created a new project using the model #{@project.model.name}", @project.hashtags)
+        end
         format.html { redirect_to user_project_path(current_user, @project) }
         flash['success'] = "Project was successfully created."
         format.json { render :show, status: :created, location: @project }
