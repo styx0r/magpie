@@ -17,7 +17,26 @@
       <ul>
         <li>
           <div class="tooltip-job-queues">
-            <%= image_tag(load_image(), alt: "load", :height => 15)%>
+            <%= image_tag("cpublack.svg",
+              id: "queue-load-pic-black",
+              alt: "load",
+              :height => 15,
+              style: "#{load_image() != "cpublack.svg" ? 'display: none' : '' }")%>
+            <%= image_tag("cpuyellow.png",
+              id: "queue-load-pic-yellow",
+              alt: "load",
+              :height => 15,
+              style: "#{load_image() != "cpuyellow.png" ? 'display: none' : '' }")%>
+            <%= image_tag("cpuorange.png",
+              id: "queue-load-pic-orange",
+              alt: "load",
+              :height => 15,
+              style: "#{load_image() != "cpuorange.png" ? 'display: none' : '' }")%>
+            <%= image_tag("cpured.png",
+              id: "queue-load-pic-red",
+              alt: "load",
+              :height => 15,
+              style: "#{load_image() != "cpured.png" ? 'display: none' : '' }")%>
             <span id = "queue_load"> <%= count_jobs("running") %>/<%= Rails.application.config.worker_number %> </span>
             <span class="tooltiptext-job-queues">work load / maximum number of concurrent jobs.</span>
           </div>
