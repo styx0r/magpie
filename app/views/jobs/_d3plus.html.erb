@@ -11,9 +11,11 @@ end
 
 # Read in the data
 data_lines = []
-File.open(Pathname.new(config_file).dirname.to_s+"/"+config_lines["data"][0]) do |f|
-  f.each_line do |line|
-    data_lines.push(line.gsub("\n", ""))
+if File.exists? Pathname.new(config_file).dirname.to_s+"/"+config_lines["data"][0]
+  File.open(Pathname.new(config_file).dirname.to_s+"/"+config_lines["data"][0]) do |f|
+    f.each_line do |line|
+      data_lines.push(line.gsub("\n", ""))
+    end
   end
 end
 
