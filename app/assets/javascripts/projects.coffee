@@ -7,7 +7,7 @@ niceSelectUpdate = ->
   $('.chosen-select').chosen
     allow_single_deselect: true
     no_results_text: 'No results matched'
-    width: '345px'
+    width: '418px'
 
 selectModel = ->
 
@@ -36,7 +36,6 @@ selectModel = ->
           document.getElementById('project_modelconfig').innerHTML = html
           $('input[type=file]').bootstrapFileInput()
           $('.file-inputs').bootstrapFileInput()
-          niceSelectUpdate();
 
      if document.getElementById 'project_modelrevisions'
        model_id = $('#project_model_id').find(":selected")[0].value
@@ -47,6 +46,7 @@ selectModel = ->
          success: (html) ->
            #console.log html
            document.getElementById('project_modelrevisions').innerHTML = html
+           niceSelectUpdate();
 
 selectRevision = ->
 
