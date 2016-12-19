@@ -9,7 +9,8 @@ Bundler.require(*Rails.groups)
 module MfRails
   class Application < Rails::Application
 
-    config.docker_timeout = 60 * 60 * 24 * 7
+    config.docker_timeout = 60 * 60 * 24 * 7 # hard time out docker runs 1 week at maximum
+    # soft time out is set within the docker exec call and timeout
 
     # Autoload app to make classes available to the console
     config.autoload_paths += %W(#{config.root}/app)

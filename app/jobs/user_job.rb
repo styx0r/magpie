@@ -79,13 +79,22 @@ class UserJob < ApplicationJob
                                            'Tty' => true,
                                            'Binds' => ["#{@userdir}:/root/job:rw"])
       container.start()
-      #container.wait(100)
-      c_out = container.exec(["/bin/bash", "-c", "cd /root/job; sh #{@job.project.model.mainscript[@job.project.revision]}"],
+
+      # 7200 corresponds to the maximum computation time per job
+      # 2097152 defines the maximum virtual memory, which can be used by one particular process (2048MB)
+      c_out = container.exec(["/bin/bash", "-c", "cd /root/job; ulimit -v 2097152; timeout 3600 sh #{@job.project.model.mainscript[@job.project.revision]}"],
                              wait: Rails.application.config.docker_timeout)
+
       container.stop
       container.remove
       @stdout = c_out[0]
       @stderr = c_out[1]
+      if (c_out[2] == 139)
+        @stderr = ["The virtual memory is restricted to 2GB on this demo server. Aborted ..."]
+      elsif(c_out[2] == 124) # timeout time out
+        @stdout = ["The computation time per job is restricted to 1 hour on this demo server. Aborted ..."]
+        @stderr = c_out[1]
+      end
       c_out[2]
     end
   end
