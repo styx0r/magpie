@@ -46,19 +46,12 @@
     <div class = "col-md-6">
       <section class = "model_info">
         <b>Model Information</b><br>
-        <div id = "model_info_sync" style="height:250px;">
-          <% model_description = mostPopularModel.description
-             model_help = mostPopularModel.help
-             doi = mostPopularModel.doi
-             citation = mostPopularModel.citation %>
 
-          <%= render :layout => false, partial: 'projects/modeldescription',
-                     locals: {:model_description => model_description,
-                     :doi => doi,
-                     :citation => citation,
-                     :model_help => model_help} %>
+        <div id = "model_info_sync" style="height:250px;">
+
         </div>
       </section>
+      
       <div class = "form-group" id = "create-project-public-project" align = "right">
       <%= f.label "Public" %>
       <%= f.input :public, as: :boolean,
@@ -69,10 +62,7 @@
     </div>
   </div>
   <div id = "project_modelconfig">
-    <%= render :layout => false, partial: 'projects/modelconfig',
-               locals: { :model_selected => mostPopularModel,
-               :model_revision => "HEAD",
-               :f => nil } %>
+
   </div>
   <%= f.button :submit, class: "btn btn-primary" %>
 <% end %>
