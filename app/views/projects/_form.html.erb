@@ -5,6 +5,7 @@
       <%
         # create the collection here with [[category, [modelid1, modelid2]],[...]]
         colModel = [[["Most Popular"],Project.pluck("model_id").inject(Hash.new(0)) { |h,v| h[v] += 1; h }.sort_by {|k,v| v}.reverse[0..2].map{|row| row[0]}]]
+        mostPopularModel = Model.find_by(id: colModel[0][1][0])
         cats = Model.pluck(:category).uniq
         cats.each do |category|
           colModel.push([category, Model.where(["category = ?", category]).select(:id).ids])
@@ -20,6 +21,7 @@
             #collection: [['Authors', ['Jose', 'Carlos']], ['General', ['Bob', 'John']]],
             collection: colModel,
             required: true,
+            selected: colModel[0][1][0],
             input_html: { class: 'chosen-select align-chosen-select' },
             :include_blank => "Please Choose..."
       %>
@@ -45,7 +47,16 @@
       <section class = "model_info">
         <b>Model Information</b><br>
         <div id = "model_info_sync" style="height:250px;">
-          Select a model to see model information!
+          <% model_description = mostPopularModel.description
+             model_help = mostPopularModel.help
+             doi = mostPopularModel.doi
+             citation = mostPopularModel.citation %>
+
+          <%= render :layout => false, partial: 'projects/modeldescription',
+                     locals: {:model_description => model_description,
+                     :doi => doi,
+                     :citation => citation,
+                     :model_help => model_help} %>
         </div>
       </section>
       <div class = "form-group" id = "create-project-public-project" align = "right">
@@ -58,6 +69,10 @@
     </div>
   </div>
   <div id = "project_modelconfig">
+    <%= render :layout => false, partial: 'projects/modelconfig',
+               locals: { :model_selected => mostPopularModel,
+               :model_revision => "HEAD",
+               :f => nil } %>
   </div>
   <%= f.button :submit, class: "btn btn-primary" %>
 <% end %>
