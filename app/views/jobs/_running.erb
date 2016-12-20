@@ -150,7 +150,7 @@
       <% if @additional_files.size() > 0 %>
         <div class="col-xs-12 col-md-12">Additional files:</div>
         <% @additional_files.each do |e| %>
-          <div class="col-xs-12 col-md-12"><%= e %></div>
+          <div class="col-xs-12 col-md-12"><%= File.basename(e) %></div>
         <% end %>
       <% end %>
     </div>

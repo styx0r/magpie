@@ -14,7 +14,7 @@
   <div class="panel-body">
     <p>
       <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-      <%= @project.user.name %>
+      <%= link_to @project.user.name, @project.user%> <b>@<%=@project.user.identity%></b>
     </p>
 
     <p>
