@@ -102,7 +102,8 @@ for @line in @file_string
         required: !@hidden,
         as: :file,
         wrapper_html: { title: @comment },
-        hint: @param_name %>
+        hint: @param_name,
+        input_html: { class: 'file-inputs-model-config' }%>
 
 <% elsif @param_type == "dropdown" %>
   <%

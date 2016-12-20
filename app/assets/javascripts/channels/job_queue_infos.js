@@ -21,7 +21,7 @@ App.job_queue_infos = App.cable.subscriptions.create("JobQueueInfosChannel", {
     if(document.getElementById("jobs_failed")){
       document.getElementById("jobs_failed").innerHTML = data.me_failed;
     }
-    if(document.getElementById("job_" + data.job_id)){
+    if(data.job_id >= 0 && document.getElementById("job_" + data.job_id)){
       $.ajax({
           async: true,
           url: "/job_running?job_id=" + data.job_id,

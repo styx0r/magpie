@@ -19,7 +19,7 @@
   <b><a href = "help?section=Configuration Files">see Configuration Files</a></b>).
 </p>
 <div class="row">
-  <div class="col-md-6 col-centered">
+  <div class="col-md-10 col-centered">
     <div class="panel panel-default">
       <div class="panel-body">
         <% @project = Project.new %>
@@ -44,7 +44,7 @@
   <div class="col-md-6 col-centered">
     <div class="panel panel-default">
       <div class="panel-body">
-        <% @job = Job.joins(:project).find_by(projects: {name: "Tutorial Sleep"})%>
+        <% @job = Job.joins(:project).find_by(projects: {name: "Tutorial Sleep 2"})%>
         <%= render :partial => "jobs/running", locals: { job: @job } %>
       </div>
     </div>

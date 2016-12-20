@@ -232,6 +232,22 @@ clonal_leukemia_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'clo
                       highlight: "neutral",
                       docker_id: "08b19d69e7c6")
 
+@project12 = Project.create!(name:       "Tutorial Sleep 2",
+                            user_id:    @b2.id, # TutorialBot
+                            model_id:   @model1.id,
+                            public:     true,
+                            revision:   @model1.current_revision)
+@p12_job = Job.create!(status:     "finished",
+                      user_id:    @b2.id,
+                      project_id: @project12.id,
+                      output: {:stdout=>['Slept for 5 seconds!'], :stderr=>[]},
+                      resultfiles: [],
+                      directory: File.join(Rails.root, 'test', 'tutorialjobs', 'sleeptut').to_s,
+                      arguments: nil,
+                      highlight: "neutral",
+                      docker_id: "08b19d69e7c6")
+
+
 # PLIP (Advanced Tutorial)
 @project2 = Project.create!(name:       "Tutorial PLIP",
                             user_id:    @b2.id, # TutorialBot
