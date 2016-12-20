@@ -33,7 +33,7 @@
         %>
       </div>
       <% pcount = current_user.projects.length+1 %>
-      <%= f.input :name, placeholder: "Give your project a name", required: true, input_html: {name: 'name', value: "My #{pcount.ordinalize} project"} %>
+      <%= f.input :name, placeholder: "Give your project a name", required: true, input_html: {value: "My #{pcount.ordinalize} project"} %>
       <div class = "form-group" id = "create-project-hashtags">
         <%= f.label "#Hashtags" %>
         <%= f.text_field :usertags, required: false, class: 'typeahead form-control' %>
