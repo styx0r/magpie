@@ -4,6 +4,7 @@ ready = function() {
   $('#file-inputs-micropost-image').bootstrapFileInput();
   $('.file-inputs-register-model').bootstrapFileInput();
   $('.file-inputs-model-config').bootstrapFileInput();
+  $('#file-inputs-model-reupload').bootstrapFileInput();
 }
 
 

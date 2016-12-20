@@ -2,7 +2,10 @@
 
   <div class="form-inputs">
     <%= f.label :source %><br>
-    <%= f.file_field :source, required: false, title: "Drag or browse updated model"  %>
+    <%= f.file_field :source,
+                     required: true,
+                     title: 'Drag or browse updated model',
+                     id: 'file-inputs-model-reupload' %>
     <%= f.input :tag %>
   </div>
 

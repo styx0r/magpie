@@ -57,8 +57,13 @@ class Model < ActiveRecord::Base
     p "Temporary folder for unzipping at #{self.tmp_path}"
     system("git clone #{self.path} #{self.tmp_path}")
     system("cd #{self.tmp_path}; git rm *")
-    unzip_source(self.source.file.file, self.tmp_path)
-    system("cd #{self.tmp_path}; git add -A; git tag -a #{newtag} -m 'User uploaded new version'; git commit -m 'User uploaded new version'; git push origin master --tags;")
+    #unzip_source(self.source.file.file, self.tmp_path)
+    unzip_source(src.tempfile, self.tmp_path)
+    system("cd #{self.tmp_path}; git add -A")
+    if !newtag.empty?
+      system("cd #{self.tmp_path};git tag -a '#{newtag.gsub(/[^0-9a-z.,]/i, '').gsub(/[.,]*$/, '')}' -m 'User uploaded new version'")
+    end
+    system("cd #{self.tmp_path};git commit -m 'User uploaded new version'; git push origin master --tags")
   end
 
   def current_revision
