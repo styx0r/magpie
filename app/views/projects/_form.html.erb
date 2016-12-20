@@ -32,11 +32,20 @@
               input_html: { class: 'chosen-select align-chosen-select' }
         %>
       </div>
-      <%= f.input :name, placeholder: 'Give your project a name', required: true %>
+      <% pcount = current_user.projects.length+1 %>
+      <%= f.input :name, placeholder: "Give your project a name", required: true, input_html: {name: 'name', value: "My #{pcount.ordinalize} project"} %>
       <div class = "form-group" id = "create-project-hashtags">
         <%= f.label "#Hashtags" %>
         <%= f.text_field :usertags, required: false, class: 'typeahead form-control' %>
       </div>
+      <div class="row">
+        <div class="col-md-9">
+      <%= f.button :submit, class: "btn btn-primary" %>
+    </div>
+    <script>function scroll_down() {$("html, body").animate({ scrollTop: $(document).height() }, "slow");}</script>
+    <a class="btn btn-info" onclick="scroll_down()">or adapt config</a>
+      </div>
+
 
       <%= f.simple_fields_for :job do |job_form| %>
         <%= job_form.input :status, :as => :hidden, :input_html => { :value => "waiting" } %>
