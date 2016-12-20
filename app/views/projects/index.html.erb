@@ -76,8 +76,10 @@
     <% @public_projects.each do |project| %>
       <tr>
         <td>
-          <%= link_to toggle_public_project_path(project, project:{:id => project.id}), :method => :put, :class => "btn btn-secondary btn-link btn-xs active activated" do%>
-            <i class="glyphicon glyphicon-eye-<%=project.public ? 'open' : 'close'%>"></i>
+          <% if policy(project).owner? %>
+            <%= link_to toggle_public_project_path(project, project:{:id => project.id}), :method => :put, :class => "btn btn-secondary btn-link btn-xs active activated" do%>
+              <i class="glyphicon glyphicon-eye-<%=project.public ? 'open' : 'close'%>"></i>
+            <% end %>
           <% end %>
         </td>
         <td><a class = "dont-propagate-in-project-a-href" href = '<%= user_path project.user%>'><%= project.user.name %></a></td>
