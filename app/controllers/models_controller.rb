@@ -5,7 +5,7 @@ class ModelsController < ApplicationController
   # GET /models
   # GET /models.json
   def index
-    authorize User
+    authorize Model
     @models = policy_scope(Model)
   end
 
