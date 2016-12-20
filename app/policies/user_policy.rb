@@ -48,6 +48,10 @@ class UserPolicy < ApplicationPolicy
     !user.nil? && (user.admin || user.right.user_index)
   end
 
+  def create_relationship?
+    !user.nil? && user != record
+  end
+
   class Scope < Scope
     def resolve
       scope.all

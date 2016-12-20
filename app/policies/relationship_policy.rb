@@ -1,11 +1,11 @@
 class RelationshipPolicy < ApplicationPolicy
 
   def create?
-    !user.nil?
+    !user.nil? && user != record
   end
 
   def destroy?
-    !user.nil?
+    !user.nil? && !user.guest
   end
 
   class Scope < Scope

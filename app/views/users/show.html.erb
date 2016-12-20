@@ -5,13 +5,15 @@
       <h1>
         <%= gravatar_for @user, "50" %>
         <%= @user.name %><b>  @<%=@user.identity%></b>
-        <% rel = Relationship.where(follower_id: current_user.id, followed_id: @user.id)%>
-        <% if rel.empty? %>
-          <%= link_to "Follow", { :controller => "relationships", :action => "create", :followed_id => @user.id }, :method => :post, :style => "color: white", :class => "btn btn-xs btn-info" %>
-        <% else %>
-          <%= link_to "Unfollow", relationship_path(rel.first.id), :method => :delete, :style => "color: white", :class => "btn btn-xs btn-info" %>
+        <% if policy(@user).create_relationship? %>
+          <% rel = Relationship.where(follower_id: current_user.id, followed_id: @user.id)%>
+          <% if rel.empty? %>
+            <%= link_to "Follow", { :controller => "relationships", :action => "create", :followed_id => @user.id }, :method => :post, :style => "color: white", :class => "btn btn-xs btn-info" %>
+          <% else %>
+            <%= link_to "Unfollow", relationship_path(rel.first.id), :method => :delete, :style => "color: white", :class => "btn btn-xs btn-info" %>
+          <% end %>
         <% end %>
-      </h1>      
+      </h1>
     </section>
     <section class="stats">
       <%= render 'shared/stats' %>
