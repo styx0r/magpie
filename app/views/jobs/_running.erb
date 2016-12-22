@@ -159,7 +159,8 @@
 
 
     <% end %>
-    <% if numResultfiles(job)+numConfigfiles(job) != 0 %>
+    <% if ['finished', 'failed'].include? job.status %>
+    <% if numResultfiles(job) + numConfigfiles(job) != 0 %>
     <div class="panel-body">
       <% if numResultfiles(job) != 0 %>
         <%= link_to download_job_path(job.id), 'data-turbolinks' => false, class: "btn btn-default btn-sm" do %>
@@ -172,6 +173,7 @@
         <span> Config</span><% end %>
       <% end %>
     </div>
+    <% end %>
     <% end %>
   </div>
 

@@ -43,6 +43,9 @@ class ApplicationController < ActionController::Base
     def postbot_says(message, hashtags=[])
       if hashtags.length != 0
         message = message + " #" + hashtags.map{|h| h.tag}.join(" #")
+        if message.length > 140
+          message = message.truncate(140, separator:' ', omission:' ...')
+        end
       end
       micropost = Micropost.create(content: message, user: postbot)
       micropost.extract_hashtags
