@@ -153,7 +153,7 @@ end
             return
           end
         else
-          if !@user.hashtags.find_by(tag: tag).nil?
+          if @user.hashtags.find_by(tag: tag).nil?
             @user.hashtags << Hashtag.find_by(tag: tag)
           end
         end
