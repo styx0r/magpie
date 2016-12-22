@@ -20,7 +20,7 @@ class Model < ActiveRecord::Base
   def is_zip? sourcefile
     zip = Zip::File.open(sourcefile)
     true
-  rescue StandardError
+  rescue Zip::Error
     false
   ensure
     zip.close if zip
@@ -66,13 +66,20 @@ class Model < ActiveRecord::Base
     p "Temporary folder for unzipping at #{self.tmp_path}"
     system("git clone #{self.path} #{self.tmp_path}")
     system("cd #{self.tmp_path}; git rm *")
-    #unzip_source(self.source.file.file, self.tmp_path)
     unzip_source(src.tempfile, self.tmp_path)
     system("cd #{self.tmp_path}; git add -A")
-    if !newtag.empty?
-      system("cd #{self.tmp_path};git tag -a '#{newtag.gsub(/[^0-9a-z.,]/i, '').gsub(/[.,]*$/, '')}' -m 'User uploaded new version'")
+
+    # Check if anything has changed
+    output, status = Open3.capture2("cd #{self.tmp_path}; git status --porcelain")
+    if output.empty?
+      return nil
     end
-    system("cd #{self.tmp_path};git commit -m 'User uploaded new version'; git push origin master --tags")
+
+    system("cd #{self.tmp_path};git commit -m 'User uploaded new version with tag #{newtag}'")
+    if !newtag.empty?
+      system("cd #{self.tmp_path};git tag -a '#{newtag.gsub(/[^0-9a-z.,]/i, '').gsub(/[.,]*$/, '')}' -m 'User uploaded new version'; git push origin master --tags")
+    end
+    return 0
   end
 
   def current_revision
@@ -96,6 +103,7 @@ class Model < ActiveRecord::Base
 
   def tag_to_revision tag
     require 'open3'
+    #output, status = Open3.capture2("cd #{self.path}; git rev-parse --verify #{tag}")
     output, status = Open3.capture2("cd #{self.path}; git rev-list -n 1 #{tag}")
     output.strip
   end

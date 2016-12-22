@@ -94,7 +94,12 @@ class ModelsController < ApplicationController
           flash[:danger] = "Invalid file type. Please upload a zip with your model."
           redirect_to :back
         else
-          @model.update_files(model_params[:source],model_params[:tag]) # Update actual scripts and files
+          status = @model.update_files(model_params[:source],model_params[:tag]) # Update actual scripts and files
+          if status.nil? # Nothing has changed
+            flash[:danger] = "No changes in your model script. Aborting update."
+            redirect_to :back
+            return
+          end
           @model.mainscript[@model.current_revision] = @model.get_main_script
           @model.save
           flash[:success] = "Model has been successfully updated"
