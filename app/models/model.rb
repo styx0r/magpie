@@ -22,12 +22,15 @@ class Model < ActiveRecord::Base
   end
 
   def is_zip? sourcefile
-    zip = Zip::File.open(sourcefile)
-    true
-    rescue Zip::Error
-      false
-    ensure
-      zip.close if zip
+    magic = FileMagic.new
+    fmo = magic.file(sourcefile)
+    return fmo.start_with? "Zip"
+    #zip = Zip::File.open(sourcefile)
+    #true
+    #rescue Zip::Error
+    #   false
+    #ensure
+    #  zip.close if zip
   end
 
   def initializer
