@@ -112,7 +112,7 @@ class ModelsController < ApplicationController
   def download
     @model = Model.find(params[:id])
     authorize @model
-    send_file @model.provide_source(params[:revision]), :type => 'application/zip', :disposition => 'attachment', :filename => "#{@model.name.gsub!(' ', '_')}_#{params[:revision][1..6]}.zip"
+    send_file @model.provide_source(params[:revision]), :type => 'application/zip', :disposition => 'attachment', :filename => "#{@model.name.gsub(' ', '_')}_#{params[:revision][1..6]}.zip"
   end
 
 def show_logo
