@@ -1,10 +1,11 @@
 class DashboardController < ApplicationController
   skip_after_action :verify_policy_scoped, :only => :index
 
-  def index    
+  def index
+    #@TODO Deprecated?
     if logged_in?
       @micropost = current_user.microposts.build
-      @feed_items = current_user.feed.paginate(page: params[:page])
+      @feed_items = current_user.feed.paginate(page: params[:page], per_page: 10)
     end
   end
 
@@ -15,7 +16,7 @@ class DashboardController < ApplicationController
 
     if logged_in?
       @micropost = current_user.microposts.build
-      @feed_items = current_user.feed.paginate(page: params[:page])
+      @feed_items = current_user.feed.paginate(page: params[:page], per_page: 10)
     end
     # rendered without layout in case we are directly on dashboard
     # (without page call of the feed)
