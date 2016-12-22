@@ -91,20 +91,24 @@ class ModelsController < ApplicationController
     authorize @model
     #respond_to do |format|
       if model_params.key?(:source) # In case of reupload
-        if !@model.is_zip? model_params[:source].tempfile
-          flash[:danger] = "Invalid file type. Please upload a zip with your model."
-          redirect_to :back
+        if model_params[:source].tempfile.nil?
+          return false
         else
-          status = @model.update_files(model_params[:source],model_params[:tag]) # Update actual scripts and files
-          if status.nil? # Nothing has changed
-            flash[:danger] = "No changes in your model script. Aborting update."
+          if !@model.is_zip? model_params[:source].tempfile.file
+            flash[:danger] = "Invalid file type. Please upload a zip with your model."
             redirect_to :back
-            return
+          else
+            status = @model.update_files(model_params[:source],model_params[:tag]) # Update actual scripts and files
+            if status.nil? # Nothing has changed
+              flash[:danger] = "No changes in your model script. Aborting update."
+              redirect_to :back
+              return
+            end
+            @model.mainscript[@model.current_revision] = @model.get_main_script
+            @model.save
+            flash[:success] = "Model has been successfully updated"
+            redirect_to @model
           end
-          @model.mainscript[@model.current_revision] = @model.get_main_script
-          @model.save
-          flash[:success] = "Model has been successfully updated"
-          redirect_to @model
         end
       else
         # As of now, only the main script of the latest revision can be changed #TODO
