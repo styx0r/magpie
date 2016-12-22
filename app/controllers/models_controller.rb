@@ -30,7 +30,8 @@ class ModelsController < ApplicationController
   def register_model
     @model.user = current_user
     if not @model.passed_checks?
-      redirect_to :back, notice: 'Error: Model has not passed checks:' + @model.log
+      flash[:danger] = "Error: Model has not passed checks."
+      redirect_to :back
     else
       respond_to do |format|
         if @model.save

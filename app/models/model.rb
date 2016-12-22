@@ -14,16 +14,20 @@ class Model < ActiveRecord::Base
   end
 
   def passed_checks?
-    return self.is_zip? self.source.file.file
+    if self.source.file.nil?
+      return false
+    else
+      return self.is_zip? self.source.file.file
+    end
   end
 
   def is_zip? sourcefile
     zip = Zip::File.open(sourcefile)
     true
-  rescue Zip::Error
-    false
-  ensure
-    zip.close if zip
+    rescue Zip::Error
+      false
+    ensure
+      zip.close if zip
   end
 
   def initializer
