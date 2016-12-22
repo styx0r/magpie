@@ -20,6 +20,10 @@ module ProjectsHelper
     job.resultfiles.size
   end
 
+  def numConfigfiles job
+    job.configfiles.size
+  end
+
 
 
 

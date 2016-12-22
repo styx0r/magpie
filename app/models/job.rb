@@ -5,6 +5,10 @@ class Job < ActiveRecord::Base
   serialize :resultfiles
   serialize :arguments
 
+  def configfiles
+    configfiles = Dir.glob(self.directory + "/*.{config,iplot}")
+  end
+
   def zip_result_files
     ## Now, create a zipped archive of all resultfiles, if there are any
     require 'zip'
@@ -15,9 +19,8 @@ class Job < ActiveRecord::Base
         zipfile.add(File.basename(resultfile), resultfile)
       end
     end
-    configfiles = Dir.glob(self.directory + "/*.{config,iplot}")
     Zip::File.open(zip_config, Zip::File::CREATE) do |zipfile|
-      configfiles.each do |configfile|
+      self.configfiles.each do |configfile|
         zipfile.add(File.basename(configfile), configfile)
       end
     end

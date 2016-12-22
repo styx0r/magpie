@@ -155,18 +155,24 @@
       <% end %>
     </div>
 
-    <div class="panel-body">
-      <%= link_to download_job_path(job.id), 'data-turbolinks' => false, class: "btn btn-default btn-sm" do %>
-      <span class="glyphicon glyphicon-download aria-hidden='false'"></span>
-      <span><%= pluralize(numResultfiles(job), 'Result File') %></span><% end %>
-      <%= link_to download_config_job_path(job.id), 'data-turbolinks' => false, class: "btn btn-default btn-sm" do %>
-      <span class="glyphicon glyphicon-download aria-hidden='false'"></span>
-      <span> Config</span><% end %>
-    </div>
+
 
 
     <% end %>
-
+    <% if numResultfiles(job)+numConfigfiles(job) != 0 %>
+    <div class="panel-body">
+      <% if numResultfiles(job) != 0 %>
+        <%= link_to download_job_path(job.id), 'data-turbolinks' => false, class: "btn btn-default btn-sm" do %>
+        <span class="glyphicon glyphicon-download aria-hidden='false'"></span>
+        <span><%= pluralize(numResultfiles(job), 'Result File') %></span><% end %>
+      <% end %>
+      <% if numConfigfiles(job) != 0 %>
+        <%= link_to download_config_job_path(job.id), 'data-turbolinks' => false, class: "btn btn-default btn-sm" do %>
+        <span class="glyphicon glyphicon-download aria-hidden='false'"></span>
+        <span> Config</span><% end %>
+      <% end %>
+    </div>
+    <% end %>
   </div>
 
 </div>
