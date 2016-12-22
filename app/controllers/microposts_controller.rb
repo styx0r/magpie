@@ -12,8 +12,8 @@ class MicropostsController < ApplicationController
       flash[:success] = "Micropost created!"
       redirect_to :back
     else
-      @feed_items = []
-      render "dashboard/index"
+      flash[:danger] = "Not a valid Micropost!"
+      redirect_to :back
     end
     for user in current_user.followers
       ActionCable.server.broadcast("microposts_#{user.id}",
