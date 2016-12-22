@@ -80,8 +80,9 @@ class Model < ActiveRecord::Base
   end
 
   def versions
-    output, status = Open3.capture2("cd #{self.path}; git tag;")
-    output.split
+    # Chronogically (reversed) ordered output of versions
+    output, status = Open3.capture2("cd #{self.path}; git for-each-ref --sort=taggerdate --format '%(tag)' refs/tags;")
+    output.split.reverse
   end
 
   def tag_to_revision tag
