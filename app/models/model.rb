@@ -12,9 +12,17 @@ class Model < ActiveRecord::Base
     FileUtils.remove_dir self.path, true
   end
 
-  def passed_checks
-    #TODO Implement checks
+  def passed_checks?
+    return self.is_zip? self.source.file.file
+  end
+
+  def is_zip? sourcefile
+    zip = Zip::File.open(sourcefile)
     true
+  rescue StandardError
+    false
+  ensure
+    zip.close if zip
   end
 
   def initializer

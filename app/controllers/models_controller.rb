@@ -29,7 +29,7 @@ class ModelsController < ApplicationController
 
   def register_model
     @model.user = current_user
-    if not @model.passed_checks
+    if not @model.passed_checks?
       redirect_to :back, notice: 'Error: Model has not passed checks:' + @model.log
     else
       respond_to do |format|
@@ -46,6 +46,7 @@ class ModelsController < ApplicationController
   end
 
   def reupload
+    #@TODO Deprecated?
     authorize @model
       respond_to do |format|
           format.html { return render :reupload}
@@ -87,24 +88,25 @@ class ModelsController < ApplicationController
   # PATCH/PUT /models/1.json
   def update
     authorize @model
-    respond_to do |format|
+    #respond_to do |format|
       if model_params.key?(:source) # In case of reupload
-        @model.update_files(model_params[:source],model_params[:tag]) # Update actual scripts and files
-        @model.mainscript[@model.current_revision] = @model.get_main_script
-        @model.save
+        if !@model.is_zip? model_params[:source].tempfile
+          flash[:danger] = "Invalid file type. Please upload a zip with your model."
+          redirect_to :back
+        else
+          @model.update_files(model_params[:source],model_params[:tag]) # Update actual scripts and files
+          @model.mainscript[@model.current_revision] = @model.get_main_script
+          @model.save
+          flash[:success] = "Model has been successfully updated"
+          redirect_to @model
+        end
       else
         # As of now, only the main script of the latest revision can be changed #TODO
         @model.mainscript[@model.current_revision] = model_params[:mainscript]
         @model.update(model_params.except(:mainscript))
+        flash[:success] = "Model has been successfully updated"
+        redirect_to @model
       end
-      if @model.save
-        format.html { redirect_to @model, notice: 'Model was successfully updated.' }
-        format.json { render :show, status: :ok, location: @model }
-      else
-        format.html { render :edit }
-        format.json { render json: @model.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   def download
