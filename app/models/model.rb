@@ -4,7 +4,7 @@ class Model < ActiveRecord::Base
   has_many :hashtags, -> { distinct }, through: :taggings
   mount_uploader :source, ModelUploader
   attr_accessor :tmp_path, :tag, :usertags
-  validates :name, presence: true, length: { maximum: 30 }
+  validates :name, presence: true, length: { maximum: 100 }
   serialize :mainscript
 
   def delete_files
