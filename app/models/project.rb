@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
   belongs_to :model
   attr_accessor :usertags
   validates :name, presence: true, length: { maximum: 30 }
+  after_create :check_guest
   accepts_nested_attributes_for :jobs, :allow_destroy => true
 
 
@@ -32,5 +33,13 @@ class Project < ActiveRecord::Base
       "untagged, revision #{self.revision}"
     end
   end
+
+  def check_guest
+    if self.user.guest
+      self.public = false
+      self.save
+    end
+  end
+
 
 end

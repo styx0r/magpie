@@ -32,8 +32,10 @@
     <tr>
         <td>
           <div class="btn-group btn-group-xs" role="group">
-            <%= link_to toggle_public_project_path(project, project:{:id => project.id}), :method => :put, :class => "btn btn-secondary btn-link btn-xs active activated" do%>
-              <i class="glyphicon glyphicon-eye-<%=project.public ? 'open' : 'close'%>"></i>
+            <% if policy(project).toggle_public? %>
+              <%= link_to toggle_public_project_path(project, project:{:id => project.id}), :method => :put, :class => "btn btn-secondary btn-link btn-xs active activated" do%>
+                <i class="glyphicon glyphicon-eye-<%=project.public ? 'open' : 'close'%>"></i>
+              <% end %>
             <% end %>
             <%= link_to project_path(project), method: :delete, data: { confirm: 'Are you really sure you want to delete this project?' }, class: "btn btn-secondary btn-link btn-xs active activated" do %>
               <span class="glyphicon glyphicon-remove aria-hidden='false'"></span>
@@ -76,7 +78,7 @@
     <% @public_projects.each do |project| %>
       <tr>
         <td>
-          <% if policy(project).owner? %>
+          <% if policy(project).toggle_public? %>
             <%= link_to toggle_public_project_path(project, project:{:id => project.id}), :method => :put, :class => "btn btn-secondary btn-link btn-xs active activated" do%>
               <i class="glyphicon glyphicon-eye-<%=project.public ? 'open' : 'close'%>"></i>
             <% end %>

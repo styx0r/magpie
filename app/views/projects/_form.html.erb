@@ -59,6 +59,7 @@
         </div>
       </section>
 
+      <% if policy(Project).job_create_toggle_public? %>
       <div class = "form-group" id = "create-project-public-project" align = "right">
       <%= f.label "Public" %>
       <%= f.input :public, as: :boolean,
@@ -66,6 +67,7 @@
                   label: false,
                   :input_html => {'data-toggle'=> "toggle"} %>
       </div>
+      <% end %>
     </div>
   </div>
   <div id = "project_modelconfig">

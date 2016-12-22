@@ -33,7 +33,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def toggle_public?
-    user == record.user
+    !user.guest && user == record.user
   end
 
   def delete_marked_jobs?
@@ -42,6 +42,10 @@ class ProjectPolicy < ApplicationPolicy
 
   def owner?
     user == record.user
+  end
+
+  def job_create_toggle_public?
+    !user.nil? && !user.guest
   end
 
   class Scope < Scope
