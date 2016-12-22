@@ -2,15 +2,7 @@
 <% else %>
   <% @config_files, status = Open3.capture2("cd #{model_selected.path}; git ls-tree -r #{model_revision} --name-only | grep '.config$'")%>
   <% @config_files = @config_files.split %>
-  <% if @config_files.length == 0 %>
-  <div class = "col-md-12">
-    <div class = "panel-info">
-      <div class = "panel-heading">
-        <center>No config file in <%= model_revision %> of selected model located in <br><%= model_selected.path %></center>
-      </div>
-    </div>
-  </div>
-  <% else %>
+  <% if @config_files.length != 0 %>
     <% if f == nil %>
     <div class = "col-md-12">
       <b>Model Configs</b>

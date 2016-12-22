@@ -13,9 +13,17 @@ class Model < ActiveRecord::Base
     FileUtils.remove_dir self.path, true
   end
 
-  def passed_checks
-    #TODO Implement checks
+  def passed_checks?
+    return self.is_zip? self.source.file.file
+  end
+
+  def is_zip? sourcefile
+    zip = Zip::File.open(sourcefile)
     true
+  rescue StandardError
+    false
+  ensure
+    zip.close if zip
   end
 
   def initializer
@@ -81,8 +89,9 @@ class Model < ActiveRecord::Base
   end
 
   def versions
-    output, status = Open3.capture2("cd #{self.path}; git tag;")
-    output.split
+    # Chronogically (reversed) ordered output of versions
+    output, status = Open3.capture2("cd #{self.path}; git for-each-ref --sort=taggerdate --format '%(tag)' refs/tags;")
+    output.split.reverse
   end
 
   def tag_to_revision tag
