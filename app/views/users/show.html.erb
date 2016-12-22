@@ -28,7 +28,7 @@
         <%= render 'shared/error_messages', object: f.object %>
         <div class="field">
           <%= f.label "More hashtags" %>
-          <%= f.text_field :new_hashtags,class: 'typeahead form-control' %>
+          <%= f.text_field :new_hashtags,class: 'typeahead form-control', maxlength: 35 %>
         </div>
 
         <%= f.submit "Add", class: "btn btn-primary" %>

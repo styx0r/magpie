@@ -115,7 +115,7 @@ end
     skip_authorization
     @user = params[:user] ? User.new(user_params) : User.new_guest
     @user.create_right
-    if !@user.guest      
+    if !@user.guest
       @user.right.update_attribute("model_add", true)
       @user.right.update_attribute("user_index", true)
     end
@@ -141,13 +141,17 @@ end
   def update
     @user = User.find(params[:id])
     authorize @user
-
     if user_params[:new_hashtags]
       usertags = user_params[:new_hashtags].split(/\s*[,;]\s*|\s{1,}/x)
       usertags.each do |rawtag|
         tag = rawtag.to_s.downcase.gsub(/#/, '')
         if !Hashtag.exists?(tag: tag)
-          @user.hashtags.create(tag: tag)
+          @ht = @user.hashtags.create(tag: tag)
+          if !@ht.valid?
+            flash[:danger] = "Hashtag too long or not valid ..."
+            redirect_to :back
+            return
+          end
         else
           if !@user.hashtags.find_by(tag: tag).nil?
             @user.hashtags << Hashtag.find_by(tag: tag)

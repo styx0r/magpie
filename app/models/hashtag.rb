@@ -4,7 +4,7 @@ class Hashtag < ActiveRecord::Base
   has_many :microposts, through: :taggings
   has_many :users, through: :taggings
   has_many :taggings
-  validates :tag, presence: true, :format => { with: /\A(?=.*[a-z\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df])[a-z\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df\d]+\Z/i }, length: { maximum: 50}
+  validates :tag, presence: true, :format => { with: /\A(?=.*[a-z\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df])[a-z\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df\d]+\Z/i }, length: { maximum: 35}
   #validates :tag, presence: true, :format => { with: /\A(?=.*[a-z])[a-z\d]+\Z/i }, length: { maximum: 50}
   validate :tag_not_reserved_keyword
   before_save :downcase_tag

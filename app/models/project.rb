@@ -5,6 +5,7 @@ class Project < ActiveRecord::Base
   has_many :jobs, dependent: :destroy
   belongs_to :model
   attr_accessor :usertags
+  validates :name, presence: true, length: { maximum: 30 }
   accepts_nested_attributes_for :jobs, :allow_destroy => true
 
 
