@@ -94,7 +94,7 @@ class ModelsController < ApplicationController
         if model_params[:source].tempfile.nil?
           return false
         else
-          if !@model.is_zip? model_params[:source].tempfile.file
+          if !@model.is_zip? model_params[:source].tempfile.path
             flash[:danger] = "Invalid file type. Please upload a zip with your model."
             redirect_to :back
           else
