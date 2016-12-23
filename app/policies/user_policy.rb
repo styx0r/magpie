@@ -25,15 +25,15 @@ class UserPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.admin? || (user.guest? && user == record) || user.right.user_delete?
+    !user.nil? && (user.admin? || (user.guest? && user == record) || user.right.user_delete?)
   end
 
   def edit?
-    user == record
+    !user.nil? && user == record
   end
 
   def update?
-    user == record
+    !user.nil? && user == record
   end
 
   def followers?

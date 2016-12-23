@@ -5,7 +5,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user == record.user
+    !user.nil? && user == record.user
   end
 
   def new?
@@ -33,15 +33,15 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def toggle_public?
-    !user.guest && user == record.user
+    !user.nil? && !user.guest && user == record.user
   end
 
   def delete_marked_jobs?
-    user == record.user
+    !user.nil? && user == record.user
   end
 
   def owner?
-    user == record.user
+    !user.nil? && user == record.user
   end
 
   def job_create_toggle_public?

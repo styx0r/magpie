@@ -5,7 +5,7 @@ class MicropostPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.microposts.include? record
+    !user.nil? && user.microposts.include? record
   end
 
   class Scope < Scope

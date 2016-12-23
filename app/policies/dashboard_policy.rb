@@ -1,7 +1,7 @@
 class DashboardPolicy < ApplicationPolicy
 
   def index?
-    user.nil?
+    !user.nil?
   end
 
   def micropost_feed?

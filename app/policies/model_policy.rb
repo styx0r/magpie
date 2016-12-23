@@ -9,19 +9,19 @@ class ModelPolicy < ApplicationPolicy
   end
 
   def reupload?
-    record.user == user || user.admin?
+    !user.nil? && (record.user == user || user.admin?)
   end
 
   def update?
-    record.user == user || user.admin?
+    !user.nil? && (record.user == user || user.admin?)
   end
 
   def edit?
-    record.user == user || user.admin?
+    !user.nil? && (record.user == user || user.admin?)
   end
 
   def destroy?
-    record.user == user || user.admin? || user.right.model_delete
+    !user.nil? && (record.user == user || user.admin? || user.right.model_delete)
   end
 
   def download?
