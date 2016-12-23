@@ -29,19 +29,19 @@ class JobPolicy < ApplicationPolicy
   end
 
   def highlight?
-    !user.nil? && user == record.user
+    !user.nil? && (user == record.user)
   end
 
   def destroy?
-    !user.nil? && user == record.user
+    !user.nil? && (user == record.user)
   end
 
   def owner?
-    !user.nil? && user == record.user
+    !user.nil? && (user == record.user)
   end
 
   def show?
-    !user.nil? && user == record.user
+    !user.nil? && (user == record.user)
   end
 
   def edit?

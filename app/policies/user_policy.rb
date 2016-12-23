@@ -5,19 +5,19 @@ class UserPolicy < ApplicationPolicy
   end
 
   def hashtag_add?
-    !user.nil? && user == record
+    !user.nil? && (user == record)
   end
 
   def toggle_admin?
-    (!user.nil? && user.admin?) && user != record
+    !user.nil? && (user.admin? && user != record)
   end
 
   def toggle_right?
-    (!user.nil? && user.admin?) && user != record
+    !user.nil? && (user.admin? && user != record)
   end
 
   def hashtag_delete?
-    !user.nil? && user == record
+    !user.nil? && (user == record)
   end
 
   def autocomplete?
@@ -29,11 +29,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def edit?
-    !user.nil? && user == record
+    !user.nil? && (user == record)
   end
 
   def update?
-    !user.nil? && user == record
+    !user.nil? && (user == record)
   end
 
   def followers?

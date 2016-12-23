@@ -1,7 +1,7 @@
 class RelationshipPolicy < ApplicationPolicy
 
   def create?
-    !user.nil? && user != record
+    !user.nil? && (user != record)
   end
 
   def destroy?
