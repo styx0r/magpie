@@ -66,4 +66,10 @@ module JobsHelper
     supported_types.any? { |mime| mt.include?(mime) }
   end
 
+  def is_xml(f)
+    supported_types = ['application/xml', 'text/xml']
+    mt = filetype(f)
+    supported_types.any? { |mime| mt.include?(mime) }
+  end
+
 end

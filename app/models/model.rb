@@ -2,6 +2,7 @@ class Model < ActiveRecord::Base
   belongs_to :user
   has_many :taggings
   has_many :hashtags, -> { distinct }, through: :taggings
+  has_many :projects, dependent: :destroy
   mount_uploader :source, ModelUploader
   attr_accessor :tmp_path, :tag, :usertags
   validates :name, presence: true, length: { maximum: 100 }
@@ -19,20 +20,22 @@ class Model < ActiveRecord::Base
     if self.source.file.nil?
       return false
     else
-      return self.is_zip? self.source.file.file
+      return (self.is_zip? self.source.file.file) || (self.is_xml? self.source.file.file)
     end
   end
 
-  def is_zip? sourcefile
-    magic = FileMagic.new
-    fmo = magic.file(sourcefile)
-    return fmo.start_with? "Zip"
-    #zip = Zip::File.open(sourcefile)
-    #true
-    #rescue Zip::Error
-    #   false
-    #ensure
-    #  zip.close if zip
+  def is_zip? f
+    fm = FileMagic.new(FileMagic::MAGIC_MIME)
+    mt = fm.file(f)
+    supported_types = ['application/zip']
+    return supported_types.any? { |mime| mt.include?(mime) }
+  end
+
+  def is_xml? f
+    fm = FileMagic.new(FileMagic::MAGIC_MIME)
+    mt = fm.file(f)
+    supported_types = ['application/xml', 'text/xml']
+    return supported_types.any? { |mime| mt.include?(mime) }
   end
 
   def initializer
@@ -44,7 +47,33 @@ class Model < ActiveRecord::Base
     self.tmp_path = Dir.mktmpdir
     p "Temporary folder for unzipping at #{self.tmp_path}"
     system("cd #{self.path}; git init --bare; cd #{self.tmp_path}; git clone #{self.path} #{self.tmp_path}")
-    self.unzip_source(self.source.file.file, self.tmp_path)
+    if self.is_xml? self.source.file.file
+      self.unzip_source("#{Rails.application.config.root}/test/zip/sbmlShell.zip", self.tmp_path)
+      system("cp #{Rails.application.config.root}/test/seedextra/createSBMLConfig.py #{self.tmp_path}")
+      system("cp #{self.source.file.file} #{self.tmp_path}/sbml.xml")
+
+      # work arround due to docker bug
+      FileUtils.mkdir_p(self.path+"/create")
+      system("cp #{self.tmp_path}/* #{self.path}/create")
+
+      container = Docker::Container.create('Image' => 'magpie:default',
+                                           'Tty' => true,
+                                           'Binds' => ["#{self.path}/create:/root/job:rw"])
+      container.start()
+
+      # 7200 corresponds to the maximum computation time per job
+      # 2097152 defines the maximum virtual memory, which can be used by one particular process (2048MB)
+      c_out = container.exec(["/bin/bash", "-c", "cd /root/job; python createSBMLConfig.py sbml.xml"],
+                             wait: Rails.application.config.docker_timeout)
+
+      container.stop
+      container.remove
+      system("cp #{self.path}/create/*.config #{self.tmp_path}")
+      system("rm -fR #{self.path}/create")
+      system("cd #{self.tmp_path}; rm createSBMLConfig.py")
+    elsif
+      self.unzip_source(self.source.file.file, self.tmp_path)
+    end
     system("cd #{self.tmp_path}; git add -A; git commit -m 'Initial commit for model #{self.name}'; git tag -a initial -m 'Initial version'; git push origin master --tags;")
 
     self.mainscript = Hash[self.current_revision.strip, get_main_script]

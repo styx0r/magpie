@@ -37,8 +37,8 @@ class ModelUploader < CarrierWave::Uploader::Base
   # end
 
   # Add a white list of extensions which are allowed to be uploaded.
-  def extension_white_list
-    %w(zip)
+  def extension_whitelist
+    %w(xml zip)
   end
 
   # Override the filename of the uploaded files:
