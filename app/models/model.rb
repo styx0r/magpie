@@ -14,6 +14,8 @@ class Model < ActiveRecord::Base
   end
 
   def passed_checks?
+    # TODO: much more checks, most importatnly: check whether zip is empty,
+    # check whether bash script exists.
     if self.source.file.nil?
       return false
     else

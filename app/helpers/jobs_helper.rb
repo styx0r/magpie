@@ -25,9 +25,9 @@ module JobsHelper
     mime_type = fm.file(f)
     puts "MIMETYPE::::" + mime_type
     if mime_type.start_with? "inode/x-empty"
-      filetype = 'empty'
+      return 'empty'
     else
-      filetype = MIME::Types[mime_type][0].extensions[0]
+      return mime_type
     end
   end
 
@@ -49,17 +49,21 @@ module JobsHelper
   end
 
   def is_text_file(f)
-    supported_types = ['txt']
-    supported_types.include? filetype(f)
+    supported_types = ['text/plain']
+    mt = filetype(f)
+    supported_types.any? { |mime| mt.include?(mime) }
   end
 
   def is_image(f)
-    supported_types = ['gif', 'png', 'jpeg']
-    supported_types.include? filetype(f)
+    supported_types = ['image/gif', 'image/png', 'image/jpeg']
+    mt = filetype(f)
+    supported_types.any? { |mime| mt.include?(mime) }
   end
 
   def is_pdf(f)
-    filetype(f) == 'pdf'
+    supported_types = ['application/pdf']
+    mt = filetype(f)
+    supported_types.any? { |mime| mt.include?(mime) }
   end
 
 end
