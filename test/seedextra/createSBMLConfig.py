@@ -26,24 +26,44 @@ reactions = model.reactions
 if len(parameters) != 0:
     f = open("parameter.config", "w")
     for e in parameters:
-        f.write(e.id + " double " + str(e.value) + "\n")
+        f.write(e.getId() + " double " + str(e.getValue()) + "\n")
     f.close()
 
 # write out compartment configuration into compartment.config
 if len(compartments) != 0:
     f = open("compartment.config", "w")
     for e in compartments:
-        f.write("# " + e.name + "\n")
-        f.write(e.id + "_spatial_dimensions" + " double " + str(e.spatial_dimensions) + "\n")
-        f.write(e.id + "_size" + " double " + str(e.size) + "\n")
+        f.write("# " + e.getName() + "\n")
+        f.write(e.getId() + "_spatial_dimensions" + " double " + str(e.getSpatialDimensions()) + "\n")
+        f.write(e.getId() + "_size" + " double " + str(e.getSize()) + "\n")
     f.close()
 
 # write out species configuration into species.config
+# check for default: initial_amount vs. initial_concentration (in case both is 0)
+species_initial_amount = 0
+species_initial_concentration = 0
+if len(species) != 0:
+    for e in species:
+        if e.getInitialAmount() > 0:
+            species_initial_amount += 1
+        if e.getInitialConcentration() > 0:
+            species_initial_concentration += 1
 if len(species) != 0:
     f = open("species.config", "w")
     for e in species:
-        f.write("# " + e.name + "\n")
-        f.write(e.id + " double " + str(e.initial_amount) + "\n")
+        if e.getInitialAmount() > 0:
+            f.write("# " + e.getName() + "\n")
+            f.write(e.id + "_initial_amount double " + str(e.getInitialAmount()) + "\n")
+        elif e.getInitialConcentration() > 0:
+            f.write("# " + e.getName() + "\n")
+            f.write(e.id + "_initial_concentration double " + str(e.getInitialConcentration()) + "\n")
+        else:
+            if species_initial_amount > species_initial_concentration:
+                f.write("# " + e.getName() + "\n")
+                f.write(e.id + "_initial_amount double 0\n")
+            else:
+                f.write("# " + e.getName() + "\n")
+                f.write(e.id + "_initial_concentration double 0\n")
     f.close()
 
 f = open("solver.config", "w")
