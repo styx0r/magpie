@@ -73,5 +73,7 @@ Rails.application.configure do
                              'Cell Modelling', 'Chemistry', 'Mathematics', 'Phylogeny', 'Genetics', 'Systems Biology',
                              'Text Mining', 'Data Mining', 'Uncategorized', 'Showcase']
 
+  config.welcome_sentences = ['A new home for your models.', '... and your model goes viral.', 'All your model are belong to us.']
+
   config.worker_number = 4
 end

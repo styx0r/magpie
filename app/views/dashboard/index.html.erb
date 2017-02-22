@@ -3,20 +3,21 @@
   <div class="row">
       <% if logged_in? %>
       <div class="col-md-8 dash-center">
+      <div class="col-md-3">
+        <%= image_tag("magpie_logo.svg", alt: "Magpie", :height => 150, :class => "logodash") %>
+      </div>
       <% else %>
-      <div class="col-md-7 dash-center">
+      <div class="col-md-6">
       <% end %>
-        <div class="col-md-3">
-          <%= image_tag("magpie_logo.svg", alt: "Magpie", :height => 150, :class => "logodash") %>
-        </div>
-        <h1>Welcome</h1>
         <% if !logged_in? %>
-          <h2>to MAGPIE.</h2>
+          <h1>MAGPIE</h1>
+          <h2><%= Rails.application.config.welcome_sentences.sample %></h2>
           <div class="row">
             <%= link_to "Try it out", users_path, method: :post, class: "btn btn-lg btn-info" %>
             <%= link_to "Register | Login", login_path, class: "btn btn-lg btn-primary" %>
           </div>
         <% else %>
+          <h1>Welcome</h1>
           <h2>to your personal dashboard.</h2>
           <div class = "row">
             <%= link_to 'Start with a new project', new_user_project_path(current_user), :class => "btn btn-primary" %>
@@ -24,6 +25,12 @@
           </div>
         <% end %>
       </div>
+      <% if !logged_in? %>
+      <div class = "col-md-6">
+        <h2>Very meaningful phrase for what magpie is for.</h2>
+        <%= image_tag("introAbstract.png", alt: "overview", :height => 200, :class => "infig") %>
+      </div>
+      <% end %>
     </div>
 </div>
 <% if logged_in? %>
@@ -47,4 +54,32 @@
       </div>
     </div>
   </div>
+<% end %>
+<% if !logged_in? %>
+    <div class="institutesSelection">
+      <h3> Stupid Information </h>
+      <h2>A selection of institutes using Magpie or some other stupid information here.</h>
+    </div>
+    <div class="well col-md-12 plbot">
+      <div class="col-md-3">
+        <h4>Simplicity</h>
+        <h5>Some information which is very important simply here.</h>
+        <%= image_tag("introAbstract.png", alt: "overview", :height => 100) %>
+      </div>
+      <div class="col-md-3">
+        <h4>Flexibility</h>
+        <h5>Some information which is very important simply here.</h>
+        <%= image_tag("introAbstract.png", alt: "overview", :height => 100) %>
+      </div>
+      <div class="col-md-3">
+        <h4>Connectivity</h>
+        <h5>Some information which is very important simply here.</h>
+        <%= image_tag("introAbstract.png", alt: "overview", :height => 100) %>
+      </div>
+      <div class="col-md-3">
+        <h4>Reproducibility</h>
+        <h5>Some information which is very important simply here.</h>
+        <%= image_tag("introAbstract.png", alt: "overview", :height => 100) %>
+      </div>
+    </div>
 <% end %>

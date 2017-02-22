@@ -1,0 +1,18 @@
+.infig {
+  position: relative;
+  z-index: 0;
+  top: -20px;
+  border-radius: 45px;
+}
+
+.institutesSelection {
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.plbot {
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  margin-bottom: 30px;
+}
