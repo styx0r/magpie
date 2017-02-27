@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   around_filter :catch_not_found
+  before_filter :get_micropost_content
   include SessionsHelper
 
   include Pundit
@@ -12,6 +13,13 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   #rescue_from ActionController::RoutingError, with: :routing_error
+
+  def get_micropost_content
+    if logged_in?
+      @micropost = current_user.microposts.build
+      @feed_items = current_user.feed.paginate(page: params[:page], per_page: 10)
+    end
+  end
 
   def strict_transport_security
     if request.ssl?

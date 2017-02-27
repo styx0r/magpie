@@ -2,11 +2,16 @@
   <div class="container">
     <nav>
       <ul class="nav navbar-nav navbar-left">
-        <li><%= link_to "magpie", root_path, id: "logo" %></li>
+        <% if logged_in? %>
+          <li><p class="text-info vertical-center"> Logged in as <%= current_user.name %></p></li>
+        <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
           <li><%= link_to "#", hashtags_path %></li>
+        <% end %>
+        <% if logged_in? %>
+          <li id = "sideBarComOpen"><%= link_to image_tag("letter_closed.png", border: 0, height: 20) %></li>
         <% end %>
         <li><%= link_to "Home", root_path %></li>
         <% if logged_in? %>
@@ -49,12 +54,11 @@
           <li><%= link_to "Log in", login_path %></li>
         <% end %>
         <% if logged_in? %>
-        <% if current_user.guest? %>
-        <li><%= link_to "Delete Session Data", current_user, method: :delete %></li>
-        <% else %>
-        <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
-        <% end %>
-          <li class="navbar-text"><p class="text-info"> Logged in as <%= current_user.name %></p></li>
+          <% if current_user.guest? %>
+          <li><%= link_to "Delete Session Data", current_user, method: :delete %></li>
+          <% else %>
+          <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
+          <% end %>
         <% end %>
       </ul>
     </nav>

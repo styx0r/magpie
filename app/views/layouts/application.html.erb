@@ -14,5 +14,38 @@
     <%#= debug(params) if Rails.env.development? %>
   </div>
 
+  <!-- Definition of sidenavigation yielding the communication functoinality
+  -->
+  <% if logged_in? %>
+  <div id="mySidenav" class="sidenav">
+    <!--
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>-->
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <div class = "row">
+        <aside class = "col-md-4">
+          <section class = "user_info">
+            <%= render 'shared/user_info' %>
+          </section>
+          <section class="stats">
+            <%= render 'shared/stats' %>
+          </section>
+          <section class = "micropost_form">
+            <%= render 'shared/micropost_form' %>
+          </section>
+        </aside>
+        <div class = "col-md-8">
+          <h3>Micropost Feeds</h3>
+          <%-# empty div filled up with ajax's defined in micropost_feed_sync.coffee -%>
+          <div id="micropost_feed_sync">
+            <%= render :layout => false, file: 'shared/_feed' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
 </body>
 </html>
