@@ -8,16 +8,8 @@
 </head>
 <body>
   <%= render 'layouts/header'%>
-  <div class="container">
-    <%= yield %>
-    <%= render 'layouts/footer'%>
-    <%#= debug(params) if Rails.env.development? %>
-  </div>
-
-  <!-- Definition of sidenavigation yielding the communication functoinality
-  -->
   <% if logged_in? %>
-  <div id="mySidenav" class="sidenav">
+  <div id="micropostBarID" class="micropostBarC">
     <!--
     <a href="#">About</a>
     <a href="#">Services</a>
@@ -44,8 +36,18 @@
           </div>
         </div>
       </div>
+    </div>
     <% end %>
+  <div class="container">
+    <div id = "main">
+      <%= yield %>
+    </div>
+    <%= render 'layouts/footer'%>
+    <%#= debug(params) if Rails.env.development? %>
   </div>
+
+  <!-- Definition of sidenavigation yielding the communication functoinality
+  -->
 
 </body>
 </html>
