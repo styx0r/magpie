@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
     # Only index projects of the current user
     @projects = current_user.projects
     @public_projects = policy_scope(Project)
+    @help_context = "Projects"
   end
 
   # GET /projects/1

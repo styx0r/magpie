@@ -61,9 +61,11 @@
           <% end %>
         <% end %>
         <%
-          actual_url = request.original_url
+          if !defined? @help_context
+            @help_context = ""
+          end
         %>
-        <li id = "help"><%= link_to image_tag("help.png", border: 0, height: 20), help_path+"?test="+actual_url, target: :_blank %></li>
+        <li id = "help"><%= link_to image_tag("help.png", border: 0, height: 20), help_path+"?section="+@help_context, target: :_blank %></li>
       </ul>
     </nav>
   </div>

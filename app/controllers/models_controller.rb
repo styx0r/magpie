@@ -7,6 +7,7 @@ class ModelsController < ApplicationController
   def index
     authorize Model
     @models = policy_scope(Model)
+    @help_context = "Models#model_browse"
   end
 
   # GET /models/1
@@ -19,12 +20,14 @@ class ModelsController < ApplicationController
   def new
     authorize Model
     @model = Model.new
+    @help_context = "Models#model_upload"
   end
 
   # GET /models/1/edit
   def edit
     @model = Model.find(params[:id])
     authorize @model
+    @help_context = "Models#model_edit"
   end
 
   def register_model
@@ -89,6 +92,7 @@ class ModelsController < ApplicationController
   # PATCH/PUT /models/1.json
   def update
     authorize @model
+    @help_context = "Models#model_update"
     #respond_to do |format|
       if model_params.key?(:source) # In case of reupload
         if model_params[:source].tempfile.nil?
