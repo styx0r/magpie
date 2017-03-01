@@ -60,6 +60,10 @@
           <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
           <% end %>
         <% end %>
+        <%
+          actual_url = request.original_url
+        %>
+        <li id = "help"><%= link_to image_tag("help.png", border: 0, height: 20), help_path+"?test="+actual_url, target: :_blank %></li>
       </ul>
     </nav>
   </div>
