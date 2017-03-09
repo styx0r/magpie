@@ -1,5 +1,5 @@
 <%= provide(:title, "Home")%>
-<div class="center jumbotron">
+<div class="center jumbotron <%= 'jumbotrondash' if !logged_in?%>";>
   <div class="row">
       <% if logged_in? %>
       <div class="col-md-8 dash-center">
@@ -25,12 +25,7 @@
           </div>
         <% end %>
       </div>
-      <% if !logged_in? %>
-      <div class = "col-md-6">
-        <h2>Very meaningful phrase for what magpie is for.</h2>
-        <%= image_tag("introAbstract.png", alt: "overview", :height => 200, :class => "infig") %>
       </div>
-      <% end %>
     </div>
 </div>
 <% if logged_in? %>

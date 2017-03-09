@@ -14,3 +14,11 @@
  *= require_self
  *= require chosen
  */
+
+ .jumbotrondash{
+   background-image:url('dashboard_computernerd.jpg') ;
+     background-position: right;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-color: GhostWhite;
+ }
