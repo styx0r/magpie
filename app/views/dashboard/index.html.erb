@@ -10,8 +10,8 @@
       <div class="col-md-6">
       <% end %>
         <% if !logged_in? %>
-          <h1>MAGPIE</h1>
-          <h2><%= Rails.application.config.welcome_sentences.sample %></h2>
+          <%= image_tag("logofront.svg", alt: "Magpie", :height => 100) %>
+          <h2>   <%= Rails.application.config.welcome_sentences.sample %></h2>
           <div class="row">
             <%= link_to "Try it out", users_path, method: :post, class: "btn btn-lg btn-info" %>
             <%= link_to "Register | Login", login_path, class: "btn btn-lg btn-primary" %>
@@ -33,30 +33,29 @@
 <% end %>
 <% if !logged_in? %>
     <div class="institutesSelection">
-      <h3> Stupid Information </h>
-      <h2>A selection of institutes using Magpie or some other stupid information here.</h>
+      <h3>With MAGPIE, you can execute biological models in the cloud. </h>
     </div>
     <div class="row">
-      <div class="well col-md-12 plbot">
+      <div class="col-md-12 plbot features">
         <div class="col-md-3">
           <h4>Simplicity</h>
-          <h5>Some information which is very important simply here.</h>
+          <h5>Models, computation, and results in one place.</h><br>
           <%= image_tag("simplicity.png", alt: "overview", :height => 100, :class => "figfeatures") %>
         </div>
         <div class="col-md-3">
           <h4>Flexibility</h>
-          <h5>Some information which is very important simply here.</h>
-          <%= image_tag("simplicity.png", alt: "overview", :height => 100, :class => "figfeatures") %>
+          <h5>Take all your existing models to the cloud.</h><br>
+          <%= image_tag("flexibility.png", alt: "overview", :height => 100, :class => "figfeatures") %>
         </div>
         <div class="col-md-3">
           <h4>Connectivity</h>
-          <h5>Some information which is very important simply here.</h>
-          <%= image_tag("simplicity.png", alt: "overview", :height => 100, :class => "figfeatures") %>
+          <h5>Share models and results with other researchers.</h><br>
+          <%= image_tag("connectivity.png", alt: "overview", :height => 100, :class => "figfeatures") %>
         </div>
         <div class="col-md-3">
           <h4>Reproducibility</h>
-          <h5>Some information which is very important simply here.</h>
-          <%= image_tag("simplicity.png", alt: "overview", :height => 100, :class => "figfeatures") %>
+          <h5>Automatic versioning in the background.</h><br>
+          <%= image_tag("reproducibility.png", alt: "overview", :height => 100, :class => "figfeatures") %>
         </div>
       </div>
     </div>
