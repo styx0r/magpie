@@ -65,7 +65,9 @@
             @help_context = ""
           end
         %>
-        <li id = "help"><%= link_to image_tag("help.png", border: 0, height: 20), help_path+"?section="+@help_context, target: :_blank %></li>
+        <% if logged_in? %>
+          <li id = "help"><%= link_to image_tag("help.png", border: 0, height: 20), help_path+"?section="+@help_context, target: :_blank %></li>
+        <% end %>
       </ul>
     </nav>
   </div>
