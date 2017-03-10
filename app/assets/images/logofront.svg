@@ -10,9 +10,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="247.59825mm"
-   height="94.430405mm"
-   viewBox="0 0 877.31664 334.59592"
+   width="279.70432mm"
+   height="100.44203mm"
+   viewBox="0 0 991.07831 355.89699"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -43,20 +43,21 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="299.3529"
-     inkscape:cy="333.03536"
+     inkscape:cx="309.98279"
+     inkscape:cy="343.70651"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1301"
-     inkscape:window-height="744"
-     inkscape:window-x="65"
-     inkscape:window-y="24"
+     inkscape:window-width="1920"
+     inkscape:window-height="1020"
+     inkscape:window-x="1050"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0" />
+     fit-margin-top="3"
+     fit-margin-left="3"
+     fit-margin-right="3"
+     fit-margin-bottom="3"
+     borderlayer="true" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -73,7 +74,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(350.06718,-530.80166)">
+     transform="translate(360.69708,-520.17174)">
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -85,7 +86,7 @@
          id="tspan4138"
          x="-37.714279"
          y="863.05756"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:180px;font-family:Rambla;-inkscape-font-specification:Rambla;fill:#000000;fill-opacity:1">MAGPIE</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:158.75001526px;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';fill:#000000;fill-opacity:1">MAGPIE</tspan></text>
     <g
        style="clip-rule:evenodd;fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.41420996"
        id="g4283"
