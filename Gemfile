@@ -106,3 +106,4 @@ gem 'pundit'
 #nicer choose buttons
 gem 'chosen-rails'
 
+gem 'font-awesome-rails'

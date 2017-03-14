@@ -20,3 +20,8 @@
 //= require chosen-jquery
 //= require chosen-jquery
 //= require scaffold
+if (!Array.prototype.last){
+    Array.prototype.last = function(){
+        return this[this.length - 1];
+    };
+};
