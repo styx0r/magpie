@@ -22,6 +22,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
+    skip_authorization
   end
 
   def update
