@@ -1,0 +1,19 @@
+Package: magpie
+Type: Package
+Title: MAGPIE: an API to the Web Server based modelling environment.
+Version: 0.1.0
+Author: Christoph Baldow
+Maintainer: Christoph Baldow <christoph.baldow@gmail.com>
+Description: This package is an R api for magpie.
+    Magpie is a ruby on rails based web server environment for running and sharing
+    biological/medical models online.
+License: ???
+Encoding: UTF-8
+LazyData: true
+Imports:
+    dplyr,
+    rvest,
+    stringr,
+    xml2,
+    RCurl
+RoxygenNote: 6.0.1
