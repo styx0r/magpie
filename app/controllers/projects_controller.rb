@@ -204,7 +204,7 @@ class ProjectsController < ApplicationController
 
     def is_project_owner
       @project = Project.find(params[:id])
-      redirect_to :back if @project.user != current_user
+      redirect_back(fallback_location: projects_url) if @project.user != current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

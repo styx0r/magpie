@@ -28,7 +28,9 @@ class SessionsController < ApplicationController
   def destroy
     skip_authorization
     log_out if logged_in?
-    redirect_to root_url
+    if(params[:redirect] != "false")
+      redirect_to root_url
+    end
   end
 
 end

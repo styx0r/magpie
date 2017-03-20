@@ -2,10 +2,10 @@
 #'
 #' @return the actual configured url, used for all magpie api operations
 #' @export
-getURL <- function(){
-  if(exists("magpie_url", envir = .GlobalEnv, inherits = F))
-    return(magpie_url)
-  return(magpie::url)
+get_url <- function(){
+  if(exists("magpie_url", envir = .magpie_data, inherits = F))
+    return(.magpie_data$magpie_url)
+  return(magpie:::url)
 }
 
 #' Sets the url used for all magpie api operations
@@ -18,7 +18,7 @@ getURL <- function(){
 #'
 #' @return the actual configured url, used for all magpie api operations; can differ if protocoll is missing.
 #' @export
-setURL <- function(url = "https://magpie.imb.medizin.tu-dresden.de"){
+set_url <- function(url = "https://magpie.imb.medizin.tu-dresden.de"){
   require("dplyr")
 
   if(!(unlist(strsplit(url, ":"))[1] %in% c("http", "https"))){
@@ -29,15 +29,18 @@ setURL <- function(url = "https://magpie.imb.medizin.tu-dresden.de"){
   if(!RCurl::url.exists(url))
     stop("No server is reachable within this url!")
 
-  if(exists("magpie_url", envir = .GlobalEnv, inherits = F))
-    unlockBinding("magpie_url", .GlobalEnv)
-  assign("magpie_url", url, .GlobalEnv)
-  lockBinding("magpie_url", .GlobalEnv)
+  old <- ""
+  if(exists("magpie_url", envir = .magpie_data, inherits = F)){
+    unlockBinding("magpie_url", .magpie_data)
+    old <- .magpie_data$magpie_url
+  }
+  assign("magpie_url", url, .magpie_data)
+  lockBinding("magpie_url", .magpie_data)
 
-  return(url)
+  return(old)
 }
 
-#' Deletes the manually curated url in .GlobalEnv
+#' Deletes the manually curated url in .magpie_data
 #'
 #' When calling this function, the preconfigured server address to the demo server
 #' at https://magpie.imb.medizin.tu-dresden.de is used.
@@ -45,10 +48,10 @@ setURL <- function(url = "https://magpie.imb.medizin.tu-dresden.de"){
 #'
 #' @return the actual configured url, used for all magpie api operations.
 #' @export
-resetURL <- function(){
-  if(!exists("magpie_url", envir = .GlobalEnv, inherits = F))
-    stop("No user defined url present in .GlobalEnv!")
-  unlockBinding("magpie_url", .GlobalEnv)
-  rm("magpie_url", envir = .GlobalEnv, inherits = F)
-  return(magpie::url)
+reset_url <- function(){
+  if(!exists("magpie_url", envir = .magpie_data, inherits = F))
+    stop("No user defined url present in .magpie_data!")
+  unlockBinding("magpie_url", .magpie_data)
+  rm("magpie_url", envir = .magpie_data, inherits = F)
+  return(magpie:::url)
 }

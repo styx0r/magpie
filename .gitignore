@@ -28,3 +28,4 @@ user/*
 # Ignore the redis dump file
 dump.rdb
 
+.Rproj.user
