@@ -29,11 +29,10 @@ set_url <- function(url = "https://magpie.imb.medizin.tu-dresden.de"){
   if(!RCurl::url.exists(url))
     stop("No server is reachable within this url!")
 
-  old <- ""
-  if(exists("magpie_url", envir = .magpie_data, inherits = F)){
+  old <- magpie:::get_url()
+  if(exists("magpie_url", envir = .magpie_data, inherits = F))
     unlockBinding("magpie_url", .magpie_data)
-    old <- .magpie_data$magpie_url
-  }
+
   assign("magpie_url", url, .magpie_data)
   lockBinding("magpie_url", .magpie_data)
 

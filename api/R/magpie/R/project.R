@@ -4,23 +4,23 @@
 #' @export
 get_projects <- function(){
 
-  stopifnot(logged_in())
+  stopifnot(magpie::logged_in())
 
-  webpage <- read_html(getURL(paste(get_url(), "projects", sep = "/"), curl = .magpie_data$magpie_curl))
+  webpage <- httr::content(GET(paste(magpie::get_url(), "projects", sep = "/")))
   if((grep("You have no projects yet.", as.character(webpage)) %>% length) > 0)
-    return("No projects created.")
+    return("no projects found")
 
   # heading
-  heading <- (webpage %>% html_nodes(xpath='//thead/tr/th') %>% html_text)[-1]
+  heading <- (webpage %>% rvest::html_nodes(xpath='//thead/tr/th') %>% rvest::html_text())[-1]
   out <- data.frame(matrix(nrow = 0, ncol = length(heading)+1))
   colnames(out) <- c("id", heading)
 
   row <- 1
-  for(project in (webpage %>% html_nodes(xpath = "//tbody/tr"))){
-      out[row, 1] <- gsub("/projects/", "", (((project %>% html_nodes(xpath=".//td"))[1]) %>% html_nodes(xpath=".//a"))[2] %>% html_attr("href"))
+  for(project in (webpage %>% rvest::html_nodes(xpath = "//tbody/tr"))){
+      out[row, 1] <- gsub("/projects/", "", (((project %>% rvest::html_nodes(xpath=".//td"))[1]) %>% rvest::html_nodes(xpath=".//a"))[2] %>% rvest::html_attr("href"))
       col <- 2
-      for(element in ((project %>% html_nodes(xpath=".//td"))[-1])){
-        out[row, col] <- html_text(element)
+      for(element in ((project %>% rvest::html_nodes(xpath=".//td"))[-1])){
+        out[row, col] <- rvest::html_text(element)
         col <- col + 1
       }
     row <- row + 1
@@ -28,4 +28,75 @@ get_projects <- function(){
 
   return(out)
 }
+
+#' deletes a job according to the given id
+#'
+#' @param project_id defines the project to be deleted
+#'
+#' @return if success: remaining projects, the error otherwise
+#' @export
+delete_project <- function(project_id = NA){
+
+  stopifnot(is_numeric(project_id))
+
+  projects <- magpie::get_projects()
+  if(!project_id %in% projects$id) return("project id not found")
+
+  DELETE(paste(magpie::get_url(), "/projects/", project_id, "?redirect=false", sep = ""), body = list(authenticity_token = magpie::get_auth_token(),
+                                                          rel = "nofollow"))
+
+  return(magpie::get_projects())
+
+}
+
+#' create project
+#'
+#' @param model_id defines the model to start the project with
+#' @param params defines the parameter different from the standard parameter of the first job
+#'
+#' @return id of the created project, error otherwise
+#' @export
+create_project <- function(model_id, params = list()){
+
+  webpage <- httr::content(httr::GET(paste(magpie::get_url(), "project_modelconfig?model_id=1&model_revision=HEAD", sep = "/")))
+
+  values <- webpage %>%
+    rvest::html_nodes(xpath='//input | //select') %>%
+    rvest::html_attr(name = "value")# %>%
+  ids <- webpage %>%
+    rvest::html_nodes(xpath='//input | //select') %>%
+    rvest::html_attr(name = "id")# %>%
+  names <- webpage %>%
+    rvest::html_nodes(xpath='//input | //select') %>%
+    rvest::html_attr(name = "name")# %>%
+
+  params_list <- values
+  names(params_list) <- names
+
+  form <- httr::content(httr::GET(paste(magpie::get_url(), "projects", "new", sep = "/")))
+  form <- form %>% rvest::html_nodes(xpath = "//form[@id='new_project']")
+
+  values <- form %>%
+    rvest::html_nodes(xpath='.//input | .//select') %>%
+    rvest::html_attr(name = "value")# %>%
+  ids <- form %>%
+    rvest::html_nodes(xpath='.//input | .//select') %>%
+    rvest::html_attr(name = "id")# %>%
+  names <- form %>%
+    rvest::html_nodes(xpath='.//input | .//select') %>%
+    rvest::html_attr(name = "name")# %>%
+
+  form_list <- values
+  names(form_list) <- names
+
+  form_list["project[model_id]"] <- as.character(model_id)
+  form_list["project[revision]"] <- "HEAD"
+  form_list["project[usertags]"] <- ""
+
+  form_list <- form_list[-which(names(form_list) =="project[public]")[2]]
+
+}
+
+
+
 

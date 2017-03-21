@@ -7,37 +7,20 @@
 #' @export
 login <- function(email, password){
 
-  if(exists("magpie_curl", envir = .magpie_data, inherits = F))
-    rm("magpie_curl", envir = .magpie_data, inherits = F)
-
-  if(exists("magpie_at", envir = .magpie_data, inherits = F))
-    rm("magpie_at", envir = .magpie_data, inherits = F)
-
   if(sum(c(missing(email), missing(password))) > 0)
     stop("Need to specify username and password.")
 
-  agent="R"
-
-  magpie_curl = getCurlHandle()
-  curlSetOpt(
-    cookiejar = 'cookies.txt' ,
-    useragent = agent,
-    followlocation = TRUE ,
-    autoreferer = TRUE ,
-    curl = magpie_curl
-  )
-
-  require("dplyr")
-  webpage <- read_xml(getURL(paste(get_url(), "login", sep = "/"), curl = magpie_curl))
-  values <- webpage %>%
-    html_nodes(xpath='//input') %>%
-    html_attr(name = "value")# %>%
-  ids <- webpage %>%
-    html_nodes(xpath='//input') %>%
-    html_attr(name = "id")# %>%
-  names <- webpage %>%
-    html_nodes(xpath='//input') %>%
-    html_attr(name = "name")# %>%
+  r <- httr::GET(url = "http://localhost:3000/login")
+  cr <- httr::content(r)
+  values <- cr %>%
+    rvest::html_nodes(xpath='//input') %>%
+    rvest::html_attr(name = "value")# %>%
+  ids <- cr %>%
+    rvest::html_nodes(xpath='//input') %>%
+    rvest::html_attr(name = "id")# %>%
+  names <- cr %>%
+    rvest::html_nodes(xpath='//input') %>%
+    rvest::html_attr(name = "name")# %>%
 
   login_list <- values
   names(login_list) <- names
@@ -45,13 +28,8 @@ login <- function(email, password){
   login_list["session[password]"] <- password
   login_list <- login_list[-min(which(names(login_list) == "session[remember_me]"))]
 
-  login.html = postForm(paste(get_url(), "login", sep = "/"), .params = login_list, curl = magpie_curl, style="POST")
+  r <- httr::POST(url = "http://localhost:3000/login", body = as.list(login_list))
 
-
-  assign("magpie_curl", magpie_curl, .magpie_data)
-  assign("magpie_at", login_list["authenticity_token"], .magpie_data)
-
-  # individual login
   return(magpie:::get_url())
 }
 
@@ -61,22 +39,13 @@ login <- function(email, password){
 #' @export
 logged_in <- function(){
 
-  if(!exists("magpie_curl", envir = .magpie_data, inherits = F)) return(FALSE)
-
-  r <- tryCatch(getURL(get_url(), curl = .magpie_data$magpie_curl),
-           error = function(e) {
-              print("No valid session, most likely due to timeout or restart of the R Session.")
-              return("error")
-           })
-  if(r == "error") return(FALSE)
-
-  require("dplyr")
-  webpage <- read_html(getURL(get_url(), curl = .magpie_data$magpie_curl))
+  webpage <- httr::content(GET(magpie::get_url())) %>% html_nodes(xpath = "//a")
   values <- webpage %>%
-    html_nodes(xpath='//a') %>%
-    html_attr(name = "href")
+    rvest::html_nodes(xpath='//a') %>%
+    rvest::html_attr(name = "href")
 
   return(!("/login" %in% values))
+
 }
 
 #' Check user of actual session
@@ -86,12 +55,12 @@ logged_in <- function(){
 #' @export
 logged_in_user <- function(){
 
-  stopifnot(logged_in())
+  stopifnot(magpie::logged_in())
 
-  webpage <- read_html(getURL(get_url(), curl = .magpie_data$magpie_curl))
+  webpage <- httr::content(GET(magpie::get_url()))
   name <- webpage %>%
-             html_nodes(xpath='//p') %>%
-             html_text
+             rvest::html_nodes(xpath='//p') %>%
+             rvest::html_text()
   return(gsub(" Logged in as ", "", name))
 }
 
@@ -101,11 +70,22 @@ logged_in_user <- function(){
 #' @export
 logout <- function(){
 
-  if(!logged_in()) return(FALSE)
+  if(!magpie::logged_in()) return(FALSE)
 
-  if(exists("magpie_curl", envir = .magpie_data, inherits = F))
-    rm("magpie_curl", envir = .magpie_data)
-  if(exists("magpie_at", envir = .magpie_data, inherits = F))
-    rm("magpie_at", envir = .magpie_data)
-
+  DELETE(paste(magpie::get_url(), "logout?redirect=false", sep = "/"), body = list(authenticity_token = magpie::get_auth_token(),
+                                                                    rel = "nofollow") )
+  return(TRUE)
 }
+
+#' get function for the authenticity token
+#'
+#' @return the authenticity token, if logged in, NA otherwise
+#' @export
+get_auth_token <- function(){
+
+  if(magpie::logged_in())
+    return(httr::content(GET("http://localhost:3000/")) %>% rvest::html_nodes(xpath = "//meta[@name='csrf-token']") %>% rvest::html_attr("content"))
+
+  return("Please log in first!")
+}
+

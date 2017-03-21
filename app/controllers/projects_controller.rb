@@ -183,10 +183,12 @@ class ProjectsController < ApplicationController
   def destroy
     authorize @project
     @project.destroy
-    respond_to do |format|
-      format.html { redirect_to projects_url }
-      flash['warning'] = "Project was successfully destroyed."
-      format.json { head :no_content }
+    if(params[:redirect] != "false")
+      respond_to do |format|
+        format.html { redirect_to projects_url }
+        flash['warning'] = "Project was successfully destroyed."
+        format.json { head :no_content }
+      end
     end
   end
 
