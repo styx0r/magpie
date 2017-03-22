@@ -52,13 +52,17 @@ delete_project <- function(project_id = NA){
 #' create project
 #'
 #' @param model_id defines the model to start the project with
-#' @param params defines the parameter different from the standard parameter of the first job
+#' @param params defines the parameter different from the
+#' standard parameter of the first job; it is recommended to call
+#' get_params first and then to modify the list and put here as argument.
 #'
 #' @return id of the created project, error otherwise
 #' @export
-create_project <- function(model_id, params = list()){
+create_project <- function(model_id, revision = "HEAD", params = list()){
 
-  webpage <- httr::content(httr::GET(paste(magpie::get_url(), "project_modelconfig?model_id=1&model_revision=HEAD", sep = "/")))
+  stopifnot(!missing(model_id))
+
+  webpage <- httr::content(httr::GET(paste(magpie::get_url(), "/project_modelconfig?model_id=", model_id,"&model_revision=HEAD", sep = "")))
 
   values <- webpage %>%
     rvest::html_nodes(xpath='//input | //select') %>%
@@ -72,6 +76,7 @@ create_project <- function(model_id, params = list()){
 
   params_list <- values
   names(params_list) <- names
+  #names(params_list)[!is.na(ids)] <- ids[!is.na(ids)]
 
   form <- httr::content(httr::GET(paste(magpie::get_url(), "projects", "new", sep = "/")))
   form <- form %>% rvest::html_nodes(xpath = "//form[@id='new_project']")
@@ -88,12 +93,22 @@ create_project <- function(model_id, params = list()){
 
   form_list <- values
   names(form_list) <- names
+  #names(form_list)[!is.na(ids)] <- ids[!is.na(ids)]
 
   form_list["project[model_id]"] <- as.character(model_id)
-  form_list["project[revision]"] <- "HEAD"
+  form_list <- form_list[-which(names(form_list) == "project[revision]")]
   form_list["project[usertags]"] <- ""
 
   form_list <- form_list[-which(names(form_list) =="project[public]")[2]]
+
+  submit_list <- c(form_list, params_list)
+  submit_list["config[revision]"] <- "HEAD"
+
+  submit_list["config[default.config_sleep]"] <- "60"
+
+  submit_list <- as.list(submit_list)
+
+  project_submit <- httr::POST(url = "http://localhost:3000/projects", body = submit_list)
 
 }
 

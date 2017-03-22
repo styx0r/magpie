@@ -19,5 +19,38 @@ get_models <- function(){
     i <- i + 1
   }
 
+  rownames(models) <- models$id
+
   return(models[order(models$id),])
 }
+
+#' parameter of a given model
+#'
+#' @param model_id the given model based on the id
+#' @return a list of parameter
+#' @export
+get_params <- function(model_id){
+
+  stopifnot(!missing(model_id))
+  if(!(model_id %in% magpie::get_models()$id)) return("No valid model id. Check for model ids with get_models().")
+
+  webpage <- httr::content(httr::GET(paste(magpie::get_url(), "/project_modelconfig?model_id=", model_id,"&model_revision=HEAD", sep = "")))
+  if(is.null(webpage)) return("Model has no input parameter.")
+
+  values <- webpage %>%
+    rvest::html_nodes(xpath='//input | //select') %>%
+    rvest::html_attr(name = "value")# %>%
+  ids <- webpage %>%
+    rvest::html_nodes(xpath='//input | //select') %>%
+    rvest::html_attr(name = "id")# %>%
+  names <- webpage %>%
+    rvest::html_nodes(xpath='//input | //select') %>%
+    rvest::html_attr(name = "name")# %>%
+
+  params_list <- values
+  names(params_list) <- names
+
+  return(as.list(params_list))
+}
+
+
