@@ -103,7 +103,7 @@ create_project <- function(model_id, revision = "HEAD", params = list()){
 
   submit_list <- as.list(submit_list)
 
-  project_submit <- httr::POST(url = "http://localhost:3000/projects", body = submit_list)
+  project_submit <- httr::POST(url = paste(magpie::get_url(), "/projects", sep = ""), body = submit_list)
 
   return(magpie::get_projects())
 }

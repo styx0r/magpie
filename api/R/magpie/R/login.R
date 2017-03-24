@@ -10,7 +10,7 @@ login <- function(email, password){
   if(sum(c(missing(email), missing(password))) > 0)
     stop("Need to specify username and password.")
 
-  r <- httr::GET(url = "http://localhost:3000/login")
+  r <- httr::GET(url = paste(magpie::get_url(), "/login", sep = ""))
   cr <- httr::content(r)
   values <- cr %>%
     rvest::html_nodes(xpath='//input') %>%
@@ -28,7 +28,7 @@ login <- function(email, password){
   login_list["session[password]"] <- password
   login_list <- login_list[-min(which(names(login_list) == "session[remember_me]"))]
 
-  r <- httr::POST(url = "http://localhost:3000/login", body = as.list(login_list))
+  r <- httr::POST(url = paste(magpie::get_url(), "/login", sep = ""), body = as.list(login_list))
 
   return(magpie:::get_url())
 }
@@ -84,7 +84,7 @@ logout <- function(){
 get_auth_token <- function(){
 
   if(magpie::logged_in())
-    return(httr::content(GET("http://localhost:3000/")) %>% rvest::html_nodes(xpath = "//meta[@name='csrf-token']") %>% rvest::html_attr("content"))
+    return(httr::content(GET(magpie::get_url())) %>% rvest::html_nodes(xpath = "//meta[@name='csrf-token']") %>% rvest::html_attr("content"))
 
   return("Please log in first!")
 }
