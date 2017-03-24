@@ -15,12 +15,14 @@ get_projects <- function(){
   out <- data.frame(matrix(nrow = 0, ncol = length(heading)+1))
   colnames(out) <- c("id", heading)
 
+  model_ids <- c()
   row <- 1
   for(project in (webpage %>% rvest::html_nodes(xpath = "//tbody/tr"))){
       out[row, 1] <- gsub("/projects/", "", (((project %>% rvest::html_nodes(xpath=".//td"))[1]) %>% rvest::html_nodes(xpath=".//a"))[2] %>% rvest::html_attr("href"))
       col <- 2
       for(element in ((project %>% rvest::html_nodes(xpath=".//td"))[-1])){
         out[row, col] <- rvest::html_text(element)
+        if(colnames(out)[col] == "Model") model_ids <- c(model_ids, as.numeric(tail(unlist(strsplit(element %>% rvest::html_nodes(xpath = ".//a") %>% rvest::html_attr("href"), "/")), n = 1)))
         col <- col + 1
       }
     row <- row + 1
@@ -37,9 +39,10 @@ get_projects <- function(){
 #' @export
 delete_project <- function(project_id = NA){
 
-  stopifnot(is_numeric(project_id))
+  if(!is.numeric(project_id)) return("project id has to be numeric.")
 
   projects <- magpie::get_projects()
+  if(is.null(nrow(projects))) return(projects[1])
   if(!project_id %in% projects$id) return("project id not found")
 
   DELETE(paste(magpie::get_url(), "/projects/", project_id, "?redirect=false", sep = ""), body = list(authenticity_token = magpie::get_auth_token(),
@@ -60,23 +63,11 @@ delete_project <- function(project_id = NA){
 #' @export
 create_project <- function(model_id, revision = "HEAD", params = list()){
 
+  stopifnot(logged_in())
+
   stopifnot(!missing(model_id))
 
-  webpage <- httr::content(httr::GET(paste(magpie::get_url(), "/project_modelconfig?model_id=", model_id,"&model_revision=HEAD", sep = "")))
-
-  values <- webpage %>%
-    rvest::html_nodes(xpath='//input | //select') %>%
-    rvest::html_attr(name = "value")# %>%
-  ids <- webpage %>%
-    rvest::html_nodes(xpath='//input | //select') %>%
-    rvest::html_attr(name = "id")# %>%
-  names <- webpage %>%
-    rvest::html_nodes(xpath='//input | //select') %>%
-    rvest::html_attr(name = "name")# %>%
-
-  params_list <- values
-  names(params_list) <- names
-  #names(params_list)[!is.na(ids)] <- ids[!is.na(ids)]
+  params_list <- magpie::get_params(model_id)
 
   form <- httr::content(httr::GET(paste(magpie::get_url(), "projects", "new", sep = "/")))
   form <- form %>% rvest::html_nodes(xpath = "//form[@id='new_project']")
@@ -101,7 +92,11 @@ create_project <- function(model_id, revision = "HEAD", params = list()){
 
   form_list <- form_list[-which(names(form_list) =="project[public]")[2]]
 
-  submit_list <- c(form_list, params_list)
+  if(is.null(nrow(params_list)))
+    submit_list <- form_list
+  else
+    submit_list <- c(form_list, params_list)
+
   submit_list["config[revision]"] <- "HEAD"
 
   submit_list["config[default.config_sleep]"] <- "60"
@@ -110,6 +105,7 @@ create_project <- function(model_id, revision = "HEAD", params = list()){
 
   project_submit <- httr::POST(url = "http://localhost:3000/projects", body = submit_list)
 
+  return(magpie::get_projects())
 }
 
 

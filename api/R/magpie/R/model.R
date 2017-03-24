@@ -26,10 +26,14 @@ get_models <- function(){
 
 #' parameter of a given model
 #'
+#' NOTE: no file upload support yet
+#'
 #' @param model_id the given model based on the id
 #' @return a list of parameter
 #' @export
 get_params <- function(model_id){
+
+  stopifnot(logged_in())
 
   stopifnot(!missing(model_id))
   if(!(model_id %in% magpie::get_models()$id)) return("No valid model id. Check for model ids with get_models().")
@@ -49,6 +53,21 @@ get_params <- function(model_id){
 
   params_list <- values
   names(params_list) <- names
+
+  files <- webpage %>%
+    rvest::html_nodes(xpath = "//input[contains(@class, 'file')]") %>% rvest::html_attr(name = "name")
+  selects <- webpage %>%
+    rvest::html_nodes(xpath = "//select") %>% rvest::html_attr(name = "name")
+  select_values <- webpage %>%
+    rvest::html_nodes(xpath='//select/option[@selected]') %>% rvest::html_text()
+
+  if(length(files) > 0)
+    params_list <- params_list[-which(names(params_list) %in% files)]
+
+  if(length(selects) > 0)
+    params_list[which(names(params_list) %in% selects)] <- select_values
+
+  params_list <- params_list[!names(params_list) %in% c("authenticity_token", "utf8")]
 
   return(as.list(params_list))
 }
