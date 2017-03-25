@@ -39,7 +39,7 @@ login <- function(email, password){
 #' @export
 logged_in <- function(){
 
-  webpage <- httr::content(GET(magpie::get_url())) %>% html_nodes(xpath = "//a")
+  webpage <- httr::content(httr::GET(magpie::get_url())) %>% html_nodes(xpath = "//a")
   values <- webpage %>%
     rvest::html_nodes(xpath='//a') %>%
     rvest::html_attr(name = "href")
@@ -57,7 +57,7 @@ logged_in_user <- function(){
 
   stopifnot(magpie::logged_in())
 
-  webpage <- httr::content(GET(magpie::get_url()))
+  webpage <- httr::content(httr::GET(magpie::get_url()))
   name <- webpage %>%
              rvest::html_nodes(xpath='//p') %>%
              rvest::html_text()
@@ -84,7 +84,7 @@ logout <- function(){
 get_auth_token <- function(){
 
   if(magpie::logged_in())
-    return(httr::content(GET(magpie::get_url())) %>% rvest::html_nodes(xpath = "//meta[@name='csrf-token']") %>% rvest::html_attr("content"))
+    return(httr::content(httr::GET(magpie::get_url())) %>% rvest::html_nodes(xpath = "//meta[@name='csrf-token']") %>% rvest::html_attr("content"))
 
   return("Please log in first!")
 }
