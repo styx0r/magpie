@@ -6,7 +6,7 @@ get_projects <- function(){
 
   stopifnot(magpie::logged_in())
 
-  webpage <- httr::content(GET(paste(magpie::get_url(), "projects", sep = "/")))
+  webpage <- httr::content(httr::GET(paste(magpie::get_url(), "projects", sep = "/")))
   if((grep("You have no projects yet.", as.character(webpage)) %>% length) > 0)
     return("no projects found")
 
