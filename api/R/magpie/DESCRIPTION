@@ -1,6 +1,6 @@
 Package: magpie
 Type: Package
-Title: MAGPIE: an API to the Web Server based modelling environment.
+Title: magpie: an API to the web server based modelling environment
 Version: 0.1.0
 Author: Christoph Baldow
 Maintainer: Christoph Baldow <christoph.baldow@gmail.com>

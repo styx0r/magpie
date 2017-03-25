@@ -29,7 +29,16 @@
     </div>
 </div>
 <% if logged_in? %>
-  <%# TODO: Here we could put in NEWS! %>
+  <div class = "col-md-12 row">
+    <h3><center>News</center></h3>
+  </div>
+  <div class = "col-md-5" style='background-color: #eeeeff;'>
+    <h2>An api for R is available. A tutorial will be available in the help section soon.</h2>
+    <div class = "col-md-12">
+      <% cfile = File.open(File.join(Rails.root, 'app', 'views', 'static', 'help', 'examplefiles', 'config', 'magpie_api_r')).read %>
+      <%=raw CodeRay.scan(cfile, :bash).div() %>
+    </div>
+  </div>
 <% end %>
 <% if !logged_in? %>
     <div class="institutesSelection">
