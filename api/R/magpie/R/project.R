@@ -45,7 +45,7 @@ delete_project <- function(project_id = NA){
   if(is.null(nrow(projects))) return(projects[1])
   if(!project_id %in% projects$id) return("project id not found")
 
-  DELETE(paste(magpie::get_url(), "/projects/", project_id, "?redirect=false", sep = ""), body = list(authenticity_token = magpie::get_auth_token(),
+  httr::DELETE(paste(magpie::get_url(), "/projects/", project_id, "?redirect=false", sep = ""), body = list(authenticity_token = magpie::get_auth_token(),
                                                           rel = "nofollow"))
 
   return(magpie::get_projects())

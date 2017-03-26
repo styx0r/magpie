@@ -48,21 +48,34 @@ create_job <- function(project_id, params = list()){
   if(!project_id %in% magpie::get_projects()$id)
     return(paste("this project", project_id, "is not accessible"))
 
-  webpage <- httr::content(httr::GET(paste(magpie::get_url(), "/projects/", project_id, sep = "")))
-  form <- webpage %>% rvest::html_nodes(xpath = "//form[@id='new_job']")
+  webpage <- httr::content(httr::GET(paste(magpie::get_url(), "/projects/", project_id, sep = ""))) %>%
+      rvest::html_nodes(xpath = "//form[@id='new_job']")
 
-  values <- form %>%
+  values <- webpage %>%
     rvest::html_nodes(xpath='.//input | .//select') %>%
     rvest::html_attr(name = "value")# %>%
-  ids <- form %>%
+  ids <- webpage %>%
     rvest::html_nodes(xpath='.//input | .//select') %>%
     rvest::html_attr(name = "id")# %>%
-  names <- form %>%
+  names <- webpage %>%
     rvest::html_nodes(xpath='.//input | .//select') %>%
     rvest::html_attr(name = "name")# %>%
-
+  
   params_list <- values
   names(params_list) <- names
+  
+  files <- webpage %>%
+    rvest::html_nodes(xpath = ".//input[contains(@class, 'file')]") %>% rvest::html_attr(name = "name")
+  selects <- webpage %>%
+    rvest::html_nodes(xpath = ".//select") %>% rvest::html_attr(name = "name")
+  select_values <- webpage %>%
+    rvest::html_nodes(xpath='.//select/option[@selected]') %>% rvest::html_text()
+  
+  if(length(files) > 0)
+    params_list <- params_list[-which(names(params_list) %in% files)]
+  
+  if(length(selects) > 0)
+    params_list[which(names(params_list) %in% selects)] <- select_values
 
   params_list <- as.list(params_list)
 
@@ -75,7 +88,7 @@ create_job <- function(project_id, params = list()){
         params_list[[which(params_input_names[i] == params_names)]] <- params[[i]]
   }
 
-  project_submit <- httr::POST(url = "http://localhost:3000/jobs", body = params_list)
+  project_submit <- httr::POST(url = paste(magpie::get_url(), "/", "jobs", sep = ""), body = params_list)
 
   return(max(magpie::get_jobs_status(project_id)$id))
 }
@@ -97,7 +110,7 @@ delete_job <- function(project_id, job_id){
   if(!project_id %in% magpie::get_projects()$id) return("project_id not accessible")
   if(!job_id %in% magpie::get_jobs_status(project_id)$id) return("job_id is not in the given project_id")
 
-  DELETE(paste(magpie::get_url(), "/jobs/", job_id, "?redirect=false", sep = ""), body = list(authenticity_token = magpie::get_auth_token(),
+  httr::DELETE(paste(magpie::get_url(), "/jobs/", job_id, "?redirect=false", sep = ""), body = list(authenticity_token = magpie::get_auth_token(),
                                                                                                       rel = "nofollow"))
 
   return(magpie::get_jobs_status(project_id))
