@@ -16,6 +16,24 @@
           <i class="fa fa-chevron-down" style="color:orange;"></i>
           <% end %>
       </div>
+      <div class="tooltip-job-info", style="text-align: right;">
+        <i class="fa fa-info-circle", style="color:blue;"></i>
+        <span class="tooltiptext-job-info">
+          docker id: <%= job.docker_id %> <br /><br />
+          <% Dir[job.directory+"/*.config"].each_with_index do |element, i| %>
+                <%= Pathname.new(element).basename %> <br />
+                <% text=File.open(element).read
+                text.gsub!(/\r\n?/, "\n") %>
+                <% text.each_line do |line| %>
+                  <% if line.empty? || line.first[0] == "#" || line.first[0] == " " || line.first[0] == "/" %>
+                  <%  next %>
+                  <% end %>
+                  <%= line+";" %>
+                <% end %>
+                <br /><br />
+          <% end %>
+        </span>
+      </div>
     <% end %>
       <span align="center">
         <a data-toggle="collapse" data-parent="#alljobs" href="#<%=dom_id(job)%>" class="job_collapse_switch" id="job_collapse_switch_<%=job.id%>">
