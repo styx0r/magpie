@@ -38,12 +38,22 @@ class ModelsController < ApplicationController
     else
       respond_to do |format|
         if @model.save
-          @model.initializer
+          out = @model.initializer
+          if(out == 1)
+            @model.destroy
+            flash[:danger] = "Error: No sh script found."
+            redirect_to :back
+            return out            
+          elsif out > 1
+            flash[:danger] = "Error: Model has not passed checks."
+            redirect_to :back
+            return out
+          end
           format.html { return render :show, notice: 'Model was successfully created.' }
           format.json { render :show, status: :created, location: @model }
         else
-          format.html { render :new }
-          format.json { render json: @model.errors, status: :unprocessable_entity }
+          flash[:danger] = "Error: Model has not passed checks."
+          redirect_to :back
         end
       end
     end

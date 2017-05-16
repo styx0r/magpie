@@ -73,13 +73,45 @@ class Model < ActiveRecord::Base
       system("cd #{self.tmp_path}; rm createSBMLConfig.py")
     elsif
       self.unzip_source(self.source.file.file, self.tmp_path)
+      out = self.check_zip self.tmp_path
+      if out
+        return out
+      end
     end
     system("cd #{self.tmp_path}; git add -A; git commit -m 'Initial commit for model #{self.name}'; git tag -a initial -m 'Initial version'; git push origin master --tags;")
+
+    # move all model data into root directory of sh file
+    self.move_shell_dir_to_root self.tmp_path
 
     self.mainscript = Hash[self.current_revision.strip, get_main_script]
     self.set_default_logo
     self.assign_unique_hashtag
     self.save
+    return 0
+  end
+
+  def move_shell_dir_to_root path
+    tmp_path = Dir.mktmpdir
+
+    files = Dir[self.tmp_path+"/**/*"]#Dir.entries(self.tmp_path)
+    sh_files = files.select { |s| (File.basename s).end_with?('.sh') & !(File.basename s).start_with?('.sh') } # if no .sh script is available
+    sh_file = sh_files.index { |s| (File.basename s) == "main.sh" }
+    if sh_file.nil?
+      sh_file = sh_files.at(0)
+    end
+
+    FileUtils.cp_r (Dir.glob sh_file.dirname+"/{*,.*}"), tmp_path
+    FileUtils.remove_dir path
+    FileUtils.mv tmp_path path
+  end
+
+  def check_zip path
+    # check whether sh script can be found
+    files = Dir.glob self.tmp_path+"{/*,/**/*}" #Dir.entries(self.tmp_path)
+    if(files.none? { |s| (File.basename s).end_with?('.sh') & !(File.basename s).start_with?('.sh') }) # if no .sh script is available
+      return 1
+    end
+    return 0
   end
 
   def assign_unique_hashtag
