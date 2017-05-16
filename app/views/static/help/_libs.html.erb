@@ -1,0 +1,603 @@
+<h4>Introduction</h4>
+<p>
+  For security reasons and flexibility model computations in MAGPIE are executed within a virtualized environment based on docker.
+  Arbitrary packages and necessary libaries can be installed within the image and used afterwards. In case something is missing
+  concerning your project, please contact the administrator.
+</p>
+
+<p>
+  In the actual instance of docker the following is available:
+</p>
+<p>
+  <b>R:</b><br />
+  <ul>
+    <li>RColorBrewer 1.1-2</li>
+    <li>Rcpp         0.12.7</li>
+    <li>animation    2.4</li>
+    <li>chron        2.3-47</li>
+    <li>colorspace   1.2-6</li>
+    <li>data.table   1.9.6</li>
+    <li>deSolve      1.14</li>
+    <li>dichromat    2.0-0</li>
+    <li>digest       0.6.10</li>
+    <li>ggplot2      2.1.0</li>
+    <li>gridExtra    2.2.1</li>
+    <li>gtable       0.2.0</li>
+    <li>labeling     0.3</li>
+    <li>magrittr     1.5</li>
+    <li>misc3d       0.8-4</li>
+    <li>munsell      0.4.3</li>
+    <li>plot3D       1.1</li>
+    <li>plyr         1.8.4</li>
+    <li>pracma       1.9.5</li>
+    <li>quadprog     1.5-5</li>
+    <li>reshape      0.8.6</li>
+    <li>reshape2     1.4.1</li>
+    <li>scales       0.4.0</li>
+    <li>stringdist   0.9.4.2</li>
+    <li>stringi      1.1.2</li>
+    <li>stringr      1.1.0</li>
+    <li>KernSmooth   2.23-15</li>
+    <li>MASS         7.3-45</li>
+    <li>Matrix       1.2-3</li>
+    <li>base         3.2.3</li>
+    <li>boot         1.3-17</li>
+    <li>class        7.3-14</li>
+    <li>cluster      2.0.3</li>
+    <li>codetools    0.2-14</li>
+    <li>compiler     3.2.3</li>
+    <li>datasets     3.2.3</li>
+    <li>foreign      0.8-66</li>
+    <li>grDevices    3.2.3</li>
+    <li>graphics     3.2.3</li>
+    <li>grid         3.2.3</li>
+    <li>lattice      0.20-33</li>
+    <li>methods      3.2.3</li>
+    <li>mgcv         1.8-11</li>
+    <li>nlme         3.1-124</li>
+    <li>nnet         7.3-12</li>
+    <li>parallel     3.2.3</li>
+    <li>rpart        4.1-10</li>
+    <li>spatial      7.3-11</li>
+    <li>splines      3.2.3</li>
+    <li>stats        3.2.3</li>
+    <li>stats4       3.2.3</li>
+    <li>survival     2.38-3</li>
+    <li>tcltk        3.2.3</li>
+    <li>tools        3.2.3</li>
+    <li>utils        3.2.3</li>
+  </ul>
+</p>
+
+<p>
+  <b>python:</b><br />
+  <ul>
+    <li>openbabel 5.0.0</li>
+    <li>libinchi 0.4.1</li>
+  </ul>
+</p>
+
+
+<p>
+  <b>installed system packages</b><br />
+  <ul>
+<li>adduser/xenial,now 3.113+nmu3ubuntu4 all [installed]</li>
+<li>apbs/xenial,now 1.4-1 amd64 [installed,automatic]</li>
+<li>apt/now 1.2.12~ubuntu16.04.1 amd64 [installed,upgradable to: 1.2.15]</li>
+<li>autoconf/xenial,now 2.69-9 all [installed,automatic]</li>
+<li>automake/xenial,now 1:1.15-4ubuntu1 all [installed,automatic]</li>
+<li>autotools-dev/xenial,now 20150820.1 all [installed,automatic]</li>
+<li>base-files/now 9.4ubuntu4.2 amd64 [installed,upgradable to: 9.4ubuntu4.3]</li>
+<li>base-passwd/xenial,now 3.5.39 amd64 [installed]</li>
+<li>bash/xenial-updates,now 4.3-14ubuntu1.1 amd64 [installed]</li>
+<li>binutils/xenial-updates,xenial-security,now 2.26.1-1ubuntu1~16.04.3 amd64 [installed,automatic]</li>
+<li>blt/xenial,now 2.5.3+dfsg-3 amd64 [installed,automatic]</li>
+<li>bsdmainutils/xenial,now 9.0.6ubuntu3 amd64 [installed,automatic]</li>
+<li>bsdutils/xenial-updates,now 1:2.27.1-6ubuntu3.1 amd64 [installed]</li>
+<li>build-essential/xenial,now 12.1ubuntu2 amd64 [installed,automatic]</li>
+<li>bzip2/xenial,now 1.0.6-8 amd64 [installed,automatic]</li>
+<li>bzip2-doc/xenial,now 1.0.6-8 all [installed,automatic]</li>
+<li>ca-certificates/xenial,now 20160104ubuntu1 all [installed,automatic]</li>
+<li>cdbs/xenial,now 0.4.130ubuntu2 all [installed,automatic]</li>
+<li>cmake/xenial-updates,now 3.5.1-1ubuntu3 amd64 [installed]</li>
+<li>cmake-data/xenial-updates,now 3.5.1-1ubuntu3 all [installed,automatic]</li>
+<li>coreutils/xenial,now 8.25-2ubuntu2 amd64 [installed]</li>
+<li>cpp/xenial,now 4:5.3.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>cpp-5/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>curl/now 7.47.0-1ubuntu2.1 amd64 [installed,upgradable to: 7.47.0-1ubuntu2.2]</li>
+<li>dash/xenial,now 0.5.8-2.1ubuntu2 amd64 [installed]</li>
+<li>dbus/xenial,now 1.10.6-1ubuntu3 amd64 [installed,upgradable to: 1.10.6-1ubuntu3.1]</li>
+<li>debconf/xenial,now 1.5.58ubuntu1 all [installed]</li>
+<li>debhelper/xenial,now 9.20160115ubuntu3 all [installed,automatic]</li>
+<li>debianutils/xenial,now 4.7 amd64 [installed]</li>
+<li>dh-strip-nondeterminism/xenial,now 0.015-1 all [installed,automatic]</li>
+<li>dh-translations/xenial,now 129 all [installed,automatic]</li>
+<li>diffutils/xenial,now 1:3.3-3 amd64 [installed]</li>
+<li>dpkg/xenial-updates,now 1.18.4ubuntu1.1 amd64 [installed]</li>
+<li>dpkg-dev/xenial-updates,now 1.18.4ubuntu1.1 all [installed,automatic]</li>
+<li>e2fslibs/xenial,now 1.42.13-1ubuntu1 amd64 [installed]</li>
+<li>e2fsprogs/xenial,now 1.42.13-1ubuntu1 amd64 [installed]</li>
+<li>fakeroot/xenial,now 1.20.2-1ubuntu1 amd64 [installed,automatic]</li>
+<li>file/xenial,now 1:5.25-2ubuntu1 amd64 [installed,automatic]</li>
+<li>findutils/xenial,now 4.6.0+git+20160126-2 amd64 [installed]</li>
+<li>fontconfig/xenial-updates,xenial-security,now 2.11.94-0ubuntu1.1 amd64 [installed,automatic]</li>
+<li>fontconfig-config/xenial-updates,xenial-security,now 2.11.94-0ubuntu1.1 all [installed,automatic]</li>
+<li>fonts-dejavu-core/xenial,now 2.35-1 all [installed,automatic]</li>
+<li>freeglut3/xenial,now 2.8.1-2 amd64 [installed,automatic]</li>
+<li>g++/xenial,now 4:5.3.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>g++-5/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>gcc/xenial,now 4:5.3.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>gcc-5/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>gcc-5-base/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>gcc-6-base/xenial,now 6.0.1-0ubuntu1 amd64 [installed]</li>
+<li>gettext/xenial,now 0.19.7-2ubuntu3 amd64 [installed,automatic]</li>
+<li>gettext-base/xenial,now 0.19.7-2ubuntu3 amd64 [installed,automatic]</li>
+<li>gfortran/xenial,now 4:5.3.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>gfortran-5/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>ghostscript/xenial,now 9.18~dfsg~0-0ubuntu2 amd64 [installed,automatic]</li>
+<li>gnupg/xenial-updates,xenial-security,now 1.4.20-1ubuntu3.1 amd64 [installed]</li>
+<li>gpgv/xenial-updates,xenial-security,now 1.4.20-1ubuntu3.1 amd64 [installed]</li>
+<li>grep/xenial-updates,now 2.25-1~16.04.1 amd64 [installed]</li>
+<li>groff-base/xenial,now 1.22.3-7 amd64 [installed,automatic]</li>
+<li>gsfonts/xenial,now 1:8.11+urwcyr1.0.7~pre44-4.2ubuntu1 all [installed,automatic]</li>
+<li>gzip/xenial,now 1.6-4ubuntu1 amd64 [installed]</li>
+<li>hicolor-icon-theme/xenial,now 0.15-0ubuntu1 all [installed,automatic]</li>
+<li>hostname/xenial,now 3.16ubuntu2 amd64 [installed]</li>
+<li>icu-devtools/xenial,now 55.1-7 amd64 [installed,automatic]</li>
+<li>ifupdown/xenial-updates,now 0.8.10ubuntu1.1 amd64 [installed,automatic]</li>
+<li>imagemagick/xenial-updates,xenial-security,now 8:6.8.9.9-7ubuntu5.1 amd64 [installed]</li>
+<li>imagemagick-6.q16/xenial-updates,xenial-security,now 8:6.8.9.9-7ubuntu5.1 amd64 [installed,automatic]</li>
+<li>imagemagick-common/xenial-updates,xenial-security,now 8:6.8.9.9-7ubuntu5.1 all [installed,automatic]</li>
+<li>init/now 1.29ubuntu2 amd64 [installed,upgradable to: 1.29ubuntu3]</li>
+<li>init-system-helpers/now 1.29ubuntu2 all [installed,upgradable to: 1.29ubuntu3]</li>
+<li>initscripts/xenial,now 2.88dsf-59.3ubuntu2 amd64 [installed]</li>
+<li>insserv/xenial,now 1.14.0-5ubuntu3 amd64 [installed]</li>
+<li>intltool/xenial,now 0.51.0-2 all [installed,automatic]</li>
+<li>intltool-debian/xenial,now 0.35.0+20060710.4 all [installed,automatic]</li>
+<li>iproute2/xenial,now 4.3.0-1ubuntu3 amd64 [installed,automatic]</li>
+<li>isc-dhcp-client/xenial-updates,now 4.3.3-5ubuntu12.3 amd64 [installed,automatic]</li>
+<li>isc-dhcp-common/xenial-updates,now 4.3.3-5ubuntu12.3 amd64 [installed,automatic]</li>
+<li>krb5-locales/xenial,now 1.13.2+dfsg-5 all [installed,automatic]</li>
+<li>libacl1/xenial,now 2.2.52-3 amd64 [installed]</li>
+<li>libalgorithm-diff-perl/xenial,now 1.19.03-1 all [installed,automatic]</li>
+<li>libalgorithm-diff-xs-perl/xenial,now 0.04-4build1 amd64 [installed,automatic]</li>
+<li>libalgorithm-merge-perl/xenial,now 0.08-3 all [installed,automatic]</li>
+<li>libapparmor1/now 2.10.95-0ubuntu2.2 amd64 [installed,upgradable to: 2.10.95-0ubuntu2.5]</li>
+<li>libapt-pkg5.0/now 1.2.12~ubuntu16.04.1 amd64 [installed,upgradable to: 1.2.15]</li>
+<li>libarchive-zip-perl/xenial,now 1.56-2 all [installed,automatic]</li>
+<li>libarchive13/xenial-updates,xenial-security,now 3.1.2-11ubuntu0.16.04.2 amd64 [installed,automatic]</li>
+<li>libasan2/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libasn1-8-heimdal/xenial,now 1.7~git20150920+dfsg-4ubuntu1 amd64 [installed,automatic]</li>
+<li>libasprintf-dev/xenial,now 0.19.7-2ubuntu3 amd64 [installed,automatic]</li>
+<li>libasprintf0v5/xenial,now 0.19.7-2ubuntu3 amd64 [installed,automatic]</li>
+<li>libatm1/xenial,now 1:2.5.1-1.5 amd64 [installed,automatic]</li>
+<li>libatomic1/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libattr1/xenial,now 1:2.4.47-2 amd64 [installed]</li>
+<li>libaudit-common/xenial,now 1:2.4.5-1ubuntu2 all [installed]</li>
+<li>libaudit1/xenial,now 1:2.4.5-1ubuntu2 amd64 [installed]</li>
+<li>libauthen-sasl-perl/xenial,now 2.1600-1 all [installed,automatic]</li>
+<li>libavahi-client3/xenial,now 0.6.32~rc+dfsg-1ubuntu2 amd64 [installed,automatic]</li>
+<li>libavahi-common-data/xenial,now 0.6.32~rc+dfsg-1ubuntu2 amd64 [installed,automatic]</li>
+<li>libavahi-common3/xenial,now 0.6.32~rc+dfsg-1ubuntu2 amd64 [installed,automatic]</li>
+<li>libblas-common/xenial,now 3.6.0-2ubuntu2 amd64 [installed,automatic]</li>
+<li>libblas-dev/xenial,now 3.6.0-2ubuntu2 amd64 [installed,automatic]</li>
+<li>libblas3/xenial,now 3.6.0-2ubuntu2 amd64 [installed,automatic]</li>
+<li>libblkid1/xenial-updates,now 2.27.1-6ubuntu3.1 amd64 [installed]</li>
+<li>libbsd0/xenial,now 0.8.2-1 amd64 [installed,automatic]</li>
+<li>libbz2-1.0/xenial,now 1.0.6-8 amd64 [installed]</li>
+<li>libbz2-dev/xenial,now 1.0.6-8 amd64 [installed,automatic]</li>
+<li>libc-bin/xenial,now 2.23-0ubuntu3 amd64 [installed,upgradable to: 2.23-0ubuntu4]</li>
+<li>libc-dev-bin/xenial,now 2.23-0ubuntu3 amd64 [installed,upgradable to: 2.23-0ubuntu4]</li>
+<li>libc6/xenial,now 2.23-0ubuntu3 amd64 [installed,upgradable to: 2.23-0ubuntu4]</li>
+<li>libc6-dev/xenial,now 2.23-0ubuntu3 amd64 [installed,upgradable to: 2.23-0ubuntu4]</li>
+<li>libcairo-gobject2/xenial,now 1.14.6-1 amd64 [installed,automatic]</li>
+<li>libcairo-script-interpreter2/xenial,now 1.14.6-1 amd64 [installed,automatic]</li>
+<li>libcairo2/xenial,now 1.14.6-1 amd64 [installed]</li>
+<li>libcairo2-dev/xenial,now 1.14.6-1 amd64 [installed]</li>
+<li>libcap-ng0/xenial,now 0.7.7-1 amd64 [installed,automatic]</li>
+<li>libcap2/xenial,now 1:2.24-12 amd64 [installed]</li>
+<li>libcap2-bin/xenial,now 1:2.24-12 amd64 [installed]</li>
+<li>libcc1-0/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libcilkrts5/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libcomerr2/xenial,now 1.42.13-1ubuntu1 amd64 [installed]</li>
+<li>libcroco3/xenial,now 0.6.11-1 amd64 [installed,automatic]</li>
+<li>libcryptsetup4/xenial,now 2:1.6.6-5ubuntu2 amd64 [installed]</li>
+<li>libcups2/xenial,now 2.1.3-4 amd64 [installed,automatic]</li>
+<li>libcupsfilters1/xenial-updates,now 1.8.3-2ubuntu3.1 amd64 [installed,automatic]</li>
+<li>libcupsimage2/xenial,now 2.1.3-4 amd64 [installed,automatic]</li>
+<li>libcurl3/now 7.47.0-1ubuntu2.1 amd64 [installed,upgradable to: 7.47.0-1ubuntu2.2]</li>
+<li>libcurl3-gnutls/now 7.47.0-1ubuntu2.1 amd64 [installed,upgradable to: 7.47.0-1ubuntu2.2]</li>
+<li>libdatrie1/xenial,now 0.2.10-2 amd64 [installed,automatic]</li>
+<li>libdb5.3/xenial,now 5.3.28-11 amd64 [installed]</li>
+<li>libdbus-1-3/xenial,now 1.10.6-1ubuntu3 amd64 [installed,upgradable to: 1.10.6-1ubuntu3.1]</li>
+<li>libdebconfclient0/xenial,now 0.198ubuntu1 amd64 [installed]</li>
+<li>libdevmapper1.02.1/xenial,now 2:1.02.110-1ubuntu10 amd64 [installed]</li>
+<li>libdjvulibre-text/xenial,now 3.5.27.1-5 all [installed,automatic]</li>
+<li>libdjvulibre21/xenial,now 3.5.27.1-5 amd64 [installed,automatic]</li>
+<li>libdns-export162/now 1:9.10.3.dfsg.P4-8ubuntu1.1 amd64 [installed,upgradable to: 1:9.10.3.dfsg.P4-8ubuntu1.2]</li>
+<li>libdpkg-perl/xenial-updates,now 1.18.4ubuntu1.1 all [installed,automatic]</li>
+<li>libdrm-amdgpu1/xenial-updates,now 2.4.67-1ubuntu0.16.04.2 amd64 [installed,automatic]</li>
+<li>libdrm-intel1/xenial-updates,now 2.4.67-1ubuntu0.16.04.2 amd64 [installed,automatic]</li>
+<li>libdrm-nouveau2/xenial-updates,now 2.4.67-1ubuntu0.16.04.2 amd64 [installed,automatic]</li>
+<li>libdrm-radeon1/xenial-updates,now 2.4.67-1ubuntu0.16.04.2 amd64 [installed,automatic]</li>
+<li>libdrm2/xenial-updates,now 2.4.67-1ubuntu0.16.04.2 amd64 [installed,automatic]</li>
+<li>libedit2/xenial,now 3.1-20150325-1ubuntu2 amd64 [installed,automatic]</li>
+<li>libeigen2-dev/xenial,now 2.0.17-1ubuntu1 amd64 [installed]</li>
+<li>libeigen3-dev/xenial,now 3.3~beta1-2 all [installed]</li>
+<li>libelf1/xenial,now 0.165-3ubuntu1 amd64 [installed,automatic]</li>
+<li>libencode-locale-perl/xenial,now 1.05-1 all [installed,automatic]</li>
+<li>libexpat1/xenial-updates,xenial-security,now 2.1.0-7ubuntu0.16.04.2 amd64 [installed,automatic]</li>
+<li>libexpat1-dev/xenial-updates,xenial-security,now 2.1.0-7ubuntu0.16.04.2 amd64 [installed,automatic]</li>
+<li>libfakeroot/xenial,now 1.20.2-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libfdisk1/xenial-updates,now 2.27.1-6ubuntu3.1 amd64 [installed]</li>
+<li>libffi6/xenial,now 3.2.1-4 amd64 [installed,automatic]</li>
+<li>libfftw3-double3/xenial,now 3.3.4-2ubuntu1 amd64 [installed,automatic]</li>
+<li>libfile-basedir-perl/xenial,now 0.07-1 all [installed,automatic]</li>
+<li>libfile-desktopentry-perl/xenial,now 0.22-1 all [installed,automatic]</li>
+<li>libfile-fcntllock-perl/xenial,now 0.22-3 amd64 [installed,automatic]</li>
+<li>libfile-listing-perl/xenial,now 6.04-1 all [installed,automatic]</li>
+<li>libfile-mimeinfo-perl/xenial,now 0.27-1 all [installed,automatic]</li>
+<li>libfile-stripnondeterminism-perl/xenial,now 0.015-1 all [installed,automatic]</li>
+<li>libfont-afm-perl/xenial,now 1.20-1 all [installed,automatic]</li>
+<li>libfontconfig1/xenial-updates,xenial-security,now 2.11.94-0ubuntu1.1 amd64 [installed,automatic]</li>
+<li>libfontconfig1-dev/xenial-updates,xenial-security,now 2.11.94-0ubuntu1.1 amd64 [installed,automatic]</li>
+<li>libfontenc1/xenial,now 1:1.1.3-1 amd64 [installed,automatic]</li>
+<li>libfreetype6/xenial,now 2.6.1-0.1ubuntu2 amd64 [installed,automatic]</li>
+<li>libfreetype6-dev/xenial,now 2.6.1-0.1ubuntu2 amd64 [installed,automatic]</li>
+<li>libgcc-5-dev/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libgcc1/xenial,now 1:6.0.1-0ubuntu1 amd64 [installed]</li>
+<li>libgcrypt20/xenial-updates,xenial-security,now 1.6.5-2ubuntu0.2 amd64 [installed]</li>
+<li>libgdbm3/xenial,now 1.8.3-13.1 amd64 [installed,automatic]</li>
+<li>libgdk-pixbuf2.0-0/xenial-updates,xenial-security,now 2.32.2-1ubuntu1.2 amd64 [installed,automatic]</li>
+<li>libgdk-pixbuf2.0-common/xenial-updates,xenial-security,now 2.32.2-1ubuntu1.2 all [installed,automatic]</li>
+<li>libgettextpo-dev/xenial,now 0.19.7-2ubuntu3 amd64 [installed,automatic]</li>
+<li>libgettextpo0/xenial,now 0.19.7-2ubuntu3 amd64 [installed,automatic]</li>
+<li>libgfortran-5-dev/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libgfortran3/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libgl1-mesa-dri/xenial-updates,now 11.2.0-1ubuntu2.2 amd64 [installed,automatic]</li>
+<li>libgl1-mesa-glx/xenial-updates,now 11.2.0-1ubuntu2.2 amd64 [installed,automatic]</li>
+<li>libglapi-mesa/xenial-updates,now 11.2.0-1ubuntu2.2 amd64 [installed,automatic]</li>
+<li>libglew1.13/xenial,now 1.13.0-2 amd64 [installed,automatic]</li>
+<li>libglib2.0-0/xenial-updates,now 2.48.1-1~ubuntu16.04.1 amd64 [installed,automatic]</li>
+<li>libglib2.0-bin/xenial-updates,now 2.48.1-1~ubuntu16.04.1 amd64 [installed,automatic]</li>
+<li>libglib2.0-data/xenial-updates,now 2.48.1-1~ubuntu16.04.1 all [installed,automatic]</li>
+<li>libglib2.0-dev/xenial-updates,now 2.48.1-1~ubuntu16.04.1 amd64 [installed,automatic]</li>
+<li>libglu1-mesa/xenial,now 9.0.0-2.1 amd64 [installed,automatic]</li>
+<li>libgmp10/xenial,now 2:6.1.0+dfsg-2 amd64 [installed,automatic]</li>
+<li>libgnutls30/xenial-updates,now 3.4.10-4ubuntu1.1 amd64 [installed,automatic]</li>
+<li>libgomp1/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libgpg-error0/xenial,now 1.21-2ubuntu1 amd64 [installed]</li>
+<li>libgpm2/xenial,now 1.20.4-6.1 amd64 [installed,automatic]</li>
+<li>libgraphite2-3/xenial,now 1.3.6-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libgs9/xenial,now 9.18~dfsg~0-0ubuntu2 amd64 [installed,automatic]</li>
+<li>libgs9-common/xenial,now 9.18~dfsg~0-0ubuntu2 all [installed,automatic]</li>
+<li>libgssapi-krb5-2/xenial,now 1.13.2+dfsg-5 amd64 [installed,automatic]</li>
+<li>libgssapi3-heimdal/xenial,now 1.7~git20150920+dfsg-4ubuntu1 amd64 [installed,automatic]</li>
+<li>libharfbuzz0b/xenial-updates,xenial-security,now 1.0.1-1ubuntu0.1 amd64 [installed,automatic]</li>
+<li>libhcrypto4-heimdal/xenial,now 1.7~git20150920+dfsg-4ubuntu1 amd64 [installed,automatic]</li>
+<li>libheimbase1-heimdal/xenial,now 1.7~git20150920+dfsg-4ubuntu1 amd64 [installed,automatic]</li>
+<li>libheimntlm0-heimdal/xenial,now 1.7~git20150920+dfsg-4ubuntu1 amd64 [installed,automatic]</li>
+<li>libhogweed4/xenial,now 3.2-1 amd64 [installed,automatic]</li>
+<li>libhtml-form-perl/xenial,now 6.03-1 all [installed,automatic]</li>
+<li>libhtml-format-perl/xenial,now 2.11-2 all [installed,automatic]</li>
+<li>libhtml-parser-perl/xenial,now 3.72-1 amd64 [installed,automatic]</li>
+<li>libhtml-tagset-perl/xenial,now 3.20-2 all [installed,automatic]</li>
+<li>libhtml-tree-perl/xenial,now 5.03-2 all [installed,automatic]</li>
+<li>libhttp-cookies-perl/xenial,now 6.01-1 all [installed,automatic]</li>
+<li>libhttp-daemon-perl/xenial,now 6.01-1 all [installed,automatic]</li>
+<li>libhttp-date-perl/xenial,now 6.02-1 all [installed,automatic]</li>
+<li>libhttp-message-perl/xenial,now 6.11-1 all [installed,automatic]</li>
+<li>libhttp-negotiate-perl/xenial,now 6.00-2 all [installed,automatic]</li>
+<li>libhx509-5-heimdal/xenial,now 1.7~git20150920+dfsg-4ubuntu1 amd64 [installed,automatic]</li>
+<li>libice-dev/xenial,now 2:1.0.9-1 amd64 [installed,automatic]</li>
+<li>libice6/xenial,now 2:1.0.9-1 amd64 [installed,automatic]</li>
+<li>libicu-dev/xenial,now 55.1-7 amd64 [installed,automatic]</li>
+<li>libicu55/xenial,now 55.1-7 amd64 [installed,automatic]</li>
+<li>libidn11/xenial-updates,xenial-security,now 1.32-3ubuntu1.1 amd64 [installed,automatic]</li>
+<li>libijs-0.35/xenial,now 0.35-12 amd64 [installed,automatic]</li>
+<li>libilmbase12/xenial,now 2.2.0-11ubuntu2 amd64 [installed,automatic]</li>
+<li>libio-html-perl/xenial,now 1.001-1 all [installed,automatic]</li>
+<li>libio-socket-ssl-perl/xenial,now 2.024-1 all [installed,automatic]</li>
+<li>libipc-system-simple-perl/xenial,now 1.25-3 all [installed,automatic]</li>
+<li>libisc-export160/now 1:9.10.3.dfsg.P4-8ubuntu1.1 amd64 [installed,upgradable to: 1:9.10.3.dfsg.P4-8ubuntu1.2]</li>
+<li>libisl15/xenial,now 0.16.1-1 amd64 [installed,automatic]</li>
+<li>libitm1/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libjbig0/xenial,now 2.1-3.1 amd64 [installed,automatic]</li>
+<li>libjbig2dec0/xenial,now 0.12+20150918-1 amd64 [installed,automatic]</li>
+<li>libjpeg-dev/xenial,now 8c-2ubuntu8 amd64 [installed,automatic]</li>
+<li>libjpeg-turbo8/xenial,now 1.4.2-0ubuntu3 amd64 [installed,automatic]</li>
+<li>libjpeg-turbo8-dev/xenial,now 1.4.2-0ubuntu3 amd64 [installed,automatic]</li>
+<li>libjpeg8/xenial,now 8c-2ubuntu8 amd64 [installed,automatic]</li>
+<li>libjpeg8-dev/xenial,now 8c-2ubuntu8 amd64 [installed,automatic]</li>
+<li>libjsoncpp1/xenial,now 1.7.2-1 amd64 [installed,automatic]</li>
+<li>libk5crypto3/xenial,now 1.13.2+dfsg-5 amd64 [installed,automatic]</li>
+<li>libkeyutils1/xenial,now 1.5.9-8ubuntu1 amd64 [installed,automatic]</li>
+<li>libkmod2/xenial,now 22-1ubuntu4 amd64 [installed]</li>
+<li>libkrb5-26-heimdal/xenial,now 1.7~git20150920+dfsg-4ubuntu1 amd64 [installed,automatic]</li>
+<li>libkrb5-3/xenial,now 1.13.2+dfsg-5 amd64 [installed,automatic]</li>
+<li>libkrb5support0/xenial,now 1.13.2+dfsg-5 amd64 [installed,automatic]</li>
+<li>liblapack-dev/xenial,now 3.6.0-2ubuntu2 amd64 [installed,automatic]</li>
+<li>liblapack3/xenial,now 3.6.0-2ubuntu2 amd64 [installed,automatic]</li>
+<li>liblcms2-2/xenial,now 2.6-3ubuntu2 amd64 [installed,automatic]</li>
+<li>libldap-2.4-2/xenial-updates,now 2.4.42+dfsg-2ubuntu3.1 amd64 [installed,automatic]</li>
+<li>libllvm3.8/xenial-updates,now 1:3.8-2ubuntu4 amd64 [installed,automatic]</li>
+<li>liblqr-1-0/xenial,now 0.4.2-2 amd64 [installed,automatic]</li>
+<li>liblsan0/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libltdl7/xenial,now 2.4.6-0.1 amd64 [installed,automatic]</li>
+<li>liblwp-mediatypes-perl/xenial,now 6.02-1 all [installed,automatic]</li>
+<li>liblwp-protocol-https-perl/xenial,now 6.06-2 all [installed,automatic]</li>
+<li>liblz4-1/xenial,now 0.0~r131-2ubuntu2 amd64 [installed]</li>
+<li>liblzma-dev/xenial,now 5.1.1alpha+20120614-2ubuntu2 amd64 [installed,automatic]</li>
+<li>liblzma5/xenial,now 5.1.1alpha+20120614-2ubuntu2 amd64 [installed]</li>
+<li>liblzo2-2/xenial,now 2.08-1.2 amd64 [installed,automatic]</li>
+<li>libmagic1/xenial,now 1:5.25-2ubuntu1 amd64 [installed,automatic]</li>
+<li>libmagickcore-6.q16-2/xenial-updates,xenial-security,now 8:6.8.9.9-7ubuntu5.1 amd64 [installed,automatic]</li>
+<li>libmagickcore-6.q16-2-extra/xenial-updates,xenial-security,now 8:6.8.9.9-7ubuntu5.1 amd64 [installed,automatic]</li>
+<li>libmagickwand-6.q16-2/xenial-updates,xenial-security,now 8:6.8.9.9-7ubuntu5.1 amd64 [installed,automatic]</li>
+<li>libmail-sendmail-perl/xenial,now 0.79.16-1 all [installed,automatic]</li>
+<li>libmailtools-perl/xenial,now 2.13-1 all [installed,automatic]</li>
+<li>libmaloc1/xenial,now 0.2-3 amd64 [installed,automatic]</li>
+<li>libmnl0/xenial,now 1.0.3-5 amd64 [installed,automatic]</li>
+<li>libmount1/xenial-updates,now 2.27.1-6ubuntu3.1 amd64 [installed]</li>
+<li>libmpc3/xenial,now 1.0.3-1 amd64 [installed,automatic]</li>
+<li>libmpdec2/xenial,now 2.4.2-1 amd64 [installed,automatic]</li>
+<li>libmpfr4/xenial,now 3.1.4-1 amd64 [installed,automatic]</li>
+<li>libmpx0/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libncurses5/xenial,now 6.0+20160213-1ubuntu1 amd64 [installed]</li>
+<li>libncurses5-dev/xenial,now 6.0+20160213-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libncursesw5/xenial,now 6.0+20160213-1ubuntu1 amd64 [installed]</li>
+<li>libnet-dbus-perl/xenial,now 1.1.0-3build1 amd64 [installed,automatic]</li>
+<li>libnet-http-perl/xenial,now 6.09-1 all [installed,automatic]</li>
+<li>libnet-smtp-ssl-perl/xenial,now 1.03-1 all [installed,automatic]</li>
+<li>libnet-ssleay-perl/xenial,now 1.72-1build1 amd64 [installed,automatic]</li>
+<li>libnetpbm10/xenial,now 2:10.0-15.3 amd64 [installed,automatic]</li>
+<li>libnettle6/xenial,now 3.2-1 amd64 [installed,automatic]</li>
+<li>libopenexr22/xenial,now 2.2.0-10ubuntu2 amd64 [installed,automatic]</li>
+<li>libp11-kit0/xenial-updates,now 0.23.2-5~ubuntu16.04.1 amd64 [installed,automatic]</li>
+<li>libpam-modules/xenial,now 1.1.8-3.2ubuntu2 amd64 [installed]</li>
+<li>libpam-modules-bin/xenial,now 1.1.8-3.2ubuntu2 amd64 [installed]</li>
+<li>libpam-runtime/xenial,now 1.1.8-3.2ubuntu2 all [installed]</li>
+<li>libpam0g/xenial,now 1.1.8-3.2ubuntu2 amd64 [installed]</li>
+<li>libpango-1.0-0/xenial,now 1.38.1-1 amd64 [installed,automatic]</li>
+<li>libpangocairo-1.0-0/xenial,now 1.38.1-1 amd64 [installed,automatic]</li>
+<li>libpangoft2-1.0-0/xenial,now 1.38.1-1 amd64 [installed,automatic]</li>
+<li>libpaper-utils/xenial,now 1.1.24+nmu4ubuntu1 amd64 [installed,automatic]</li>
+<li>libpaper1/xenial,now 1.1.24+nmu4ubuntu1 amd64 [installed,automatic]</li>
+<li>libpciaccess0/xenial,now 0.13.4-1 amd64 [installed,automatic]</li>
+<li>libpcre16-3/xenial,now 2:8.38-3.1 amd64 [installed,automatic]</li>
+<li>libpcre3/xenial,now 2:8.38-3.1 amd64 [installed]</li>
+<li>libpcre3-dev/xenial,now 2:8.38-3.1 amd64 [installed,automatic]</li>
+<li>libpcre32-3/xenial,now 2:8.38-3.1 amd64 [installed,automatic]</li>
+<li>libpcrecpp0v5/xenial,now 2:8.38-3.1 amd64 [installed,automatic]</li>
+<li>libperl5.22/xenial,now 5.22.1-9 amd64 [installed,automatic]</li>
+<li>libpipeline1/xenial,now 1.4.1-2 amd64 [installed,automatic]</li>
+<li>libpixman-1-0/xenial,now 0.33.6-1 amd64 [installed,automatic]</li>
+<li>libpixman-1-dev/xenial,now 0.33.6-1 amd64 [installed,automatic]</li>
+<li>libpng12-0/xenial,now 1.2.54-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libpng12-dev/xenial,now 1.2.54-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libprocps4/xenial,now 2:3.3.10-4ubuntu2 amd64 [installed]</li>
+<li>libpthread-stubs0-dev/xenial,now 0.3-4 amd64 [installed,automatic]</li>
+<li>libpython-dev/xenial,now 2.7.11-1 amd64 [installed,automatic]</li>
+<li>libpython-stdlib/xenial,now 2.7.11-1 amd64 [installed,automatic]</li>
+<li>libpython2.7/xenial-updates,now 2.7.12-1~16.04 amd64 [installed,automatic]</li>
+<li>libpython2.7-dev/xenial-updates,now 2.7.12-1~16.04 amd64 [installed,automatic]</li>
+<li>libpython2.7-minimal/xenial-updates,now 2.7.12-1~16.04 amd64 [installed,automatic]</li>
+<li>libpython2.7-stdlib/xenial-updates,now 2.7.12-1~16.04 amd64 [installed,automatic]</li>
+<li>libpython3.5/xenial-updates,now 3.5.2-2~16.04 amd64 [installed,automatic]</li>
+<li>libpython3.5-minimal/xenial-updates,now 3.5.2-2~16.04 amd64 [installed,automatic]</li>
+<li>libpython3.5-stdlib/xenial-updates,now 3.5.2-2~16.04 amd64 [installed,automatic]</li>
+<li>libquadmath0/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libreadline-dev/xenial,now 6.3-8ubuntu2 amd64 [installed,automatic]</li>
+<li>libreadline6/xenial,now 6.3-8ubuntu2 amd64 [installed]</li>
+<li>libreadline6-dev/xenial,now 6.3-8ubuntu2 amd64 [installed,automatic]</li>
+<li>libroken18-heimdal/xenial,now 1.7~git20150920+dfsg-4ubuntu1 amd64 [installed,automatic]</li>
+<li>librsvg2-2/xenial,now 2.40.13-3 amd64 [installed,automatic]</li>
+<li>librsvg2-common/xenial,now 2.40.13-3 amd64 [installed,automatic]</li>
+<li>librtmp1/xenial,now 2.4+20151223.gitfa8646d-1build1 amd64 [installed,automatic]</li>
+<li>libsasl2-2/xenial,now 2.1.26.dfsg1-14build1 amd64 [installed,automatic]</li>
+<li>libsasl2-modules/xenial,now 2.1.26.dfsg1-14build1 amd64 [installed,automatic]</li>
+<li>libsasl2-modules-db/xenial,now 2.1.26.dfsg1-14build1 amd64 [installed,automatic]</li>
+<li>libsbml5/xenial,now 5.12.0+dfsg-3 amd64 [installed]</li>
+<li>libsbml5-python/xenial,now 5.12.0+dfsg-3 amd64 [installed]</li>
+<li>libsbmlsim/now 1.3.0 amd64 [installed,local]</li>
+<li>libseccomp2/xenial,now 2.2.3-3ubuntu3 amd64 [installed]</li>
+<li>libselinux1/xenial,now 2.4-3build2 amd64 [installed]</li>
+<li>libsemanage-common/xenial,now 2.3-1build3 all [installed]</li>
+<li>libsemanage1/xenial,now 2.3-1build3 amd64 [installed]</li>
+<li>libsepol1/xenial,now 2.4-2 amd64 [installed]</li>
+<li>libsigsegv2/xenial,now 2.10-4 amd64 [installed,automatic]</li>
+<li>libsm-dev/xenial,now 2:1.2.2-1 amd64 [installed,automatic]</li>
+<li>libsm6/xenial,now 2:1.2.2-1 amd64 [installed,automatic]</li>
+<li>libsmartcols1/xenial-updates,now 2.27.1-6ubuntu3.1 amd64 [installed]</li>
+<li>libsqlite3-0/xenial,now 3.11.0-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libss2/xenial,now 1.42.13-1ubuntu1 amd64 [installed]</li>
+<li>libssl1.0.0/xenial-updates,xenial-security,now 1.0.2g-1ubuntu4.5 amd64 [installed,automatic]</li>
+<li>libstdc++-5-dev/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libstdc++6/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libsys-hostname-long-perl/xenial,now 1.5-1 all [installed,automatic]</li>
+<li>libsystemd0/now 229-4ubuntu8 amd64 [installed,upgradable to: 229-4ubuntu12]</li>
+<li>libtasn1-6/xenial-updates,xenial-security,now 4.7-3ubuntu0.16.04.1 amd64 [installed,automatic]</li>
+<li>libtcl8.6/xenial,now 8.6.5+dfsg-2 amd64 [installed,automatic]</li>
+<li>libtext-iconv-perl/xenial,now 1.7-5build4 amd64 [installed,automatic]</li>
+<li>libthai-data/xenial,now 0.1.24-2 all [installed,automatic]</li>
+<li>libthai0/xenial,now 0.1.24-2 amd64 [installed,automatic]</li>
+<li>libtie-ixhash-perl/xenial,now 1.23-2 all [installed,automatic]</li>
+<li>libtiff5/xenial,now 4.0.6-1 amd64 [installed,automatic]</li>
+<li>libtimedate-perl/xenial,now 2.3000-2 all [installed,automatic]</li>
+<li>libtinfo-dev/xenial,now 6.0+20160213-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libtinfo5/xenial,now 6.0+20160213-1ubuntu1 amd64 [installed]</li>
+<li>libtk8.6/xenial,now 8.6.5-1 amd64 [installed,automatic]</li>
+<li>libtsan0/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libtxc-dxtn-s2tc0/xenial,now 0~git20131104-1.1 amd64 [installed,automatic]</li>
+<li>libubsan0/now 5.4.0-6ubuntu1~16.04.2 amd64 [installed,upgradable to: 5.4.0-6ubuntu1~16.04.4]</li>
+<li>libudev1/now 229-4ubuntu8 amd64 [installed,upgradable to: 229-4ubuntu12]</li>
+<li>libunistring0/xenial,now 0.9.3-5.2ubuntu1 amd64 [installed,automatic]</li>
+<li>liburi-perl/xenial,now 1.71-1 all [installed,automatic]</li>
+<li>libusb-0.1-4/xenial,now 2:0.1.12-28 amd64 [installed]</li>
+<li>libustr-1.0-1/xenial,now 1.0.4-5 amd64 [installed]</li>
+<li>libuuid1/xenial-updates,now 2.27.1-6ubuntu3.1 amd64 [installed]</li>
+<li>libwind0-heimdal/xenial,now 1.7~git20150920+dfsg-4ubuntu1 amd64 [installed,automatic]</li>
+<li>libwmf0.2-7/xenial,now 0.2.8.4-10.5ubuntu1 amd64 [installed,automatic]</li>
+<li>libwww-perl/xenial,now 6.15-1 all [installed,automatic]</li>
+<li>libwww-robotrules-perl/xenial,now 6.01-1 all [installed,automatic]</li>
+<li>libx11-6/xenial,now 2:1.6.3-1ubuntu2 amd64 [installed,automatic]</li>
+<li>libx11-data/xenial,now 2:1.6.3-1ubuntu2 all [installed,automatic]</li>
+<li>libx11-dev/xenial,now 2:1.6.3-1ubuntu2 amd64 [installed,automatic]</li>
+<li>libx11-doc/xenial,now 2:1.6.3-1ubuntu2 all [installed,automatic]</li>
+<li>libx11-protocol-perl/xenial,now 0.56-7 all [installed,automatic]</li>
+<li>libx11-xcb1/xenial,now 2:1.6.3-1ubuntu2 amd64 [installed,automatic]</li>
+<li>libxau-dev/xenial,now 1:1.0.8-1 amd64 [installed,automatic]</li>
+<li>libxau6/xenial,now 1:1.0.8-1 amd64 [installed,automatic]</li>
+<li>libxaw7/xenial,now 2:1.0.13-1 amd64 [installed,automatic]</li>
+<li>libxcb-dri2-0/xenial,now 1.11.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libxcb-dri3-0/xenial,now 1.11.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libxcb-glx0/xenial,now 1.11.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libxcb-present0/xenial,now 1.11.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libxcb-render0/xenial,now 1.11.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libxcb-render0-dev/xenial,now 1.11.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libxcb-shape0/xenial,now 1.11.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libxcb-shm0/xenial,now 1.11.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libxcb-shm0-dev/xenial,now 1.11.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libxcb-sync1/xenial,now 1.11.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libxcb1/xenial,now 1.11.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libxcb1-dev/xenial,now 1.11.1-1ubuntu1 amd64 [installed,automatic]</li>
+<li>libxcomposite1/xenial,now 1:0.4.4-1 amd64 [installed,automatic]</li>
+<li>libxcursor1/xenial,now 1:1.1.14-1 amd64 [installed,automatic]</li>
+<li>libxdamage1/xenial,now 1:1.1.4-2 amd64 [installed,automatic]</li>
+<li>libxdmcp-dev/xenial,now 1:1.1.2-1.1 amd64 [installed,automatic]</li>
+<li>libxdmcp6/xenial,now 1:1.1.2-1.1 amd64 [installed,automatic]</li>
+<li>libxext-dev/xenial,now 2:1.3.3-1 amd64 [installed,automatic]</li>
+<li>libxext6/xenial,now 2:1.3.3-1 amd64 [installed,automatic]</li>
+<li>libxfixes3/xenial,now 1:5.0.1-2 amd64 [installed,automatic]</li>
+<li>libxft2/xenial,now 2.3.2-1 amd64 [installed,automatic]</li>
+<li>libxi6/xenial,now 2:1.7.6-1 amd64 [installed,automatic]</li>
+<li>libxinerama1/xenial,now 2:1.1.3-1 amd64 [installed,automatic]</li>
+<li>libxml-parser-perl/xenial,now 2.44-1build1 amd64 [installed,automatic]</li>
+<li>libxml-twig-perl/xenial,now 1:3.48-1 all [installed,automatic]</li>
+<li>libxml-xpathengine-perl/xenial,now 0.13-1 all [installed,automatic]</li>
+<li>libxml2/xenial-updates,xenial-security,now 2.9.3+dfsg1-1ubuntu0.1 amd64 [installed,automatic]</li>
+<li>libxml2-dev/xenial-updates,xenial-security,now 2.9.3+dfsg1-1ubuntu0.1 amd64 [installed]</li>
+<li>libxmu6/xenial,now 2:1.1.2-2 amd64 [installed,automatic]</li>
+<li>libxmuu1/xenial,now 2:1.1.2-2 amd64 [installed,automatic]</li>
+<li>libxpm4/xenial,now 1:3.5.11-1 amd64 [installed,automatic]</li>
+<li>libxrandr2/xenial,now 2:1.5.0-1 amd64 [installed,automatic]</li>
+<li>libxrender-dev/xenial,now 1:0.9.9-0ubuntu1 amd64 [installed,automatic]</li>
+<li>libxrender1/xenial,now 1:0.9.9-0ubuntu1 amd64 [installed,automatic]</li>
+<li>libxshmfence1/xenial,now 1.2-1 amd64 [installed,automatic]</li>
+<li>libxslt1.1/xenial,now 1.1.28-2.1 amd64 [installed,automatic]</li>
+<li>libxss1/xenial,now 1:1.2.2-1 amd64 [installed,automatic]</li>
+<li>libxt6/xenial,now 1:1.1.5-0ubuntu1 amd64 [installed,automatic]</li>
+<li>libxtables11/xenial,now 1.6.0-2ubuntu3 amd64 [installed,automatic]</li>
+<li>libxtst6/xenial,now 2:1.2.2-1 amd64 [installed,automatic]</li>
+<li>libxv1/xenial,now 2:1.0.10-1 amd64 [installed,automatic]</li>
+<li>libxxf86dga1/xenial,now 2:1.1.4-1 amd64 [installed,automatic]</li>
+<li>libxxf86vm1/xenial,now 1:1.1.4-1 amd64 [installed,automatic]</li>
+<li>linux-libc-dev/now 4.4.0-42.62 amd64 [installed,upgradable to: 4.4.0-47.68]</li>
+<li>locales/xenial,now 2.23-0ubuntu3 all [installed,upgradable to: 2.23-0ubuntu4]</li>
+<li>login/xenial,now 1:4.2-3.1ubuntu5 amd64 [installed]</li>
+<li>lsb-base/xenial-updates,now 9.20160110ubuntu0.2 all [installed]</li>
+<li>m4/xenial,now 1.4.17-5 amd64 [installed,automatic]</li>
+<li>make/xenial,now 4.1-6 amd64 [installed,automatic]</li>
+<li>makedev/xenial,now 2.3.1-93ubuntu1 all [installed]</li>
+<li>man-db/xenial,now 2.7.5-1 amd64 [installed,automatic]</li>
+<li>manpages/xenial,now 4.04-2 all [installed,automatic]</li>
+<li>manpages-dev/xenial,now 4.04-2 all [installed,automatic]</li>
+<li>mawk/xenial,now 1.3.3-17ubuntu2 amd64 [installed]</li>
+<li>mime-support/xenial,now 3.59ubuntu1 all [installed,automatic]</li>
+<li>mount/xenial-updates,now 2.27.1-6ubuntu3.1 amd64 [installed]</li>
+<li>multiarch-support/xenial,now 2.23-0ubuntu3 amd64 [installed,upgradable to: 2.23-0ubuntu4]</li>
+<li>ncurses-base/xenial,now 6.0+20160213-1ubuntu1 all [installed]</li>
+<li>ncurses-bin/xenial,now 6.0+20160213-1ubuntu1 amd64 [installed]</li>
+<li>netbase/xenial,now 5.3 all [installed,automatic]</li>
+<li>netpbm/xenial,now 2:10.0-15.3 amd64 [installed,automatic]</li>
+<li>openssl/xenial-updates,xenial-security,now 1.0.2g-1ubuntu4.5 amd64 [installed,automatic]</li>
+<li>passwd/xenial,now 1:4.2-3.1ubuntu5 amd64 [installed]</li>
+<li>patch/xenial,now 2.7.5-1 amd64 [installed,automatic]</li>
+<li>perl/xenial,now 5.22.1-9 amd64 [installed,automatic]</li>
+<li>perl-base/xenial,now 5.22.1-9 amd64 [installed]</li>
+<li>perl-modules-5.22/xenial,now 5.22.1-9 all [installed,automatic]</li>
+<li>pkg-config/xenial,now 0.29.1-0ubuntu1 amd64 [installed,automatic]</li>
+<li>po-debconf/xenial,now 1.0.19 all [installed,automatic]</li>
+<li>poppler-data/xenial,now 0.4.7-7 all [installed,automatic]</li>
+<li>procps/xenial,now 2:3.3.10-4ubuntu2 amd64 [installed]</li>
+<li>pymol/xenial,now 1.7.2.1-2.2 amd64 [installed]</li>
+<li>python/xenial,now 2.7.11-1 amd64 [installed,automatic]</li>
+<li>python-bs4/xenial,now 4.4.1-1 all [installed,automatic]</li>
+<li>python-chardet/xenial,now 2.3.0-2 all [installed,automatic]</li>
+<li>python-dev/xenial,now 2.7.11-1 amd64 [installed]</li>
+<li>python-html5lib/xenial,now 0.999-4 all [installed,automatic]</li>
+<li>python-lxml/xenial,now 3.5.0-1build1 amd64 [installed]</li>
+<li>python-minimal/xenial,now 2.7.11-1 amd64 [installed,automatic]</li>
+<li>python-numpy/xenial,now 1:1.11.0-1ubuntu1 amd64 [installed]</li>
+<li>python-pkg-resources/xenial,now 20.7.0-1 all [installed,automatic]</li>
+<li>python-pmw/xenial,now 1.3.2-6build1 all [installed,automatic]</li>
+<li>python-scour/xenial,now 0.32-1 all [installed,automatic]</li>
+<li>python-six/xenial,now 1.10.0-3 all [installed,automatic]</li>
+<li>python-tk/xenial,now 2.7.11-2 amd64 [installed,automatic]</li>
+<li>python2.7/xenial-updates,now 2.7.12-1~16.04 amd64 [installed,automatic]</li>
+<li>python2.7-dev/xenial-updates,now 2.7.12-1~16.04 amd64 [installed,automatic]</li>
+<li>python2.7-minimal/xenial-updates,now 2.7.12-1~16.04 amd64 [installed,automatic]</li>
+<li>r-base/xenial,now 3.2.3-4 all [installed]</li>
+<li>r-base-core/xenial,now 3.2.3-4 amd64 [installed,automatic]</li>
+<li>r-base-dev/xenial,now 3.2.3-4 all [installed,automatic]</li>
+<li>r-base-html/xenial,now 3.2.3-4 all [installed,automatic]</li>
+<li>r-cran-boot/xenial,now 1.3-17-1 all [installed,automatic]</li>
+<li>r-cran-class/xenial,now 7.3-14-1 amd64 [installed,automatic]</li>
+<li>r-cran-cluster/xenial,now 2.0.3-1 amd64 [installed,automatic]</li>
+<li>r-cran-codetools/xenial,now 0.2-14-1 all [installed,automatic]</li>
+<li>r-cran-foreign/xenial,now 0.8.66-1 amd64 [installed,automatic]</li>
+<li>r-cran-kernsmooth/xenial,now 2.23-15-1 amd64 [installed,automatic]</li>
+<li>r-cran-lattice/xenial,now 0.20-33-1 amd64 [installed,automatic]</li>
+<li>r-cran-mass/xenial,now 7.3-45-1 amd64 [installed,automatic]</li>
+<li>r-cran-matrix/xenial,now 1.2-3-1 amd64 [installed,automatic]</li>
+<li>r-cran-mgcv/xenial,now 1.8-11-1 amd64 [installed,automatic]</li>
+<li>r-cran-nlme/xenial,now 3.1.124-1 amd64 [installed,automatic]</li>
+<li>r-cran-nnet/xenial,now 7.3-12-1 amd64 [installed,automatic]</li>
+<li>r-cran-rpart/xenial,now 4.1-10-1 amd64 [installed,automatic]</li>
+<li>r-cran-spatial/xenial,now 7.3-11-1 amd64 [installed,automatic]</li>
+<li>r-cran-survival/xenial,now 2.38-3-1 amd64 [installed,automatic]</li>
+<li>r-doc-html/xenial,now 3.2.3-4 all [installed,automatic]</li>
+<li>r-recommended/xenial,now 3.2.3-4 all [installed]</li>
+<li>readline-common/xenial,now 6.3-8ubuntu2 all [installed]</li>
+<li>rename/xenial,now 0.20-4 all [installed,automatic]</li>
+<li>sed/xenial,now 4.2.2-7 amd64 [installed]</li>
+<li>sensible-utils/xenial,now 0.0.9 all [installed]</li>
+<li>sgml-base/xenial,now 1.26+nmu4ubuntu1 all [installed,automatic]</li>
+<li>shared-mime-info/xenial-updates,now 1.5-2ubuntu0.1 amd64 [installed,automatic]</li>
+<li>swig2.0/xenial,now 2.0.12-1ubuntu4 amd64 [installed,automatic]</li>
+<li>systemd/now 229-4ubuntu8 amd64 [installed,upgradable to: 229-4ubuntu12]</li>
+<li>systemd-sysv/now 229-4ubuntu8 amd64 [installed,upgradable to: 229-4ubuntu12]</li>
+<li>sysv-rc/xenial,now 2.88dsf-59.3ubuntu2 all [installed]</li>
+<li>sysvinit-utils/xenial,now 2.88dsf-59.3ubuntu2 amd64 [installed]</li>
+<li>tar/xenial,now 1.28-2.1 amd64 [installed]</li>
+<li>tk8.6-blt2.5/xenial,now 2.5.3+dfsg-3 amd64 [installed,automatic]</li>
+<li>tzdata/now 2016f-0ubuntu0.16.04 all [installed,upgradable to: 2016h-0ubuntu0.16.04]</li>
+<li>ubuntu-keyring/xenial,now 2012.05.19 all [installed]</li>
+<li>ucf/xenial,now 3.0036 all [installed,automatic]</li>
+<li>unzip/xenial,now 6.0-20ubuntu1 amd64 [installed,automatic]</li>
+<li>util-linux/xenial-updates,now 2.27.1-6ubuntu3.1 amd64 [installed]</li>
+<li>vim/xenial-updates,now 2:7.4.1689-3ubuntu1.1 amd64 [installed]</li>
+<li>vim-common/xenial-updates,now 2:7.4.1689-3ubuntu1.1 amd64 [installed,automatic]</li>
+<li>vim-runtime/xenial-updates,now 2:7.4.1689-3ubuntu1.1 all [installed,automatic]</li>
+<li>wget/xenial-updates,xenial-security,now 1.17.1-1ubuntu1.1 amd64 [installed]</li>
+<li>x11-common/xenial,now 1:7.7+13ubuntu3 all [installed,automatic]</li>
+<li>x11-utils/xenial,now 7.7+3 amd64 [installed,automatic]</li>
+<li>x11-xserver-utils/xenial,now 7.7+7 amd64 [installed,automatic]</li>
+<li>x11proto-core-dev/xenial,now 7.0.28-2ubuntu1 all [installed,automatic]</li>
+<li>x11proto-input-dev/xenial,now 2.3.1-1 all [installed,automatic]</li>
+<li>x11proto-kb-dev/xenial,now 1.0.7-0ubuntu1 all [installed,automatic]</li>
+<li>x11proto-render-dev/xenial,now 2:0.11.1-2 all [installed,automatic]</li>
+<li>x11proto-xext-dev/xenial,now 7.3.0-1 all [installed,automatic]</li>
+<li>xdg-user-dirs/xenial,now 0.15-2ubuntu6 amd64 [installed,automatic]</li>
+<li>xdg-utils/xenial,now 1.1.1-1ubuntu1 all [installed,automatic]</li>
+<li>xml-core/xenial,now 0.13+nmu2 all [installed,automatic]</li>
+<li>xorg-sgml-doctools/xenial,now 1:1.11-1 all [installed,automatic]</li>
+<li>xtrans-dev/xenial,now 1.3.5-1 all [installed,automatic]</li>
+<li>xz-utils/xenial,now 5.1.1alpha+20120614-2ubuntu2 amd64 [installed,automatic]</li>
+<li>zip/xenial,now 3.0-11 amd64 [installed,automatic]</li>
+<li>zlib1g/xenial,now 1:1.2.8.dfsg-2ubuntu4 amd64 [installed]</li>
+<li>zlib1g-dev/xenial,now 1:1.2.8.dfsg-2ubuntu4 amd64 [installed,automatic]</li>
+<li>zsh/xenial,now 5.1.1-1ubuntu2 amd64 [installed]</li>
+<li>zsh-common/xenial,now 5.1.1-1ubuntu2 all [installed,automatic]</li>
+  </ul>
+</p>
