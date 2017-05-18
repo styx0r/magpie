@@ -43,7 +43,7 @@ class ModelsController < ApplicationController
             @model.destroy
             flash[:danger] = "Error: No sh script found."
             redirect_to :back
-            return out            
+            return out
           elsif out > 1
             flash[:danger] = "Error: Model has not passed checks."
             redirect_to :back

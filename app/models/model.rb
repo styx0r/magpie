@@ -46,7 +46,7 @@ class Model < ActiveRecord::Base
     require 'tmpdir'
     self.tmp_path = Dir.mktmpdir
     p "Temporary folder for unzipping at #{self.tmp_path}"
-    system("cd #{self.path}; git init --bare; cd #{self.tmp_path}; git clone #{self.path} #{self.tmp_path}")
+    system("cd #{self.path}; git init --bare;")
     if self.is_xml? self.source.file.file
       self.unzip_source("#{Rails.application.config.root}/test/zip/sbmlShell.zip", self.tmp_path)
       system("cp #{Rails.application.config.root}/test/seedextra/createSBMLConfig.py #{self.tmp_path}")
@@ -74,14 +74,15 @@ class Model < ActiveRecord::Base
     elsif
       self.unzip_source(self.source.file.file, self.tmp_path)
       out = self.check_zip self.tmp_path
-      if out
+      if out != 0
         return out
       end
     end
-    system("cd #{self.tmp_path}; git add -A; git commit -m 'Initial commit for model #{self.name}'; git tag -a initial -m 'Initial version'; git push origin master --tags;")
 
     # move all model data into root directory of sh file
     self.move_shell_dir_to_root self.tmp_path
+
+    system("cd #{self.tmp_path}; git add -A; git commit -m 'Initial commit for model #{self.name}'; git tag -a initial -m 'Initial version'; git push origin master --tags;")
 
     self.mainscript = Hash[self.current_revision.strip, get_main_script]
     self.set_default_logo
@@ -92,17 +93,19 @@ class Model < ActiveRecord::Base
 
   def move_shell_dir_to_root path
     tmp_path = Dir.mktmpdir
+    system("cd #{tmp_path}; git clone #{self.path} #{tmp_path};")
 
     files = Dir[self.tmp_path+"/**/*"]#Dir.entries(self.tmp_path)
     sh_files = files.select { |s| (File.basename s).end_with?('.sh') & !(File.basename s).start_with?('.sh') } # if no .sh script is available
     sh_file = sh_files.index { |s| (File.basename s) == "main.sh" }
+
     if sh_file.nil?
       sh_file = sh_files.at(0)
     end
 
-    FileUtils.cp_r (Dir.glob sh_file.dirname+"/{*,.*}"), tmp_path
+    FileUtils.cp_r (Dir.glob ((File.dirname sh_file)+"/{*}")), tmp_path
     FileUtils.remove_dir path
-    FileUtils.mv tmp_path path
+    FileUtils.mv tmp_path, path
   end
 
   def check_zip path
