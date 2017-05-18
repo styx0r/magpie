@@ -47,7 +47,8 @@ class Model < ActiveRecord::Base
     self.tmp_path = Dir.mktmpdir
     p "Temporary folder for unzipping at #{self.tmp_path}"
     system("cd #{self.path}; git init --bare;")
-    if self.is_xml? self.source.file.file
+    if self.is_xml? self.source.file.file # Assuming it is SBML
+      system("cd #{self.tmp_path}; git clone #{self.path} #{self.tmp_path};")
       self.unzip_source("#{Rails.application.config.root}/test/zip/sbmlShell.zip", self.tmp_path)
       system("cp #{Rails.application.config.root}/test/seedextra/createSBMLConfig.py #{self.tmp_path}")
       system("cp #{self.source.file.file} #{self.tmp_path}/sbml.xml")
@@ -77,10 +78,9 @@ class Model < ActiveRecord::Base
       if out != 0
         return out
       end
+      # move all model data into root directory of sh file
+      self.move_shell_dir_to_root self.tmp_path
     end
-
-    # move all model data into root directory of sh file
-    self.move_shell_dir_to_root self.tmp_path
 
     system("cd #{self.tmp_path}; git add -A; git commit -m 'Initial commit for model #{self.name}'; git tag -a initial -m 'Initial version'; git push origin master --tags;")
 
