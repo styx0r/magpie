@@ -211,6 +211,20 @@ clonal_leukemia_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'clo
 @model8.initializer
 @model8.save
 
+sbml_showcase_STAT1_desc = File.open(File.join(Rails.root, 'test', 'seedextra', 'sbml_showcase_STAT1_description.md')).read
+sbml_showcase_STAT1_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'sbml_showcase_STAT1_help.md')).read
+@model9 = Model.create!(name:         "SBML: STAT1 activity in pancreatic cancer",
+                        description:  sbml_showcase_STAT1_desc,
+                        help:         sbml_showcase_STAT1_help,
+                        source:       File.open("#{Rails.application.config.root}/test/zip/STAT1ActivityPancreaticCancer.zip"),
+                        user_id:      User.find_by(name: "Christoph Baldow").id,
+                        doi:          "10.1371/journal.pcbi.1002815",
+                        citation:     "Rateitschak K1, Winter F, Lange F, Jaster R, Wolkenhauer O. (2012) Parameter identifiability and sensitivity analysis predict targets for enhancement of STAT1 activity in pancreatic cancer and stellate cells. PLoS Comput Biol. 2012;8(12):e1002815.",
+                        category:     "Showcase",
+                        logo:         MiniMagick::Image.open("#{Rails.application.config.root}/test/zip/logos/sbml.png").to_blob)
+@model9.initializer
+@model9.save
+
 
 ################# Tutorial Projects and jobs ####################
 

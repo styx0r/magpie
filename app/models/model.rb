@@ -97,10 +97,12 @@ class Model < ActiveRecord::Base
 
     files = Dir[self.tmp_path+"/**/*"]#Dir.entries(self.tmp_path)
     sh_files = files.select { |s| (File.basename s).end_with?('.sh') & !(File.basename s).start_with?('.sh') } # if no .sh script is available
-    sh_file = sh_files.index { |s| (File.basename s) == "main.sh" }
+    sh_file_main = sh_files.index { |s| (File.basename s) == "main.sh" }
 
-    if sh_file.nil?
+    if sh_file_main.nil?
       sh_file = sh_files.at(0)
+    else
+      sh_file = sh_files.at(sh_file_main)
     end
 
     FileUtils.cp_r (Dir.glob ((File.dirname sh_file)+"/{*}")), tmp_path
