@@ -79,7 +79,7 @@ class Model < ActiveRecord::Base
         return out
       end
       # move all model data into root directory of sh file
-      self.move_shell_dir_to_root self.tmp_path
+      self.move_shell_dir_to_root self.tmp_path, false
     end
 
     system("cd #{self.tmp_path}; git add -A; git commit -m 'Initial commit for model #{self.name}'; git tag -a initial -m 'Initial version'; git push origin master --tags;")
@@ -91,9 +91,12 @@ class Model < ActiveRecord::Base
     return 0
   end
 
-  def move_shell_dir_to_root path
+  def move_shell_dir_to_root path, update
     tmp_path = Dir.mktmpdir
     system("cd #{tmp_path}; git clone #{self.path} #{tmp_path};")
+    if update
+      system("cd #{tmp_path}; git rm -r *")
+    end
 
     files = Dir[self.tmp_path+"/**/*"]#Dir.entries(self.tmp_path)
     sh_files = files.select { |s| (File.basename s).end_with?('.sh') & !(File.basename s).start_with?('.sh') } # if no .sh script is available
@@ -139,9 +142,15 @@ class Model < ActiveRecord::Base
     require 'tmpdir'
     self.tmp_path = Dir.mktmpdir
     p "Temporary folder for unzipping at #{self.tmp_path}"
-    system("git clone #{self.path} #{self.tmp_path}")
-    system("cd #{self.tmp_path}; git rm *")
     unzip_source(src.tempfile, self.tmp_path)
+    out = self.check_zip self.tmp_path
+    if out != 0
+      return out
+    end
+
+    # move all model data into root directory of sh file
+    self.move_shell_dir_to_root self.tmp_path, true
+
     system("cd #{self.tmp_path}; git add -A")
 
     # Check if anything has changed
