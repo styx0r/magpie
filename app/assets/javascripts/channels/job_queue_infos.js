@@ -37,5 +37,6 @@ App.job_queue_infos = App.cable.subscriptions.create("JobQueueInfosChannel", {
           }
         });
     }
+    
   }
 });
