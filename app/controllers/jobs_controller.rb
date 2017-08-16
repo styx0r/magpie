@@ -124,7 +124,12 @@ class JobsController < ApplicationController
     # Initializes file download
     dir = @job.directory
     zipfile = "#{dir}/all-resultfiles-#{@job.project.name}-#{@job.id.to_s}.zip"
-    send_file zipfile, :type => 'application/zip', :disposition => 'attachment', :filename => "results_#{@job.project.name}_#{@job.id.to_s}.zip"
+    if File.exist?(zipfile)
+      send_file zipfile, :type => 'application/zip', :disposition => 'attachment', :filename => "results_#{@job.project.name}_#{@job.id.to_s}.zip"
+    else
+      flash["danger"] = "The zip of result files is not existing. Contact the administrator if you can't fix it yourself."
+      redirect_to :back
+    end
   end
 
   def download_config
@@ -132,7 +137,12 @@ class JobsController < ApplicationController
     # Initializes file download
     dir = @job.directory
     zipfile = "#{dir}/config-#{@job.project.name}-#{@job.id.to_s}.zip"
-    send_file zipfile, :type => 'application/zip', :disposition => 'attachment', :filename => "config_#{@job.project.name}_#{@job.id.to_s}.zip"
+    if File.exist?(zipfile)
+      send_file zipfile, :type => 'application/zip', :disposition => 'attachment', :filename => "config_#{@job.project.name}_#{@job.id.to_s}.zip"
+    else
+      flash['danger'] = "The zip of config files is not existing. Contact the administrator if you can't fix it yourself."
+      redirect_to :back
+    end
   end
 
   def highlight

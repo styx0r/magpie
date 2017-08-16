@@ -17,11 +17,17 @@ module ProjectsHelper
   end
 
   def numResultfiles job
-    job.resultfiles.size
+    if job.resultfiles.nil?
+      return 0
+    end
+    return job.resultfiles.size
   end
 
   def numConfigfiles job
-    job.configfiles.size
+    if job.configfiles.nil?
+      return 0
+    end
+    return job.configfiles.size
   end
 
 
