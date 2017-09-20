@@ -261,6 +261,10 @@ sbml_showcase_STAT1_help = File.open(File.join(Rails.root, 'test', 'seedextra', 
 
 #############
 
+if !Pathname.new("#{Rails.application.config.root}/test/zip/magpie-default.docker.zip").exist?
+  system("cd #{Rails.application.config.root}/test/zip; wget https://magpie.imb.medizin.tu-dresden.de/magpie-default.docker.zip")
+end
+
 # Initialize the docker image
 # TODO: integrate in execution: docker run -it -v /Users/baldow/.magpie/docker/:/root -w /root magpie:default ./run_mf.sh
 system("rm -fR #{Rails.application.config.docker_path}")
