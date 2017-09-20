@@ -32,38 +32,14 @@ require 'open3'
 require 'mini_magick'
 
 
-@u1 = User.create!( name:                   "Christoph Baldow",
-                    identity:               "christophb",
-                    email:                  "christoph.baldow@tu-dresden.de",
-                    password:               "imb_christoph.baldow_6102",
-                    password_confirmation:  "imb_christoph.baldow_6102",
+@u1 = User.create!( name:                   "Admin",
+                    identity:               "admin",
+                    email:                  "admin@admin.de",
+                    password:               "admin",
+                    password_confirmation:  "admin",
                     admin:                  true,
                     activated:              true,
                     activated_at:           Time.zone.now)
-@u1.create_right
-[{tag: "imb"}, {tag: "trumpets"}, {tag: "carloc"}, {tag: "models"}].each do |tagdata|
-  @u1.hashtags.create(tagdata) end
-
-@u2 = User.create!( name:                   "Sebastian Salentin",
-                    identity:               "sebastians",
-                    email:                  "sebastian.salentin@biotec.tu-dresden.de",
-                    password:               "biotec_sebastian.salentin_6102",
-                    password_confirmation:  "biotec_sebastian.salentin_6102",
-                    admin:                  true,
-                    activated:              true,
-                    activated_at:           Time.zone.now)
-@u2.create_right
-[{tag: "biotec"}, {tag: "dresden"}, {tag: "freeharambe"}].each do |tagdata|
-  @u2.hashtags.create(tagdata) end
-
-@u1 = User.create!( name:                   "Lars Thielecke",
-              identity:               "larst",
-              email:                  "lars.thielecke@tu-dresden.de",
-              password:               "imb_lars.thielecke_6102",
-              password_confirmation:  "imb_lars.thielecke_6102",
-              admin:                  false,
-              activated:              true,
-              activated_at:           Time.zone.now)
 @u1.create_right
 
 @u1 = User.create!( name:                   "Non-Admin User",
