@@ -34,15 +34,15 @@ require 'mini_magick'
 
 @u1 = User.create!( name:                   "Admin",
                     identity:               "admin",
-                    email:                  "admin@admin.de",
-                    password:               "admin",
-                    password_confirmation:  "admin",
+                    email:                  "admin@admin.com",
+                    password:               "admin_password_17",
+                    password_confirmation:  "admin_password_17",
                     admin:                  true,
                     activated:              true,
                     activated_at:           Time.zone.now)
 @u1.create_right
 
-@u1 = User.create!( name:                   "Non-Admin User",
+@u1 = User.create!( name:             "Non-Admin User",
               identity:               "nonadminu",
               email:                  "user@user.kp",
               password:               "nonadmin.mypass?.7699_8",
@@ -77,7 +77,7 @@ require 'mini_magick'
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/sleep.zip"),
               category:              'Showcase',
-              user_id:               User.find_by(name: "Christoph Baldow").id)
+              user_id:               User.find_by(name: "Admin").id)
 @model1.initializer
 [{tag: "versions"}, {tag: "sleepy"}, {tag: "myfirstmodel"}].each do |tagdata|
   @model1.hashtags.create(tagdata) end
@@ -104,7 +104,7 @@ end
               description:           "Runs a job with a syntax error in the bash script. Will fail 100%.",
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/failed.zip"),
-              user_id:               User.find_by(name: "Sebastian Salentin").id,
+              user_id:               User.find_by(name: "Admin").id,
               category:              "Showcase")
 @model2.initializer
 [{tag: "completefailure"}, {tag: "owned"}, {tag: "syntaxerror"}].each do |tagdata|
@@ -127,8 +127,7 @@ multiplexingclonality_desc = File.open(File.join(Rails.root, 'test', 'seedextra'
               description:           multiplexingclonality_desc,
               help:                  "",
               source:                File.open("#{Rails.application.config.root}/test/zip/multiplex.zip"),
-              category:              'Cell Modelling',
-              user_id:               User.find_by(name: "Lars Thielecke").id,
+              user_id:               User.find_by(name: "Admin").id,
               doi:                   "10.1093/nar/gku081",
               citation:              "Cornils, Kerstin et al. “Multiplexing Clonality: Combining RGB Marking and Genetic Barcoding.” Nucleic Acids Research 42.7 (2014): e56. PMC. Web. 13 Dec. 2016.",
               category:              "Sequencing",
@@ -143,7 +142,7 @@ multiplexingclonality_desc = File.open(File.join(Rails.root, 'test', 'seedextra'
                         help:         "Find more information about interactive plots in MAGPIE here: https://magpie.imb.medizin.tu-dresden.de/help?section=Interactive%20Plots",
                         source:        File.open("#{Rails.application.config.root}/test/zip/d3Model.zip"),
                         category:     'Showcase',
-                        user_id:      User.find_by(name: "Christoph Baldow").id)
+                        user_id:      User.find_by(name: "Admin").id)
 @model5.initializer
 @model5.save
 
@@ -154,7 +153,7 @@ plip_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'plip_help.md')
                         description:  plip_desc,
                         help:         plip_help,
                         source:       File.open("#{Rails.application.config.root}/test/zip/pliplocal.zip"),
-                        user_id:      User.find_by(name: "Sebastian Salentin").id,
+                        user_id:      User.find_by(name: "Admin").id,
                         doi:          "10.1093/nar/gkv315",
                         citation:     "Salentin,S. et al. PLIP: fully automated protein-ligand interaction profiler. Nucl. Acids Res. (1 July 2015) 43 (W1): W443-W447.",
                         category:     'Structural Bioinformatics',
@@ -166,7 +165,7 @@ plip_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'plip_help.md')
                         description:  "This model is used to show the usage of all possible input parameter types.",
                         help:         "Find more information about configuration files in MAGPIE here: https://magpie.imb.medizin.tu-dresden.de/help?section=Configuration%20Files",
                         source:        File.open("#{Rails.application.config.root}/test/zip/ConfigurationExample.zip"),
-                        user_id:      User.find_by(name: "Christoph Baldow").id,
+                        user_id:      User.find_by(name: "Admin").id,
                         doi:          "",
                         citation:     "",
                         category:     "Showcase")
@@ -179,7 +178,7 @@ clonal_leukemia_help = File.open(File.join(Rails.root, 'test', 'seedextra', 'clo
                         description: clonal_leukemia_desc,
                         help:         clonal_leukemia_help,
                         source:       File.open("#{Rails.application.config.root}/test/zip/clonalleukemia.zip"),
-                        user_id:      User.find_by(name: "Christoph Baldow").id,
+                        user_id:      User.find_by(name: "Admin").id,
                         doi:          "10.1371/journal.pone.0165129",
                         citation:     "Baldow C, Thielecke L, Glauche I (2016) Model Based Analysis of Clonal Developments Allows for Early Detection of Monoclonal Conversion and Leukemia. PLoS ONE 11(10): e0165129.",
                         category:     "Medical Science",
@@ -193,7 +192,7 @@ sbml_showcase_STAT1_help = File.open(File.join(Rails.root, 'test', 'seedextra', 
                         description:  sbml_showcase_STAT1_desc,
                         help:         sbml_showcase_STAT1_help,
                         source:       File.open("#{Rails.application.config.root}/test/zip/STAT1ActivityPancreaticCancer.zip"),
-                        user_id:      User.find_by(name: "Christoph Baldow").id,
+                        user_id:      User.find_by(name: "Admin").id,
                         doi:          "10.1371/journal.pcbi.1002815",
                         citation:     "Rateitschak K1, Winter F, Lange F, Jaster R, Wolkenhauer O. (2012) Parameter identifiability and sensitivity analysis predict targets for enhancement of STAT1 activity in pancreatic cancer and stellate cells. PLoS Comput Biol. 2012;8(12):e1002815.",
                         category:     "Showcase",
