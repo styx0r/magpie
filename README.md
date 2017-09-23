@@ -16,8 +16,8 @@ on public servers. A demo server is available
 
 3. Start the guest image, open a terminal and run the following:
 
-    $ cd magpie
-    $ ./start_server.sh
+       $ cd magpie
+       $ ./start_server.sh
 
     Note: The password is magpie.
 
@@ -29,38 +29,33 @@ on public servers. A demo server is available
 
 2. Install necessary packages:
 
-    $ sudo apt-get install docker.io libmagic-dev redis-server
+       $ sudo apt-get install docker.io libmagic-dev redis-server
 
 3. Adding user to the docker group:
 
-    $ sudo usermod -aG docker $(whoami)
+       $ sudo usermod -aG docker $(whoami)
 
    Afterwards you need to log off and log on.
 
 4. Download the magpie project from github. If git is not installed you can
    either download it directly from [here](https://github.com/christbald/magpie/archive/master.zip) or install as follows:
 
-    $ git clone https://github.com/christbald/magpie.git
+       $ git clone https://github.com/christbald/magpie.git
 
 5. Change into the magpie directory and install the bundles:
 
-    $ cd magpie
-    $ bundle install
+       $ cd magpie
+       $ bundle install
 
 6. Create the database with default entries and prepare the docker image:
 
-    $ rails db:reset
+       $ rails db:reset
 
 7. Start the rails server:
 
-    $ ./start_server.sh
+       $ ./start_server.sh
 
 8. Now you are able to connect by open up a browser and go to URL:
 
        $ localhost:3000
-    
-    ## Getting Started
-
-1. Install Rails at the command prompt if you haven't yet:
-
-        $ gem install rails
+ 
