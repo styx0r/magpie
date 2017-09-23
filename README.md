@@ -56,4 +56,11 @@ on public servers. A demo server is available
     $ ./start_server.sh
 
 8. Now you are able to connect by open up a browser and go to URL:
-    $ localhost:3000
+
+       $ localhost:3000
+    
+    ## Getting Started
+
+1. Install Rails at the command prompt if you haven't yet:
+
+        $ gem install rails
