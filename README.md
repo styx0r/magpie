@@ -20,6 +20,10 @@ on public servers. A demo server is available
        $ ./start_server.sh
 
     Note: The password is magpie.
+    
+4. Now you are able to connect by open up a browser and go to URL:
+
+       $ localhost:3000
 
 ### Manual Installation
 
