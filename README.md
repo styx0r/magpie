@@ -24,6 +24,11 @@ on public servers. A demo server is available
 4. Now you are able to connect by open up a browser and go to URL:
 
        $ localhost:3000
+       
+5. The administrative login is the following:
+
+       $ Email: admin@admin.com
+       $ Password: admin_password_17
 
 ### Manual Installation
 
