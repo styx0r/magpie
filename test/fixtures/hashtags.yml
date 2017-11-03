@@ -1,7 +1,141 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  tag: hashtag1
-
-two:
-  tag: hashtag2
+---
+hashtag_1:
+  id: 1
+  tag: 5amodel1
+  created_at: '2017-11-03 15:26:34.864947'
+  updated_at: '2017-11-03 15:26:34.864947'
+  taggings_count: 1
+  reserved: t
+hashtag_2:
+  id: 2
+  tag: versions
+  created_at: '2017-11-03 15:26:34.885047'
+  updated_at: '2017-11-03 15:26:34.885047'
+  taggings_count: 1
+  reserved: f
+hashtag_3:
+  id: 3
+  tag: sleepy
+  created_at: '2017-11-03 15:26:34.890355'
+  updated_at: '2017-11-03 15:26:34.890355'
+  taggings_count: 1
+  reserved: f
+hashtag_4:
+  id: 4
+  tag: myfirstmodel
+  created_at: '2017-11-03 15:26:34.894938'
+  updated_at: '2017-11-03 15:26:34.894938'
+  taggings_count: 1
+  reserved: f
+hashtag_5:
+  id: 5
+  tag: 0fmodel2
+  created_at: '2017-11-03 15:26:36.407181'
+  updated_at: '2017-11-03 15:26:36.407181'
+  taggings_count: 1
+  reserved: t
+hashtag_6:
+  id: 6
+  tag: completefailure
+  created_at: '2017-11-03 15:26:36.423854'
+  updated_at: '2017-11-03 15:26:36.423854'
+  taggings_count: 1
+  reserved: f
+hashtag_7:
+  id: 7
+  tag: owned
+  created_at: '2017-11-03 15:26:36.430134'
+  updated_at: '2017-11-03 15:26:36.430134'
+  taggings_count: 1
+  reserved: f
+hashtag_8:
+  id: 8
+  tag: syntaxerror
+  created_at: '2017-11-03 15:26:36.435575'
+  updated_at: '2017-11-03 15:26:36.435575'
+  taggings_count: 1
+  reserved: f
+hashtag_9:
+  id: 9
+  tag: 75model3
+  created_at: '2017-11-03 15:26:36.612099'
+  updated_at: '2017-11-03 15:26:36.612099'
+  taggings_count: 1
+  reserved: t
+hashtag_10:
+  id: 10
+  tag: attackoftheclones
+  created_at: '2017-11-03 15:26:36.627323'
+  updated_at: '2017-11-03 15:26:36.627323'
+  taggings_count: 1
+  reserved: f
+hashtag_11:
+  id: 11
+  tag: barcoding
+  created_at: '2017-11-03 15:26:36.634205'
+  updated_at: '2017-11-03 15:26:36.634205'
+  taggings_count: 1
+  reserved: f
+hashtag_12:
+  id: 12
+  tag: fancy
+  created_at: '2017-11-03 15:26:36.643725'
+  updated_at: '2017-11-03 15:26:36.643725'
+  taggings_count: 1
+  reserved: f
+hashtag_13:
+  id: 13
+  tag: 8emodel4
+  created_at: '2017-11-03 15:26:36.807260'
+  updated_at: '2017-11-03 15:26:36.807260'
+  taggings_count: 1
+  reserved: t
+hashtag_14:
+  id: 14
+  tag: f5model5
+  created_at: '2017-11-03 15:26:40.809367'
+  updated_at: '2017-11-03 15:26:40.809367'
+  taggings_count: 1
+  reserved: t
+hashtag_15:
+  id: 15
+  tag: cfmodel6
+  created_at: '2017-11-03 15:26:40.952515'
+  updated_at: '2017-11-03 15:26:40.952515'
+  taggings_count: 1
+  reserved: t
+hashtag_16:
+  id: 16
+  tag: 2amodel7
+  created_at: '2017-11-03 15:26:41.143549'
+  updated_at: '2017-11-03 15:26:41.143549'
+  taggings_count: 1
+  reserved: t
+hashtag_17:
+  id: 17
+  tag: bcmodel8
+  created_at: '2017-11-03 15:26:41.348624'
+  updated_at: '2017-11-03 15:26:41.348624'
+  taggings_count: 1
+  reserved: t
+hashtag_18:
+  id: 18
+  tag: 11project1
+  created_at: '2017-11-03 15:26:41.407128'
+  updated_at: '2017-11-03 15:26:41.407128'
+  taggings_count: 1
+  reserved: t
+hashtag_19:
+  id: 19
+  tag: 75project3
+  created_at: '2017-11-03 15:26:41.470974'
+  updated_at: '2017-11-03 15:26:41.470974'
+  taggings_count: 1
+  reserved: t
+hashtag_20:
+  id: 20
+  tag: c9project4
+  created_at: '2017-11-03 15:28:16.223258'
+  updated_at: '2017-11-03 15:28:16.223258'
+  taggings_count: 1
+  reserved: t

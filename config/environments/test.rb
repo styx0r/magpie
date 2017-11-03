@@ -40,6 +40,20 @@ Rails.application.configure do
   config.postbot_email = "postbot@magpiedomain.kp"
   config.tutorialbot_email = "tutorialbot@magpiedomain.kp"
 
+  config.postbot_advice = ['Did you know? MAGPIE is named after a bird. #nature #acronym',
+                    'Did you know? @christophb and @sebastians developed #MAGPIE in under a year #rapidprotyping #notmeteor',
+                    'Did you know? You can not deactivate my messages #icantletyoudothat',
+                    'Did you know? We have only four random messages. #justfortesting #thatslife']
+
+  config.model_categories = ['Sequencing', 'Structural Bioinformatics', 'Image Recognition',
+                             'Machine Learning', 'Visualization', 'Medical Science',
+                             'Cell Modelling', 'Chemistry', 'Mathematics', 'Phylogeny', 'Genetics', 'Systems Biology',
+                             'Text Mining', 'Data Mining', 'Uncategorized', 'Showcase']
+
+  config.welcome_sentences = ['A new home of your models.', '... and your model goes viral.', 'All your model are belong to us.']
+
+  config.worker_number = 4
+
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.

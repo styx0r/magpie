@@ -1,15 +1,181 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  hashtag: one
-  micropost: one
-  project: one
-  model: one
-  user: one
-
-two:
-  hashtag: two
-  micropost: two
-  project: two
-  model: two
-  user: two
+---
+tagging_1:
+  id: 1
+  hashtag_id: 1
+  micropost_id: 
+  project_id: 
+  model_id: 1
+  user_id: 
+  created_at: '2017-11-03 15:26:34.876170'
+  updated_at: '2017-11-03 15:26:34.876170'
+tagging_2:
+  id: 2
+  hashtag_id: 2
+  micropost_id: 
+  project_id: 
+  model_id: 1
+  user_id: 
+  created_at: '2017-11-03 15:26:34.887229'
+  updated_at: '2017-11-03 15:26:34.887229'
+tagging_3:
+  id: 3
+  hashtag_id: 3
+  micropost_id: 
+  project_id: 
+  model_id: 1
+  user_id: 
+  created_at: '2017-11-03 15:26:34.892212'
+  updated_at: '2017-11-03 15:26:34.892212'
+tagging_4:
+  id: 4
+  hashtag_id: 4
+  micropost_id: 
+  project_id: 
+  model_id: 1
+  user_id: 
+  created_at: '2017-11-03 15:26:34.896689'
+  updated_at: '2017-11-03 15:26:34.896689'
+tagging_5:
+  id: 5
+  hashtag_id: 5
+  micropost_id: 
+  project_id: 
+  model_id: 2
+  user_id: 
+  created_at: '2017-11-03 15:26:36.411846'
+  updated_at: '2017-11-03 15:26:36.411846'
+tagging_6:
+  id: 6
+  hashtag_id: 6
+  micropost_id: 
+  project_id: 
+  model_id: 2
+  user_id: 
+  created_at: '2017-11-03 15:26:36.426469'
+  updated_at: '2017-11-03 15:26:36.426469'
+tagging_7:
+  id: 7
+  hashtag_id: 7
+  micropost_id: 
+  project_id: 
+  model_id: 2
+  user_id: 
+  created_at: '2017-11-03 15:26:36.431948'
+  updated_at: '2017-11-03 15:26:36.431948'
+tagging_8:
+  id: 8
+  hashtag_id: 8
+  micropost_id: 
+  project_id: 
+  model_id: 2
+  user_id: 
+  created_at: '2017-11-03 15:26:36.437494'
+  updated_at: '2017-11-03 15:26:36.437494'
+tagging_9:
+  id: 9
+  hashtag_id: 9
+  micropost_id: 
+  project_id: 
+  model_id: 3
+  user_id: 
+  created_at: '2017-11-03 15:26:36.615850'
+  updated_at: '2017-11-03 15:26:36.615850'
+tagging_10:
+  id: 10
+  hashtag_id: 10
+  micropost_id: 
+  project_id: 
+  model_id: 3
+  user_id: 
+  created_at: '2017-11-03 15:26:36.629726'
+  updated_at: '2017-11-03 15:26:36.629726'
+tagging_11:
+  id: 11
+  hashtag_id: 11
+  micropost_id: 
+  project_id: 
+  model_id: 3
+  user_id: 
+  created_at: '2017-11-03 15:26:36.640255'
+  updated_at: '2017-11-03 15:26:36.640255'
+tagging_12:
+  id: 12
+  hashtag_id: 12
+  micropost_id: 
+  project_id: 
+  model_id: 3
+  user_id: 
+  created_at: '2017-11-03 15:26:36.647102'
+  updated_at: '2017-11-03 15:26:36.647102'
+tagging_13:
+  id: 13
+  hashtag_id: 13
+  micropost_id: 
+  project_id: 
+  model_id: 4
+  user_id: 
+  created_at: '2017-11-03 15:26:36.810961'
+  updated_at: '2017-11-03 15:26:36.810961'
+tagging_14:
+  id: 14
+  hashtag_id: 14
+  micropost_id: 
+  project_id: 
+  model_id: 5
+  user_id: 
+  created_at: '2017-11-03 15:26:40.811663'
+  updated_at: '2017-11-03 15:26:40.811663'
+tagging_15:
+  id: 15
+  hashtag_id: 15
+  micropost_id: 
+  project_id: 
+  model_id: 6
+  user_id: 
+  created_at: '2017-11-03 15:26:40.955775'
+  updated_at: '2017-11-03 15:26:40.955775'
+tagging_16:
+  id: 16
+  hashtag_id: 16
+  micropost_id: 
+  project_id: 
+  model_id: 7
+  user_id: 
+  created_at: '2017-11-03 15:26:41.146058'
+  updated_at: '2017-11-03 15:26:41.146058'
+tagging_17:
+  id: 17
+  hashtag_id: 17
+  micropost_id: 
+  project_id: 
+  model_id: 8
+  user_id: 
+  created_at: '2017-11-03 15:26:41.352217'
+  updated_at: '2017-11-03 15:26:41.352217'
+tagging_18:
+  id: 18
+  hashtag_id: 18
+  micropost_id: 
+  project_id: 1
+  model_id: 
+  user_id: 
+  created_at: '2017-11-03 15:26:41.412080'
+  updated_at: '2017-11-03 15:26:41.412080'
+tagging_19:
+  id: 19
+  hashtag_id: 19
+  micropost_id: 
+  project_id: 3
+  model_id: 
+  user_id: 
+  created_at: '2017-11-03 15:26:41.473694'
+  updated_at: '2017-11-03 15:26:41.473694'
+tagging_20:
+  id: 20
+  hashtag_id: 20
+  micropost_id: 
+  project_id: 4
+  model_id: 
+  user_id: 
+  created_at: '2017-11-03 15:28:16.232020'
+  updated_at: '2017-11-03 15:28:16.232020'

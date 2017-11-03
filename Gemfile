@@ -107,3 +107,5 @@ gem 'pundit'
 gem 'chosen-rails'
 
 gem 'font-awesome-rails'
+
+gem 'rails-controller-testing'

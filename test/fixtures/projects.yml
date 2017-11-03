@@ -1,6 +1,37 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-simple_project:
-  name: "Simple Project"
-  public: false
-  revision: "1.0"
+---
+project_1:
+  id: 1
+  name: Tutorial Sleep
+  created_at: '2017-11-03 15:26:41.395937'
+  updated_at: '2017-11-03 15:26:41.395937'
+  user_id: 4
+  model_id: 1
+  public: t
+  revision: da339d5d791bb3829a71b9246e094a4199d1fd73
+project_2:
+  id: 2
+  name: Tutorial Sleep 2
+  created_at: '2017-11-03 15:26:41.442384'
+  updated_at: '2017-11-03 15:26:41.442384'
+  user_id: 4
+  model_id: 1
+  public: t
+  revision: da339d5d791bb3829a71b9246e094a4199d1fd73
+project_3:
+  id: 3
+  name: Tutorial PLIP
+  created_at: '2017-11-03 15:26:41.464676'
+  updated_at: '2017-11-03 15:26:41.464676'
+  user_id: 4
+  model_id: 5
+  public: t
+  revision: 036698e3fd0ecb0590d18a77c1db3dd18e2f6dab
+project_4:
+  id: 4
+  name: My 1st project
+  created_at: '2017-11-03 15:28:16.136654'
+  updated_at: '2017-11-03 15:28:16.209104'
+  user_id: 1
+  model_id: 1
+  public: f
+  revision: da339d5d791bb3829a71b9246e094a4199d1fd73

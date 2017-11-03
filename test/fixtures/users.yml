@@ -1,62 +1,69 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-# empty
-
+---
 admin:
+  id: 1
   name: Admin
-  email: admin@admin.nerd
-  password_digest: <%= User.digest('password') %>
-  admin: true
-  activated: true
-  activated_at: <%= Time.zone.now %>
-
-nonadmin:
-  name: NonAdmin
-  email: non@admin.office
-  password_digest: <%= User.digest('password') %>
-  admin: false
-  activated: true
-  activated_at: <%= Time.zone.now %>
-
-nonadmin2:
-  name: NonAdmin2
-  email: non2@admin.smash
-  password_digest: <%= User.digest('password') %>
-  activated: true
-  activated_at: <%= Time.zone.now %>
-
-postbot:
-  name: postbot
-  email: <%= Rails.application.config.postbot_email %>
-  password_digest: <%= User.digest('nonadmin.mypass?.7699_9') %>
-  activated: true
-  activated_at: <%= Time.zone.now %>
-
-tutorialbot:
-  name: tutorialbot
-  email: <%= Rails.application.config.tutorialbot_email %>
-  password_digest: <%= User.digest('nonadmin.mypass?.7699_9') %>
-  activated: true
-  activated_at: <%= Time.zone.now %>
-
-<% 30.times do |n| %>
-user_<%= n %>:
-  name:  <%= "User #{n}" %>
-  email: <%= "user-#{n}@example.com" %>
-  password_digest: <%= User.digest('password') %>
-  activated: true
-  activated_at: <%= Time.zone.now %>
-<% end %>
-
-archer:
-  name: Non Admin archer
-  email: archer@1337.bash
-  password_digest: <%= User.digest('password') %>
-  activated: true
-  activated_at: <%= Time.zone.now %>
-
-notactivated:
-  name: not activated user
-  email: not@activated.truth
-  password_digest: <%= User.digest('password') %>
-  activated: false
-  activated_at: <%= Time.zone.now %>
+  email: admin@admin.com
+  created_at: '2017-11-03 15:26:33.801066'
+  updated_at: '2017-11-03 15:26:33.801066'
+  password_digest: "$2a$10$njSGi8sXvR2u4CrYugp.huO7ak4tbbAw6mltYJGWt.mgodEEUikOy"
+  remember_digest:
+  admin: t
+  activation_digest: "$2a$10$tPMHmpsnt41feekvhJ..aO3shn0/bHfl4vBiqtrd.3h1.Kz5kS/f6"
+  activated: t
+  activated_at: '2017-11-03 15:26:33.714377'
+  reset_digest:
+  reset_sent_at:
+  guest: f
+  bot: f
+  identity: admin
+user_2:
+  id: 2
+  name: Non-Admin User
+  email: user@user.kp
+  created_at: '2017-11-03 15:26:34.016157'
+  updated_at: '2017-11-03 15:26:34.016157'
+  password_digest: "$2a$10$xrz7t9c0ETmR2j48AN6rbeAihmvVidSn/zjs8zZZFtZ8FVTrOInBC"
+  remember_digest:
+  admin: f
+  activation_digest: "$2a$10$yi7zr/dN5KveHiBgSuwvLu2Gu/0Mhwi32N1orDQQfr4I7P2PDaibi"
+  activated: t
+  activated_at: '2017-11-03 15:26:33.952225'
+  reset_digest:
+  reset_sent_at:
+  guest: f
+  bot: f
+  identity: nonadminu
+user_3:
+  id: 3
+  name: PostBot Alpha
+  email: postbot@magpiedomain.kp
+  created_at: '2017-11-03 15:26:34.213668'
+  updated_at: '2017-11-03 15:26:34.213668'
+  password_digest: "$2a$10$m6KnvVgTsXfMd.l8whugK.fkJSydPuEIPzeO4kcDa0sH6C4189Kem"
+  remember_digest:
+  admin: f
+  activation_digest: "$2a$10$P4ea9dFx6FZ6WUS7Kvg.Qudl0Pz4UvcwYn4CKvkbaRv/nxNlGIqtG"
+  activated: t
+  activated_at: '2017-11-03 15:26:34.147030'
+  reset_digest:
+  reset_sent_at:
+  guest: f
+  bot: t
+  identity: postbot
+user_4:
+  id: 4
+  name: TutorialBot
+  email: tutorialbot@magpiedomain.kp
+  created_at: '2017-11-03 15:26:34.407928'
+  updated_at: '2017-11-03 15:26:34.407928'
+  password_digest: "$2a$10$lOlnZ5CVtZzaPq4k30KutO0BwnLhgpc8OGUNxSCssenzEnrhaao6a"
+  remember_digest:
+  admin: f
+  activation_digest: "$2a$10$ywDRSbHKaqF9FJPE27vQ3egvdEV0b7xSfjw0.ZM7YnwJBE1aBnbb2"
+  activated: t
+  activated_at: '2017-11-03 15:26:34.342840'
+  reset_digest:
+  reset_sent_at:
+  guest: f
+  bot: t
+  identity: tutorialbot
