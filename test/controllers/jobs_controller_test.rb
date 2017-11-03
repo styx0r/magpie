@@ -2,24 +2,13 @@ require 'test_helper'
 
 class JobsControllerTest < ActionController::TestCase
   setup do
-    @project = projects(:simple_project)
-    @model = models(:simple_model)
-    @job = jobs(:finished)
-
-    @user = users(:nonadmin)
-
-    @project.user_id = @user.id
-    @project.model_id = @model.id
-    @job.user_id = @user.id
-
-    @other_user = users(:nonadmin2)
+    request.env["HTTP_REFERER"] = "/"
+    @job = jobs(:job_1)
+    @tutorialbot = users(:tutorialbot)
+    @other_user = users(:other_user)
   end
 
-  test "should get new" do
-    log_in_as(@user)
-    get :new
-    assert_response :success
-  end
+  # new/create job is done via project
 
   test "should get index" do
     get :index
@@ -27,34 +16,34 @@ class JobsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:jobs)
   end
 
-  test "should create job" do
-    assert_difference('Job.count') do
-      post :create, job: { status: @job.status }
-    end
-
-    assert_redirected_to job_path(assigns(:job))
-  end
-
   test "should show job" do
+    log_in_as(@tutorialbot)
     get :show, params: { id: @job }
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit, params: { id: @job }
-    assert_response :success
+  test "should not show the job, because of ownership" do
+    log_in_as(@other_user)
+    get :show, params: { id: @job }
+    assert_not flash.empty?
+    assert_redirected_to root_url
   end
 
-  test "should update job" do
-    patch :update, params: { id: @job }, job: { status: @job.status }
-    assert_redirected_to job_path(assigns(:job))
+  test "should get redirect to root url, no edit of jobs allowed" do
+    log_in_as(@tutorialbot)
+    get :edit, params: { id: @job }
+    assert_not flash.empty?
+    assert_redirected_to root_url
   end
+
+  # updates are only made by the magpie itself, since it is changes the status
+  # after finishing / aborting a job
 
   test "should destroy job" do
+    log_in_as(@tutorialbot)
     assert_difference('Job.count', -1) do
       delete :destroy, params: { id: @job }
     end
-
-    assert_redirected_to jobs_path
+    assert_redirected_to root_path
   end
 end

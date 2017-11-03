@@ -112,7 +112,7 @@ class JobsController < ApplicationController
     @job.destroy
     if(params[:redirect] != "false")
       respond_to do |format|
-        format.html { redirect_to :back }
+        format.html { redirect_back(fallback_location: root_url) }
         flash['warning'] = "Job was successfully destroyed."
         format.json { head :no_content }
       end
@@ -128,7 +128,7 @@ class JobsController < ApplicationController
       send_file zipfile, :type => 'application/zip', :disposition => 'attachment', :filename => "results_#{@job.project.name}_#{@job.id.to_s}.zip"
     else
       flash["danger"] = "The zip of result files is not existing. Contact the administrator if you can't fix it yourself."
-      redirect_to :back
+      redirect_back(fallback_location: root_url)
     end
   end
 

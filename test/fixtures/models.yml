@@ -6,7 +6,7 @@ model_delete:
 model_1:
   id: 1
   name: Versioned Sleep Studies
-  path: '/Users/baldow/.magpie/models/1'
+  path: <%= Rails.application.config.models_path+'1' %>
   mainscript: |
     ---
     92e15db93baf8b335ff131cb93f381ad7414da50: sleep.sh
@@ -584,7 +584,7 @@ model_1:
 model_2:
   id: 2
   name: Fail!
-  path: "/Users/baldow/.magpie/models/2"
+  path: <%= Rails.application.config.models_path+'2' %>
   mainscript: |
     ---
     1811d1a05fe5363dfda1d20d19da56f7119016cd: faulty.sh
@@ -1149,7 +1149,7 @@ model_2:
 model_3:
   id: 3
   name: Multiplexing Clonality
-  path: "/Users/baldow/.magpie/models/3"
+  path: <%= Rails.application.config.models_path+'3' %>
   mainscript: |
     ---
     cdde168c924c997cc2470f498673cc8d6136f899: MultiplexingClonality.sh
@@ -2443,7 +2443,7 @@ model_3:
 model_4:
   id: 4
   name: D3 Plot Visualization
-  path: "/Users/baldow/.magpie/models/4"
+  path: <%= Rails.application.config.models_path+'4' %>
   mainscript: |
     ---
     f9320cf09b21be0ffee9da2eb05853a59f5bcee7: d3Model.sh
@@ -3009,7 +3009,7 @@ model_4:
 model_5:
   id: 5
   name: PLIP
-  path: "/Users/baldow/.magpie/models/5"
+  path: <%= Rails.application.config.models_path+'5' %>
   mainscript: |
     ---
     036698e3fd0ecb0590d18a77c1db3dd18e2f6dab: main.sh
@@ -3781,7 +3781,7 @@ model_5:
 model_6:
   id: 6
   name: Configuration & Parameter Example
-  path: "/Users/baldow/.magpie/models/6"
+  path: <%= Rails.application.config.models_path+'6' %>
   mainscript: |
     ---
     159e9179202e7361bb31e886702f3935e1fcc794: start.sh
@@ -4347,7 +4347,7 @@ model_6:
 model_7:
   id: 7
   name: Clonal Leukemia
-  path: "/Users/baldow/.magpie/models/7"
+  path: <%= Rails.application.config.models_path+'7' %>
   mainscript: |
     ---
     0b2438e45a13bd92d3104ba5bbf200f86b26160c: run.sh
@@ -5560,7 +5560,7 @@ model_7:
 model_8:
   id: 8
   name: 'SBML: STAT1 activity in pancreatic cancer'
-  path: "/Users/baldow/.magpie/models/8"
+  path: <%= Rails.application.config.models_path+'8' %>
   mainscript: |
     ---
     a4ff24ab8b5223c8ff5a800eb044440557b02644: runSBML.sh

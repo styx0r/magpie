@@ -12,8 +12,8 @@ job_1:
     - Slept for 5 seconds!
     :stderr: []
   resultfiles: "--- []\n"
-  directory: "/Users/baldow/Projects/magpie/test/tutorialjobs/sleeptut"
-  arguments: 
+  directory: "./test/tutorialjobs/sleeptut"
+  arguments:
   highlight: neutral
   docker_id: 08b19d69e7c6
 job_2:
@@ -29,8 +29,8 @@ job_2:
     - Slept for 5 seconds!
     :stderr: []
   resultfiles: "--- []\n"
-  directory: "/Users/baldow/Projects/magpie/test/tutorialjobs/sleeptut"
-  arguments: 
+  directory: "./test/tutorialjobs/sleeptut"
+  arguments:
   highlight: neutral
   docker_id: 08b19d69e7c6
 job_3:
@@ -46,14 +46,14 @@ job_3:
     :stderr: []
   resultfiles: |
     ---
-    - "/Users/baldow/Projects/magpie/test/tutorialjobs/pliptut/report.txt"
-    - "/Users/baldow/Projects/magpie/test/tutorialjobs/pliptut/1VSN_NFT_A_283.png"
-    - "/Users/baldow/Projects/magpie/test/tutorialjobs/pliptut/1VSN_NFT_A_283.pse"
-    - "/Users/baldow/Projects/magpie/test/tutorialjobs/pliptut/report.xml"
-    - "/Users/baldow/Projects/magpie/test/tutorialjobs/pliptut/1vsn.pdb"
-    - "/Users/baldow/Projects/magpie/test/tutorialjobs/pliptut/distances.data"
-  directory: "/Users/baldow/Projects/magpie/test/tutorialjobs/pliptut"
-  arguments: 
+    - "./test/tutorialjobs/pliptut/report.txt"
+    - "./test/tutorialjobs/pliptut/1VSN_NFT_A_283.png"
+    - "./test/tutorialjobs/pliptut/1VSN_NFT_A_283.pse"
+    - "./test/tutorialjobs/pliptut/report.xml"
+    - "./test/tutorialjobs/pliptut/1vsn.pdb"
+    - "./test/tutorialjobs/pliptut/distances.data"
+  directory: "./test/tutorialjobs/pliptut"
+  arguments:
   highlight: neutral
   docker_id: 08b19d69e7c6
 job_4:
@@ -72,7 +72,7 @@ job_4:
     '
     :stderr: []
   resultfiles: "--- []\n"
-  directory: "/Users/baldow/.magpie/jobs/1/ad97ea7f-f370-4e22-ab8e-3b64e08a5425"
-  arguments: 
+  directory: <%= Rails.application.config.jobs_path+"1/ad97ea7f-f370-4e22-ab8e-3b64e08a5425" %>
+  arguments:
   highlight: neutral
   docker_id: a8ded725b69e

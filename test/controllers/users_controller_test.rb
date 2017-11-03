@@ -4,9 +4,9 @@ class UsersControllerTest < ActionController::TestCase
 
   def setup
     @admin = users(:admin)
-    @user = users(:nonadmin)
+    @user = users(:user)
     @user.create_right
-    @other_user = users(:nonadmin2)
+    @other_user = users(:other_user)
     @other_user.create_right
   end
 
