@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
-  before_filter :strict_transport_security
+  before_action :strict_transport_security
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  around_filter :catch_not_found
-  before_filter :get_micropost_content
+  around_action :catch_not_found
+  before_action :get_micropost_content
   include SessionsHelper
 
   include Pundit

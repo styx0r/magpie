@@ -1,1 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+simple_model:
+  name: simplemodel
+  description: "description of simple model"
+  help: "help of simple model"
+  source: "somewhere/on/harddrive"
+  category: "Showcase"

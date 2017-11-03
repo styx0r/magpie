@@ -1,26 +1,40 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 # empty
 
-christoph:
-  name: Christoph Baldow
-  email: christoph@baldow.nerd
-  password_digest: <%= User.digest('password') %>
-  admin: true
-  activated: true
-  activated_at: <%= Time.zone.now %>
-
-sebastian:
-  name: Sebastian Salentin
-  email: sebastian@salentin.cool
+admin:
+  name: Admin
+  email: admin@admin.nerd
   password_digest: <%= User.digest('password') %>
   admin: true
   activated: true
   activated_at: <%= Time.zone.now %>
 
 nonadmin:
-  name: Non Admin
-  email: non@admin.smash
+  name: NonAdmin
+  email: non@admin.office
   password_digest: <%= User.digest('password') %>
+  admin: false
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+nonadmin2:
+  name: NonAdmin2
+  email: non2@admin.smash
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+postbot:
+  name: postbot
+  email: <%= Rails.application.config.postbot_email %>
+  password_digest: <%= User.digest('nonadmin.mypass?.7699_9') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+tutorialbot:
+  name: tutorialbot
+  email: <%= Rails.application.config.tutorialbot_email %>
+  password_digest: <%= User.digest('nonadmin.mypass?.7699_9') %>
   activated: true
   activated_at: <%= Time.zone.now %>
 
@@ -38,4 +52,11 @@ archer:
   email: archer@1337.bash
   password_digest: <%= User.digest('password') %>
   activated: true
+  activated_at: <%= Time.zone.now %>
+
+notactivated:
+  name: not activated user
+  email: not@activated.truth
+  password_digest: <%= User.digest('password') %>
+  activated: false
   activated_at: <%= Time.zone.now %>

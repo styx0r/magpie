@@ -1,11 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user: MyString
-  name: MyString
-  model: MyString
-
-two:
-  user: MyString
-  name: MyString
-  model: MyString
+simple_project:
+  name: "Simple Project"
+  public: false
+  revision: "1.0"

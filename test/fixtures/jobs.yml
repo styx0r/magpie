@@ -1,7 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  status: MyString
+finished:
+  status: finished
 
-two:
-  status: MyString
+running:
+  status: running
+
+failed:
+  status: failed

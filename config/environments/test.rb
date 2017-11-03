@@ -29,6 +29,17 @@ Rails.application.configure do
   config.action_controller.allow_forgery_protection = false
   config.action_mailer.perform_caching = false
 
+  # Set input and output folders for jobs / models / etc.
+  #config.models_path = "#{Rails.root}/bin/models/" # Parent folder for storage of model scripts
+  #config.user_output_path = "#{Rails.root}/user/" # Parent folder for job output
+  config.models_path = ENV['HOME']+"/.magpie/models/" # Parent folder for storage of model scripts
+  config.jobs_path = ENV['HOME']+"/.magpie/jobs/" # Parent folder for job output
+  config.docker_path = ENV['HOME']+"/.magpie/docker/" # Parent folder for docker images
+  config.postbot_name = "PostBot Alpha"
+  config.tutorialbot_name = "TutorialBot"
+  config.postbot_email = "postbot@magpiedomain.kp"
+  config.tutorialbot_email = "tutorialbot@magpiedomain.kp"
+
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.

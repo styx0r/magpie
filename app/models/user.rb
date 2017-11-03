@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
                #{hashtags_string}
                OR microposts.mentions LIKE '%#{self.identity}%'",
                user_id: self.id,
-               postbot_id: User.find_by(email: Rails.application.config.postbot_email).id).uniq
+               postbot_id: User.find_by(email: Rails.application.config.postbot_email).id).distinct
   end
 
   # Following a user.

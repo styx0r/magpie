@@ -3,8 +3,6 @@
 one:
   user_delete: false
   user_index: false
-  user_add: false
-  docker_image_modify: false
   projects_delete: false
   model_add: false
   model_delete: false
@@ -13,8 +11,6 @@ one:
 two:
   user_delete: false
   user_index: false
-  user_add: false
-  docker_image_modify: false
   projects_delete: false
   model_add: false
   model_delete: false
