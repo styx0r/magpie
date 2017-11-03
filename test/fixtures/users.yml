@@ -16,7 +16,7 @@ admin:
   guest: f
   bot: f
   identity: admin
-user_2:
+user:
   id: 2
   name: Non-Admin User
   email: user@user.kp
@@ -32,8 +32,8 @@ user_2:
   reset_sent_at:
   guest: f
   bot: f
-  identity: nonadminu
-user_3:
+  identity: nonadmin
+postbot:
   id: 3
   name: PostBot Alpha
   email: postbot@magpiedomain.kp
@@ -50,7 +50,7 @@ user_3:
   guest: f
   bot: t
   identity: postbot
-user_4:
+tutorialbot:
   id: 4
   name: TutorialBot
   email: tutorialbot@magpiedomain.kp
@@ -67,3 +67,42 @@ user_4:
   guest: f
   bot: t
   identity: tutorialbot
+other_user:
+  id: 5
+  name: Non-Admin User2
+  email: user2@user.kp
+  created_at: '2016-11-03 15:26:34.016157'
+  updated_at: '2016-11-03 15:26:34.016157'
+  password_digest: "$2a$10$xrz7t9c0ETmR2j48AN6rbeAihmvVidSn/zjs8zZZFtZ8FVTrOInBC"
+  remember_digest:
+  admin: f
+  activation_digest: "$2a$10$yi7zr/dN5KveHiBgSuwvLu2Gu/0Mhwi32N1orDQQfr4I7P2PDaibi"
+  activated: t
+  activated_at: '2016-11-03 15:26:33.952225'
+  reset_digest:
+  reset_sent_at:
+  guest: f
+  bot: f
+  identity: nonadmin2
+<% 30.times do |n| %>
+user_<%= n %>:
+  name:  <%= "User #{n}" %>
+  email: <%= "user-#{n}@example.com" %>
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+<% end %>
+
+archer:
+  name: Non Admin archer
+  email: archer@1337.bash
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+notactivated:
+  name: not activated user
+  email: not@activated.truth
+  password_digest: <%= User.digest('password') %>
+  activated: false
+  activated_at: <%= Time.zone.now %>
