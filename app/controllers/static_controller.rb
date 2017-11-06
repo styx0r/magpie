@@ -5,7 +5,7 @@ class StaticController < ApplicationController
   end
 
   def help
-    skip_authorization
+    authorize StaticController
   end
 
 end

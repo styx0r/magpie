@@ -1,1 +1,7 @@
---- {}
+one:
+  follower: admin
+  followed: nonadmin
+
+two:
+  follower: nonadmin
+  followed: nonadmin2

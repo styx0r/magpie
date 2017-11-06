@@ -16,7 +16,7 @@
             group_method: :last,
             label_method: lambda {|t| (Model.find_by id: t).name},
             #label_method: lambda {|t| Model.findby(:id t).name},
-            collection: Model.all,
+            #collection: Model.all,
             value_method: lambda {|t| t},
             #collection: [['Authors', ['Jose', 'Carlos']], ['General', ['Bob', 'John']]],
             collection: colModel,

@@ -16,6 +16,10 @@ class ProjectPolicy < ApplicationPolicy
     !user.nil?
   end
 
+  def edit? # no edit of projects is implemented
+    false
+  end
+
   def modelconfig? # definition of who can see a model config
     !user.nil? && !record.nil?
   end
