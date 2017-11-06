@@ -10,10 +10,10 @@ class MicropostsController < ApplicationController
       @micropost.extract_hashtags
       @micropost.extract_mentions
       flash[:success] = "Micropost created!"
-      redirect_to :back
+      redirect_back(fallback_location: root_url)
     else
       flash[:danger] = "Not a valid Micropost!"
-      redirect_to :back
+      redirect_back(fallback_location: root_url)
     end
     for user in current_user.followers
       ActionCable.server.broadcast("microposts_#{user.id}",

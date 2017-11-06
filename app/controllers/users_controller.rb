@@ -171,7 +171,8 @@ end
         flash[:success] = "Profile updated."
         flash[:info] = "Please check your (new) email address to reactivate your account."
       else
-        redirect_to @user
+        flash[:success] = "Profile updated."
+        redirect_to edit_user_path(@user)
       end
     else
       render 'edit'
