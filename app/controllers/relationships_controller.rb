@@ -16,7 +16,7 @@ class RelationshipsController < ApplicationController
     @user = Relationship.find(params[:id]).followed
     current_user.unfollow(@user)
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_back fallback_location: root_url }
       format.js
     end
   end

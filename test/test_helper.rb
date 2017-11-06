@@ -15,6 +15,9 @@ class ActiveSupport::TestCase
   def log_in_as(user, options = {})
     password    = options[:password]    || 'password'
     remember_me = options[:remember_me] || '1'
+    Rails.logger.debug password
+    Rails.logger.debug options
+    Rails.logger.debug options[:password]
     if integration_test?
       post login_path, params: { session: { email:       user.email,
                                   password:    password,

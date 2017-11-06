@@ -5,7 +5,7 @@ admin:
   email: admin@admin.com
   created_at: '2017-11-03 15:26:33.801066'
   updated_at: '2017-11-03 15:26:33.801066'
-  password_digest: "$2a$10$njSGi8sXvR2u4CrYugp.huO7ak4tbbAw6mltYJGWt.mgodEEUikOy"
+  password_digest: <%= User.digest('password_admin') %>
   remember_digest:
   admin: t
   activation_digest: "$2a$10$tPMHmpsnt41feekvhJ..aO3shn0/bHfl4vBiqtrd.3h1.Kz5kS/f6"
@@ -22,7 +22,7 @@ user:
   email: user@user.kp
   created_at: '2017-11-03 15:26:34.016157'
   updated_at: '2017-11-03 15:26:34.016157'
-  password_digest: "$2a$10$xrz7t9c0ETmR2j48AN6rbeAihmvVidSn/zjs8zZZFtZ8FVTrOInBC"
+  password_digest: <%= User.digest('password_user') %>
   remember_digest:
   admin: f
   activation_digest: "$2a$10$yi7zr/dN5KveHiBgSuwvLu2Gu/0Mhwi32N1orDQQfr4I7P2PDaibi"
@@ -39,7 +39,7 @@ postbot:
   email: postbot@magpiedomain.kp
   created_at: '2017-11-03 15:26:34.213668'
   updated_at: '2017-11-03 15:26:34.213668'
-  password_digest: "$2a$10$m6KnvVgTsXfMd.l8whugK.fkJSydPuEIPzeO4kcDa0sH6C4189Kem"
+  password_digest: <%= User.digest('password_postbot') %>
   remember_digest:
   admin: f
   activation_digest: "$2a$10$P4ea9dFx6FZ6WUS7Kvg.Qudl0Pz4UvcwYn4CKvkbaRv/nxNlGIqtG"
@@ -56,7 +56,7 @@ tutorialbot:
   email: tutorialbot@magpiedomain.kp
   created_at: '2017-11-03 15:26:34.407928'
   updated_at: '2017-11-03 15:26:34.407928'
-  password_digest: "$2a$10$lOlnZ5CVtZzaPq4k30KutO0BwnLhgpc8OGUNxSCssenzEnrhaao6a"
+  password_digest: <%= User.digest('password_tutorialbot') %>
   remember_digest:
   admin: f
   activation_digest: "$2a$10$ywDRSbHKaqF9FJPE27vQ3egvdEV0b7xSfjw0.ZM7YnwJBE1aBnbb2"
@@ -73,7 +73,7 @@ other_user:
   email: user2@user.kp
   created_at: '2016-11-03 15:26:34.016157'
   updated_at: '2016-11-03 15:26:34.016157'
-  password_digest: "$2a$10$xrz7t9c0ETmR2j48AN6rbeAihmvVidSn/zjs8zZZFtZ8FVTrOInBC"
+  password_digest: <%= User.digest('password_other_user') %>
   remember_digest:
   admin: f
   activation_digest: "$2a$10$yi7zr/dN5KveHiBgSuwvLu2Gu/0Mhwi32N1orDQQfr4I7P2PDaibi"
@@ -96,13 +96,13 @@ user_<%= n %>:
 archer:
   name: Non Admin archer
   email: archer@1337.bash
-  password_digest: <%= User.digest('password') %>
+  password_digest: <%= User.digest('password_archer') %>
   activated: true
   activated_at: <%= Time.zone.now %>
 
 notactivated:
   name: not activated user
   email: not@activated.truth
-  password_digest: <%= User.digest('password') %>
+  password_digest: <%= User.digest('password_not_activated') %>
   activated: false
   activated_at: <%= Time.zone.now %>
