@@ -3,8 +3,8 @@ require 'test_helper'
 class FollowingTest < ActionDispatch::IntegrationTest
 
   def setup
-    @user = users(:nonadmin)
-    @other = users(:nonadmin2)
+    @user = users(:user)
+    @other = users(:other_user)
     log_in_as(@user)
   end
 
@@ -28,13 +28,13 @@ class FollowingTest < ActionDispatch::IntegrationTest
 
   test "should follow a user the standard way" do
     assert_difference '@user.following.count', 1 do
-      post relationships_path, followed_id: @other.id
+      post relationships_path, params: { followed_id: @other.id }
     end
   end
 
   test "should follow a user with Ajax" do
     assert_difference '@user.following.count', 1 do
-      xhr :post, relationships_path, followed_id: @other.id
+      post relationships_path, params: { followed_id: @other.id }, xhr: true
     end
   end
 

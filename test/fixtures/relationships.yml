@@ -1,7 +1,23 @@
 one:
   follower: admin
-  followed: nonadmin
+  followed: other_user
 
 two:
-  follower: nonadmin
-  followed: nonadmin2
+  follower: other_user
+  followed: admin
+
+three:
+  follower: admin
+  followed: user
+
+four:
+  follower: user
+  followed: admin
+
+five:
+  follower: other_user
+  followed: user
+
+six:
+  follower: user
+  followed: other_user
