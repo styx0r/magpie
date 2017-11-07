@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
   skip_after_action :verify_policy_scoped, :only => :index
 
-  def index    
+  def index
   end
 
 
@@ -12,6 +12,10 @@ class DashboardController < ApplicationController
     if logged_in?
       @micropost = current_user.microposts.build
       @feed_items = current_user.feed.paginate(page: params[:page], per_page: 10)
+    else
+      flash[:danger] = "Not allowed route. This inscidence will be reported!"
+      redirect_back(fallback_location: root_url)
+      return
     end
     # rendered without layout in case we are directly on dashboard
     # (without page call of the feed)

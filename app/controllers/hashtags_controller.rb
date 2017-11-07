@@ -28,7 +28,10 @@ end
   # GET /hashtags/tag.json
   def show
     authorize Hashtag
-    redirect_to(root_url, :notice => 'Hashtag not found') unless @hashtag
+    if !@hashtag
+      flash['warning'] = 'Hashtag not found.'
+      redirect_back(fallback_location: root_url)
+    end
   end
 
 
