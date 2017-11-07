@@ -3,12 +3,12 @@ require 'test_helper'
 class UsersIndexTest < ActionDispatch::IntegrationTest
 
   def setup
-    @admin = users(:christoph)
-    @non_admin = users(:nonadmin)
+    @admin = users(:admin)
+    @non_admin = users(:user)
   end
 
   test "index as admin including pagination and delete links" do
-      log_in_as(@admin)
+      log_in_as(@admin, password: "password_admin")
       get users_path
       assert_template 'users/index'
       assert_select 'div.pagination'
@@ -24,7 +24,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
       end
     end
 
-    test "index as non-admin" do
+    test "user index as non-admin should not reveal a delete button" do
       log_in_as(@non_admin)
       get users_path
       assert_select 'a', text: 'delete', count: 0

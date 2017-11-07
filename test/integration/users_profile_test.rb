@@ -4,10 +4,11 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
   include ApplicationHelper
 
   def setup
-    @user = users(:christoph)
+    @user = users(:user)
   end
 
   test "profile display" do
+    log_in_as(@user, password: 'password_user')
     get user_path(@user)
     assert_template 'users/show'
     assert_select 'title', full_title(@user.name)

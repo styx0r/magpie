@@ -7,6 +7,7 @@ class UserTest < ActiveSupport::TestCase
 
   def setup
     @user = User.new(name: "Example User",
+                     identity: "ExampleUser",
                      email: "user@example.com",
                      password: "pwSecure", password_confirmation: "pwSecure")
   end
@@ -89,31 +90,32 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should follow and unfollow a user" do
-    christoph = users(:christoph)
+    real_user = users(:user)
     archer = users(:archer)
-    assert_not christoph.following?(archer)
-    christoph.follow(archer)
-    assert christoph.following?(archer)
-    assert archer.followers.include?(christoph)
-    christoph.unfollow(archer)
-    assert_not christoph.following?(archer)
+    assert_not real_user.following?(archer)
+    real_user.follow(archer)
+    assert real_user.following?(archer)
+    assert archer.followers.include?(real_user)
+    real_user.unfollow(archer)
+    assert_not real_user.following?(archer)
   end
 
   test "feed should have the right posts" do
-    christoph = users(:christoph)
+    real_user = users(:user)
     archer  = users(:archer)
-    sebastian    = users(:sebastian)
+    other_user = users(:other_user)
+    real_user.follow(other_user)
     # Posts from followed user
-    sebastian.microposts.each do |post_following|
-      assert christoph.feed.include?(post_following)
+    other_user.microposts.each do |post_following|
+      assert real_user.feed.include?(post_following)
     end
     # Posts from self
-    christoph.microposts.each do |post_self|
-      assert christoph.feed.include?(post_self)
+    real_user.microposts.each do |post_self|
+      assert real_user.feed.include?(post_self)
     end
     # Posts from unfollowed user
     archer.microposts.each do |post_unfollowed|
-      assert_not christoph.feed.include?(post_unfollowed)
+      assert_not real_user.feed.include?(post_unfollowed)
     end
   end
 

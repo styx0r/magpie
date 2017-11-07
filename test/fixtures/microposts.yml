@@ -9,7 +9,7 @@ tau_manifesto:
   user_id: 2
 
 cat_video:
-  content: "Sad cats are sad: http://gatsccf.af"
+  content: "Sad cats are sad: http://sadcats"
   created_at: <%= 2.hours.ago %>
   user_id: 2
 
@@ -43,4 +43,4 @@ tone:
 van:
   content: "Dude, this van's, like, rolling probable cause."
   created_at: <%= 4.hours.ago %>
-  user_id: 6
+  user_id: 40

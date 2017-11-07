@@ -86,6 +86,7 @@ other_user:
   identity: nonadmin2
 <% 30.times do |n| %>
 user_<%= n %>:
+  id: <%= n+6 %>
   name:  <%= "User #{n}" %>
   email: <%= "user-#{n}@example.com" %>
   password_digest: <%= User.digest('password') %>
@@ -94,6 +95,7 @@ user_<%= n %>:
 <% end %>
 
 archer:
+  id: 40
   name: Non Admin archer
   email: archer@1337.bash
   password_digest: <%= User.digest('password_archer') %>
@@ -101,6 +103,7 @@ archer:
   activated_at: <%= Time.zone.now %>
 
 notactivated:
+  id: 41
   name: not activated user
   email: not@activated.truth
   password_digest: <%= User.digest('password_not_activated') %>

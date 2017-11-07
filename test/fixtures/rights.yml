@@ -39,3 +39,45 @@ right_4:
   user_id: 4
   created_at: '2017-11-03 15:26:34.537551'
   updated_at: '2017-11-03 15:26:34.537551'
+right_5:
+  id: 5
+  user_delete: f
+  user_index: f
+  projects_delete: f
+  model_add: f
+  model_delete: f
+  user_id: 5
+  created_at: '2017-11-03 15:26:34.537551'
+  updated_at: '2017-11-03 15:26:34.537551'
+<% 30.times do |n| %>
+right_<%= n + 6 %>:
+  id: <%= n + 6 %>
+  user_delete: f
+  user_index: f
+  projects_delete: f
+  model_add: f
+  model_delete: f
+  user_id: <%= n + 6 %>
+  created_at: '2017-11-03 15:26:34.537551'
+  updated_at: '2017-11-03 15:26:34.537551'
+<% end %>
+right_40:
+  id: 40
+  user_delete: f
+  user_index: f
+  projects_delete: f
+  model_add: f
+  model_delete: f
+  user_id: 40
+  created_at: '2017-11-03 15:26:34.537551'
+  updated_at: '2017-11-03 15:26:34.537551'
+right_41:
+  id: 41
+  user_delete: f
+  user_index: f
+  projects_delete: f
+  model_add: f
+  model_delete: f
+  user_id: 41
+  created_at: '2017-11-03 15:26:34.537551'
+  updated_at: '2017-11-03 15:26:34.537551'
