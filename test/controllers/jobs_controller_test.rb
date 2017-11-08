@@ -46,4 +46,13 @@ class JobsControllerTest < ActionController::TestCase
     end
     assert_redirected_to root_path
   end
+
+  test "should not destroy job due to wrong ownership" do
+    log_in_as(@other_user)
+    assert_no_difference('Job.count') do
+      delete :destroy, params: { id: @job }
+    end
+    assert_redirected_to root_path
+  end
+
 end

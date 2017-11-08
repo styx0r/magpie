@@ -1,11 +1,11 @@
 class JobPolicy < ApplicationPolicy
 
   def download?
-    !user.nil?
+    !user.nil? && (record.project.public || record.user_id == user.id)
   end
 
   def download_config?
-    !user.nil?
+    !user.nil? && (record.project.public || record.user_id == user.id)
   end
 
   def images?
@@ -21,11 +21,11 @@ class JobPolicy < ApplicationPolicy
   end
 
   def read_more?
-    !user.nil?
+    !user.nil? && (record.project.public || record.user_id == user.id)
   end
 
   def read_less?
-    !user.nil?
+    !user.nil? && (record.project.public || record.user_id == user.id)
   end
 
   def highlight?

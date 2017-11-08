@@ -13,7 +13,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "user validity?" do
-    assert@user.valid?
+    assert @user.valid?
   end
 
   test "name present?" do

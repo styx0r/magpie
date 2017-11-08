@@ -109,3 +109,5 @@ gem 'chosen-rails'
 gem 'font-awesome-rails'
 
 gem 'rails-controller-testing'
+
+gem 'policy-assertions'
