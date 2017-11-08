@@ -20,7 +20,7 @@ class StaticControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "should get help" do
+  test "should get help if logged in" do
     log_in_as(@user)
     get :help
     assert_response :success
