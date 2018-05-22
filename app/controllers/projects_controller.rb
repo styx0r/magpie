@@ -116,6 +116,9 @@ class ProjectsController < ApplicationController
     @user = current_user
     @project = @user.projects.create(project_params)
     @project.revision = @project.tag_to_revision(config_params[:revision])
+    if @project.public != true
+      @project.public = false 
+    end
     # Then, start the job
     uploads = {}
     config_params_mod = config_params
