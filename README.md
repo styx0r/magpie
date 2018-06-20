@@ -92,4 +92,9 @@ on public servers. A demo server is available
 
        $ localhost:3000
        
-10. Happy modelling ... :)        
+10. The administrative login is the following:
+
+       $ Email: admin@admin.com
+       $ Password: admin_password_17
+       
+11. Happy modelling ... :)        
