@@ -38,12 +38,12 @@ on public servers. A demo server is available
     
 6. Now you are able to connect by open up a browser (in host OR guest) and go to URL:
 
-       $ magpie.local:3000
+       magpie.local:3000
        
 7. The administrative login is the following:
 
-       $ Email: admin@admin.com
-       $ Password: admin_password_17
+       Email: admin@admin.com
+       Password: admin_password_17
        
 8. Happy modelling ... :)
 
@@ -90,11 +90,11 @@ on public servers. A demo server is available
 
 9. Now you are able to connect by open up a browser and go to URL:
 
-       $ localhost:3000
+       localhost:3000
        
 10. The administrative login is the following:
 
-       $ Email: admin@admin.com
-       $ Password: admin_password_17
+        Email: admin@admin.com
+        Password: admin_password_17
        
 11. Happy modelling ... :)        
