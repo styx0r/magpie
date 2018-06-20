@@ -36,18 +36,18 @@ on public servers. A demo server is available
 
     Note: In case needed, the password is magpie.
     
-4. Now you are able to connect by open up a browser (in host OR guest) and go to URL:
+6. Now you are able to connect by open up a browser (in host OR guest) and go to URL:
 
        $ magpie.local:3000
        
-5. The administrative login is the following:
+7. The administrative login is the following:
 
        $ Email: admin@admin.com
        $ Password: admin_password_17
        
-6. Happy modelling ... :)
+8. Happy modelling ... :)
 
-### Manual Installation (for Ubuntu 18.04)
+### Manual Installation (tested under Ubuntu 18.04)
 
 1. Install ruby and rails according to the official instructions. You can find the instructions for Ubuntu, Windows and Mac OSX
     [here](https://gorails.com/setup). There is no need to install MySQL or PostgreSQL.
@@ -64,30 +64,32 @@ on public servers. A demo server is available
 
        $ /etc/init.d/redis-server stop
 
-3. Adding user to the docker group:
+4. Adding user to the docker group:
 
        $ sudo usermod -aG docker $(whoami)
 
    **Afterwards you need to log off and log on.**
 
-4. Download the magpie project from github. If git is not installed you can
+5. Download the magpie project from github. If git is not installed you can
    either download it directly from [here](https://github.com/christbald/magpie/archive/master.zip) or install as follows:
 
        $ git clone https://github.com/christbald/magpie.git
 
-5. Change into the magpie directory and install the bundles:
+6. Change into the magpie directory and install the bundles:
 
        $ cd magpie
        $ bundle install
 
-6. Create the database with default entries and prepare the docker image:
+7. Create the database with default entries and prepare the docker image:
 
        $ rails db:reset
 
-7. Start the rails server:
+8. Start the rails server:
 
        $ ./start_server.sh
 
-8. Now you are able to connect by open up a browser and go to URL:
+9. Now you are able to connect by open up a browser and go to URL:
 
        $ localhost:3000
+       
+10. Happy modelling ... :)        
