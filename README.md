@@ -10,41 +10,65 @@ on public servers. A demo server is available
 
 ### Preinstalled Image
 
-1. Download the guest image from [here](https://magpie.imb.medizin.tu-dresden.de/magpie-image.zip)
+1. Install _Virtualbox_, following the description [here](https://www.virtualbox.org/wiki/Downloads).
 
-2. Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads) and import the guest image
+2. Download the _guest image_ from [here](https://magpie.imb.medizin.tu-dresden.de/magpie-vbox-image.zip) and
+   unzip the downloaded _guest image_ to ~/VirtualBox VMs.
+   
+       $ mkdir ~/VirtualBox VMs
+       $ unzip ~/Downloads/magpie-vbox-image.zip -d ~/VirtualBox VMs/
 
-3. Start the guest image, open a terminal and run the following:
+3. Add and configure the _Virtualbox image_ by clicking on _New_. After, put in the _name_ (Magpie), _type_ (Linux),
+   _version_ (Ubuntu 64-bit). Set memory size to at least 4096 MB (depending on your system). Furthermore,
+   set hard disk to _use an existing virtual hard disk file_ and choose the _.vdi_ file of the extracted
+   _guest image_ (~/VirtualBox VMs/Magpie-Image/Magpie.vdi). See here:
 
-       $ cd magpie
-       $ ./start_server.sh
+![add image to virtualbox](https://magpie.imb.medizin.tu-dresden.de/VirtualBoxAddImage.png)  
+       
+   Click on _Create_.
 
-    Note: The password is magpie.
+4. Configure the number of CPUs used (_Settings_ -> _System_ -> _Processor_) to at least 2 and enabling PAE/NX by clicking on _Enable PAE/NX_.  Set the attached network adapter (_Settings_ -> _Network_ -> _Adapter 1_) to _Bridged Adapter_.
+
+![cpu config in virtualbox](https://magpie.imb.medizin.tu-dresden.de/VirtualBoxCPUConfig.png)
+![ntwork config in virtualbox](https://magpie.imb.medizin.tu-dresden.de/VirtualBoxNetworkConfig.png)
+
+5. Start the guest image
+
+    Note: In case needed, the password is magpie.
     
-4. Now you are able to connect by open up a browser and go to URL:
+4. Now you are able to connect by open up a browser (in host OR guest) and go to URL:
 
-       $ localhost:3000
+       $ magpie.local:3000
        
 5. The administrative login is the following:
 
        $ Email: admin@admin.com
        $ Password: admin_password_17
+       
+6. Happy modelling ... :)
 
-### Manual Installation
+### Manual Installation (for Ubuntu 18.04)
 
 1. Install ruby and rails according to the official instructions. You can find the instructions for Ubuntu, Windows and Mac OSX
-    [here](https://gorails.com/setup). There is no need
-       to install MySQL or PostgreSQL.
+    [here](https://gorails.com/setup). There is no need to install MySQL or PostgreSQL.
 
-2. Install necessary packages:
+2. Install necessary packages and gems:
 
-       $ sudo apt-get install docker.io libmagic-dev redis-server
+       $ sudo apt-get install docker.io libmagic-dev redis-server libssl1.0-dev
+
+       $ gem install foreman
+
+3.  stop redis-server and turn off start on boot-up
+
+       $ sudo update-rc.d redis-server disable
+
+       $ /etc/init.d/redis-server stop
 
 3. Adding user to the docker group:
 
        $ sudo usermod -aG docker $(whoami)
 
-   Afterwards you need to log off and log on.
+   **Afterwards you need to log off and log on.**
 
 4. Download the magpie project from github. If git is not installed you can
    either download it directly from [here](https://github.com/christbald/magpie/archive/master.zip) or install as follows:
@@ -67,4 +91,3 @@ on public servers. A demo server is available
 8. Now you are able to connect by open up a browser and go to URL:
 
        $ localhost:3000
- 
