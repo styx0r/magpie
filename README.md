@@ -19,7 +19,7 @@ on public servers. A demo server is available
        $ unzip ~/Downloads/magpie-vbox-image.zip -d ~/VirtualBox VMs/
 
 3. Add and configure the _Virtualbox image_ by clicking on _New_. After, put in the _name_ (Magpie), _type_ (Linux),
-   _version_ (Ubuntu 64-bit). Set memory size to at least 4096 MB (depending on your system). Furthermore,
+   **_version_** (Ubuntu 64-bit), **independent of the host machine**. Set memory size to at least 4096 MB (depending on your system). Furthermore,
    set hard disk to _use an existing virtual hard disk file_ and choose the _.vdi_ file of the extracted
    _guest image_ (~/VirtualBox VMs/Magpie-Image/Magpie.vdi). See here:
 
